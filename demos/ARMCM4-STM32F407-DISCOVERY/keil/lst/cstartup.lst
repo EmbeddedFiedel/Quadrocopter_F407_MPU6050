@@ -1,0 +1,420 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         #line   1                "..\\..\\..\\os\\ports\\RVCT\\A
+RMCMx\\cstartup.s"
+    1 00000000         
+    2 00000000         
+    3 00000000         
+    4 00000000         
+    5 00000000         
+    6 00000000         
+    7 00000000         
+    8 00000000         
+    9 00000000         
+   10 00000000         
+   11 00000000         
+   12 00000000         
+   13 00000000         
+   14 00000000         
+   15 00000000         
+   16 00000000         
+   17 00000000         
+   18 00000000         
+   19 00000000         
+   20 00000000         
+   21 00000000         
+   22 00000000         
+   23 00000000         
+   24 00000000         
+   25 00000000         
+   26 00000000         
+   27 00000000         
+   28 00000000         ; 
+   29 00000000         
+   30 00000000         ;
+   31 00000000         ;
+   32 00000000         ;
+   33 00000000 00000400 
+                       main_stack_size
+                               EQU              0x00000400
+   34 00000000         
+   35 00000000         ;
+   36 00000000         ;
+   37 00000000         ;
+   38 00000000 00000400 
+                       proc_stack_size
+                               EQU              0x00000400
+   39 00000000         
+   40 00000000         ;
+   41 00000000         ;
+   42 00000000         ;
+   43 00000000 00000400 
+                       heap_size
+                               EQU              0x00000400
+   44 00000000         
+   45 00000000                 AREA             MSTACK, NOINIT, READWRITE, ALIG
+N=3
+   46 00000000         main_stack_mem
+                               SPACE            main_stack_size
+   47 00000400                 EXPORT           __initial_msp
+   48 00000400         __initial_msp
+   49 00000400         
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   50 00000400                 AREA             CSTACK, NOINIT, READWRITE, ALIG
+N=3
+   51 00000000         __main_thread_stack_base__
+   52 00000000                 EXPORT           __main_thread_stack_base__
+   53 00000000         proc_stack_mem
+                               SPACE            proc_stack_size
+   54 00000400                 EXPORT           __initial_sp
+   55 00000400         __initial_sp
+   56 00000400         
+   57 00000400                 AREA             HEAP, NOINIT, READWRITE, ALIGN=
+3
+   58 00000000         __heap_base
+   59 00000000         Heap_Mem
+                               SPACE            heap_size
+   60 00000400         __heap_limit
+   61 00000400         
+   62 00000400 00000000 
+                       CONTROL_MODE_PRIVILEGED
+                               EQU              0
+   63 00000400 00000001 
+                       CONTROL_MODE_UNPRIVILEGED
+                               EQU              1
+   64 00000400 00000000 
+                       CONTROL_USE_MSP
+                               EQU              0
+   65 00000400 00000002 
+                       CONTROL_USE_PSP
+                               EQU              2
+   66 00000400         
+   67 00000400                 PRESERVE8
+   68 00000400                 THUMB
+   69 00000400         
+   70 00000400                 AREA             |.text|, CODE, READONLY
+   71 00000000         
+   72 00000000         
+   73 00000000         
+   74 00000000         
+   75 00000000                 IMPORT           __main
+   76 00000000                 EXPORT           Reset_Handler
+   77 00000000         Reset_Handler
+                               PROC
+   78 00000000 B672            cpsid            i
+   79 00000002 480C            ldr              r0, =__initial_sp
+   80 00000004 F380 8809       msr              PSP, r0
+   81 00000008 2002            movs             r0, #CONTROL_MODE_PRIVILEGED :O
+R: CONTROL_USE_PSP
+   82 0000000A F380 8814       msr              CONTROL, r0
+   83 0000000E F3BF 8F6F       isb
+   84 00000012 F7FF FFFE       bl               __early_init
+   85 00000016         
+   86 00000016                 IF               {CPU} = "Cortex-M4.fp"
+   87 00000016 4808            LDR              R0, =0xE000ED88 
+                                                            ; Enable CP10,CP11
+   88 00000018 6801            LDR              R1, [R0]
+   89 0000001A F441 0170       ORR              R1, R1, #(0xF << 20)
+   90 0000001E 6001            STR              R1, [R0]
+   91 00000020                 ENDIF
+   92 00000020         
+   93 00000020 4806            ldr              r0, =__main
+
+
+
+ARM Macro Assembler    Page 3 
+
+
+   94 00000022 4700            bx               r0
+   95 00000024                 ENDP
+   96 00000024         
+   97 00000024         __early_init
+                               PROC
+   98 00000024                 EXPORT           __early_init            [WEAK]
+   99 00000024 4770            bx               lr
+  100 00000026                 ENDP
+  101 00000026         
+  102 00000026 00 00           ALIGN
+  103 00000028         
+  104 00000028         
+  105 00000028         
+  106 00000028         
+  107 00000028                 IF               :DEF:__MICROLIB
+  114 00000028         
+  115 00000028                 IMPORT           __use_two_region_memory
+  116 00000028                 EXPORT           __user_initial_stackheap
+  117 00000028         __user_initial_stackheap
+  118 00000028 4805            ldr              r0, =Heap_Mem
+  119 0000002A 4906            ldr              r1, =(proc_stack_mem + proc_sta
+ck_size)
+  120 0000002C 4A06            ldr              r2, =(Heap_Mem + heap_size)
+  121 0000002E 4B07            ldr              r3, =proc_stack_mem
+  122 00000030 4770            bx               lr
+  123 00000032         
+  124 00000032 00 00           ALIGN
+  125 00000034         
+  126 00000034                 ENDIF
+  127 00000034         
+  128 00000034                 END
+              00000000 
+              E000ED88 
+              00000000 
+              00000000 
+              00000400 
+              00000400 
+              00000000 
+Command Line: --debug --xref --cpreproc --cpu=Cortex-M4.fp --apcs=interwork --d
+epend=.\obj\cstartup.d -o.\obj\cstartup.o -I..\ -I..\..\..\boards\ST_STM32F4_DI
+SCOVERY -I..\..\..\os\ports\RVCT\ARMCMx\STM32F4xx -IC:\Keil\ARM\CMSIS\Include -
+IC:\Keil\ARM\INC\ST\STM32F4xx --list=.\lst\cstartup.lst ..\..\..\os\ports\RVCT\
+ARMCMx\cstartup.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+MSTACK 00000000
+
+Symbol: MSTACK
+   Definitions
+      At line 45 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+   Uses
+      None
+Comment: MSTACK unused
+__initial_msp 00000400
+
+Symbol: __initial_msp
+   Definitions
+      At line 48 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+   Uses
+      At line 47 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+Comment: __initial_msp used once
+main_stack_mem 00000000
+
+Symbol: main_stack_mem
+   Definitions
+      At line 46 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+   Uses
+      None
+Comment: main_stack_mem unused
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+CSTACK 00000000
+
+Symbol: CSTACK
+   Definitions
+      At line 50 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+   Uses
+      None
+Comment: CSTACK unused
+__initial_sp 00000400
+
+Symbol: __initial_sp
+   Definitions
+      At line 55 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+   Uses
+      At line 54 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+      At line 79 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+
+__main_thread_stack_base__ 00000000
+
+Symbol: __main_thread_stack_base__
+   Definitions
+      At line 51 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+   Uses
+      At line 52 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+Comment: __main_thread_stack_base__ used once
+proc_stack_mem 00000000
+
+Symbol: proc_stack_mem
+   Definitions
+      At line 53 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+   Uses
+      At line 119 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+      At line 121 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+
+4 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+HEAP 00000000
+
+Symbol: HEAP
+   Definitions
+      At line 57 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+   Uses
+      None
+Comment: HEAP unused
+Heap_Mem 00000000
+
+Symbol: Heap_Mem
+   Definitions
+      At line 59 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+   Uses
+      At line 118 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+      At line 120 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+
+__heap_base 00000000
+
+Symbol: __heap_base
+   Definitions
+      At line 58 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+   Uses
+      None
+Comment: __heap_base unused
+__heap_limit 00000400
+
+Symbol: __heap_limit
+   Definitions
+      At line 60 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+   Uses
+      None
+Comment: __heap_limit unused
+4 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+.text 00000000
+
+Symbol: .text
+   Definitions
+      At line 70 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+   Uses
+      None
+Comment: .text unused
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 77 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+   Uses
+      At line 76 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+Comment: Reset_Handler used once
+__early_init 00000024
+
+Symbol: __early_init
+   Definitions
+      At line 97 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+   Uses
+      At line 84 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+      At line 98 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+
+__user_initial_stackheap 00000028
+
+Symbol: __user_initial_stackheap
+   Definitions
+      At line 117 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+   Uses
+      At line 116 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+Comment: __user_initial_stackheap used once
+4 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+CONTROL_MODE_PRIVILEGED 00000000
+
+Symbol: CONTROL_MODE_PRIVILEGED
+   Definitions
+      At line 62 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+   Uses
+      At line 81 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+Comment: CONTROL_MODE_PRIVILEGED used once
+CONTROL_MODE_UNPRIVILEGED 00000001
+
+Symbol: CONTROL_MODE_UNPRIVILEGED
+   Definitions
+      At line 63 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+   Uses
+      None
+Comment: CONTROL_MODE_UNPRIVILEGED unused
+CONTROL_USE_MSP 00000000
+
+Symbol: CONTROL_USE_MSP
+   Definitions
+      At line 64 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+   Uses
+      None
+Comment: CONTROL_USE_MSP unused
+CONTROL_USE_PSP 00000002
+
+Symbol: CONTROL_USE_PSP
+   Definitions
+      At line 65 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+   Uses
+      At line 81 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+Comment: CONTROL_USE_PSP used once
+heap_size 00000400
+
+Symbol: heap_size
+   Definitions
+      At line 43 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+   Uses
+      At line 59 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+      At line 120 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+
+main_stack_size 00000400
+
+Symbol: main_stack_size
+   Definitions
+      At line 33 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+   Uses
+      At line 46 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+Comment: main_stack_size used once
+proc_stack_size 00000400
+
+Symbol: proc_stack_size
+   Definitions
+      At line 38 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+   Uses
+      At line 53 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+      At line 119 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+
+7 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+External symbols
+
+__main 00000000
+
+Symbol: __main
+   Definitions
+      At line 75 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+   Uses
+      At line 93 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+Comment: __main used once
+__use_two_region_memory 00000000
+
+Symbol: __use_two_region_memory
+   Definitions
+      At line 115 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\cstartup.s
+   Uses
+      None
+Comment: __use_two_region_memory unused
+2 symbols
+359 symbols in table

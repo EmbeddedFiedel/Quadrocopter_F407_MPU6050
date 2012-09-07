@@ -73,7 +73,7 @@
 
 #define GPIOB_SWO               3
 #define GPIOB_SCL               6
-#define GPIOB_SDA               9
+#define GPIOB_SDA               7
 #define GPIOB_SCK               10
 
 #define GPIOC_OTG_FS_POWER_ON   0
@@ -190,9 +190,9 @@
                              PIN_MODE_INPUT(4) |                            \
                              PIN_MODE_INPUT(5) |                            \
                              PIN_MODE_ALTERNATE(GPIOB_SCL) |                \
-                             PIN_MODE_INPUT(7) |                            \
+                             PIN_MODE_ALTERNATE(GPIOB_SDA) |                            \
                              PIN_MODE_INPUT(8) |                            \
-                             PIN_MODE_ALTERNATE(GPIOB_SDA) |                \
+                             PIN_MODE_INPUT(9) |                \
                              PIN_MODE_INPUT(10) |                           \
                              PIN_MODE_INPUT(11) |                           \
                              PIN_MODE_INPUT(12) |                           \
@@ -209,9 +209,9 @@
                              PIN_PUDR_PULLUP(4) |                           \
                              PIN_PUDR_PULLUP(5) |                           \
                              PIN_PUDR_FLOATING(GPIOB_SCL) |                 \
-                             PIN_PUDR_PULLUP(7) |                           \
+                             PIN_PUDR_FLOATING(GPIOB_SDA) |                           \
                              PIN_PUDR_PULLUP(8) |                           \
-                             PIN_PUDR_FLOATING(GPIOB_SDA) |                 \
+                             PIN_PUDR_PULLUP(9) |                 \
                              PIN_PUDR_PULLUP(10) |                          \
                              PIN_PUDR_PULLUP(11) |                          \
                              PIN_PUDR_PULLUP(12) |                          \

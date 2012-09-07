@@ -112,6 +112,12 @@ static const SPIConfig spi2cfg = {
   SPI_CR1_DFF
 };
 
+static const I2CConfig i2cfg1 = {
+    OPMODE_I2C,
+    100000,
+    STD_DUTY_CYCLE,
+};
+
 /*
  * PWM cyclic callback.
  * A new ADC conversion is started.
@@ -187,7 +193,44 @@ static msg_t Thread1(void *arg) {
     chThdSleepMilliseconds(500);
   }
 }
+void I2CInitialize(void){
+  i2cInit();
 
+i2cStart(&I2CD1, &i2cfg1);
+
+// Link PB8 and PB9 to I2C1 function
+palSetPadMode(GPIOB, 6,  PAL_MODE_ALTERNATE(4));// 
+palSetPadMode(GPIOB, 7,  PAL_MODE_ALTERNATE(4));// 
+// startups. Pauses added just to be safe
+chThdSleepMilliseconds(100);
+}
+
+void i2c_scanner1(void){
+   uint8_t x = 0, txbuf[2],rxbuf[6];
+   int32_t messages = 0;
+
+   chprintf((BaseChannel *)&SD2,"inside i2c1 scanner");
+   for(x=0;x<128;x++){
+
+      txbuf[0] = 0x00;
+      txbuf[1] = 0x00;
+
+       messages = i2cMasterTransmit(&I2CD1, x, txbuf, 2, rxbuf, 0);
+       if(messages == 0)chprintf((BaseChannel *)&SD2, "I2C1: Sensor is available on Address: %x \r\n", x, messages);
+	
+      chThdSleepMilliseconds(1);
+      }
+	 chThdSleepMilliseconds(500);
+}
+void readAcc(void)
+{
+ uint8_t rxbuf[6], addr[1];
+  int32_t messages = 0;
+  addr[0] = 0x3B;
+	messages = i2cMasterTransmit(&I2CD1, 0x68, addr, 1, rxbuf, 6);
+	if(messages == 0) chprintf((BaseChannel *)&SD2, "Acc MPU6000: %d %d %d \r\n", (int16_t)((rxbuf[0]<<8)+rxbuf[1]),(int16_t)((rxbuf[2]<<8)+rxbuf[3]),(int16_t)((rxbuf[4]<<8)+rxbuf[5]));
+	 
+}
 /*
  * Application entry point.
  */
@@ -202,7 +245,7 @@ int main(void) {
    */
   halInit();
   chSysInit();
-
+   I2CInitialize();
   /*
    * Activates the serial driver 2 using the driver default configuration.
    * PA2(TX) and PA3(RX) are routed to USART2.
@@ -274,7 +317,7 @@ int main(void) {
    */
   while (TRUE) {
     int8_t x, y, z;
-
+	i2c_scanner1();
     if (palReadPad(GPIOA, GPIOA_BUTTON))
       TestThread(&SD2);
 

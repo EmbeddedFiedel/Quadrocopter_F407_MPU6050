@@ -331,7 +331,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>4</Optim>
+            <Optim>0</Optim>
             <oTime>1</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>0</OneElfS>
@@ -736,6 +736,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\..\os\hal\include\spi.h</FilePath>
             </File>
+            <File>
+              <FileName>i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\os\hal\src\i2c.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -820,6 +825,11 @@
               <FileName>stm32f4xx.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\..\os\hal\platforms\STM32F4xx\stm32f4xx.h</FilePath>
+            </File>
+            <File>
+              <FileName>i2c_lld.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\os\hal\platforms\STM32\i2c_lld.c</FilePath>
             </File>
           </Files>
         </Group>
