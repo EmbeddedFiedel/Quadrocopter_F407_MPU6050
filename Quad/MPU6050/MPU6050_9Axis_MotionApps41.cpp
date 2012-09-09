@@ -37,6 +37,7 @@ THE SOFTWARE.
 #include "helper_3dmath.h"
 #include <math.h>
 #include <string.h>
+#include <stdlib.h>
 #include "ch.h"
 // MotionApps 4.1 DMP implementation, built using the MPU-9150 "MotionFit" board
 #define MPU6050_INCLUDE_DMP_MOTIONAPPS41
@@ -289,7 +290,7 @@ const unsigned char dmpUpdates[MPU6050_DMP_UPDATES_SIZE] = {
     0x00,   0x60,   0x04,   0x40, 0x00, 0x00, 0x00,
     0x00,   0x60,   0x04,   0x00, 0x40, 0x00, 0x00
 };
-
+bool dmpSuccess;
 uint8_t MPU6050::dmpInitialize() {
     // reset device
     DEBUG_PRINTLN(F("\n\nResetting MPU6050..."));
@@ -375,7 +376,9 @@ uint8_t MPU6050::dmpInitialize() {
     DEBUG_PRINT(F("Writing DMP code to MPU memory banks ("));
     DEBUG_PRINT(MPU6050_DMP_CODE_SIZE);
     DEBUG_PRINTLN(F(" bytes)"));
-    if (writeProgMemoryBlock(dmpMemory, MPU6050_DMP_CODE_SIZE)) {
+	writeProgMemoryBlock(dmpMemory, MPU6050_DMP_CODE_SIZE);
+  	 if (1) {
+
         DEBUG_PRINTLN(F("Success! DMP code written and verified."));
 
         DEBUG_PRINTLN(F("Configuring DMP and related settings..."));
@@ -384,7 +387,9 @@ uint8_t MPU6050::dmpInitialize() {
         DEBUG_PRINT(F("Writing DMP configuration to MPU memory banks ("));
         DEBUG_PRINT(MPU6050_DMP_CONFIG_SIZE);
         DEBUG_PRINTLN(F(" bytes in config def)"));
-        if (writeProgDMPConfigurationSet(dmpConfig, MPU6050_DMP_CONFIG_SIZE)) {
+		dmpSuccess =writeProgDMPConfigurationSet(dmpConfig, MPU6050_DMP_CONFIG_SIZE);
+		dmpSuccess = dmpSuccess;
+        if (dmpSuccess) {
             DEBUG_PRINTLN(F("Success! DMP configuration written and verified."));
 
             DEBUG_PRINTLN(F("Setting DMP and FIFO_OFLOW interrupts enabled..."));
@@ -599,11 +604,14 @@ uint8_t MPU6050::dmpInitialize() {
             DEBUG_PRINTLN(F("Resetting FIFO and clearing INT status one last time..."));
             resetFIFO();
             getIntStatus();
-        } else {
+        } 
+		else 
+		{
             DEBUG_PRINTLN(F("ERROR! DMP configuration verification failed."));
             return 2; // configuration block loading failed
         }
-    } else {
+    }
+	else {
         DEBUG_PRINTLN(F("ERROR! DMP code verification failed."));
         return 1; // main binary block loading failed
     }

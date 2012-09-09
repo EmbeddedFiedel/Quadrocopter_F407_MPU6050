@@ -30,6 +30,7 @@
 #include "test.h"
 #include "lis302dl.h"
 #include "chprintf.h"
+#include "MPU6050_DMP6.cpp"
 
 static void pwmpcb(PWMDriver *pwmp);
 static void adccb(ADCDriver *adcp, adcsample_t *buffer, size_t n);
@@ -216,7 +217,7 @@ void i2c_scanner1(void){
       txbuf[1] = 0x00;
 
        messages = i2cMasterTransmit(&I2CD1, x, txbuf, 2, rxbuf, 0);
-       if(messages == 0)chprintf((BaseChannel *)&SD2, "I2C1: Sensor is available on Address: %x \r\n", x, messages);
+       if(messages == 0)chprintf((BaseChannel *)&SD2, "I2C1: Sensor is available on Address: 0x%x \r\n", x, messages);
 	
       chThdSleepMilliseconds(1);
       }
@@ -231,6 +232,29 @@ void readAcc(void)
 	if(messages == 0) chprintf((BaseChannel *)&SD2, "Acc MPU6000: %d %d %d \r\n", (int16_t)((rxbuf[0]<<8)+rxbuf[1]),(int16_t)((rxbuf[2]<<8)+rxbuf[3]),(int16_t)((rxbuf[4]<<8)+rxbuf[5]));
 	 
 }
+
+// ================================================================
+// ===                      INITIAL SETUP                       ===
+// ================================================================
+
+void setup_IMU() {
+    mpu.initialize();
+    devStatus = mpu.dmpInitialize();
+    if (devStatus == 0) 
+	{
+    	mpu.setDMPEnabled(true);
+        mpuIntStatus = mpu.getIntStatus();
+        dmpReady = true;
+		chprintf((BaseChannel *)&SD2, "DMP Activated\r\n");
+        packetSize = mpu.dmpGetFIFOPacketSize();
+		chprintf((BaseChannel *)&SD2, "FIFOPacketSize: %u\r\n",packetSize);
+    } 
+	}
+
+
+
+
+
 /*
  * Application entry point.
  */
@@ -309,6 +333,8 @@ int main(void) {
   lis302dlWriteRegister(&SPID1, LIS302DL_CTRL_REG2, 0x00);
   lis302dlWriteRegister(&SPID1, LIS302DL_CTRL_REG3, 0x00);
 
+	 setup_IMU();
+
   /*
    * Normal main() thread activity, in this demo it does nothing except
    * sleeping in a loop and check the button state, when the button is
@@ -317,14 +343,47 @@ int main(void) {
    */
   while (TRUE) {
     int8_t x, y, z;
-	i2c_scanner1();
+//	i2c_scanner1();
+
+ 	mpuIntStatus = mpu.getIntStatus();
+/*	chprintf((BaseChannel *)&SD2, "mpuIntStatus: 0x%x\r\n",mpuIntStatus);	*/
+
+    // get current FIFO count
+    fifoCount = mpu.getFIFOCount();
+/*	chprintf((BaseChannel *)&SD2, "fifoCount: %u\r\n",fifoCount);  */
+    // check for overflow (this should never happen unless our code is too inefficient)
+    if ((mpuIntStatus & 0x10) || fifoCount == 1024) {
+        // reset so we can continue cleanly
+        mpu.resetFIFO();
+	/*	chprintf((BaseChannel *)&SD2, "RESET\r\n",fifoCount);	 */
+
+    // otherwise, check for DMP data ready interrupt (this should happen frequently)
+    } else if (mpuIntStatus & 0x02) {
+        // wait for correct available data length, should be a VERY short wait
+        while (fifoCount < packetSize) fifoCount = mpu.getFIFOCount();
+
+        // read a packet from FIFO
+        mpu.getFIFOBytes(fifoBuffer, packetSize);
+        
+        // track FIFO count here in case there is > 1 packet available
+        // (this lets us immediately read more without waiting for an interrupt)
+        fifoCount -= packetSize;
+	//	chprintf((BaseChannel *)&SD2, "AccX: 0x%x 0x%x \r\n",fifoBuffer[34],fifoBuffer[35]);
+		mpu.dmpGetQuaternion(&q, fifoBuffer);
+        mpu.dmpGetEuler(euler, &q);
+		chprintf((BaseChannel *)&SD2, "Angle: %d %d %d \r\n",(int16_t)(euler[0]*57.2957795),(int16_t)(euler[1]*57.2957795),(int16_t)(euler[2]*57.2957795));
+		}
+		
+
+
+
     if (palReadPad(GPIOA, GPIOA_BUTTON))
       TestThread(&SD2);
 
-    x = (int8_t)lis302dlReadRegister(&SPID1, LIS302DL_OUTX);
-    y = (int8_t)lis302dlReadRegister(&SPID1, LIS302DL_OUTY);
-    z = (int8_t)lis302dlReadRegister(&SPID1, LIS302DL_OUTZ);
-    chprintf((BaseChannel *)&SD2, "%d, %d, %d\r\n", x, y, z);
-    chThdSleepMilliseconds(500);
+   // x = (int8_t)lis302dlReadRegister(&SPID1, LIS302DL_OUTX);
+   // y = (int8_t)lis302dlReadRegister(&SPID1, LIS302DL_OUTY);
+   // z = (int8_t)lis302dlReadRegister(&SPID1, LIS302DL_OUTZ);
+   // chprintf((BaseChannel *)&SD2, "%d, %d, %d\r\n", x, y, z);
+    chThdSleepMilliseconds(5);
   }
 }

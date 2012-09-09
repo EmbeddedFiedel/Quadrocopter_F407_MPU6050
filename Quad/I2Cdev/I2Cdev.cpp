@@ -225,12 +225,20 @@ bool I2Cdev::writeWord(uint8_t devAddr, uint8_t regAddr, uint16_t data) {
  * @param data Buffer to copy new data from
  * @return Status of operation (true = success)
  */
+ 	uint16_t i;
+ 	uint8_t	tx[256];
+	uint8_t	rxbuf[1];
+	uint8_t length_debug;
+	uint8_t* data_debug;
+	uint8_t regAddr_debug;
+	uint8_t devAddr_debug;
 bool I2Cdev::writeBytes(uint8_t devAddr, uint8_t regAddr, uint8_t length, uint8_t* data) 
 {
-	uint16_t i;
- 	uint8_t	*tx;
-	uint8_t	rxbuf[1];
-	tx = (uint8_t*) malloc (length+1);
+	 length_debug = length;
+	 data_debug = data;
+	 regAddr_debug = regAddr;
+devAddr_debug = devAddr;
+	 //	tx = (uint8_t*) malloc (length+1);
 	tx[0] = regAddr| (1<<7);
 	for(i=1; i<= length; i++) tx[i] = data[i-1];
 	i2cMasterTransmit(&I2CD1, devAddr, tx, length+1, rxbuf, 0);
