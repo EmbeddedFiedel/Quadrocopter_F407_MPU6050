@@ -68,6 +68,129 @@ static const ADCConversionGroup adcgrpcfg = {
   ADC_SQR3_SQ2_N(ADC_CHANNEL_IN11) | ADC_SQR3_SQ1_N(ADC_CHANNEL_SENSOR)
 };
 
+
+
+
+
+
+#define RC_IN_RANGE(x) (((x)>900 && (x)<2300))
+volatile unsigned short RC_INPUT_CHANNELS[4], RC_INPUT_LAST_TCNT;
+char PPM_FRAME_GOOD = 1;
+
+/*
+ *  _____       _                             _
+ * |_   _|     | |                           | |
+ *   | |  _ __ | |_ ___ _ __ _ __ _   _ _ __ | |_ ___
+ *   | | | '_ \| __/ _ \ '__| '__| | | | '_ \| __/ __|
+ *  _| |_| | | | ||  __/ |  | |  | |_| | |_) | |_\__ \
+ * |_____|_| |_|\__\___|_|  |_|   \__,_| .__/ \__|___/
+ *                                     | |
+ *                                     |_|
+ */
+void rx_channel1_interrupt(EXTDriver *extp, expchannel_t channel) {
+		(void)extp;
+		(void)channel;
+
+		chSysLockFromIsr();
+		if (palReadPad(GPIOA, 6) == PAL_LOW) {
+			unsigned short tmp = TIM4->CNT - RC_INPUT_LAST_TCNT;
+			if (RC_IN_RANGE(tmp)) 
+			{
+				RC_INPUT_CHANNELS[0] = tmp;
+				chprintf((BaseChannel *)&SD2, "Channel1: %u\r\n", RC_INPUT_CHANNELS[0]);
+			}
+		}
+		RC_INPUT_LAST_TCNT = TIM4->CNT;
+		chSysUnlockFromIsr();
+}
+void rx_channel2_interrupt(EXTDriver *extp, expchannel_t channel) {
+		(void)extp;
+		(void)channel;
+
+		chSysLockFromIsr();
+		if (palReadPad(GPIOA, 7) == PAL_LOW) {
+			unsigned short tmp = TIM4->CNT - RC_INPUT_LAST_TCNT;
+			if (RC_IN_RANGE(tmp)) 
+			{
+				RC_INPUT_CHANNELS[1] = tmp;
+				chprintf((BaseChannel *)&SD2, "Channel234: %u\r\n", RC_INPUT_CHANNELS[1]);
+			}
+		}
+		RC_INPUT_LAST_TCNT = TIM4->CNT;
+		chSysUnlockFromIsr();
+}
+void rx_channel3_interrupt(EXTDriver *extp, expchannel_t channel) {
+		(void)extp;
+		(void)channel;
+
+		chSysLockFromIsr();
+		if (palReadPad(GPIOB, 0) == PAL_LOW) {
+			unsigned short tmp = TIM4->CNT - RC_INPUT_LAST_TCNT;
+			if (RC_IN_RANGE(tmp)) 
+			{
+				RC_INPUT_CHANNELS[2] = tmp;
+				chprintf((BaseChannel *)&SD2, "Channel3: %u\r\n", RC_INPUT_CHANNELS[2]);
+			}
+		}
+		RC_INPUT_LAST_TCNT = TIM4->CNT;
+		chSysUnlockFromIsr();
+}
+void rx_channel4_interrupt(EXTDriver *extp, expchannel_t channel) {
+		(void)extp;
+		(void)channel;
+
+		chSysLockFromIsr();
+		if (palReadPad(GPIOB, 1) == PAL_LOW) {
+			unsigned short tmp = TIM4->CNT - RC_INPUT_LAST_TCNT;
+			if (RC_IN_RANGE(tmp)) 
+			{
+				RC_INPUT_CHANNELS[3] = tmp;
+				chprintf((BaseChannel *)&SD2, "Channel4: %u\r\n", RC_INPUT_CHANNELS[3]);
+			}
+		}
+		RC_INPUT_LAST_TCNT = TIM4->CNT;
+		chSysUnlockFromIsr();
+}
+static const EXTConfig extcfg = {
+	{
+	    {EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel3_interrupt},
+   	 	{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel4_interrupt},
+   	 	{EXT_CH_MODE_DISABLED, NULL},
+    	{EXT_CH_MODE_DISABLED, NULL},
+		{EXT_CH_MODE_DISABLED, NULL},
+		{EXT_CH_MODE_DISABLED, NULL},
+		{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel1_interrupt},
+		{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel2_interrupt},
+    	{EXT_CH_MODE_DISABLED, NULL},
+    	{EXT_CH_MODE_DISABLED, NULL},
+    	{EXT_CH_MODE_DISABLED, NULL},//{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel1_interrupt},
+    	{EXT_CH_MODE_DISABLED, NULL},//{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel2_interrupt},
+    	{EXT_CH_MODE_DISABLED, NULL},//{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel3_interrupt},
+    	{EXT_CH_MODE_DISABLED, NULL},//{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel4_interrupt}
+		{EXT_CH_MODE_DISABLED, NULL},
+		{EXT_CH_MODE_DISABLED, NULL},
+	},
+	EXT_MODE_EXTI(EXT_MODE_GPIOB, /* 0 */
+	              EXT_MODE_GPIOB, /* 1 */
+	              0, /* 2 */
+	              0, /* 3 */
+	              0, /* 4 */
+	              0, /* 5 */
+	              EXT_MODE_GPIOA, /* 6 */
+	              EXT_MODE_GPIOA, /* 7 */
+	              0, /* 8 */
+	              0, /* 9 */
+	              0, /* 10 */
+	              0, /* 11 */
+	              0,//EXT_MODE_GPIOB, /* 12 */
+	              0,//EXT_MODE_GPIOB, /* 13 */
+	              0,//EXT_MODE_GPIOB, /* 14 */
+	              0)//EXT_MODE_GPIOB) /* 15 */
+};
+
+
+
+
 /*
  * PWM configuration structure.
  * Cyclic callback enabled, channels 1 and 4 enabled without callbacks,
@@ -86,6 +209,25 @@ static PWMConfig pwmcfg = {
   /* HW dependent part.*/
   0
 };
+/*
+ * PWM configuration structure.
+ * Cyclic callback enabled, channels 1 and 4 enabled without callbacks,
+ * the active state is a logic one.
+ */
+static PWMConfig pwmcfg_esc = {
+  1000000,                                    /* 10kHz PWM clock frequency.   */
+  20000,                                    /* PWM period 20ms (in ticks).    */
+  pwmpcb,
+  {
+    {PWM_OUTPUT_ACTIVE_HIGH, NULL},
+    {PWM_OUTPUT_ACTIVE_HIGH, NULL},
+    {PWM_OUTPUT_ACTIVE_HIGH, NULL},
+    {PWM_OUTPUT_ACTIVE_HIGH, NULL}
+  },
+  /* HW dependent part.*/
+  0
+};
+
 
 /*
  * SPI1 configuration structure.
@@ -156,8 +298,8 @@ void adccb(ADCDriver *adcp, adcsample_t *buffer, size_t n) {
 
     /* Changes the channels pulse width, the change will be effective
        starting from the next cycle.*/
-    pwmEnableChannelI(&PWMD4, 0, PWM_FRACTION_TO_WIDTH(&PWMD4, 4096, avg_ch1));
-    pwmEnableChannelI(&PWMD4, 3, PWM_FRACTION_TO_WIDTH(&PWMD4, 4096, avg_ch2));
+  //  pwmEnableChannelI(&PWMD4, 0, PWM_FRACTION_TO_WIDTH(&PWMD4, 4096, avg_ch1));
+  //  pwmEnableChannelI(&PWMD4, 3, PWM_FRACTION_TO_WIDTH(&PWMD4, 4096, avg_ch2));
 
     /* SPI slave selection and transmission start.*/
     spiSelectI(&SPID2);
@@ -275,8 +417,8 @@ int main(void) {
    * PA2(TX) and PA3(RX) are routed to USART2.
    */
   sdStart(&SD2, NULL);
-  palSetPadMode(GPIOA, 2, PAL_MODE_ALTERNATE(7));
-  palSetPadMode(GPIOA, 3, PAL_MODE_ALTERNATE(7));
+  palSetPadMode(GPIOD, 5, PAL_MODE_ALTERNATE(7));
+  palSetPadMode(GPIOD, 6, PAL_MODE_ALTERNATE(7));
 
   /*
    * If the user button is pressed after the reset then the test suite is
@@ -314,10 +456,18 @@ int main(void) {
   /*
    * Initializes the PWM driver 4, routes the TIM4 outputs to the board LEDs.
    */
-  pwmStart(&PWMD4, &pwmcfg);
-  palSetPadMode(GPIOD, GPIOD_LED4, PAL_MODE_ALTERNATE(2));  /* Green.   */
-  palSetPadMode(GPIOD, GPIOD_LED6, PAL_MODE_ALTERNATE(2));  /* Blue.    */
+  //pwmStart(&PWMD4, &pwmcfg);
+  //palSetPadMode(GPIOD, GPIOD_LED4, PAL_MODE_ALTERNATE(2));  /* Green.   */
+  //palSetPadMode(GPIOD, GPIOD_LED6, PAL_MODE_ALTERNATE(2));  /* Blue.    */
 
+   /*
+   * Initializes the PWM driver 5 for ESCs
+   */
+  palSetPadMode(GPIOA, 0, PAL_MODE_ALTERNATE(2)); 
+  palSetPadMode(GPIOA, 1, PAL_MODE_ALTERNATE(2));  
+  palSetPadMode(GPIOA, 2, PAL_MODE_ALTERNATE(2));
+  palSetPadMode(GPIOA, 3, PAL_MODE_ALTERNATE(2)); 
+ pwmStart(&PWMD5, &pwmcfg_esc);
   /*
    * Creates the example thread.
    */
@@ -335,7 +485,22 @@ int main(void) {
 
 	 setup_IMU();
 
-  /*
+
+	/*
+	 * Enable Timer 4
+	 */
+
+	TIM4->CR1 = 0x00000000;
+	RCC->APB1ENR |= RCC_APB1ENR_TIM4EN;
+	TIM4->SMCR = 0; // slave mode disabled
+	TIM4->PSC = 84; // 84 mhz maximum apb1 bus speed
+	TIM4->ARR = 0xffff;
+	TIM4->SR = 0;
+	TIM4->DIER = 0;
+	TIM4->CR1 = 0x00000001;
+
+   extStart(&EXTD1, &extcfg);  
+   /*
    * Normal main() thread activity, in this demo it does nothing except
    * sleeping in a loop and check the button state, when the button is
    * pressed the test procedure is launched with output on the serial
@@ -343,6 +508,8 @@ int main(void) {
    */
   while (TRUE) {
     int8_t x, y, z;
+	enum {UP, DOWN};
+  static int dir = UP, step = 5, width = 700; /* starts at .7ms, ends at 2.0ms */
 //	i2c_scanner1();
 
  	mpuIntStatus = mpu.getIntStatus();
@@ -371,19 +538,28 @@ int main(void) {
 	//	chprintf((BaseChannel *)&SD2, "AccX: 0x%x 0x%x \r\n",fifoBuffer[34],fifoBuffer[35]);
 		mpu.dmpGetQuaternion(&q, fifoBuffer);
         mpu.dmpGetEuler(euler, &q);
-		chprintf((BaseChannel *)&SD2, "Angle: %d %d %d \r\n",(int16_t)(euler[0]*57.2957795),(int16_t)(euler[1]*57.2957795),(int16_t)(euler[2]*57.2957795));
+	//	chprintf((BaseChannel *)&SD2, "Angle: %d %d %d \r\n",(int16_t)(euler[0]*57.2957795),(int16_t)(euler[1]*57.2957795),(int16_t)(euler[2]*57.2957795));
 		}
 		
 
 
 
-    if (palReadPad(GPIOA, GPIOA_BUTTON))
-      TestThread(&SD2);
+  //  if (palReadPad(GPIOA, GPIOA_BUTTON))
+  //    TestThread(&SD2);
+
+    pwmEnableChannel(&PWMD5, 0, width);
+    pwmEnableChannel(&PWMD5, 1, width);
+    pwmEnableChannel(&PWMD5, 2, width);
+    pwmEnableChannel(&PWMD5, 3, width);
+    if(width == 900) dir = UP;
+    else if (width == 2000) dir = DOWN;
+    if (dir == UP) width += step;
+    else if (dir == DOWN) width -= step;
 
    // x = (int8_t)lis302dlReadRegister(&SPID1, LIS302DL_OUTX);
    // y = (int8_t)lis302dlReadRegister(&SPID1, LIS302DL_OUTY);
    // z = (int8_t)lis302dlReadRegister(&SPID1, LIS302DL_OUTZ);
    // chprintf((BaseChannel *)&SD2, "%d, %d, %d\r\n", x, y, z);
-    chThdSleepMilliseconds(5);
+    chThdSleepMilliseconds(10);
   }
 }
