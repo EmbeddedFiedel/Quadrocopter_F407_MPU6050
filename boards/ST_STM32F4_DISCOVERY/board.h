@@ -212,8 +212,8 @@
                              PIN_PUDR_PULLUP(9) |                 \
                              PIN_PUDR_PULLUP(10) |                          \
                              PIN_PUDR_PULLUP(11) |                          \
-                             PIN_PUDR_PULLUP(12) |                          \
-                             PIN_PUDR_PULLUP(13) |                          \
+                             PIN_PUDR_PULLDOWN(12) |                          \
+                             PIN_PUDR_PULLDOWN(13) |                          \
                              PIN_PUDR_PULLUP(14) |                          \
                              PIN_PUDR_PULLUP(15))
 #define VAL_GPIOB_ODR       0xFFFFFFFF

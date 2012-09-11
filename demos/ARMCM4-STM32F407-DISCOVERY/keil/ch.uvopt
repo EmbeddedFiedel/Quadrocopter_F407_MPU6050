@@ -141,7 +141,7 @@
           <Type>0</Type>
           <LineNumber>817</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134248976</Address>
+          <Address>134232904</Address>
           <ByteObject>0</ByteObject>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
@@ -156,7 +156,7 @@
           <Type>0</Type>
           <LineNumber>818</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134248978</Address>
+          <Address>134232906</Address>
           <ByteObject>0</ByteObject>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
@@ -171,45 +171,40 @@
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>test</ItemText>
+          <ItemText>dmpSuccess</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>dmpSuccess</ItemText>
+          <ItemText>q</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
           <WinNumber>1</WinNumber>
-          <ItemText>q</ItemText>
+          <ItemText>euler</ItemText>
         </Ww>
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>euler</ItemText>
+          <ItemText>mpuIntStatus</ItemText>
         </Ww>
         <Ww>
           <count>4</count>
           <WinNumber>1</WinNumber>
-          <ItemText>mpuIntStatus</ItemText>
+          <ItemText>fifoCount</ItemText>
         </Ww>
         <Ww>
           <count>5</count>
           <WinNumber>1</WinNumber>
-          <ItemText>fifoCount</ItemText>
+          <ItemText>packetSize</ItemText>
         </Ww>
         <Ww>
           <count>6</count>
           <WinNumber>1</WinNumber>
-          <ItemText>packetSize</ItemText>
-        </Ww>
-        <Ww>
-          <count>7</count>
-          <WinNumber>1</WinNumber>
           <ItemText>tx</ItemText>
         </Ww>
         <Ww>
-          <count>8</count>
+          <count>7</count>
           <WinNumber>1</WinNumber>
           <ItemText>dmpready</ItemText>
         </Ww>
@@ -305,10 +300,10 @@
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>54</ColumnNumber>
+      <ColumnNumber>43</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>119</TopLine>
-      <CurrentLine>128</CurrentLine>
+      <TopLine>279</TopLine>
+      <CurrentLine>293</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\boards\ST_STM32F4_DISCOVERY\board.h</PathWithFileName>
       <FilenameWithoutPath>board.h</FilenameWithoutPath>
@@ -328,7 +323,7 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>71</TopLine>
+      <TopLine>78</TopLine>
       <CurrentLine>78</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\ports\RVCT\ARMCMx\cstartup.s</PathWithFileName>
@@ -440,8 +435,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>335</TopLine>
+      <CurrentLine>342</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\ports\RVCT\ARMCMx\STM32F4xx\vectors.s</PathWithFileName>
       <FilenameWithoutPath>vectors.s</FilenameWithoutPath>
@@ -697,10 +692,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>20</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>20</TopLine>
-      <CurrentLine>20</CurrentLine>
+      <TopLine>129</TopLine>
+      <CurrentLine>129</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\kernel\src\chsys.c</PathWithFileName>
       <FilenameWithoutPath>chsys.c</FilenameWithoutPath>
@@ -1887,10 +1882,10 @@
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>74</ColumnNumber>
+      <ColumnNumber>22</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>142</TopLine>
-      <CurrentLine>162</CurrentLine>
+      <TopLine>73</TopLine>
+      <CurrentLine>77</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
@@ -2092,13 +2087,19 @@
     <ActiveMDIGroup>0</ActiveMDIGroup>
     <MDIGroup>
       <Size>100</Size>
-      <ActiveTab>2</ActiveTab>
+      <ActiveTab>5</ActiveTab>
       <Documents>
         <Doc>
+          <Name>..\..\..\os\ports\RVCT\ARMCMx\STM32F4xx\vectors.s</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>335</TopLine>
+          <CurrentLine>342</CurrentLine>
+        </Doc>
+        <Doc>
           <Name>..\..\..\boards\ST_STM32F4_DISCOVERY\board.h</Name>
-          <ColumnNumber>54</ColumnNumber>
-          <TopLine>119</TopLine>
-          <CurrentLine>128</CurrentLine>
+          <ColumnNumber>43</ColumnNumber>
+          <TopLine>279</TopLine>
+          <CurrentLine>293</CurrentLine>
         </Doc>
         <Doc>
           <Name>..\halconf.h</Name>
@@ -2108,9 +2109,9 @@
         </Doc>
         <Doc>
           <Name>..\main.c</Name>
-          <ColumnNumber>74</ColumnNumber>
-          <TopLine>142</TopLine>
-          <CurrentLine>162</CurrentLine>
+          <ColumnNumber>22</ColumnNumber>
+          <TopLine>73</TopLine>
+          <CurrentLine>77</CurrentLine>
         </Doc>
         <Doc>
           <Name>..\..\..\os\hal\platforms\STM32\GPIOv2\pal_lld.h</Name>
@@ -2120,14 +2121,14 @@
         </Doc>
         <Doc>
           <Name>..\..\..\os\kernel\src\chsys.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>20</TopLine>
-          <CurrentLine>20</CurrentLine>
+          <ColumnNumber>20</ColumnNumber>
+          <TopLine>129</TopLine>
+          <CurrentLine>129</CurrentLine>
         </Doc>
         <Doc>
           <Name>..\..\..\os\ports\RVCT\ARMCMx\cstartup.s</Name>
           <ColumnNumber>0</ColumnNumber>
-          <TopLine>71</TopLine>
+          <TopLine>78</TopLine>
           <CurrentLine>78</CurrentLine>
         </Doc>
         <Doc>
