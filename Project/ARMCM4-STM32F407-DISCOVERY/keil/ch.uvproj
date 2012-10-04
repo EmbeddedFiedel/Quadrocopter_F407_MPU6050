@@ -391,11 +391,6 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\boards\ST_STM32F4_DISCOVERY\board.c</FilePath>
             </File>
-            <File>
-              <FileName>board.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\boards\ST_STM32F4_DISCOVERY\board.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -422,26 +417,6 @@
               <FilePath>..\..\..\os\ports\RVCT\ARMCMx\chcore_v7m.c</FilePath>
             </File>
             <File>
-              <FileName>chcore.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\ports\RVCT\ARMCMx\chcore.h</FilePath>
-            </File>
-            <File>
-              <FileName>chcore_v7m.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\ports\RVCT\ARMCMx\chcore_v7m.h</FilePath>
-            </File>
-            <File>
-              <FileName>chtypes.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\ports\RVCT\ARMCMx\chtypes.h</FilePath>
-            </File>
-            <File>
-              <FileName>cmparams.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\ports\RVCT\ARMCMx\STM32F4xx\cmparams.h</FilePath>
-            </File>
-            <File>
               <FileName>vectors.s</FileName>
               <FileType>2</FileType>
               <FilePath>..\..\..\os\ports\RVCT\ARMCMx\STM32F4xx\vectors.s</FilePath>
@@ -450,11 +425,6 @@
               <FileName>nvic.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\os\ports\common\ARMCMx\nvic.c</FilePath>
-            </File>
-            <File>
-              <FileName>nvic.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\ports\common\ARMCMx\nvic.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -551,126 +521,6 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\os\kernel\src\chvt.c</FilePath>
             </File>
-            <File>
-              <FileName>ch.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\kernel\include\ch.h</FilePath>
-            </File>
-            <File>
-              <FileName>chbsem.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\kernel\include\chbsem.h</FilePath>
-            </File>
-            <File>
-              <FileName>chcond.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\kernel\include\chcond.h</FilePath>
-            </File>
-            <File>
-              <FileName>chdebug.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\kernel\include\chdebug.h</FilePath>
-            </File>
-            <File>
-              <FileName>chdynamic.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\kernel\include\chdynamic.h</FilePath>
-            </File>
-            <File>
-              <FileName>chevents.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\kernel\include\chevents.h</FilePath>
-            </File>
-            <File>
-              <FileName>chfiles.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\kernel\include\chfiles.h</FilePath>
-            </File>
-            <File>
-              <FileName>chheap.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\kernel\include\chheap.h</FilePath>
-            </File>
-            <File>
-              <FileName>chinline.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\kernel\include\chinline.h</FilePath>
-            </File>
-            <File>
-              <FileName>chioch.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\kernel\include\chioch.h</FilePath>
-            </File>
-            <File>
-              <FileName>chlists.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\kernel\include\chlists.h</FilePath>
-            </File>
-            <File>
-              <FileName>chmboxes.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\kernel\include\chmboxes.h</FilePath>
-            </File>
-            <File>
-              <FileName>chmemcore.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\kernel\include\chmemcore.h</FilePath>
-            </File>
-            <File>
-              <FileName>chmempools.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\kernel\include\chmempools.h</FilePath>
-            </File>
-            <File>
-              <FileName>chmsg.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\kernel\include\chmsg.h</FilePath>
-            </File>
-            <File>
-              <FileName>chmtx.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\kernel\include\chmtx.h</FilePath>
-            </File>
-            <File>
-              <FileName>chqueues.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\kernel\include\chqueues.h</FilePath>
-            </File>
-            <File>
-              <FileName>chregistry.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\kernel\include\chregistry.h</FilePath>
-            </File>
-            <File>
-              <FileName>chschd.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\kernel\include\chschd.h</FilePath>
-            </File>
-            <File>
-              <FileName>chsem.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\kernel\include\chsem.h</FilePath>
-            </File>
-            <File>
-              <FileName>chstreams.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\kernel\include\chstreams.h</FilePath>
-            </File>
-            <File>
-              <FileName>chsys.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\kernel\include\chsys.h</FilePath>
-            </File>
-            <File>
-              <FileName>chthreads.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\kernel\include\chthreads.h</FilePath>
-            </File>
-            <File>
-              <FileName>chvt.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\kernel\include\chvt.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -707,36 +557,6 @@
               <FilePath>..\..\..\os\hal\src\spi.c</FilePath>
             </File>
             <File>
-              <FileName>adc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\hal\include\adc.h</FilePath>
-            </File>
-            <File>
-              <FileName>hal.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\hal\include\hal.h</FilePath>
-            </File>
-            <File>
-              <FileName>pal.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\hal\include\pal.h</FilePath>
-            </File>
-            <File>
-              <FileName>pwm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\hal\include\pwm.h</FilePath>
-            </File>
-            <File>
-              <FileName>serial.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\hal\include\serial.h</FilePath>
-            </File>
-            <File>
-              <FileName>spi.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\hal\include\spi.h</FilePath>
-            </File>
-            <File>
               <FileName>i2c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\os\hal\src\i2c.c</FilePath>
@@ -762,19 +582,9 @@
               <FilePath>..\..\..\os\hal\platforms\STM32F4xx\adc_lld.c</FilePath>
             </File>
             <File>
-              <FileName>adc_lld.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\hal\platforms\STM32F4xx\adc_lld.h</FilePath>
-            </File>
-            <File>
               <FileName>hal_lld.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\os\hal\platforms\STM32F4xx\hal_lld.c</FilePath>
-            </File>
-            <File>
-              <FileName>hal_lld.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\hal\platforms\STM32F4xx\hal_lld.h</FilePath>
             </File>
             <File>
               <FileName>pal_lld.c</FileName>
@@ -782,19 +592,9 @@
               <FilePath>..\..\..\os\hal\platforms\STM32\GPIOv2\pal_lld.c</FilePath>
             </File>
             <File>
-              <FileName>pal_lld.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\hal\platforms\STM32\GPIOv2\pal_lld.h</FilePath>
-            </File>
-            <File>
               <FileName>pwm_lld.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\os\hal\platforms\STM32\pwm_lld.c</FilePath>
-            </File>
-            <File>
-              <FileName>pwm_lld.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\hal\platforms\STM32\pwm_lld.h</FilePath>
             </File>
             <File>
               <FileName>serial_lld.c</FileName>
@@ -802,39 +602,14 @@
               <FilePath>..\..\..\os\hal\platforms\STM32\serial_lld.c</FilePath>
             </File>
             <File>
-              <FileName>spi_lld.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\hal\platforms\STM32\spi_lld.h</FilePath>
-            </File>
-            <File>
               <FileName>spi_lld.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\os\hal\platforms\STM32\spi_lld.c</FilePath>
             </File>
             <File>
-              <FileName>serial_lld.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\hal\platforms\STM32\serial_lld.h</FilePath>
-            </File>
-            <File>
               <FileName>stm32_dma.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\os\hal\platforms\STM32F4xx\stm32_dma.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32_dma.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\hal\platforms\STM32F4xx\stm32_dma.h</FilePath>
-            </File>
-            <File>
-              <FileName>stm32_rcc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\hal\platforms\STM32F4xx\stm32_rcc.h</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f4xx.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\os\hal\platforms\STM32F4xx\stm32f4xx.h</FilePath>
             </File>
             <File>
               <FileName>i2c_lld.c</FileName>
@@ -906,66 +681,6 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\test\testthd.c</FilePath>
             </File>
-            <File>
-              <FileName>test.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\test\test.h</FilePath>
-            </File>
-            <File>
-              <FileName>testbmk.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\test\testbmk.h</FilePath>
-            </File>
-            <File>
-              <FileName>testdyn.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\test\testdyn.h</FilePath>
-            </File>
-            <File>
-              <FileName>testevt.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\test\testevt.h</FilePath>
-            </File>
-            <File>
-              <FileName>testheap.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\test\testheap.h</FilePath>
-            </File>
-            <File>
-              <FileName>testmbox.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\test\testmbox.h</FilePath>
-            </File>
-            <File>
-              <FileName>testmsg.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\test\testmsg.h</FilePath>
-            </File>
-            <File>
-              <FileName>testmtx.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\test\testmtx.h</FilePath>
-            </File>
-            <File>
-              <FileName>testpools.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\test\testpools.h</FilePath>
-            </File>
-            <File>
-              <FileName>testqueues.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\test\testqueues.h</FilePath>
-            </File>
-            <File>
-              <FileName>testsem.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\test\testsem.h</FilePath>
-            </File>
-            <File>
-              <FileName>testthd.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\..\test\testthd.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -975,21 +690,6 @@
               <FileName>main.c</FileName>
               <FileType>8</FileType>
               <FilePath>..\main.c</FilePath>
-            </File>
-            <File>
-              <FileName>mcuconf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\mcuconf.h</FilePath>
-            </File>
-            <File>
-              <FileName>chconf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\chconf.h</FilePath>
-            </File>
-            <File>
-              <FileName>halconf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\halconf.h</FilePath>
             </File>
           </Files>
         </Group>
