@@ -121,6 +121,16 @@
       <TargetDriverDllRegistry>
         <SetRegEntry>
           <Number>0</Number>
+          <Key>DLGUARM</Key>
+          <Name>(106=-1,-1,-1,-1,0)(107=-1,-1,-1,-1,0)</Name>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>JL2CM3</Key>
+          <Name>-U268001829 -O78 -S8 -A0 -C0 -JU1 -JI127.0.0.1 -JP0 -RST0 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO18 -TC10000000 -TP21 -TDS8004 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -TB1 -TFE0 -FO7 -FD20000000 -FC800 -FN1 -FF0STM32F4xx_1024 -FS08000000 -FL0100000</Name>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
           <Key>DLGTARM</Key>
           <Name>(1010=-1,-1,-1,-1,0)(1007=-1,-1,-1,-1,0)(1008=-1,-1,-1,-1,0)(1009=-1,-1,-1,-1,0)</Name>
         </SetRegEntry>
@@ -139,9 +149,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>817</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134232904</Address>
+          <LineNumber>593</LineNumber>
+          <EnabledFlag>0</EnabledFlag>
+          <Address>134236078</Address>
           <ByteObject>0</ByteObject>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
@@ -149,71 +159,86 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename></Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\ch\../../../Quad/MPU6050/MPU6050_9Axis_MotionApps41.cpp\817</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>818</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134232906</Address>
-          <ByteObject>0</ByteObject>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename></Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\ch\../../../Quad/MPU6050/MPU6050_9Axis_MotionApps41.cpp\818</Expression>
+          <Expression>\\ch\../../../Quad/MPU6050/MPU6050_9Axis_MotionApps41.cpp\593</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>dmpSuccess</ItemText>
+          <ItemText>euler</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>q</ItemText>
+          <ItemText>inSchub</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
           <WinNumber>1</WinNumber>
-          <ItemText>euler</ItemText>
+          <ItemText>inNickSollLage</ItemText>
         </Ww>
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>mpuIntStatus</ItemText>
+          <ItemText>inRollSollLage</ItemText>
         </Ww>
         <Ww>
           <count>4</count>
           <WinNumber>1</WinNumber>
-          <ItemText>fifoCount</ItemText>
+          <ItemText>inNickIstLage</ItemText>
         </Ww>
         <Ww>
           <count>5</count>
           <WinNumber>1</WinNumber>
-          <ItemText>packetSize</ItemText>
+          <ItemText>inRollIstLage</ItemText>
         </Ww>
         <Ww>
           <count>6</count>
           <WinNumber>1</WinNumber>
-          <ItemText>tx</ItemText>
+          <ItemText>gyroRate</ItemText>
         </Ww>
         <Ww>
           <count>7</count>
           <WinNumber>1</WinNumber>
-          <ItemText>dmpready</ItemText>
+          <ItemText>gyro_rate_float</ItemText>
+        </Ww>
+        <Ww>
+          <count>8</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>outMotor1</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>
         <Ww>
           <count>0</count>
           <WinNumber>2</WinNumber>
-          <ItemText>fifoBuffer</ItemText>
+          <ItemText>outMotor2</ItemText>
+        </Ww>
+        <Ww>
+          <count>1</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>outMotor2</ItemText>
+        </Ww>
+        <Ww>
+          <count>2</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>outMotor3</ItemText>
+        </Ww>
+        <Ww>
+          <count>3</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>outMotor4</ItemText>
+        </Ww>
+        <Ww>
+          <count>4</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>outMotor1</ItemText>
+        </Ww>
+        <Ww>
+          <count>5</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>inSchub</ItemText>
         </Ww>
       </WatchWindow2>
       <MemoryWindow1>
@@ -247,7 +272,7 @@
       <DebugFlag>
         <trace>0</trace>
         <periodic>0</periodic>
-        <aLwin>0</aLwin>
+        <aLwin>1</aLwin>
         <aCover>0</aCover>
         <aSer1>0</aSer1>
         <aSer2>0</aSer2>
@@ -286,10 +311,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>41</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>20</TopLine>
+      <CurrentLine>20</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\boards\ST_STM32F4_DISCOVERY\board.c</PathWithFileName>
       <FilenameWithoutPath>board.c</FilenameWithoutPath>
@@ -298,9 +323,23 @@
 
   <Group>
     <GroupName>port</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
+    <File>
+      <GroupNumber>2</GroupNumber>
+      <FileNumber>2</FileNumber>
+      <FileType>2</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <ColumnNumber>0</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>78</TopLine>
+      <CurrentLine>78</CurrentLine>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\os\ports\RVCT\ARMCMx\cstartup.s</PathWithFileName>
+      <FilenameWithoutPath>cstartup.s</FilenameWithoutPath>
+    </File>
     <File>
       <GroupNumber>2</GroupNumber>
       <FileNumber>3</FileNumber>
@@ -309,29 +348,15 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\os\ports\RVCT\ARMCMx\cstartup.s</PathWithFileName>
-      <FilenameWithoutPath>cstartup.s</FilenameWithoutPath>
-    </File>
-    <File>
-      <GroupNumber>2</GroupNumber>
-      <FileNumber>4</FileNumber>
-      <FileType>2</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>107</TopLine>
+      <CurrentLine>110</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\ports\RVCT\ARMCMx\chcoreasm_v7m.s</PathWithFileName>
       <FilenameWithoutPath>chcoreasm_v7m.s</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>2</GroupNumber>
-      <FileNumber>5</FileNumber>
+      <FileNumber>4</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -345,7 +370,7 @@
     </File>
     <File>
       <GroupNumber>2</GroupNumber>
-      <FileNumber>6</FileNumber>
+      <FileNumber>5</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -359,21 +384,21 @@
     </File>
     <File>
       <GroupNumber>2</GroupNumber>
-      <FileNumber>11</FileNumber>
+      <FileNumber>6</FileNumber>
       <FileType>2</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>336</TopLine>
+      <CurrentLine>342</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\ports\RVCT\ARMCMx\STM32F4xx\vectors.s</PathWithFileName>
       <FilenameWithoutPath>vectors.s</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>2</GroupNumber>
-      <FileNumber>12</FileNumber>
+      <FileNumber>7</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -389,12 +414,12 @@
 
   <Group>
     <GroupName>kernel</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>14</FileNumber>
+      <FileNumber>8</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -408,7 +433,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>15</FileNumber>
+      <FileNumber>9</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -422,7 +447,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>16</FileNumber>
+      <FileNumber>10</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -436,7 +461,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>17</FileNumber>
+      <FileNumber>11</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -450,7 +475,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>18</FileNumber>
+      <FileNumber>12</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -464,7 +489,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>19</FileNumber>
+      <FileNumber>13</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -478,7 +503,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>20</FileNumber>
+      <FileNumber>14</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -492,7 +517,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>21</FileNumber>
+      <FileNumber>15</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -506,7 +531,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>22</FileNumber>
+      <FileNumber>16</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -520,21 +545,21 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>23</FileNumber>
+      <FileNumber>17</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>60</TopLine>
+      <CurrentLine>60</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\kernel\src\chmsg.c</PathWithFileName>
       <FilenameWithoutPath>chmsg.c</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>24</FileNumber>
+      <FileNumber>18</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -548,21 +573,21 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>25</FileNumber>
+      <FileNumber>19</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>367</TopLine>
+      <CurrentLine>370</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\kernel\src\chqueues.c</PathWithFileName>
       <FilenameWithoutPath>chqueues.c</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>26</FileNumber>
+      <FileNumber>20</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -576,7 +601,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>27</FileNumber>
+      <FileNumber>21</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -590,7 +615,7 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>28</FileNumber>
+      <FileNumber>22</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -604,35 +629,35 @@
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>29</FileNumber>
+      <FileNumber>23</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>20</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>94</TopLine>
+      <CurrentLine>94</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\kernel\src\chsys.c</PathWithFileName>
       <FilenameWithoutPath>chsys.c</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>30</FileNumber>
+      <FileNumber>24</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>8</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>184</TopLine>
+      <CurrentLine>184</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\kernel\src\chthreads.c</PathWithFileName>
       <FilenameWithoutPath>chthreads.c</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>3</GroupNumber>
-      <FileNumber>31</FileNumber>
+      <FileNumber>25</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -653,7 +678,7 @@
     <cbSel>0</cbSel>
     <File>
       <GroupNumber>4</GroupNumber>
-      <FileNumber>56</FileNumber>
+      <FileNumber>26</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -667,11 +692,11 @@
     </File>
     <File>
       <GroupNumber>4</GroupNumber>
-      <FileNumber>57</FileNumber>
+      <FileNumber>27</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>13</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
@@ -681,7 +706,7 @@
     </File>
     <File>
       <GroupNumber>4</GroupNumber>
-      <FileNumber>58</FileNumber>
+      <FileNumber>28</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -695,7 +720,7 @@
     </File>
     <File>
       <GroupNumber>4</GroupNumber>
-      <FileNumber>59</FileNumber>
+      <FileNumber>29</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -709,11 +734,11 @@
     </File>
     <File>
       <GroupNumber>4</GroupNumber>
-      <FileNumber>60</FileNumber>
+      <FileNumber>30</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>23</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
@@ -723,7 +748,7 @@
     </File>
     <File>
       <GroupNumber>4</GroupNumber>
-      <FileNumber>61</FileNumber>
+      <FileNumber>31</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -737,7 +762,7 @@
     </File>
     <File>
       <GroupNumber>4</GroupNumber>
-      <FileNumber>68</FileNumber>
+      <FileNumber>32</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -751,7 +776,7 @@
     </File>
     <File>
       <GroupNumber>4</GroupNumber>
-      <FileNumber>69</FileNumber>
+      <FileNumber>33</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -765,7 +790,7 @@
     </File>
     <File>
       <GroupNumber>4</GroupNumber>
-      <FileNumber>70</FileNumber>
+      <FileNumber>34</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -786,7 +811,7 @@
     <cbSel>0</cbSel>
     <File>
       <GroupNumber>5</GroupNumber>
-      <FileNumber>71</FileNumber>
+      <FileNumber>35</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -800,7 +825,7 @@
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
-      <FileNumber>73</FileNumber>
+      <FileNumber>36</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -814,7 +839,7 @@
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
-      <FileNumber>75</FileNumber>
+      <FileNumber>37</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -828,11 +853,11 @@
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
-      <FileNumber>77</FileNumber>
+      <FileNumber>38</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>22</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
@@ -842,7 +867,7 @@
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
-      <FileNumber>79</FileNumber>
+      <FileNumber>39</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -856,7 +881,7 @@
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
-      <FileNumber>81</FileNumber>
+      <FileNumber>40</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -870,7 +895,7 @@
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
-      <FileNumber>83</FileNumber>
+      <FileNumber>41</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -884,14 +909,14 @@
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
-      <FileNumber>87</FileNumber>
+      <FileNumber>42</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>10</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>890</TopLine>
+      <CurrentLine>896</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\hal\platforms\STM32\i2c_lld.c</PathWithFileName>
       <FilenameWithoutPath>i2c_lld.c</FilenameWithoutPath>
@@ -900,12 +925,12 @@
 
   <Group>
     <GroupName>test</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>88</FileNumber>
+      <FileNumber>43</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -919,7 +944,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>89</FileNumber>
+      <FileNumber>44</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -933,7 +958,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>90</FileNumber>
+      <FileNumber>45</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -947,7 +972,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>91</FileNumber>
+      <FileNumber>46</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -961,7 +986,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>92</FileNumber>
+      <FileNumber>47</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -975,7 +1000,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>93</FileNumber>
+      <FileNumber>48</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -989,7 +1014,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>94</FileNumber>
+      <FileNumber>49</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1003,7 +1028,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>95</FileNumber>
+      <FileNumber>50</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1017,7 +1042,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>96</FileNumber>
+      <FileNumber>51</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1031,7 +1056,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>97</FileNumber>
+      <FileNumber>52</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1045,7 +1070,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>98</FileNumber>
+      <FileNumber>53</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1059,7 +1084,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>99</FileNumber>
+      <FileNumber>54</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1080,14 +1105,14 @@
     <cbSel>0</cbSel>
     <File>
       <GroupNumber>7</GroupNumber>
-      <FileNumber>112</FileNumber>
+      <FileNumber>55</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>22</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>112</TopLine>
+      <CurrentLine>127</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
@@ -1096,33 +1121,33 @@
 
   <Group>
     <GroupName>various</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <File>
       <GroupNumber>8</GroupNumber>
-      <FileNumber>116</FileNumber>
+      <FileNumber>56</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>37</TopLine>
+      <CurrentLine>37</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\various\lis302dl.c</PathWithFileName>
       <FilenameWithoutPath>lis302dl.c</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>8</GroupNumber>
-      <FileNumber>117</FileNumber>
+      <FileNumber>57</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>27</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>79</TopLine>
+      <CurrentLine>79</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\various\chprintf.c</PathWithFileName>
       <FilenameWithoutPath>chprintf.c</FilenameWithoutPath>
@@ -1136,32 +1161,415 @@
     <cbSel>0</cbSel>
     <File>
       <GroupNumber>9</GroupNumber>
-      <FileNumber>118</FileNumber>
+      <FileNumber>58</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>47</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>106</TopLine>
+      <CurrentLine>112</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\Quad\MPU6050\MPU6050.cpp</PathWithFileName>
       <FilenameWithoutPath>MPU6050.cpp</FilenameWithoutPath>
     </File>
     <File>
       <GroupNumber>9</GroupNumber>
-      <FileNumber>119</FileNumber>
+      <FileNumber>59</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>43</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>239</TopLine>
+      <CurrentLine>245</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\Quad\I2Cdev\I2Cdev.cpp</PathWithFileName>
       <FilenameWithoutPath>I2Cdev.cpp</FilenameWithoutPath>
     </File>
   </Group>
+
+  <AlienFiles>
+    <PathWithFilename>C:\Users\Dennis\Documents\GitHub\Quadrocopter_F407_MPU6050\Quad\MPU6050\Examples\MPU6050_DMP6\MPU6050_DMP6.cpp</PathWithFilename>
+    <TopLine>116</TopLine>
+    <CurrentLine>122</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
+  <AlienFiles>
+    <PathWithFilename>C:\Users\Dennis\Documents\GitHub\Quadrocopter_F407_MPU6050\Quad\MPU6050\MPU6050.h</PathWithFilename>
+    <TopLine>922</TopLine>
+    <CurrentLine>928</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
+  <AlienFiles>
+    <PathWithFilename>C:\Users\Dennis\Documents\GitHub\Quadrocopter_F407_MPU6050\Project\ARMCM4-STM32F407-DISCOVERY\halconf.h</PathWithFilename>
+    <TopLine>311</TopLine>
+    <CurrentLine>313</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
+  <AlienFiles>
+    <PathWithFilename>C:\Users\Dennis\Documents\GitHub\Quadrocopter_F407_MPU6050\Quad\Regelung\Regelung.c</PathWithFilename>
+    <TopLine>1</TopLine>
+    <CurrentLine>3</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
+  <AlienFiles>
+    <PathWithFilename>C:\Users\Dennis\Documents\GitHub\Quadrocopter_F407_MPU6050\Quad\Regelung\Regelung.h</PathWithFilename>
+    <TopLine>1</TopLine>
+    <CurrentLine>6</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
+  <AlienFiles>
+    <PathWithFilename>C:\Users\Dennis\Documents\GitHub\Quadrocopter_F407_MPU6050\Quad\I2Cdev\I2Cdev.h</PathWithFilename>
+    <TopLine>138</TopLine>
+    <CurrentLine>138</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
+  <AlienFiles>
+    <PathWithFilename>C:\Users\Dennis\Documents\GitHub\Quadrocopter_F407_MPU6050\os\kernel\include\chmsg.h</PathWithFilename>
+    <TopLine>82</TopLine>
+    <CurrentLine>82</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
+  <AlienFiles>
+    <PathWithFilename>C:\Users\Dennis\Documents\GitHub\Quadrocopter_F407_MPU6050\os\various\lis302dl.h</PathWithFilename>
+    <TopLine>65</TopLine>
+    <CurrentLine>71</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
+  <AlienFiles>
+    <PathWithFilename>C:\Users\Dennis\Documents\GitHub\Quadrocopter_F407_MPU6050\Quad\MPU6050\MPU6050_9Axis_MotionApps41.cpp</PathWithFilename>
+    <TopLine>349</TopLine>
+    <CurrentLine>355</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
+  <MDIGroups>
+    <Orientation>1</Orientation>
+    <ActiveMDIGroup>0</ActiveMDIGroup>
+    <MDIGroup>
+      <Size>100</Size>
+      <ActiveTab>3</ActiveTab>
+      <Documents>
+        <Doc>
+          <Name>..\..\..\os\kernel\src\chsys.c</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>94</TopLine>
+          <CurrentLine>94</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\..\..\os\hal\platforms\STM32\i2c_lld.c</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>890</TopLine>
+          <CurrentLine>896</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\..\..\Quad\MPU6050\MPU6050_9Axis_MotionApps41.cpp</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>349</TopLine>
+          <CurrentLine>355</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\main.c</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>112</TopLine>
+          <CurrentLine>127</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\..\..\os\kernel\src\chthreads.c</Name>
+          <ColumnNumber>8</ColumnNumber>
+          <TopLine>184</TopLine>
+          <CurrentLine>184</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\..\..\os\ports\RVCT\ARMCMx\STM32F4xx\vectors.s</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>336</TopLine>
+          <CurrentLine>342</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\..\..\os\ports\RVCT\ARMCMx\cstartup.s</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>78</TopLine>
+          <CurrentLine>78</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\..\..\os\various\chprintf.c</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>79</TopLine>
+          <CurrentLine>79</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\..\..\os\various\lis302dl.h</Name>
+          <ColumnNumber>22</ColumnNumber>
+          <TopLine>65</TopLine>
+          <CurrentLine>71</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\..\..\os\various\lis302dl.c</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>37</TopLine>
+          <CurrentLine>37</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\..\..\os\kernel\src\chmsg.c</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>60</TopLine>
+          <CurrentLine>60</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\..\..\os\kernel\include\chmsg.h</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>82</TopLine>
+          <CurrentLine>82</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\..\..\boards\ST_STM32F4_DISCOVERY\board.c</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>20</TopLine>
+          <CurrentLine>20</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\..\..\Quad\I2Cdev\I2Cdev.h</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>138</TopLine>
+          <CurrentLine>138</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>C:\Users\Dennis\Documents\GitHub\Quadrocopter_F407_MPU6050\Quad\Regelung\Regelung.h</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>1</TopLine>
+          <CurrentLine>6</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>C:\Users\Dennis\Documents\GitHub\Quadrocopter_F407_MPU6050\Quad\Regelung\Regelung.c</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>1</TopLine>
+          <CurrentLine>3</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\..\..\Quad\I2Cdev\I2Cdev.cpp</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>239</TopLine>
+          <CurrentLine>245</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\..\..\os\kernel\src\chqueues.c</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>367</TopLine>
+          <CurrentLine>370</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\halconf.h</Name>
+          <ColumnNumber>42</ColumnNumber>
+          <TopLine>311</TopLine>
+          <CurrentLine>313</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\..\..\os\ports\RVCT\ARMCMx\chcoreasm_v7m.s</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>107</TopLine>
+          <CurrentLine>110</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\..\..\Quad\MPU6050\MPU6050.cpp</Name>
+          <ColumnNumber>47</ColumnNumber>
+          <TopLine>106</TopLine>
+          <CurrentLine>112</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\..\..\Quad\MPU6050\MPU6050.h</Name>
+          <ColumnNumber>30</ColumnNumber>
+          <TopLine>922</TopLine>
+          <CurrentLine>928</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\..\..\Quad\MPU6050\Examples\MPU6050_DMP6\MPU6050_DMP6.cpp</Name>
+          <ColumnNumber>16</ColumnNumber>
+          <TopLine>116</TopLine>
+          <CurrentLine>122</CurrentLine>
+        </Doc>
+      </Documents>
+    </MDIGroup>
+  </MDIGroups>
 
 </ProjectOpt>

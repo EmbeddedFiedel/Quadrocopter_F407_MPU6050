@@ -34,13 +34,72 @@
 
 static void pwmpcb(PWMDriver *pwmp);
 
+ float gyro_rate_float[3];
+ float lage_delta[3];
+
+ float inNickIstLage;
+float inNickIstV;
+float inNickSollLage;
+float inRollIstLage;
+float inRollIstV;
+float inRollSollLage;
+float inSchub;
+float inYawIstLage;
+float inYawIstV;
+float inYawSollLage;
+float outMotor1;
+float outMotor2;
+float outMotor3;
+float outMotor4;	 
+float Schub_Offset = 0;
 
 
+float v_Nick_tp1 = 0;   	
+float v_Nick_tp1_alt = 0;
+float di_Nick = 0;
+float pi_Nick = 0;
+float ii_Nick = -10;
+float ia_Nick = 0;
+float pa_Nick = 0;
+float ei_Nick = 0;
+float ei_Nick_alt = 0;
+float ea_Nick = 0;
+float Soll_v_Nick = 0;
+float aNick;
+
+float v_Roll_tp1 = 0;   	
+float v_Roll_tp1_alt = 0;
+float di_Roll = 0;
+float pi_Roll = 0;
+float ii_Roll = 0;
+float ia_Roll = 0;
+float pa_Roll = 0;
+float ei_Roll = 0;
+float ei_Roll_alt = 0;
+float ea_Roll = 0;
+float Soll_v_Roll = 0;
+float aRoll; 
+
+float v_Yaw_tp1 = 0;   	
+float v_Yaw_tp1_alt = 0;
+float di_Yaw = 0;
+float pi_Yaw = 0;
+float ii_Yaw = 0;
+float ia_Yaw = 0;
+float pa_Yaw = 0;
+float ei_Yaw = 0;
+float ei_Yaw_alt = 0;
+float ea_Yaw = 0;
+float Soll_v_Yaw = 0;
+float aYaw;
+volatile unsigned short tmp111;
 
 
+enum {UP, DOWN};
+static int dir = UP,step = 5;
 
 #define RC_IN_RANGE(x) (((x)>900 && (x)<2300))
-volatile unsigned short RC_INPUT_CHANNELS[4], RC_INPUT_LAST_TCNT;
+volatile unsigned short RC_INPUT_CHANNELS[4], RC_INPUT_LAST_TCNT,tmp=0;
 char PPM_FRAME_GOOD = 1;
 
 /*
@@ -60,15 +119,12 @@ void rx_channel1_interrupt(EXTDriver *extp, expchannel_t channel) {
 		chSysLockFromIsr();
 		if (palReadPad(GPIOB, 13) == PAL_LOW) {
 			unsigned short tmp = TIM4->CNT - RC_INPUT_LAST_TCNT;
-			if (RC_IN_RANGE(tmp)) 
-			{
-				RC_INPUT_CHANNELS[0] = tmp;
-				chprintf((BaseChannel *)&SD2, "Channel1: %u\r\n", RC_INPUT_CHANNELS[0]);
-			}
+			if (RC_IN_RANGE(tmp)) RC_INPUT_CHANNELS[0] = tmp;
 		}
 		RC_INPUT_LAST_TCNT = TIM4->CNT;
 		chSysUnlockFromIsr();
 }
+
 void rx_channel2_interrupt(EXTDriver *extp, expchannel_t channel) {
 		(void)extp;
 		(void)channel;
@@ -79,11 +135,10 @@ void rx_channel2_interrupt(EXTDriver *extp, expchannel_t channel) {
 			if (RC_IN_RANGE(tmp)) 
 			{
 				RC_INPUT_CHANNELS[1] = tmp;
-				chprintf((BaseChannel *)&SD2, "Channel2: %u\r\n", RC_INPUT_CHANNELS[1]);
 			}
 		}
 		RC_INPUT_LAST_TCNT = TIM4->CNT;
-		chSysUnlockFromIsr();
+		chSysUnlockFromIsr(); 		  
 }
 void rx_channel3_interrupt(EXTDriver *extp, expchannel_t channel) {
 		(void)extp;
@@ -95,11 +150,10 @@ void rx_channel3_interrupt(EXTDriver *extp, expchannel_t channel) {
 			if (RC_IN_RANGE(tmp)) 
 			{
 				RC_INPUT_CHANNELS[2] = tmp;
-				chprintf((BaseChannel *)&SD2, "Channel3: %u\r\n", RC_INPUT_CHANNELS[2]);
 			}
 		}
 		RC_INPUT_LAST_TCNT = TIM4->CNT;
-		chSysUnlockFromIsr();
+		chSysUnlockFromIsr(); 
 }
 void rx_channel4_interrupt(EXTDriver *extp, expchannel_t channel) {
 		(void)extp;
@@ -111,11 +165,10 @@ void rx_channel4_interrupt(EXTDriver *extp, expchannel_t channel) {
 			if (RC_IN_RANGE(tmp)) 
 			{
 				RC_INPUT_CHANNELS[3] = tmp;
-				chprintf((BaseChannel *)&SD2, "Channel4: %u\r\n", RC_INPUT_CHANNELS[3]);
 			}
 		}
 		RC_INPUT_LAST_TCNT = TIM4->CNT;
-		chSysUnlockFromIsr();
+		chSysUnlockFromIsr();	  
 }
 static const EXTConfig extcfg = {
 	{
@@ -154,7 +207,205 @@ static const EXTConfig extcfg = {
 	              0)//EXT_MODE_GPIOB) /* 15 */
 };
 
+void Regelung(void)
+{
+	/// Werte übernehmen
 
+	inSchub = float(RC_INPUT_CHANNELS[2] - 1100)/1000;
+	
+	inNickSollLage = 0;
+	inRollSollLage = (float(RC_INPUT_CHANNELS[1]) - 1500)/1000;
+	inYawSollLage  = 0;
+	
+	inYawIstLage = euler[0];
+	inNickIstLage = euler[1];
+	inRollIstLage = euler[2];
+		 
+	inRollIstV = gyro_rate_float[0];
+	inNickIstV = gyro_rate_float[1];
+	inYawIstV = gyro_rate_float[2];
+
+	/////////////////////////// Nick-Regler berechnen //////////////////////////////////////////
+   //äußerer Regler
+   ea_Nick = (inNickSollLage) - (inNickIstLage+0.08*inNickIstV);  // Eingang in den äußeren Regler
+   if(inSchub > 0.1 && inSchub <=1 && inNickIstLage < 0.2 && inNickIstLage > -0.2)
+   	ia_Nick = 0.01 * ea_Nick + ia_Nick;	//I-Anteil nur nahe der Nulllage verändern  
+   //Soll_v_Nick = ea_Nick*1 + ia_Nick*0.02; //Sollgeschwindigkeit des äußeren Reglers
+   //Soll_v_Nick = inNickSollLage*2.F;
+   Soll_v_Nick = 0;
+   //innerer Regler
+   v_Nick_tp1 = 0.9*v_Nick_tp1 + 0.1*inNickIstV; // Tiefpass-gefilterter Gyrowert
+   ei_Nick= Soll_v_Nick - v_Nick_tp1;	//Eingang in die innere Regelung
+   pi_Nick = ei_Nick * 0.07;	//p-Anteil
+
+   if(inSchub > 0.1 && inSchub <=1 /*&& inNickIstLage < 0.5 && inNickIstLage > -0.5*/)
+   	ii_Nick = 0.08 * ei_Nick + ii_Nick;	//I-Anteil nur nahe der Nulllage verändern 
+
+   di_Nick = (ei_Nick - ei_Nick_alt)*10; //d-Anteil  
+   if (di_Nick > 1.5)
+	   di_Nick = 1.5;
+   else if(di_Nick < -1.5)
+	   di_Nick = -1.5;	  //Saturierung des D-Anteils
+
+   aNick = (pi_Nick + (ii_Nick)*0.03 + di_Nick)*567; //Ausgang des inneren Reglers	 
+
+	/////////////////////////// Roll-Regler berechnen ////////////////////////////////////////// 
+
+   /*ea_Roll = (inRollSollLage) - (inRollIstLage+0.08*inRollIstV);  // Eingang in den äußeren Regler
+   if(inSchub > 0.1 && inSchub <=1 && inRollIstLage < 0.2 && inRollIstLage > -0.2)
+   	ia_Roll = 0.01 * ea_Roll + ia_Roll;	//I-Anteil nur nahe der Nulllage verändern  
+   Soll_v_Roll = ea_Roll*2 + ia_Roll*0.02; //Sollgeschwindigkeit des äußeren Reglers
+   //Soll_v_Roll = inRollSollLage;
+
+   //innerer Regler
+   v_Roll_tp1 = 0.95*v_Roll_tp1 + 0.05*inRollIstV; // Tiefpass-gefilterter Gyrowert
+   ei_Roll= Soll_v_Roll - v_Roll_tp1;	//Eingang in die innere Regelung
+   pi_Roll = ei_Roll * 0.5;	//p-Anteil
+   if(inSchub > 0.1 && inSchub <=1 && inRollIstLage < 0.2 && inRollIstLage > -0.2)
+   	ii_Roll = 0.1 * ei_Roll + ii_Roll;	//I-Anteil nur nahe der Nulllage verändern 
+
+   di_Roll = (ei_Roll - ei_Roll_alt)*20; //d-Anteil  
+   if (di_Roll > 1.5)
+	   di_Roll = 1.5;
+   else if(di_Roll < -1.5)
+	   di_Roll = -1.5;	  //Saturierung des D-Anteils
+
+   aRoll = (pi_Roll + (ii_Roll+37)*0.02 + di_Roll)*567; //Ausgang des inneren Reglers		 */
+
+	ea_Roll = (inRollSollLage) - (inRollIstLage+0.08*inRollIstV);  // Eingang in den äußeren Regler
+   if(inSchub > 0.1 && inSchub <=1 && inRollIstLage < 0.2 && inRollIstLage > -0.2)
+   	ia_Roll = 0.01 * ea_Roll + ia_Roll;	//I-Anteil nur nahe der Nulllage verändern  
+   Soll_v_Roll = ea_Roll*2 + ia_Roll*0.02; //Sollgeschwindigkeit des äußeren Reglers
+   Soll_v_Roll = inRollSollLage;
+
+   //innerer Regler
+   v_Roll_tp1 = 0.95*v_Roll_tp1 + 0.05*inRollIstV; // Tiefpass-gefilterter Gyrowert
+   ei_Roll= Soll_v_Roll - v_Roll_tp1;	//Eingang in die innere Regelung
+   pi_Roll = ei_Roll * 0.1;	//p-Anteil
+   if(inSchub > 0.1 && inSchub <=1 /*&& inRollIstLage < 0.2 && inRollIstLage > -0.2*/)
+   	ii_Roll = 0.01 * ei_Roll + ii_Roll;	//I-Anteil nur nahe der Nulllage verändern 
+
+
+   di_Roll = (ei_Roll - ei_Roll_alt)*10; //d-Anteil  
+   if (di_Roll > 1.5)
+	   di_Roll = 1.5;
+   else if(di_Roll < -1.5)
+	   di_Roll = -1.5;	  //Saturierung des D-Anteils
+
+   aRoll = (pi_Roll + (ii_Roll)*0.005 + di_Roll)*567; //Ausgang des inneren Reglers
+
+	/////////////////////////// Yaw-Regler berechnen ////////////////////////////////////////// 
+
+   ea_Yaw = (inYawSollLage) - (inYawIstLage+0.08*inYawIstV);  // Eingang in den äußeren Regler
+   if(inSchub > 0.1 && inSchub <=1 && inYawIstLage < 0.2 && inYawIstLage > -0.2)
+   	ia_Yaw = 0.01 * ea_Yaw + ia_Yaw;	//I-Anteil nur nahe der Nulllage verändern  
+   Soll_v_Yaw = ea_Yaw*0.5 + ia_Yaw*0.002; //Sollgeschwindigkeit des äußeren Reglers
+   //Soll_v_Yaw = inYawSollLage;
+
+   //innerer Regler
+   v_Yaw_tp1 = 0.99*v_Yaw_tp1 + 0.01*inYawIstV; // Tiefpass-gefilterter Gyrowert
+   ei_Yaw= Soll_v_Yaw - v_Yaw_tp1;	//Eingang in die innere Regelung
+   pi_Yaw = ei_Yaw * 0.4;	//p-Anteil
+   if(inSchub > 0.1 && inSchub <=1 && inYawIstLage < 0.2 && inYawIstLage > -0.2)
+   	ii_Yaw = 0.01 * ei_Yaw + ii_Yaw;	//I-Anteil nur nahe der Nulllage verändern 
+
+   di_Yaw = (ei_Yaw - ei_Yaw_alt)*20; //d-Anteil  
+   if (di_Yaw > 1.5)
+	   di_Yaw = 1.5;
+   else if(di_Yaw < -1.5)
+	   di_Yaw = -1.5;	  //Saturierung des D-Anteils
+
+   aYaw = (pi_Yaw + (ii_Yaw)*0.1 + di_Yaw)*567; //Ausgang des inneren Reglers
+   
+   if (aYaw > 2000.F)
+	   aYaw = 2000.F;
+   else if(aYaw < -2000.F)
+	   aYaw = -2000.F;	  //Saturierung des Yaw-Anteils
+  	
+	/////////////////////////// Motorwerte setzen //////////////////////////////////////////  
+   if(inSchub > 0.1 && inSchub <=1)
+   {
+     Schub_Offset = 6000 * inSchub;
+	 aNick = 0.F;	
+	 aYaw = 0.F;
+
+     outMotor3 = Schub_Offset - aRoll + aYaw;
+     //outMotor1 = Schub_Offset + aNick - aYaw;
+     //outMotor4 = Schub_Offset - aNick - aYaw; 
+  	 outMotor1 = 0.F;
+ 	 outMotor4 = 0.F;
+     outMotor2 = Schub_Offset + aRoll + aYaw;
+   }
+   else 
+   {					
+  	 outMotor1 = 0.F;
+  	 outMotor2 = 0.F;
+ 	 outMotor3 = 0.F;
+ 	 outMotor4 = 0.F;
+   }						   
+	/////////////////////////// Motorwerte saturieren ////////////////////////////////////////// 
+
+   if (outMotor1 > 6800.F)
+	   outMotor1 = 6800.F;
+   else if(outMotor1 < 0.F)
+	   outMotor1 = 0.F;
+
+   if (outMotor2 > 6800.F)
+	   outMotor2 = 6800.F;
+   else if(outMotor2 < 0.F)
+	   outMotor2 = 0.F;
+
+   if (outMotor3 > 6800.F)
+	   outMotor3 = 6800.F;
+   else if(outMotor3 < 0.F)
+	   outMotor3 = 0.F;
+
+   if (outMotor4 > 6800.F)
+	   outMotor4 = 6800.F;
+   else if(outMotor4 < 0.F)
+	   outMotor4 = 0.F;	
+	   
+/*	if(outMotor2 == 900) dir = UP;
+    else if (outMotor2 == 3000) dir = DOWN;
+    if (dir == UP) outMotor2 += step;
+    else if (dir == DOWN) outMotor2 -= step;
+    if (dir == UP) outMotor3 += step;
+    else if (dir == DOWN) outMotor3 -= step;*/			  
+
+	/////////////////////////// Alte Werte merken ////////////////////////////////////////// 
+
+   v_Nick_tp1_alt = v_Nick_tp1;
+   ei_Nick_alt = ei_Nick;
+
+   v_Roll_tp1_alt = v_Roll_tp1;
+   ei_Roll_alt = ei_Roll;
+
+   v_Yaw_tp1_alt = v_Yaw_tp1;
+   ei_Yaw_alt = ei_Yaw;
+
+}
+/*
+ * Working area for Regelung
+ */
+static WORKING_AREA(RegelungThreadWorkingArea, 128);
+//int dennis=0; 
+/*
+ * Regelungsthread
+ */
+static msg_t Regelungsthread(void *arg) {
+ 
+  systime_t time = chTimeNow();     // Tnow
+  while (TRUE) {
+    time += MS2ST(5);            // Next deadline
+    
+	
+	Regelung();
+	
+	 //
+	//chThdSleepMilliseconds(10); /* Fixed interval.*/
+    chThdSleepUntil(time);
+  }
+}
 
 
 
@@ -203,27 +454,18 @@ void i2c_scanner1(void){
    uint8_t x = 0, txbuf[2],rxbuf[6];
    int32_t messages = 0;
 
-   chprintf((BaseChannel *)&SD2,"inside i2c1 scanner");
+   //chprintf((BaseChannel *)&SD2,"inside i2c1 scanner");
    for(x=0;x<128;x++){
 
       txbuf[0] = 0x00;
       txbuf[1] = 0x00;
 
        messages = i2cMasterTransmit(&I2CD1, x, txbuf, 2, rxbuf, 0);
-       if(messages == 0)chprintf((BaseChannel *)&SD2, "I2C1: Sensor is available on Address: 0x%x \r\n", x, messages);
+       //if(messages == 0)chprintf((BaseChannel *)&SD2, "I2C1: Sensor is available on Address: 0x%x \r\n", x, messages);
 	
       chThdSleepMilliseconds(1);
       }
 	 chThdSleepMilliseconds(500);
-}
-void readAcc(void)
-{
- uint8_t rxbuf[6], addr[1];
-  int32_t messages = 0;
-  addr[0] = 0x3B;
-	messages = i2cMasterTransmit(&I2CD1, 0x68, addr, 1, rxbuf, 6);
-	if(messages == 0) chprintf((BaseChannel *)&SD2, "Acc MPU6000: %d %d %d \r\n", (int16_t)((rxbuf[0]<<8)+rxbuf[1]),(int16_t)((rxbuf[2]<<8)+rxbuf[3]),(int16_t)((rxbuf[4]<<8)+rxbuf[5]));
-	 
 }
 
 // ================================================================
@@ -239,9 +481,9 @@ void setup_IMU()
     	mpu.setDMPEnabled(true);
         mpuIntStatus = mpu.getIntStatus();
         dmpReady = true;
-		chprintf((BaseChannel *)&SD2, "DMP Activated\r\n");
+		//chprintf((BaseChannel *)&SD2, "DMP Activated\r\n");
         packetSize = mpu.dmpGetFIFOPacketSize();
-		chprintf((BaseChannel *)&SD2, "FIFOPacketSize: %u\r\n",packetSize);
+		//chprintf((BaseChannel *)&SD2, "FIFOPacketSize: %u\r\n",packetSize);
     } 
 }
 
@@ -259,7 +501,7 @@ int main(void)
 	* - Kernel initialization, the main() function becomes a thread and the
 	*   RTOS is active.
 	*/
-	halInit();
+	halInit();	   
 	chSysInit();
 	I2CInitialize();
 	
@@ -282,7 +524,14 @@ int main(void)
 
 	setup_IMU();
 
-
+	outMotor2 = 900;
+	outMotor3 = 1100;
+	
+	//Regelungsthread anlegen
+	//Thread *tp = chThdCreateFromHeap(NULL, THD_WA_SIZE(128), NORMALPRIO+1, Regelungsthread, NULL);
+  //	if (tp == NULL)
+  //  	chSysHalt();    /* Memory exausted. */
+	chThdCreateStatic(RegelungThreadWorkingArea, sizeof(RegelungThreadWorkingArea), NORMALPRIO, Regelungsthread, NULL);
 	/*
 	* Enable Timer 4
 	*/
@@ -303,11 +552,11 @@ int main(void)
 	* pressed the test procedure is launched with output on the serial
 	* driver 2.
 	*/
+
 	while (TRUE) 
 	{
 		int8_t x, y, z;
-		enum {UP, DOWN};
-  		static int dir = UP, step = 5, width = 700; /* starts at .7ms, ends at 2.0ms */
+  		static int width1 = 700, width2 = 700,width3 = 700,width4 = 700; /* starts at .7ms, ends at 2.0ms */
 		//i2c_scanner1();
 
  		mpuIntStatus = mpu.getIntStatus();
@@ -339,18 +588,36 @@ int main(void)
 	        fifoCount -= packetSize;
 			mpu.dmpGetQuaternion(&q, fifoBuffer);
         	mpu.dmpGetEuler(euler, &q);
+
+
+
+			mpu.dmpGetGyro(gyroRate,fifoBuffer);
+			gyro_rate_float[0] = (float)gyroRate[0]/2147483648*2000*0.41;
+			gyro_rate_float[1] = (float)gyroRate[1]/2147483648*2000*0.41;
+			gyro_rate_float[2] = (float)gyroRate[2]/2147483648*2000*0.41;
+
+			
 			//chprintf((BaseChannel *)&SD2, "Angle: %d %d %d \r\n",(int16_t)(euler[0]*57.2957795),(int16_t)(euler[1]*57.2957795),(int16_t)(euler[2]*57.2957795));
 		}
 	
-    pwmEnableChannel(&PWMD5, 0, width);
-    pwmEnableChannel(&PWMD5, 1, width);
-    pwmEnableChannel(&PWMD5, 2, width);
-    pwmEnableChannel(&PWMD5, 3, width);
-    if(width == 900) dir = UP;
-    else if (width == 2000) dir = DOWN;
-    if (dir == UP) width += step;
-    else if (dir == DOWN) width -= step;
+    pwmEnableChannel(&PWMD5, 0, width1);
+    pwmEnableChannel(&PWMD5, 1, width2);
+    pwmEnableChannel(&PWMD5, 2, width3);
+    pwmEnableChannel(&PWMD5, 3, width4);
+	
+    /*if(outMotor2 == 900) dir = UP;
+    else if (outMotor2 == 3000) dir = DOWN;
+    if (dir == UP) outMotor2 += step;
+    else if (dir == DOWN) outMotor2 -= step;
+    if (dir == UP) outMotor3 += step;
+    else if (dir == DOWN) outMotor3 -= step;*/
+	
+   	//chprintf((BaseChannel *)&SD2, "G: %d %d %d L: %d %d %d\r\n",(int16_t)(gyro_rate_float[0]),(int16_t)(gyro_rate_float[1]),(int16_t)(gyro_rate_float[2]),(int16_t)euler[0],(int16_t)euler[1],(int16_t)euler[2]);
 
+	width1 = outMotor1/6800*1000+1000;
+	width2 = outMotor2/6800*1000+1000;
+	width3 = outMotor3/6800*1000+1000;
+	width4 = outMotor4/6800*1000+1000;
    // x = (int8_t)lis302dlReadRegister(&SPID1, LIS302DL_OUTX);
    // y = (int8_t)lis302dlReadRegister(&SPID1, LIS302DL_OUTY);
    // z = (int8_t)lis302dlReadRegister(&SPID1, LIS302DL_OUTZ);
