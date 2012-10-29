@@ -30,12 +30,10 @@
 #include "test.h"
 #include "lis302dl.h"
 #include "chprintf.h"
-#include "MPU6050_DMP6.cpp"
+#include "Lage.h"
 
 static void pwmpcb(PWMDriver *pwmp);
 
- float gyro_rate_float[3];
- float lage_delta[3];
 
  float inNickIstLage;
 float inNickIstV;
@@ -210,6 +208,7 @@ static const EXTConfig extcfg = {
 void Regelung(void)
 {
 	/// Werte übernehmen
+	update_IMU();
 
 	inSchub = float(RC_INPUT_CHANNELS[2] - 1100)/1000;
 	
@@ -217,13 +216,13 @@ void Regelung(void)
 	inRollSollLage = (float(RC_INPUT_CHANNELS[1]) - 1500)/1000;
 	inYawSollLage  = 0;
 	
-	inYawIstLage = euler[0];
-	inNickIstLage = euler[1];
-	inRollIstLage = euler[2];
+	inYawIstLage = getEuler_yaw();
+	inNickIstLage = getEuler_nick();
+	inRollIstLage = getEuler_roll();
 		 
-	inRollIstV = gyro_rate_float[0];
-	inNickIstV = gyro_rate_float[1];
-	inYawIstV = gyro_rate_float[2];
+	inRollIstV = getRate_roll();
+	inNickIstV = getRate_nick();
+	inYawIstV = getRate_yaw();
 
 	/////////////////////////// Nick-Regler berechnen //////////////////////////////////////////
    //äußerer Regler
@@ -468,25 +467,6 @@ void i2c_scanner1(void){
 	 chThdSleepMilliseconds(500);
 }
 
-// ================================================================
-// ===                      INITIAL SETUP                       ===
-// ================================================================
-
-void setup_IMU() 
-{
-    mpu.initialize();
-    devStatus = mpu.dmpInitialize();
-    if (devStatus == 0) 
-	{
-    	mpu.setDMPEnabled(true);
-        mpuIntStatus = mpu.getIntStatus();
-        dmpReady = true;
-		//chprintf((BaseChannel *)&SD2, "DMP Activated\r\n");
-        packetSize = mpu.dmpGetFIFOPacketSize();
-		//chprintf((BaseChannel *)&SD2, "FIFOPacketSize: %u\r\n",packetSize);
-    } 
-}
-
 
 /*
  * Application entry point.
@@ -555,73 +535,19 @@ int main(void)
 
 	while (TRUE) 
 	{
-		int8_t x, y, z;
   		static int width1 = 700, width2 = 700,width3 = 700,width4 = 700; /* starts at .7ms, ends at 2.0ms */
 		//i2c_scanner1();
+ 	
+    	pwmEnableChannel(&PWMD5, 0, width1);
+    	pwmEnableChannel(&PWMD5, 1, width2);
+    	pwmEnableChannel(&PWMD5, 2, width3);
+    	pwmEnableChannel(&PWMD5, 3, width4);
 
- 		mpuIntStatus = mpu.getIntStatus();
-		//chprintf((BaseChannel *)&SD2, "mpuIntStatus: 0x%x\r\n",mpuIntStatus);
+		width1 = outMotor1/6800*1000+1000;
+		width2 = outMotor2/6800*1000+1000;
+		width3 = outMotor3/6800*1000+1000;
+		width4 = outMotor4/6800*1000+1000;
 
-    	// get current FIFO count
-    	fifoCount = mpu.getFIFOCount();
-		//chprintf((BaseChannel *)&SD2, "fifoCount: %u\r\n",fifoCount);
-
-    	// check for overflow (this should never happen unless our code is too inefficient)
-    	if ((mpuIntStatus & 0x10) || fifoCount == 1024) 
-		{
-        	// reset so we can continue cleanly
-        	mpu.resetFIFO();
-			//chprintf((BaseChannel *)&SD2, "RESET\r\n",fifoCount);	
-
-    	// otherwise, check for DMP data ready interrupt (this should happen frequently)
-    	} 
-		else if (mpuIntStatus & 0x02) 
-		{
-	        // wait for correct available data length, should be a VERY short wait
-	        while (fifoCount < packetSize) fifoCount = mpu.getFIFOCount();
-	
-	        // read a packet from FIFO
-	        mpu.getFIFOBytes(fifoBuffer, packetSize);
-	        
-	        // track FIFO count here in case there is > 1 packet available
-	        // (this lets us immediately read more without waiting for an interrupt)
-	        fifoCount -= packetSize;
-			mpu.dmpGetQuaternion(&q, fifoBuffer);
-        	mpu.dmpGetEuler(euler, &q);
-
-
-
-			mpu.dmpGetGyro(gyroRate,fifoBuffer);
-			gyro_rate_float[0] = (float)gyroRate[0]/2147483648*2000*0.41;
-			gyro_rate_float[1] = (float)gyroRate[1]/2147483648*2000*0.41;
-			gyro_rate_float[2] = (float)gyroRate[2]/2147483648*2000*0.41;
-
-			
-			//chprintf((BaseChannel *)&SD2, "Angle: %d %d %d \r\n",(int16_t)(euler[0]*57.2957795),(int16_t)(euler[1]*57.2957795),(int16_t)(euler[2]*57.2957795));
-		}
-	
-    pwmEnableChannel(&PWMD5, 0, width1);
-    pwmEnableChannel(&PWMD5, 1, width2);
-    pwmEnableChannel(&PWMD5, 2, width3);
-    pwmEnableChannel(&PWMD5, 3, width4);
-	
-    /*if(outMotor2 == 900) dir = UP;
-    else if (outMotor2 == 3000) dir = DOWN;
-    if (dir == UP) outMotor2 += step;
-    else if (dir == DOWN) outMotor2 -= step;
-    if (dir == UP) outMotor3 += step;
-    else if (dir == DOWN) outMotor3 -= step;*/
-	
-   	//chprintf((BaseChannel *)&SD2, "G: %d %d %d L: %d %d %d\r\n",(int16_t)(gyro_rate_float[0]),(int16_t)(gyro_rate_float[1]),(int16_t)(gyro_rate_float[2]),(int16_t)euler[0],(int16_t)euler[1],(int16_t)euler[2]);
-
-	width1 = outMotor1/6800*1000+1000;
-	width2 = outMotor2/6800*1000+1000;
-	width3 = outMotor3/6800*1000+1000;
-	width4 = outMotor4/6800*1000+1000;
-   // x = (int8_t)lis302dlReadRegister(&SPID1, LIS302DL_OUTX);
-   // y = (int8_t)lis302dlReadRegister(&SPID1, LIS302DL_OUTY);
-   // z = (int8_t)lis302dlReadRegister(&SPID1, LIS302DL_OUTZ);
-   // chprintf((BaseChannel *)&SD2, "%d, %d, %d\r\n", x, y, z);
-    chThdSleepMilliseconds(10);
+	    chThdSleepMilliseconds(10);
   }
 }

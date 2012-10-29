@@ -1,0 +1,9 @@
+void dmpDataReady();
+void setup_IMU(); 
+void update_IMU();
+float getEuler_nick();
+float getEuler_roll();
+float getEuler_yaw();
+float getRate_nick();
+float getRate_roll();
+float getRate_yaw();

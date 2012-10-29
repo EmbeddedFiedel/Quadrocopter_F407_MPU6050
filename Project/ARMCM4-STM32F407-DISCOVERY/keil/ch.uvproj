@@ -346,7 +346,7 @@
               <MiscControls></MiscControls>
               <Define>__heap_base__=Image$$RW_IRAM1$$ZI$$Limit __heap_end__=Image$$RW_IRAM2$$Base</Define>
               <Undefine></Undefine>
-              <IncludePath>..\;..\..\..\os\kernel\include;..\..\..\os\ports\common\ARMCMx;..\..\..\os\ports\common\ARMCMx\CMSIS\include;..\..\..\os\ports\RVCT\ARMCMx;..\..\..\os\ports\RVCT\ARMCMx\STM32F4xx;..\..\..\os\hal\include;..\..\..\os\hal\platforms\STM32;..\..\..\os\hal\platforms\STM32\GPIOv2;..\..\..\os\hal\platforms\STM32F4xx;..\..\..\os\various;..\..\..\boards\ST_STM32F4_DISCOVERY;..\..\..\test;..\..\..\Quad\MPU6050\Examples\MPU6050_DMP6;..\..\..\Quad\MPU6050;..\..\..\Quad\I2Cdev;..\..\..\Quad\Regelung;..\..\..\Quad\Regelung</IncludePath>
+              <IncludePath>..\;..\..\..\os\kernel\include;..\..\..\os\ports\common\ARMCMx;..\..\..\os\ports\common\ARMCMx\CMSIS\include;..\..\..\os\ports\RVCT\ARMCMx;..\..\..\os\ports\RVCT\ARMCMx\STM32F4xx;..\..\..\os\hal\include;..\..\..\os\hal\platforms\STM32;..\..\..\os\hal\platforms\STM32\GPIOv2;..\..\..\os\hal\platforms\STM32F4xx;..\..\..\os\various;..\..\..\boards\ST_STM32F4_DISCOVERY;..\..\..\test;..\..\..\Quad\MPU6050\Examples\MPU6050_DMP6;..\..\..\Quad\MPU6050;..\..\..\Quad\I2Cdev;..\..\..\Quad\Regelung;..\..\..\Quad\Regelung;..\..\..\Quad\</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -720,6 +720,11 @@
               <FileName>I2Cdev.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\..\..\Quad\I2Cdev\I2Cdev.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Lage.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\..\Quad\Lage.cpp</FilePath>
             </File>
           </Files>
         </Group>

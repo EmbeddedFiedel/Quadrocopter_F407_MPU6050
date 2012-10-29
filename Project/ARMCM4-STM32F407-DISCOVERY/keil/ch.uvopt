@@ -302,7 +302,7 @@
 
   <Group>
     <GroupName>board</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <File>
@@ -313,8 +313,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>20</TopLine>
-      <CurrentLine>20</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\boards\ST_STM32F4_DISCOVERY\board.c</PathWithFileName>
       <FilenameWithoutPath>board.c</FilenameWithoutPath>
@@ -323,7 +323,7 @@
 
   <Group>
     <GroupName>port</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <File>
@@ -334,8 +334,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>78</TopLine>
-      <CurrentLine>78</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\ports\RVCT\ARMCMx\cstartup.s</PathWithFileName>
       <FilenameWithoutPath>cstartup.s</FilenameWithoutPath>
@@ -348,8 +348,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>107</TopLine>
-      <CurrentLine>110</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\ports\RVCT\ARMCMx\chcoreasm_v7m.s</PathWithFileName>
       <FilenameWithoutPath>chcoreasm_v7m.s</FilenameWithoutPath>
@@ -390,8 +390,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>336</TopLine>
-      <CurrentLine>342</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\ports\RVCT\ARMCMx\STM32F4xx\vectors.s</PathWithFileName>
       <FilenameWithoutPath>vectors.s</FilenameWithoutPath>
@@ -414,7 +414,7 @@
 
   <Group>
     <GroupName>kernel</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <File>
@@ -551,8 +551,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>60</TopLine>
-      <CurrentLine>60</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\kernel\src\chmsg.c</PathWithFileName>
       <FilenameWithoutPath>chmsg.c</FilenameWithoutPath>
@@ -579,8 +579,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>367</TopLine>
-      <CurrentLine>370</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\kernel\src\chqueues.c</PathWithFileName>
       <FilenameWithoutPath>chqueues.c</FilenameWithoutPath>
@@ -635,8 +635,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>94</TopLine>
-      <CurrentLine>94</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\kernel\src\chsys.c</PathWithFileName>
       <FilenameWithoutPath>chsys.c</FilenameWithoutPath>
@@ -649,8 +649,8 @@
       <Focus>0</Focus>
       <ColumnNumber>8</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>184</TopLine>
-      <CurrentLine>184</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\kernel\src\chthreads.c</PathWithFileName>
       <FilenameWithoutPath>chthreads.c</FilenameWithoutPath>
@@ -766,7 +766,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>17</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
@@ -915,8 +915,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>890</TopLine>
-      <CurrentLine>896</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\hal\platforms\STM32\i2c_lld.c</PathWithFileName>
       <FilenameWithoutPath>i2c_lld.c</FilenameWithoutPath>
@@ -1109,10 +1109,10 @@
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>11</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>112</TopLine>
-      <CurrentLine>127</CurrentLine>
+      <TopLine>202</TopLine>
+      <CurrentLine>211</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
@@ -1128,12 +1128,12 @@
       <GroupNumber>8</GroupNumber>
       <FileNumber>56</FileNumber>
       <FileType>1</FileType>
-      <tvExp>1</tvExp>
+      <tvExp>0</tvExp>
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>37</TopLine>
-      <CurrentLine>37</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\various\lis302dl.c</PathWithFileName>
       <FilenameWithoutPath>lis302dl.c</FilenameWithoutPath>
@@ -1146,8 +1146,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>79</TopLine>
-      <CurrentLine>79</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\various\chprintf.c</PathWithFileName>
       <FilenameWithoutPath>chprintf.c</FilenameWithoutPath>
@@ -1165,10 +1165,10 @@
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>47</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>106</TopLine>
-      <CurrentLine>112</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\Quad\MPU6050\MPU6050.cpp</PathWithFileName>
       <FilenameWithoutPath>MPU6050.cpp</FilenameWithoutPath>
@@ -1179,228 +1179,34 @@
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>10</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>239</TopLine>
-      <CurrentLine>245</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\Quad\I2Cdev\I2Cdev.cpp</PathWithFileName>
       <FilenameWithoutPath>I2Cdev.cpp</FilenameWithoutPath>
     </File>
+    <File>
+      <GroupNumber>9</GroupNumber>
+      <FileNumber>0</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <ColumnNumber>0</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>73</TopLine>
+      <CurrentLine>92</CurrentLine>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\Quad\Lage.cpp</PathWithFileName>
+      <FilenameWithoutPath>Lage.cpp</FilenameWithoutPath>
+    </File>
   </Group>
 
   <AlienFiles>
-    <PathWithFilename>C:\Users\Dennis\Documents\GitHub\Quadrocopter_F407_MPU6050\Quad\MPU6050\Examples\MPU6050_DMP6\MPU6050_DMP6.cpp</PathWithFilename>
-    <TopLine>116</TopLine>
-    <CurrentLine>122</CurrentLine>
-    <Constant>0</Constant>
-    <WindowPosition>
-      <length>0</length>
-      <flags>0</flags>
-      <showCmd>0</showCmd>
-      <MinPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MinPosition>
-      <MaxPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MaxPosition>
-      <NormalPosition>
-        <Top>0</Top>
-        <Left>0</Left>
-        <Right>0</Right>
-        <Bottom>0</Bottom>
-      </NormalPosition>
-    </WindowPosition>
-  </AlienFiles>
-
-  <AlienFiles>
-    <PathWithFilename>C:\Users\Dennis\Documents\GitHub\Quadrocopter_F407_MPU6050\Quad\MPU6050\MPU6050.h</PathWithFilename>
-    <TopLine>922</TopLine>
-    <CurrentLine>928</CurrentLine>
-    <Constant>0</Constant>
-    <WindowPosition>
-      <length>0</length>
-      <flags>0</flags>
-      <showCmd>0</showCmd>
-      <MinPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MinPosition>
-      <MaxPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MaxPosition>
-      <NormalPosition>
-        <Top>0</Top>
-        <Left>0</Left>
-        <Right>0</Right>
-        <Bottom>0</Bottom>
-      </NormalPosition>
-    </WindowPosition>
-  </AlienFiles>
-
-  <AlienFiles>
-    <PathWithFilename>C:\Users\Dennis\Documents\GitHub\Quadrocopter_F407_MPU6050\Project\ARMCM4-STM32F407-DISCOVERY\halconf.h</PathWithFilename>
-    <TopLine>311</TopLine>
-    <CurrentLine>313</CurrentLine>
-    <Constant>0</Constant>
-    <WindowPosition>
-      <length>0</length>
-      <flags>0</flags>
-      <showCmd>0</showCmd>
-      <MinPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MinPosition>
-      <MaxPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MaxPosition>
-      <NormalPosition>
-        <Top>0</Top>
-        <Left>0</Left>
-        <Right>0</Right>
-        <Bottom>0</Bottom>
-      </NormalPosition>
-    </WindowPosition>
-  </AlienFiles>
-
-  <AlienFiles>
-    <PathWithFilename>C:\Users\Dennis\Documents\GitHub\Quadrocopter_F407_MPU6050\Quad\Regelung\Regelung.c</PathWithFilename>
-    <TopLine>1</TopLine>
-    <CurrentLine>3</CurrentLine>
-    <Constant>0</Constant>
-    <WindowPosition>
-      <length>0</length>
-      <flags>0</flags>
-      <showCmd>0</showCmd>
-      <MinPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MinPosition>
-      <MaxPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MaxPosition>
-      <NormalPosition>
-        <Top>0</Top>
-        <Left>0</Left>
-        <Right>0</Right>
-        <Bottom>0</Bottom>
-      </NormalPosition>
-    </WindowPosition>
-  </AlienFiles>
-
-  <AlienFiles>
-    <PathWithFilename>C:\Users\Dennis\Documents\GitHub\Quadrocopter_F407_MPU6050\Quad\Regelung\Regelung.h</PathWithFilename>
-    <TopLine>1</TopLine>
-    <CurrentLine>6</CurrentLine>
-    <Constant>0</Constant>
-    <WindowPosition>
-      <length>0</length>
-      <flags>0</flags>
-      <showCmd>0</showCmd>
-      <MinPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MinPosition>
-      <MaxPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MaxPosition>
-      <NormalPosition>
-        <Top>0</Top>
-        <Left>0</Left>
-        <Right>0</Right>
-        <Bottom>0</Bottom>
-      </NormalPosition>
-    </WindowPosition>
-  </AlienFiles>
-
-  <AlienFiles>
-    <PathWithFilename>C:\Users\Dennis\Documents\GitHub\Quadrocopter_F407_MPU6050\Quad\I2Cdev\I2Cdev.h</PathWithFilename>
-    <TopLine>138</TopLine>
-    <CurrentLine>138</CurrentLine>
-    <Constant>0</Constant>
-    <WindowPosition>
-      <length>0</length>
-      <flags>0</flags>
-      <showCmd>0</showCmd>
-      <MinPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MinPosition>
-      <MaxPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MaxPosition>
-      <NormalPosition>
-        <Top>0</Top>
-        <Left>0</Left>
-        <Right>0</Right>
-        <Bottom>0</Bottom>
-      </NormalPosition>
-    </WindowPosition>
-  </AlienFiles>
-
-  <AlienFiles>
-    <PathWithFilename>C:\Users\Dennis\Documents\GitHub\Quadrocopter_F407_MPU6050\os\kernel\include\chmsg.h</PathWithFilename>
-    <TopLine>82</TopLine>
-    <CurrentLine>82</CurrentLine>
-    <Constant>0</Constant>
-    <WindowPosition>
-      <length>0</length>
-      <flags>0</flags>
-      <showCmd>0</showCmd>
-      <MinPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MinPosition>
-      <MaxPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MaxPosition>
-      <NormalPosition>
-        <Top>0</Top>
-        <Left>0</Left>
-        <Right>0</Right>
-        <Bottom>0</Bottom>
-      </NormalPosition>
-    </WindowPosition>
-  </AlienFiles>
-
-  <AlienFiles>
-    <PathWithFilename>C:\Users\Dennis\Documents\GitHub\Quadrocopter_F407_MPU6050\os\various\lis302dl.h</PathWithFilename>
-    <TopLine>65</TopLine>
-    <CurrentLine>71</CurrentLine>
-    <Constant>0</Constant>
-    <WindowPosition>
-      <length>0</length>
-      <flags>0</flags>
-      <showCmd>0</showCmd>
-      <MinPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MinPosition>
-      <MaxPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MaxPosition>
-      <NormalPosition>
-        <Top>0</Top>
-        <Left>0</Left>
-        <Right>0</Right>
-        <Bottom>0</Bottom>
-      </NormalPosition>
-    </WindowPosition>
-  </AlienFiles>
-
-  <AlienFiles>
-    <PathWithFilename>C:\Users\Dennis\Documents\GitHub\Quadrocopter_F407_MPU6050\Quad\MPU6050\MPU6050_9Axis_MotionApps41.cpp</PathWithFilename>
-    <TopLine>349</TopLine>
-    <CurrentLine>355</CurrentLine>
+    <PathWithFilename>D:\STM32F4\Quadrocopter_F407_MPU6050\Quad\MPU6050\MPU6050_9Axis_MotionApps41.cpp</PathWithFilename>
+    <TopLine>350</TopLine>
+    <CurrentLine>358</CurrentLine>
     <Constant>0</Constant>
     <WindowPosition>
       <length>0</length>
@@ -1428,145 +1234,25 @@
     <ActiveMDIGroup>0</ActiveMDIGroup>
     <MDIGroup>
       <Size>100</Size>
-      <ActiveTab>3</ActiveTab>
+      <ActiveTab>2</ActiveTab>
       <Documents>
         <Doc>
-          <Name>..\..\..\os\kernel\src\chsys.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>94</TopLine>
-          <CurrentLine>94</CurrentLine>
+          <Name>..\main.c</Name>
+          <ColumnNumber>11</ColumnNumber>
+          <TopLine>202</TopLine>
+          <CurrentLine>211</CurrentLine>
         </Doc>
         <Doc>
-          <Name>..\..\..\os\hal\platforms\STM32\i2c_lld.c</Name>
+          <Name>..\..\..\Quad\Lage.cpp</Name>
           <ColumnNumber>0</ColumnNumber>
-          <TopLine>890</TopLine>
-          <CurrentLine>896</CurrentLine>
+          <TopLine>73</TopLine>
+          <CurrentLine>92</CurrentLine>
         </Doc>
         <Doc>
           <Name>..\..\..\Quad\MPU6050\MPU6050_9Axis_MotionApps41.cpp</Name>
           <ColumnNumber>0</ColumnNumber>
-          <TopLine>349</TopLine>
-          <CurrentLine>355</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\main.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>112</TopLine>
-          <CurrentLine>127</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\..\..\os\kernel\src\chthreads.c</Name>
-          <ColumnNumber>8</ColumnNumber>
-          <TopLine>184</TopLine>
-          <CurrentLine>184</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\..\..\os\ports\RVCT\ARMCMx\STM32F4xx\vectors.s</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>336</TopLine>
-          <CurrentLine>342</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\..\..\os\ports\RVCT\ARMCMx\cstartup.s</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>78</TopLine>
-          <CurrentLine>78</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\..\..\os\various\chprintf.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>79</TopLine>
-          <CurrentLine>79</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\..\..\os\various\lis302dl.h</Name>
-          <ColumnNumber>22</ColumnNumber>
-          <TopLine>65</TopLine>
-          <CurrentLine>71</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\..\..\os\various\lis302dl.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>37</TopLine>
-          <CurrentLine>37</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\..\..\os\kernel\src\chmsg.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>60</TopLine>
-          <CurrentLine>60</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\..\..\os\kernel\include\chmsg.h</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>82</TopLine>
-          <CurrentLine>82</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\..\..\boards\ST_STM32F4_DISCOVERY\board.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>20</TopLine>
-          <CurrentLine>20</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\..\..\Quad\I2Cdev\I2Cdev.h</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>138</TopLine>
-          <CurrentLine>138</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>C:\Users\Dennis\Documents\GitHub\Quadrocopter_F407_MPU6050\Quad\Regelung\Regelung.h</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>1</TopLine>
-          <CurrentLine>6</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>C:\Users\Dennis\Documents\GitHub\Quadrocopter_F407_MPU6050\Quad\Regelung\Regelung.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>1</TopLine>
-          <CurrentLine>3</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\..\..\Quad\I2Cdev\I2Cdev.cpp</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>239</TopLine>
-          <CurrentLine>245</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\..\..\os\kernel\src\chqueues.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>367</TopLine>
-          <CurrentLine>370</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\halconf.h</Name>
-          <ColumnNumber>42</ColumnNumber>
-          <TopLine>311</TopLine>
-          <CurrentLine>313</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\..\..\os\ports\RVCT\ARMCMx\chcoreasm_v7m.s</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>107</TopLine>
-          <CurrentLine>110</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\..\..\Quad\MPU6050\MPU6050.cpp</Name>
-          <ColumnNumber>47</ColumnNumber>
-          <TopLine>106</TopLine>
-          <CurrentLine>112</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\..\..\Quad\MPU6050\MPU6050.h</Name>
-          <ColumnNumber>30</ColumnNumber>
-          <TopLine>922</TopLine>
-          <CurrentLine>928</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\..\..\Quad\MPU6050\Examples\MPU6050_DMP6\MPU6050_DMP6.cpp</Name>
-          <ColumnNumber>16</ColumnNumber>
-          <TopLine>116</TopLine>
-          <CurrentLine>122</CurrentLine>
+          <TopLine>350</TopLine>
+          <CurrentLine>358</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>

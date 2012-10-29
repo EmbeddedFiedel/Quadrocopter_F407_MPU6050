@@ -237,11 +237,12 @@ bool I2Cdev::writeBytes(uint8_t devAddr, uint8_t regAddr, uint8_t length, uint8_
 	 length_debug = length;
 	 data_debug = data;
 	 regAddr_debug = regAddr;
-devAddr_debug = devAddr;
+	devAddr_debug = devAddr;
 	 //	tx = (uint8_t*) malloc (length+1);
 	tx[0] = regAddr| (1<<7);
 	for(i=1; i<= length; i++) tx[i] = data[i-1];
 	i2cMasterTransmit(&I2CD1, devAddr, tx, length+1, rxbuf, 0);
+	return 1;
 }
 
 /** Write multiple words to a 16-bit device register.
@@ -254,6 +255,7 @@ devAddr_debug = devAddr;
 bool I2Cdev::writeWords(uint8_t devAddr, uint8_t regAddr, uint8_t length, uint16_t* data) 
 {
     writeBytes(devAddr, regAddr, length*2, (uint8_t*)data);
+	return 1;
 }
 
 /** Default timeout value for read operations.

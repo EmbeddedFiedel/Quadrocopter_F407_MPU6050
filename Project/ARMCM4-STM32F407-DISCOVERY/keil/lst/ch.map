@@ -375,24 +375,19 @@ Section Cross References
     testthd.o(.constdata) refers to testthd.o(.constdata) for testthd2
     testthd.o(.constdata) refers to testthd.o(.constdata) for testthd3
     testthd.o(.constdata) refers to testthd.o(.constdata) for testthd4
+    main.o(.text) refers to lage.o(.text) for update_IMU()
     main.o(.text) refers to f2d.o(x$fpl$f2d) for __aeabi_f2d
     main.o(.text) refers to dmul.o(x$fpl$dmul) for __aeabi_dmul
     main.o(.text) refers to daddsub_clz.o(x$fpl$dadd) for __aeabi_dadd
     main.o(.text) refers to daddsub_clz.o(x$fpl$dsub) for __aeabi_dsub
     main.o(.text) refers to d2f.o(x$fpl$d2f) for __aeabi_d2f
     main.o(.text) refers to main.o(.data) for .data
-    main.o(.text) refers to main.o(.bss) for .bss
     main.o(.text) refers to chthreads.o(.text) for chThdSleepUntil
     main.o(.text) refers to i2c.o(.text) for i2cInit
     main.o(.text) refers to pal_lld.o(.text) for _pal_lld_setgroupmode
     main.o(.text) refers to chvt.o(.bss) for vtlist
     main.o(.text) refers to main.o(.constdata) for .constdata
     main.o(.text) refers to i2c_lld.o(.bss) for I2CD1
-    main.o(.text) refers to mpu6050.o(.text) for MPU6050::reset()
-    main.o(.text) refers to i2cdev.o(.text) for I2Cdev::readByte(unsigned char, unsigned char, unsigned char*, unsigned short)
-    main.o(.text) refers to i2cdev.o(.data) for I2Cdev::readTimeout
-    main.o(.text) refers to atan2f.o(i.__hardfp_atan2f) for __hardfp_atan2f
-    main.o(.text) refers to asinf.o(i.__hardfp_asinf) for __hardfp_asinf
     main.o(.text) refers to hal.o(.text) for halInit
     main.o(.text) refers to chsys.o(.text) for chSysInit
     main.o(.text) refers to serial.o(.text) for sdStart
@@ -400,15 +395,10 @@ Section Cross References
     main.o(.text) refers to ext.o(.text) for extStart
     main.o(.text) refers to serial_lld.o(.bss) for SD2
     main.o(.text) refers to pwm_lld.o(.bss) for PWMD5
+    main.o(.text) refers to main.o(.bss) for .bss
     main.o(.text) refers to ext_lld.o(.data) for EXTD1
-    main.o(.text) refers to main.o(i.__ARM_common_memcpy4_6) for __ARM_common_memcpy4_6
-    main.o(.text) refers to main.o(i._ZN10Quaternion10getProductES_) for Quaternion::getProduct(Quaternion)
-    main.o(.text) refers to sqrtf.o(i.__hardfp_sqrtf) for __hardfp_sqrtf
-    main.o(.text) refers to atanf.o(i.__hardfp_atanf) for __hardfp_atanf
     main.o(.ARM.exidx) refers to main.o(.text) for .text
     main.o(.constdata) refers to main.o(.text) for rx_channel4_interrupt(EXTDriver*, unsigned)
-    main.o(.init_array) refers to main.o(.text) for __sti___6_main_c
-    main.o(.init_array) refers to init_aeabi.o(.text) for __cpp_initialize__aeabi_
     lis302dl.o(.text) refers to spi.o(.text) for spiSelect
     lis302dl.o(.text) refers to lis302dl.o(.data) for .data
     mpu6050.o(.text) refers to i2cdev.o(.text) for I2Cdev::writeBit(unsigned char, unsigned char, unsigned char, unsigned char)
@@ -421,6 +411,25 @@ Section Cross References
     i2cdev.o(.text) refers to i2cdev.o(.data) for .data
     i2cdev.o(.text) refers to i2cdev.o(.bss) for .bss
     i2cdev.o(.ARM.exidx) refers to i2cdev.o(.text) for .text
+    lage.o(.text) refers to mpu6050.o(.text) for MPU6050::reset()
+    lage.o(.text) refers to chthreads.o(.text) for chThdSleep
+    lage.o(.text) refers to i2cdev.o(.text) for I2Cdev::readByte(unsigned char, unsigned char, unsigned char*, unsigned short)
+    lage.o(.text) refers to lage.o(.data) for .data
+    lage.o(.text) refers to i2cdev.o(.data) for I2Cdev::readTimeout
+    lage.o(.text) refers to lage.o(.constdata) for .constdata
+    lage.o(.text) refers to atan2f.o(i.__hardfp_atan2f) for __hardfp_atan2f
+    lage.o(.text) refers to asinf.o(i.__hardfp_asinf) for __hardfp_asinf
+    lage.o(.text) refers to f2d.o(x$fpl$f2d) for __aeabi_f2d
+    lage.o(.text) refers to dmul.o(x$fpl$dmul) for __aeabi_dmul
+    lage.o(.text) refers to d2f.o(x$fpl$d2f) for __aeabi_d2f
+    lage.o(.text) refers to lage.o(.bss) for .bss
+    lage.o(.text) refers to lage.o(i.__ARM_common_memcpy4_6) for __ARM_common_memcpy4_6
+    lage.o(.text) refers to lage.o(i._ZN10Quaternion10getProductES_) for Quaternion::getProduct(Quaternion)
+    lage.o(.text) refers to sqrtf.o(i.__hardfp_sqrtf) for __hardfp_sqrtf
+    lage.o(.text) refers to atanf.o(i.__hardfp_atanf) for __hardfp_atanf
+    lage.o(.ARM.exidx) refers to lage.o(.text) for .text
+    lage.o(.init_array) refers to lage.o(.text) for __sti___8_Lage_cpp
+    lage.o(.init_array) refers to init_aeabi.o(.text) for __cpp_initialize__aeabi_
     free.o(.text) refers (Special) to hguard.o(.text) for __heap$guard
     free.o(.text) refers to rt_heap_descriptor_intlibspace.o(.text) for __rt_heap_descriptor
     free.o(.text) refers to heapstubs.o(.text) for __Heap_Free
@@ -699,8 +708,8 @@ Section Cross References
     libshutdown.o(.ARM.Collect$$libshutdown$$00000000) refers (Special) to libshutdown2.o(.ARM.Collect$$libshutdown$$00000009) for __rt_lib_shutdown_signal_1
     libshutdown.o(.ARM.Collect$$libshutdown$$00000000) refers (Special) to libshutdown2.o(.ARM.Collect$$libshutdown$$00000003) for __rt_lib_shutdown_stdio_1
     libshutdown.o(.ARM.Collect$$libshutdown$$00000000) refers (Special) to libshutdown2.o(.ARM.Collect$$libshutdown$$0000000B) for __rt_lib_shutdown_user_alloc_1
-    main.o(.ARM.exidx) refers to main.o(i._ZN10Quaternion10getProductES_) for i._ZN10Quaternion10getProductES_
-    main.o(.ARM.exidx) refers to main.o(i.__ARM_common_memcpy4_6) for i.__ARM_common_memcpy4_6
+    lage.o(.ARM.exidx) refers to lage.o(i._ZN10Quaternion10getProductES_) for i._ZN10Quaternion10getProductES_
+    lage.o(.ARM.exidx) refers to lage.o(i.__ARM_common_memcpy4_6) for i.__ARM_common_memcpy4_6
 
 
 ==============================================================================
@@ -853,8 +862,6 @@ Removing Unused input sections from the image.
     Removing testthd.o(.conststring), (16 bytes).
     Removing main.o(.emb_text), (8 bytes).
     Removing main.o(.ARM.exidx), (8 bytes).
-    Removing main.o(.bss), (12 bytes).
-    Removing main.o(.bss), (12 bytes).
     Removing main.o(.data), (4 bytes).
     Removing main.o(.data), (4 bytes).
     Removing main.o(.data), (4 bytes).
@@ -869,10 +876,11 @@ Removing Unused input sections from the image.
     Removing mpu6050.o(.ARM.exidx), (8 bytes).
     Removing i2cdev.o(.emb_text), (8 bytes).
     Removing i2cdev.o(.ARM.exidx), (8 bytes).
-    Removing main.o(.ARM.exidx), (8 bytes).
-    Removing main.o(.ARM.exidx), (8 bytes).
+    Removing lage.o(.ARM.exidx), (8 bytes).
+    Removing lage.o(.ARM.exidx), (8 bytes).
+    Removing lage.o(.ARM.exidx), (8 bytes).
 
-164 unused section(s) (total 21117 bytes) removed from the image.
+163 unused section(s) (total 21101 bytes) removed from the image.
 
 ==============================================================================
 
@@ -882,37 +890,37 @@ Image Symbol Table
 
     Symbol Name                              Value     Ov Type        Size  Object(Section)
 
-    ../../angel/boardlib.s                   0x00000000   Number         0  boardinit2.o ABSOLUTE
     ../../angel/boardlib.s                   0x00000000   Number         0  boardinit3.o ABSOLUTE
     ../../angel/boardlib.s                   0x00000000   Number         0  boardshut.o ABSOLUTE
     ../../angel/boardlib.s                   0x00000000   Number         0  boardinit1.o ABSOLUTE
+    ../../angel/boardlib.s                   0x00000000   Number         0  boardinit2.o ABSOLUTE
     ../../angel/dczerorl2.s                  0x00000000   Number         0  __dczerorl2.o ABSOLUTE
     ../../angel/handlers.s                   0x00000000   Number         0  __scatter_zi.o ABSOLUTE
+    ../../angel/kernel.s                     0x00000000   Number         0  rtentry4.o ABSOLUTE
     ../../angel/kernel.s                     0x00000000   Number         0  rtentry.o ABSOLUTE
     ../../angel/kernel.s                     0x00000000   Number         0  rtexit2.o ABSOLUTE
     ../../angel/kernel.s                     0x00000000   Number         0  rtentry5.o ABSOLUTE
-    ../../angel/kernel.s                     0x00000000   Number         0  rtentry4.o ABSOLUTE
-    ../../angel/kernel.s                     0x00000000   Number         0  rtentry2.o ABSOLUTE
     ../../angel/kernel.s                     0x00000000   Number         0  rtexit.o ABSOLUTE
+    ../../angel/kernel.s                     0x00000000   Number         0  rtentry2.o ABSOLUTE
+    ../../angel/rt.s                         0x00000000   Number         0  rt_errno_addr.o ABSOLUTE
     ../../angel/rt.s                         0x00000000   Number         0  rt_raise.o ABSOLUTE
     ../../angel/rt.s                         0x00000000   Number         0  rt_heap_descriptor_intlibspace.o ABSOLUTE
     ../../angel/rt.s                         0x00000000   Number         0  rt_heap_descriptor.o ABSOLUTE
     ../../angel/rt.s                         0x00000000   Number         0  rt_errno_addr_intlibspace.o ABSOLUTE
-    ../../angel/rt.s                         0x00000000   Number         0  rt_errno_addr.o ABSOLUTE
     ../../angel/scatter.s                    0x00000000   Number         0  __scatter.o ABSOLUTE
     ../../angel/startup.s                    0x00000000   Number         0  __main.o ABSOLUTE
     ../../angel/sys.s                        0x00000000   Number         0  mutex_dummy.o ABSOLUTE
-    ../../angel/sys.s                        0x00000000   Number         0  indicate_semi.o ABSOLUTE
     ../../angel/sys.s                        0x00000000   Number         0  use_no_semi.o ABSOLUTE
-    ../../angel/sys.s                        0x00000000   Number         0  sys_stackheap_outer.o ABSOLUTE
     ../../angel/sys.s                        0x00000000   Number         0  libspace.o ABSOLUTE
-    ../../angel/sysapp.c                     0x00000000   Number         0  sys_wrch.o ABSOLUTE
+    ../../angel/sys.s                        0x00000000   Number         0  sys_stackheap_outer.o ABSOLUTE
+    ../../angel/sys.s                        0x00000000   Number         0  indicate_semi.o ABSOLUTE
     ../../angel/sysapp.c                     0x00000000   Number         0  sys_exit.o ABSOLUTE
     ../../angel/sysapp.c                     0x00000000   Number         0  sys_command.o ABSOLUTE
+    ../../angel/sysapp.c                     0x00000000   Number         0  sys_wrch.o ABSOLUTE
     ../../arm_runtime.c                      0x00000000   Number         0  init_aeabi.o ABSOLUTE
     ../../arm_runtime.c                      0x00000000   Number         0  init_aeabi.o ABSOLUTE
-    ../../armsys.c                           0x00000000   Number         0  _get_argv.o ABSOLUTE
     ../../armsys.c                           0x00000000   Number         0  _get_argv_nomalloc.o ABSOLUTE
+    ../../armsys.c                           0x00000000   Number         0  _get_argv.o ABSOLUTE
     ../../armsys.c                           0x00000000   Number         0  no_argv.o ABSOLUTE
     ../../armsys.c                           0x00000000   Number         0  argv_veneer.o ABSOLUTE
     ../../armsys.c                           0x00000000   Number         0  argv_veneer.o ABSOLUTE
@@ -934,51 +942,51 @@ Image Symbol Table
     ../../fpinit.s                           0x00000000   Number         0  fpinit.o ABSOLUTE
     ../../fretinf.s                          0x00000000   Number         0  fretinf.o ABSOLUTE
     ../../funder.c                           0x00000000   Number         0  funder.o ABSOLUTE
-    ../../heap1.c                            0x00000000   Number         0  h1_init.o ABSOLUTE
-    ../../heap1.c                            0x00000000   Number         0  h1_extend.o ABSOLUTE
-    ../../heap1.c                            0x00000000   Number         0  h1_free.o ABSOLUTE
     ../../heap1.c                            0x00000000   Number         0  h1_extend_mt.o ABSOLUTE
     ../../heap1.c                            0x00000000   Number         0  h1_init_mt.o ABSOLUTE
-    ../../heap1.c                            0x00000000   Number         0  h1_alloc_mt.o ABSOLUTE
-    ../../heap1.c                            0x00000000   Number         0  h1_alloc.o ABSOLUTE
-    ../../heap1.c                            0x00000000   Number         0  h1_free_mt.o ABSOLUTE
-    ../../heap1.c                            0x00000000   Number         0  h1_final.o ABSOLUTE
     ../../heap1.c                            0x00000000   Number         0  h1_final_mt.o ABSOLUTE
-    ../../heap2.c                            0x00000000   Number         0  heap2.o ABSOLUTE
-    ../../heap2.c                            0x00000000   Number         0  heap2mt.o ABSOLUTE
+    ../../heap1.c                            0x00000000   Number         0  h1_alloc_mt.o ABSOLUTE
+    ../../heap1.c                            0x00000000   Number         0  h1_final.o ABSOLUTE
+    ../../heap1.c                            0x00000000   Number         0  h1_init.o ABSOLUTE
+    ../../heap1.c                            0x00000000   Number         0  h1_alloc.o ABSOLUTE
+    ../../heap1.c                            0x00000000   Number         0  h1_free.o ABSOLUTE
+    ../../heap1.c                            0x00000000   Number         0  h1_free_mt.o ABSOLUTE
+    ../../heap1.c                            0x00000000   Number         0  h1_extend.o ABSOLUTE
     ../../heap2.c                            0x00000000   Number         0  fdtree.o ABSOLUTE
-    ../../heapalloc.c                        0x00000000   Number         0  maybetermalloc1.o ABSOLUTE
-    ../../heapalloc.c                        0x00000000   Number         0  maybetermalloc1.o ABSOLUTE
+    ../../heap2.c                            0x00000000   Number         0  heap2mt.o ABSOLUTE
+    ../../heap2.c                            0x00000000   Number         0  heap2.o ABSOLUTE
     ../../heapalloc.c                        0x00000000   Number         0  maybetermalloc2.o ABSOLUTE
-    ../../heapalloc.c                        0x00000000   Number         0  free.o ABSOLUTE
     ../../heapalloc.c                        0x00000000   Number         0  hrguard.o ABSOLUTE
-    ../../heapalloc.c                        0x00000000   Number         0  maybetermalloc2.o ABSOLUTE
+    ../../heapalloc.c                        0x00000000   Number         0  term_alloc.o ABSOLUTE
+    ../../heapalloc.c                        0x00000000   Number         0  free.o ABSOLUTE
+    ../../heapalloc.c                        0x00000000   Number         0  maybetermalloc1.o ABSOLUTE
+    ../../heapalloc.c                        0x00000000   Number         0  maybetermalloc1.o ABSOLUTE
     ../../heapalloc.c                        0x00000000   Number         0  heapstubs.o ABSOLUTE
     ../../heapalloc.c                        0x00000000   Number         0  malloc.o ABSOLUTE
     ../../heapalloc.c                        0x00000000   Number         0  init_alloc.o ABSOLUTE
     ../../heapalloc.c                        0x00000000   Number         0  hguard.o ABSOLUTE
-    ../../heapalloc.c                        0x00000000   Number         0  term_alloc.o ABSOLUTE
-    ../../heapaux.c                          0x00000000   Number         0  heapauxi.o ABSOLUTE
+    ../../heapalloc.c                        0x00000000   Number         0  maybetermalloc2.o ABSOLUTE
     ../../heapaux.c                          0x00000000   Number         0  heapauxa.o ABSOLUTE
-    ../../libinit.s                          0x00000000   Number         0  libshutdown2.o ABSOLUTE
+    ../../heapaux.c                          0x00000000   Number         0  heapauxi.o ABSOLUTE
     ../../libinit.s                          0x00000000   Number         0  libshutdown.o ABSOLUTE
+    ../../libinit.s                          0x00000000   Number         0  libshutdown2.o ABSOLUTE
     ../../libinit.s                          0x00000000   Number         0  libinit2.o ABSOLUTE
     ../../libinit.s                          0x00000000   Number         0  libinit.o ABSOLUTE
     ../../memcpset.s                         0x00000000   Number         0  rt_memcpy_w.o ABSOLUTE
-    ../../signal.c                           0x00000000   Number         0  defsig_rtred_inner.o ABSOLUTE
-    ../../signal.c                           0x00000000   Number         0  defsig_abrt_inner.o ABSOLUTE
-    ../../signal.c                           0x00000000   Number         0  defsig_fpe_inner.o ABSOLUTE
     ../../signal.c                           0x00000000   Number         0  defsig_general.o ABSOLUTE
-    ../../signal.c                           0x00000000   Number         0  defsig_rtmem_outer.o ABSOLUTE
-    ../../signal.c                           0x00000000   Number         0  __raise.o ABSOLUTE
-    ../../signal.c                           0x00000000   Number         0  defsig_stak_inner.o ABSOLUTE
-    ../../signal.c                           0x00000000   Number         0  defsig_pvfn_inner.o ABSOLUTE
-    ../../signal.c                           0x00000000   Number         0  defsig_rtmem_inner.o ABSOLUTE
+    ../../signal.c                           0x00000000   Number         0  defsig_fpe_inner.o ABSOLUTE
     ../../signal.c                           0x00000000   Number         0  defsig_exit.o ABSOLUTE
+    ../../signal.c                           0x00000000   Number         0  defsig_rtred_inner.o ABSOLUTE
     ../../signal.c                           0x00000000   Number         0  defsig_rtmem_formal.o ABSOLUTE
+    ../../signal.c                           0x00000000   Number         0  defsig_rtmem_outer.o ABSOLUTE
+    ../../signal.c                           0x00000000   Number         0  defsig_abrt_inner.o ABSOLUTE
     ../../signal.c                           0x00000000   Number         0  defsig_cppl_inner.o ABSOLUTE
+    ../../signal.c                           0x00000000   Number         0  defsig_stak_inner.o ABSOLUTE
+    ../../signal.c                           0x00000000   Number         0  defsig_rtmem_inner.o ABSOLUTE
     ../../signal.c                           0x00000000   Number         0  defsig_segv_inner.o ABSOLUTE
     ../../signal.c                           0x00000000   Number         0  defsig_other.o ABSOLUTE
+    ../../signal.c                           0x00000000   Number         0  __raise.o ABSOLUTE
+    ../../signal.c                           0x00000000   Number         0  defsig_pvfn_inner.o ABSOLUTE
     ../../signal.s                           0x00000000   Number         0  defsig.o ABSOLUTE
     ../../sqrtf.c                            0x00000000   Number         0  sqrtf_x.o ABSOLUTE
     ../../sqrtf.c                            0x00000000   Number         0  sqrtf.o ABSOLUTE
@@ -986,6 +994,7 @@ Image Symbol Table
     ../../string.c                           0x00000000   Number         0  memcmp.o ABSOLUTE
     ../../usenofp.s                          0x00000000   Number         0  usenofp.o ABSOLUTE
     ..\..\..\Quad\I2Cdev\I2Cdev.cpp          0x00000000   Number         0  i2cdev.o ABSOLUTE
+    ..\..\..\Quad\Lage.cpp                   0x00000000   Number         0  lage.o ABSOLUTE
     ..\..\..\Quad\MPU6050\MPU6050.cpp        0x00000000   Number         0  mpu6050.o ABSOLUTE
     ..\..\..\boards\ST_STM32F4_DISCOVERY\board.c 0x00000000   Number         0  board.o ABSOLUTE
     ..\..\..\os\hal\platforms\STM32F4xx\adc_lld.c 0x00000000   Number         0  adc_lld.o ABSOLUTE
@@ -1172,66 +1181,68 @@ Image Symbol Table
     i2c_lld_serve_tx_end_irq                 0x080033b5   Thumb Code    62  i2c_lld.o(.text)
     i2c_lld_abort_operation                  0x08003919   Thumb Code    90  i2c_lld.o(.text)
     .text                                    0x08003980   Section        0  main.o(.text)
-    Regelungsthread(void*)                   0x08004169   Thumb Code    18  main.o(.text)
-    __sti___6_main_c                         0x08005355   Thumb Code    76  main.o(.text)
-    .text                                    0x080053b0   Section        0  mpu6050.o(.text)
-    .text                                    0x08006ea8   Section        0  i2cdev.o(.text)
-    .text                                    0x0800710c   Section        0  h1_free.o(.text)
-    .text                                    0x0800715a   Section        0  memcmp.o(.text)
-    .text                                    0x080071b2   Section        0  heapauxi.o(.text)
-    .text                                    0x080071b8   Section        0  init_aeabi.o(.text)
-    .text                                    0x080071dc   Section        8  rt_heap_descriptor_intlibspace.o(.text)
-    .text                                    0x080071e4   Section        0  _rserrno.o(.text)
-    .text                                    0x080071fc   Section        8  rt_errno_addr_intlibspace.o(.text)
-    .text                                    0x08007204   Section        0  exit.o(.text)
-    .text                                    0x08007210   Section        0  sys_exit.o(.text)
-    .text                                    0x0800721c   Section        2  use_no_semi.o(.text)
-    .text                                    0x0800721e   Section        0  indicate_semi.o(.text)
-    i._ZN10Quaternion10getProductES_         0x0800721e   Section        0  main.o(i._ZN10Quaternion10getProductES_)
-    i.__ARM_common_memcpy4_6                 0x08007290   Section        0  main.o(i.__ARM_common_memcpy4_6)
-    i.__ARM_fpclassifyf                      0x0800729a   Section        0  fpclassifyf.o(i.__ARM_fpclassifyf)
-    i.__hardfp_asinf                         0x080072c0   Section        0  asinf.o(i.__hardfp_asinf)
-    i.__hardfp_atan2f                        0x080073e4   Section        0  atan2f.o(i.__hardfp_atan2f)
-    i.__hardfp_atanf                         0x0800762c   Section        0  atanf.o(i.__hardfp_atanf)
-    i.__hardfp_sqrtf                         0x08007790   Section        0  sqrtf.o(i.__hardfp_sqrtf)
-    i.__mathlib_flt_underflow                0x080077cc   Section        0  funder.o(i.__mathlib_flt_underflow)
-    i.sqrtf                                  0x080077dc   Section        0  sqrtf.o(i.sqrtf)
-    x$fpl$d2f                                0x0800781c   Section       98  d2f.o(x$fpl$d2f)
-    $v0                                      0x0800781c   Number         0  d2f.o(x$fpl$d2f)
-    x$fpl$dadd                               0x08007880   Section      336  daddsub_clz.o(x$fpl$dadd)
-    $v0                                      0x08007880   Number         0  daddsub_clz.o(x$fpl$dadd)
-    _dadd1                                   0x08007891   Thumb Code     0  daddsub_clz.o(x$fpl$dadd)
-    x$fpl$dmul                               0x080079d0   Section      340  dmul.o(x$fpl$dmul)
-    $v0                                      0x080079d0   Number         0  dmul.o(x$fpl$dmul)
-    x$fpl$dnaninf                            0x08007b24   Section      156  dnaninf.o(x$fpl$dnaninf)
-    $v0                                      0x08007b24   Number         0  dnaninf.o(x$fpl$dnaninf)
-    x$fpl$dretinf                            0x08007bc0   Section       12  dretinf.o(x$fpl$dretinf)
-    $v0                                      0x08007bc0   Number         0  dretinf.o(x$fpl$dretinf)
-    x$fpl$dsub                               0x08007bcc   Section      468  daddsub_clz.o(x$fpl$dsub)
-    $v0                                      0x08007bcc   Number         0  daddsub_clz.o(x$fpl$dsub)
-    _dsub1                                   0x08007bdd   Thumb Code     0  daddsub_clz.o(x$fpl$dsub)
-    x$fpl$f2d                                0x08007da0   Section       86  f2d.o(x$fpl$f2d)
-    $v0                                      0x08007da0   Number         0  f2d.o(x$fpl$f2d)
-    x$fpl$fnaninf                            0x08007df6   Section      140  fnaninf.o(x$fpl$fnaninf)
-    $v0                                      0x08007df6   Number         0  fnaninf.o(x$fpl$fnaninf)
-    x$fpl$fpinit                             0x08007e82   Section       10  fpinit.o(x$fpl$fpinit)
-    $v0                                      0x08007e82   Number         0  fpinit.o(x$fpl$fpinit)
-    x$fpl$fretinf                            0x08007e8c   Section       10  fretinf.o(x$fpl$fretinf)
-    $v0                                      0x08007e8c   Number         0  fretinf.o(x$fpl$fretinf)
-    x$fpl$usenofp                            0x08007e96   Section        0  usenofp.o(x$fpl$usenofp)
-    .constdata                               0x08007e98   Section      252  board.o(.constdata)
-    .constdata                               0x08007f94   Section       36  serial.o(.constdata)
-    vmt                                      0x08007f94   Data          36  serial.o(.constdata)
-    .constdata                               0x08007fb8   Section       12  serial_lld.o(.constdata)
-    default_config                           0x08007fb8   Data          12  serial_lld.o(.constdata)
-    .constdata                               0x08007fc4   Section      192  stm32_dma.o(.constdata)
-    .constdata                               0x08008084   Section     2540  main.o(.constdata)
-    dmpMemory                                0x08008084   Data        1962  main.o(.constdata)
-    dmpConfig                                0x0800882e   Data         232  main.o(.constdata)
-    dmpUpdates                               0x08008916   Data         140  main.o(.constdata)
-    extcfg                                   0x080089a4   Data         192  main.o(.constdata)
-    i2cfg1                                   0x08008a64   Data          12  main.o(.constdata)
-    .init_array                              0x08008a90   Section        4  main.o(.init_array)
+    Regelungsthread(void*)                   0x08004195   Thumb Code    18  main.o(.text)
+    .text                                    0x0800446c   Section        0  mpu6050.o(.text)
+    .text                                    0x08005f64   Section        0  i2cdev.o(.text)
+    .text                                    0x080061d8   Section        0  lage.o(.text)
+    __sti___8_Lage_cpp                       0x08007091   Thumb Code    36  lage.o(.text)
+    .text                                    0x080070c4   Section        0  h1_free.o(.text)
+    .text                                    0x08007112   Section        0  memcmp.o(.text)
+    .text                                    0x0800716a   Section        0  heapauxi.o(.text)
+    .text                                    0x08007170   Section        0  init_aeabi.o(.text)
+    .text                                    0x08007194   Section        8  rt_heap_descriptor_intlibspace.o(.text)
+    .text                                    0x0800719c   Section        0  _rserrno.o(.text)
+    .text                                    0x080071b4   Section        8  rt_errno_addr_intlibspace.o(.text)
+    .text                                    0x080071bc   Section        0  exit.o(.text)
+    .text                                    0x080071c8   Section        0  sys_exit.o(.text)
+    .text                                    0x080071d4   Section        2  use_no_semi.o(.text)
+    .text                                    0x080071d6   Section        0  indicate_semi.o(.text)
+    i._ZN10Quaternion10getProductES_         0x080071d6   Section        0  lage.o(i._ZN10Quaternion10getProductES_)
+    i.__ARM_common_memcpy4_6                 0x08007248   Section        0  lage.o(i.__ARM_common_memcpy4_6)
+    i.__ARM_fpclassifyf                      0x08007252   Section        0  fpclassifyf.o(i.__ARM_fpclassifyf)
+    i.__hardfp_asinf                         0x08007278   Section        0  asinf.o(i.__hardfp_asinf)
+    i.__hardfp_atan2f                        0x0800739c   Section        0  atan2f.o(i.__hardfp_atan2f)
+    i.__hardfp_atanf                         0x080075e4   Section        0  atanf.o(i.__hardfp_atanf)
+    i.__hardfp_sqrtf                         0x08007748   Section        0  sqrtf.o(i.__hardfp_sqrtf)
+    i.__mathlib_flt_underflow                0x08007784   Section        0  funder.o(i.__mathlib_flt_underflow)
+    i.sqrtf                                  0x08007794   Section        0  sqrtf.o(i.sqrtf)
+    x$fpl$d2f                                0x080077d4   Section       98  d2f.o(x$fpl$d2f)
+    $v0                                      0x080077d4   Number         0  d2f.o(x$fpl$d2f)
+    x$fpl$dadd                               0x08007838   Section      336  daddsub_clz.o(x$fpl$dadd)
+    $v0                                      0x08007838   Number         0  daddsub_clz.o(x$fpl$dadd)
+    _dadd1                                   0x08007849   Thumb Code     0  daddsub_clz.o(x$fpl$dadd)
+    x$fpl$dmul                               0x08007988   Section      340  dmul.o(x$fpl$dmul)
+    $v0                                      0x08007988   Number         0  dmul.o(x$fpl$dmul)
+    x$fpl$dnaninf                            0x08007adc   Section      156  dnaninf.o(x$fpl$dnaninf)
+    $v0                                      0x08007adc   Number         0  dnaninf.o(x$fpl$dnaninf)
+    x$fpl$dretinf                            0x08007b78   Section       12  dretinf.o(x$fpl$dretinf)
+    $v0                                      0x08007b78   Number         0  dretinf.o(x$fpl$dretinf)
+    x$fpl$dsub                               0x08007b84   Section      468  daddsub_clz.o(x$fpl$dsub)
+    $v0                                      0x08007b84   Number         0  daddsub_clz.o(x$fpl$dsub)
+    _dsub1                                   0x08007b95   Thumb Code     0  daddsub_clz.o(x$fpl$dsub)
+    x$fpl$f2d                                0x08007d58   Section       86  f2d.o(x$fpl$f2d)
+    $v0                                      0x08007d58   Number         0  f2d.o(x$fpl$f2d)
+    x$fpl$fnaninf                            0x08007dae   Section      140  fnaninf.o(x$fpl$fnaninf)
+    $v0                                      0x08007dae   Number         0  fnaninf.o(x$fpl$fnaninf)
+    x$fpl$fpinit                             0x08007e3a   Section       10  fpinit.o(x$fpl$fpinit)
+    $v0                                      0x08007e3a   Number         0  fpinit.o(x$fpl$fpinit)
+    x$fpl$fretinf                            0x08007e44   Section       10  fretinf.o(x$fpl$fretinf)
+    $v0                                      0x08007e44   Number         0  fretinf.o(x$fpl$fretinf)
+    x$fpl$usenofp                            0x08007e4e   Section        0  usenofp.o(x$fpl$usenofp)
+    .constdata                               0x08007e50   Section      252  board.o(.constdata)
+    .constdata                               0x08007f4c   Section       36  serial.o(.constdata)
+    vmt                                      0x08007f4c   Data          36  serial.o(.constdata)
+    .constdata                               0x08007f70   Section       12  serial_lld.o(.constdata)
+    default_config                           0x08007f70   Data          12  serial_lld.o(.constdata)
+    .constdata                               0x08007f7c   Section      192  stm32_dma.o(.constdata)
+    .constdata                               0x0800803c   Section      204  main.o(.constdata)
+    extcfg                                   0x0800803c   Data         192  main.o(.constdata)
+    i2cfg1                                   0x080080fc   Data          12  main.o(.constdata)
+    .constdata                               0x08008108   Section     2334  lage.o(.constdata)
+    dmpMemory                                0x08008108   Data        1962  lage.o(.constdata)
+    dmpConfig                                0x080088b2   Data         232  lage.o(.constdata)
+    dmpUpdates                               0x0800899a   Data         140  lage.o(.constdata)
+    .init_array                              0x08008a48   Section        4  lage.o(.init_array)
     .data                                    0x20000000   Section        8  chmemcore.o(.data)
     nextmem                                  0x20000000   Data           4  chmemcore.o(.data)
     endmem                                   0x20000004   Data           4  chmemcore.o(.data)
@@ -1241,35 +1252,37 @@ Image Symbol Table
     dummyrx                                  0x20000012   Data           2  spi_lld.o(.data)
     .data                                    0x20000014   Section        4  stm32_dma.o(.data)
     dma_streams_mask                         0x20000014   Data           4  stm32_dma.o(.data)
-    .data                                    0x20000018   Section      296  main.o(.data)
-    width1                                   0x200000a0   Data           4  main.o(.data)
-    width2                                   0x200000a4   Data           4  main.o(.data)
-    width3                                   0x200000a8   Data           4  main.o(.data)
-    width4                                   0x200000ac   Data           4  main.o(.data)
-    pwmcfg_esc                               0x20000110   Data          48  main.o(.data)
-    .data                                    0x20000140   Section       16  i2cdev.o(.data)
-    .bss                                     0x20000150   Section       32  chheap.o(.bss)
-    default_heap                             0x20000150   Data          32  chheap.o(.bss)
-    .bss                                     0x20000170   Section       32  chschd.o(.bss)
-    .bss                                     0x20000190   Section      264  chsys.o(.bss)
-    mainthread                               0x20000190   Data          72  chsys.o(.bss)
-    .bss                                     0x20000298   Section       16  chvt.o(.bss)
-    .bss                                     0x200002a8   Section      156  adc_lld.o(.bss)
-    .bss                                     0x20000344   Section       40  pwm_lld.o(.bss)
-    .bss                                     0x2000036c   Section      116  serial_lld.o(.bss)
-    .bss                                     0x200003e0   Section       96  spi_lld.o(.bss)
-    .bss                                     0x20000440   Section      128  stm32_dma.o(.bss)
-    dma_isr_redir                            0x20000440   Data         128  stm32_dma.o(.bss)
-    .bss                                     0x200004c0   Section       52  i2c_lld.o(.bss)
-    .bss                                     0x200004f8   Section      456  main.o(.bss)
-    RegelungThreadWorkingArea                0x20000590   Data         304  main.o(.bss)
-    .bss                                     0x200006c0   Section      256  i2cdev.o(.bss)
-    .bss                                     0x200007c0   Section       96  libspace.o(.bss)
-    CSTACK                                   0x20000820   Section     1024  cstartup.o(CSTACK)
-    proc_stack_mem                           0x20000820   Data        1024  cstartup.o(CSTACK)
-    HEAP                                     0x20000c20   Section     1024  cstartup.o(HEAP)
-    Heap_Mem                                 0x20000c20   Data        1024  cstartup.o(HEAP)
-    MSTACK                                   0x20001020   Section     1024  cstartup.o(MSTACK)
+    .data                                    0x20000018   Section      268  main.o(.data)
+    width1                                   0x20000098   Data           4  main.o(.data)
+    width2                                   0x2000009c   Data           4  main.o(.data)
+    width3                                   0x200000a0   Data           4  main.o(.data)
+    width4                                   0x200000a4   Data           4  main.o(.data)
+    pwmcfg_esc                               0x200000f4   Data          48  main.o(.data)
+    .data                                    0x20000124   Section       16  i2cdev.o(.data)
+    .data                                    0x20000134   Section       10  lage.o(.data)
+    .bss                                     0x20000140   Section       32  chheap.o(.bss)
+    default_heap                             0x20000140   Data          32  chheap.o(.bss)
+    .bss                                     0x20000160   Section       32  chschd.o(.bss)
+    .bss                                     0x20000180   Section      264  chsys.o(.bss)
+    mainthread                               0x20000180   Data          72  chsys.o(.bss)
+    .bss                                     0x20000288   Section       16  chvt.o(.bss)
+    .bss                                     0x20000298   Section      156  adc_lld.o(.bss)
+    .bss                                     0x20000334   Section       40  pwm_lld.o(.bss)
+    .bss                                     0x2000035c   Section      116  serial_lld.o(.bss)
+    .bss                                     0x200003d0   Section       96  spi_lld.o(.bss)
+    .bss                                     0x20000430   Section      128  stm32_dma.o(.bss)
+    dma_isr_redir                            0x20000430   Data         128  stm32_dma.o(.bss)
+    .bss                                     0x200004b0   Section       52  i2c_lld.o(.bss)
+    .bss                                     0x200004e8   Section      304  main.o(.bss)
+    RegelungThreadWorkingArea                0x200004e8   Data         304  main.o(.bss)
+    .bss                                     0x20000618   Section      256  i2cdev.o(.bss)
+    .bss                                     0x20000718   Section      136  lage.o(.bss)
+    .bss                                     0x200007a0   Section       96  libspace.o(.bss)
+    CSTACK                                   0x20000800   Section     1024  cstartup.o(CSTACK)
+    proc_stack_mem                           0x20000800   Data        1024  cstartup.o(CSTACK)
+    HEAP                                     0x20000c00   Section     1024  cstartup.o(HEAP)
+    Heap_Mem                                 0x20000c00   Data        1024  cstartup.o(HEAP)
+    MSTACK                                   0x20001000   Section     1024  cstartup.o(MSTACK)
 
     Global Symbols
 
@@ -1643,456 +1656,459 @@ Image Symbol Table
     i2c_lld_stop                             0x08003731   Thumb Code    62  i2c_lld.o(.text)
     i2c_lld_master_receive_timeout           0x0800376f   Thumb Code   230  i2c_lld.o(.text)
     i2c_lld_master_transmit_timeout          0x08003855   Thumb Code   196  i2c_lld.o(.text)
-    dmpDataReady()                           0x08003981   Thumb Code     8  main.o(.text)
-    rx_channel1_interrupt(EXTDriver*, unsigned) 0x08003989   Thumb Code    56  main.o(.text)
-    rx_channel2_interrupt(EXTDriver*, unsigned) 0x080039c1   Thumb Code    56  main.o(.text)
-    rx_channel3_interrupt(EXTDriver*, unsigned) 0x080039f9   Thumb Code    56  main.o(.text)
-    rx_channel4_interrupt(EXTDriver*, unsigned) 0x08003a31   Thumb Code    56  main.o(.text)
-    Regelung()                               0x08003a69   Thumb Code  1792  main.o(.text)
-    I2CInitialize()                          0x0800417b   Thumb Code    50  main.o(.text)
-    i2c_scanner1()                           0x080041ad   Thumb Code   168  main.o(.text)
-    MPU6050::dmpGetFIFOPacketSize()          0x08004255   Thumb Code     4  main.o(.text)
-    MPU6050::dmpInitialize()                 0x08004259   Thumb Code  1768  main.o(.text)
-    setup_IMU()                              0x08004941   Thumb Code    50  main.o(.text)
-    MPU6050::dmpGetGyro(int*, const unsigned char*) 0x08004973   Thumb Code    80  main.o(.text)
-    MPU6050::dmpGetEuler(float*, Quaternion*) 0x080049c3   Thumb Code   178  main.o(.text)
-    MPU6050::dmpGetQuaternion(short*, const unsigned char*) 0x08004a75   Thumb Code    50  main.o(.text)
-    MPU6050::dmpGetQuaternion(Quaternion*, const unsigned char*) 0x08004aa7   Thumb Code   148  main.o(.text)
-    main                                     0x08004b3b   Thumb Code  1018  main.o(.text)
-    MPU6050::dmpPacketAvailable()            0x08004f35   Thumb Code    16  main.o(.text)
-    MPU6050::dmpGetAccel(int*, const unsigned char*) 0x08004f45   Thumb Code   100  main.o(.text)
-    MPU6050::dmpGetAccel(short*, const unsigned char*) 0x08004fa9   Thumb Code    52  main.o(.text)
-    MPU6050::dmpGetAccel(VectorInt16*, const unsigned char*) 0x08004fdd   Thumb Code    52  main.o(.text)
-    MPU6050::dmpGetQuaternion(int*, const unsigned char*) 0x08005011   Thumb Code   104  main.o(.text)
-    MPU6050::dmpGetGyro(short*, const unsigned char*) 0x08005079   Thumb Code    40  main.o(.text)
-    MPU6050::dmpGetMag(short*, const unsigned char*) 0x080050a1   Thumb Code    44  main.o(.text)
-    MPU6050::dmpGetLinearAccel(VectorInt16*, VectorInt16*, VectorFloat*) 0x080050cd   Thumb Code    98  main.o(.text)
-    MPU6050::dmpGetLinearAccelInWorld(VectorInt16*, VectorInt16*, Quaternion*) 0x0800512f   Thumb Code   206  main.o(.text)
-    MPU6050::dmpGetGravity(VectorFloat*, Quaternion*) 0x080051fd   Thumb Code   108  main.o(.text)
-    MPU6050::dmpGetYawPitchRoll(float*, Quaternion*, VectorFloat*) 0x08005269   Thumb Code   186  main.o(.text)
-    MPU6050::dmpProcessFIFOPacket(const unsigned char*) 0x08005323   Thumb Code     4  main.o(.text)
-    MPU6050::dmpReadAndProcessFIFOPacket(unsigned char, unsigned char*) 0x08005327   Thumb Code    46  main.o(.text)
-    MPU6050::MPU6050()                       0x080053b1   Thumb Code     6  mpu6050.o(.text)
-    MPU6050::MPU6050__sub_object()           0x080053b1   Thumb Code     0  mpu6050.o(.text)
-    MPU6050::MPU6050(unsigned char)          0x080053b7   Thumb Code     4  mpu6050.o(.text)
-    MPU6050::MPU6050__sub_object(unsigned char) 0x080053b7   Thumb Code     0  mpu6050.o(.text)
-    MPU6050::setSleepEnabled(bool)           0x080053bb   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::setFullScaleAccelRange(unsigned char) 0x080053c7   Thumb Code    18  mpu6050.o(.text)
-    MPU6050::setFullScaleGyroRange(unsigned char) 0x080053d9   Thumb Code    18  mpu6050.o(.text)
-    MPU6050::setClockSource(unsigned char)   0x080053eb   Thumb Code    18  mpu6050.o(.text)
-    MPU6050::initialize()                    0x080053fd   Thumb Code    70  mpu6050.o(.text)
-    MPU6050::getDeviceID()                   0x08005443   Thumb Code    34  mpu6050.o(.text)
-    MPU6050::testConnection()                0x08005465   Thumb Code    42  mpu6050.o(.text)
-    MPU6050::getAuxVDDIOLevel()              0x0800548f   Thumb Code    26  mpu6050.o(.text)
-    MPU6050::setAuxVDDIOLevel(unsigned char) 0x080054a9   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getRate()                       0x080054b5   Thumb Code    22  mpu6050.o(.text)
-    MPU6050::setRate(unsigned char)          0x080054cb   Thumb Code    10  mpu6050.o(.text)
-    MPU6050::getExternalFrameSync()          0x080054d5   Thumb Code    34  mpu6050.o(.text)
-    MPU6050::setExternalFrameSync(unsigned char) 0x080054f7   Thumb Code    18  mpu6050.o(.text)
-    MPU6050::getDLPFMode()                   0x08005509   Thumb Code    34  mpu6050.o(.text)
-    MPU6050::setDLPFMode(unsigned char)      0x0800552b   Thumb Code    18  mpu6050.o(.text)
-    MPU6050::getFullScaleGyroRange()         0x0800553d   Thumb Code    34  mpu6050.o(.text)
-    MPU6050::getAccelXSelfTest()             0x0800555f   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setAccelXSelfTest(bool)         0x0800557f   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getAccelYSelfTest()             0x0800558b   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setAccelYSelfTest(bool)         0x080055ab   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getAccelZSelfTest()             0x080055b7   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setAccelZSelfTest(bool)         0x080055d7   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getFullScaleAccelRange()        0x080055e3   Thumb Code    34  mpu6050.o(.text)
-    MPU6050::getDHPFMode()                   0x08005605   Thumb Code    34  mpu6050.o(.text)
-    MPU6050::setDHPFMode(unsigned char)      0x08005627   Thumb Code    18  mpu6050.o(.text)
-    MPU6050::getFreefallDetectionThreshold() 0x08005639   Thumb Code    22  mpu6050.o(.text)
-    MPU6050::setFreefallDetectionThreshold(unsigned char) 0x0800564f   Thumb Code    10  mpu6050.o(.text)
-    MPU6050::getFreefallDetectionDuration()  0x08005659   Thumb Code    22  mpu6050.o(.text)
-    MPU6050::setFreefallDetectionDuration(unsigned char) 0x0800566f   Thumb Code    10  mpu6050.o(.text)
-    MPU6050::getMotionDetectionThreshold()   0x08005679   Thumb Code    22  mpu6050.o(.text)
-    MPU6050::setMotionDetectionThreshold(unsigned char) 0x0800568f   Thumb Code    10  mpu6050.o(.text)
-    MPU6050::getMotionDetectionDuration()    0x08005699   Thumb Code    22  mpu6050.o(.text)
-    MPU6050::setMotionDetectionDuration(unsigned char) 0x080056af   Thumb Code    10  mpu6050.o(.text)
-    MPU6050::getZeroMotionDetectionThreshold() 0x080056b9   Thumb Code    22  mpu6050.o(.text)
-    MPU6050::setZeroMotionDetectionThreshold(unsigned char) 0x080056cf   Thumb Code    10  mpu6050.o(.text)
-    MPU6050::getZeroMotionDetectionDuration() 0x080056d9   Thumb Code    22  mpu6050.o(.text)
-    MPU6050::setZeroMotionDetectionDuration(unsigned char) 0x080056ef   Thumb Code    10  mpu6050.o(.text)
-    MPU6050::getTempFIFOEnabled()            0x080056f9   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setTempFIFOEnabled(bool)        0x08005719   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getXGyroFIFOEnabled()           0x08005725   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setXGyroFIFOEnabled(bool)       0x08005745   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getYGyroFIFOEnabled()           0x08005751   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setYGyroFIFOEnabled(bool)       0x08005771   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getZGyroFIFOEnabled()           0x0800577d   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setZGyroFIFOEnabled(bool)       0x0800579d   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getAccelFIFOEnabled()           0x080057a9   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setAccelFIFOEnabled(bool)       0x080057c9   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getSlave2FIFOEnabled()          0x080057d5   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setSlave2FIFOEnabled(bool)      0x080057f5   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getSlave1FIFOEnabled()          0x08005801   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setSlave1FIFOEnabled(bool)      0x08005821   Thumb Code    16  mpu6050.o(.text)
-    MPU6050::getSlave0FIFOEnabled()          0x08005831   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setSlave0FIFOEnabled(bool)      0x08005851   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getMultiMasterEnabled()         0x0800585d   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setMultiMasterEnabled(bool)     0x0800587d   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getWaitForExternalSensorEnabled() 0x08005889   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setWaitForExternalSensorEnabled(bool) 0x080058a9   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getSlave3FIFOEnabled()          0x080058b5   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setSlave3FIFOEnabled(bool)      0x080058d5   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getSlaveReadWriteTransitionEnabled() 0x080058e1   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setSlaveReadWriteTransitionEnabled(bool) 0x08005901   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getMasterClockSpeed()           0x0800590d   Thumb Code    34  mpu6050.o(.text)
-    MPU6050::setMasterClockSpeed(unsigned char) 0x0800592f   Thumb Code    18  mpu6050.o(.text)
-    MPU6050::getSlaveAddress(unsigned char)  0x08005941   Thumb Code    36  mpu6050.o(.text)
-    MPU6050::setSlaveAddress(unsigned char, unsigned char) 0x08005965   Thumb Code    20  mpu6050.o(.text)
-    MPU6050::getSlaveRegister(unsigned char) 0x08005979   Thumb Code    36  mpu6050.o(.text)
-    MPU6050::setSlaveRegister(unsigned char, unsigned char) 0x0800599d   Thumb Code    20  mpu6050.o(.text)
-    MPU6050::getSlaveEnabled(unsigned char)  0x080059b1   Thumb Code    46  mpu6050.o(.text)
-    MPU6050::setSlaveEnabled(unsigned char, bool) 0x080059df   Thumb Code    24  mpu6050.o(.text)
-    MPU6050::getSlaveWordByteSwap(unsigned char) 0x080059f7   Thumb Code    46  mpu6050.o(.text)
-    MPU6050::setSlaveWordByteSwap(unsigned char, bool) 0x08005a25   Thumb Code    24  mpu6050.o(.text)
-    MPU6050::getSlaveWriteMode(unsigned char) 0x08005a3d   Thumb Code    46  mpu6050.o(.text)
-    MPU6050::setSlaveWriteMode(unsigned char, bool) 0x08005a6b   Thumb Code    24  mpu6050.o(.text)
-    MPU6050::getSlaveWordGroupOffset(unsigned char) 0x08005a83   Thumb Code    46  mpu6050.o(.text)
-    MPU6050::setSlaveWordGroupOffset(unsigned char, bool) 0x08005ab1   Thumb Code    24  mpu6050.o(.text)
-    MPU6050::getSlaveDataLength(unsigned char) 0x08005ac9   Thumb Code    48  mpu6050.o(.text)
-    MPU6050::setSlaveDataLength(unsigned char, unsigned char) 0x08005af9   Thumb Code    30  mpu6050.o(.text)
-    MPU6050::getSlave4Address()              0x08005b17   Thumb Code    22  mpu6050.o(.text)
-    MPU6050::setSlave4Address(unsigned char) 0x08005b2d   Thumb Code    10  mpu6050.o(.text)
-    MPU6050::getSlave4Register()             0x08005b37   Thumb Code    22  mpu6050.o(.text)
-    MPU6050::setSlave4Register(unsigned char) 0x08005b4d   Thumb Code    10  mpu6050.o(.text)
-    MPU6050::setSlave4OutputByte(unsigned char) 0x08005b57   Thumb Code    10  mpu6050.o(.text)
-    MPU6050::getSlave4Enabled()              0x08005b61   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setSlave4Enabled(bool)          0x08005b81   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getSlave4InterruptEnabled()     0x08005b8d   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setSlave4InterruptEnabled(bool) 0x08005bad   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getSlave4WriteMode()            0x08005bb9   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setSlave4WriteMode(bool)        0x08005bd9   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getSlave4MasterDelay()          0x08005be5   Thumb Code    34  mpu6050.o(.text)
-    MPU6050::setSlave4MasterDelay(unsigned char) 0x08005c07   Thumb Code    22  mpu6050.o(.text)
-    MPU6050::getSlate4InputByte()            0x08005c1d   Thumb Code    22  mpu6050.o(.text)
-    MPU6050::getPassthroughStatus()          0x08005c33   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getSlave4IsDone()               0x08005c53   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getLostArbitration()            0x08005c73   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getSlave4Nack()                 0x08005c93   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getSlave3Nack()                 0x08005cb3   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getSlave2Nack()                 0x08005cd3   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getSlave1Nack()                 0x08005cf3   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getSlave0Nack()                 0x08005d13   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getInterruptMode()              0x08005d33   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setInterruptMode(bool)          0x08005d53   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getInterruptDrive()             0x08005d5f   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setInterruptDrive(bool)         0x08005d7f   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getInterruptLatch()             0x08005d8b   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setInterruptLatch(bool)         0x08005dab   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getInterruptLatchClear()        0x08005db7   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setInterruptLatchClear(bool)    0x08005dd7   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getFSyncInterruptLevel()        0x08005de3   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setFSyncInterruptLevel(bool)    0x08005e03   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getFSyncInterruptEnabled()      0x08005e0f   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setFSyncInterruptEnabled(bool)  0x08005e2f   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getI2CBypassEnabled()           0x08005e3b   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setI2CBypassEnabled(bool)       0x08005e5b   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getClockOutputEnabled()         0x08005e67   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setClockOutputEnabled(bool)     0x08005e87   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getIntEnabled()                 0x08005e93   Thumb Code    22  mpu6050.o(.text)
-    MPU6050::setIntEnabled(unsigned char)    0x08005ea9   Thumb Code    10  mpu6050.o(.text)
-    MPU6050::getIntFreefallEnabled()         0x08005eb3   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setIntFreefallEnabled(bool)     0x08005ed3   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getIntMotionEnabled()           0x08005edf   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setIntMotionEnabled(bool)       0x08005eff   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getIntZeroMotionEnabled()       0x08005f0b   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setIntZeroMotionEnabled(bool)   0x08005f2b   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getIntFIFOBufferOverflowEnabled() 0x08005f37   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setIntFIFOBufferOverflowEnabled(bool) 0x08005f57   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getIntI2CMasterEnabled()        0x08005f63   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setIntI2CMasterEnabled(bool)    0x08005f83   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getIntDataReadyEnabled()        0x08005f8f   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setIntDataReadyEnabled(bool)    0x08005faf   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getIntStatus()                  0x08005fbb   Thumb Code    22  mpu6050.o(.text)
-    MPU6050::getIntFreefallStatus()          0x08005fd1   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getIntMotionStatus()            0x08005ff1   Thumb Code    36  mpu6050.o(.text)
-    MPU6050::getIntZeroMotionStatus()        0x08006015   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getIntFIFOBufferOverflowStatus() 0x08006035   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getIntI2CMasterStatus()         0x08006055   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getIntDataReadyStatus()         0x08006075   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getMotion6(short*, short*, short*, short*, short*, short*) 0x08006095   Thumb Code    94  mpu6050.o(.text)
-    MPU6050::getMotion9(short*, short*, short*, short*, short*, short*, short*, short*, short*) 0x080060f3   Thumb Code    36  mpu6050.o(.text)
-    MPU6050::getAcceleration(short*, short*, short*) 0x08006117   Thumb Code    54  mpu6050.o(.text)
-    MPU6050::getAccelerationX()              0x0800614d   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getAccelerationY()              0x0800616d   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getAccelerationZ()              0x0800618d   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getTemperature()                0x080061ad   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getRotation(short*, short*, short*) 0x080061cd   Thumb Code    54  mpu6050.o(.text)
-    MPU6050::getRotationX()                  0x08006203   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getRotationY()                  0x08006223   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getRotationZ()                  0x08006243   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getExternalSensorByte(int)      0x08006263   Thumb Code    24  mpu6050.o(.text)
-    MPU6050::getExternalSensorWord(int)      0x0800627b   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getExternalSensorDWord(int)     0x0800629b   Thumb Code    40  mpu6050.o(.text)
-    MPU6050::getXNegMotionDetected()         0x080062c3   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getXPosMotionDetected()         0x080062e3   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getYNegMotionDetected()         0x08006303   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getYPosMotionDetected()         0x08006323   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getZNegMotionDetected()         0x08006343   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getZPosMotionDetected()         0x08006363   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getZeroMotionDetected()         0x08006383   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setSlaveOutputByte(unsigned char, unsigned char) 0x080063a3   Thumb Code    16  mpu6050.o(.text)
-    MPU6050::getExternalShadowDelayEnabled() 0x080063b3   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setExternalShadowDelayEnabled(bool) 0x080063d3   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getSlaveDelayEnabled(unsigned char) 0x080063df   Thumb Code    46  mpu6050.o(.text)
-    MPU6050::setSlaveDelayEnabled(unsigned char, bool) 0x0800640d   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::resetGyroscopePath()            0x08006419   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::resetAccelerometerPath()        0x08006425   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::resetTemperaturePath()          0x08006431   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getAccelerometerPowerOnDelay()  0x0800643d   Thumb Code    34  mpu6050.o(.text)
-    MPU6050::setAccelerometerPowerOnDelay(unsigned char) 0x0800645f   Thumb Code    18  mpu6050.o(.text)
-    MPU6050::getFreefallDetectionCounterDecrement() 0x08006471   Thumb Code    34  mpu6050.o(.text)
-    MPU6050::setFreefallDetectionCounterDecrement(unsigned char) 0x08006493   Thumb Code    18  mpu6050.o(.text)
-    MPU6050::getMotionDetectionCounterDecrement() 0x080064a5   Thumb Code    34  mpu6050.o(.text)
-    MPU6050::setMotionDetectionCounterDecrement(unsigned char) 0x080064c7   Thumb Code    18  mpu6050.o(.text)
-    MPU6050::getFIFOEnabled()                0x080064d9   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setFIFOEnabled(bool)            0x080064f9   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getI2CMasterModeEnabled()       0x08006505   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setI2CMasterModeEnabled(bool)   0x08006525   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::switchSPIEnabled(bool)          0x08006531   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::resetFIFO()                     0x0800653d   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::resetI2CMaster()                0x08006549   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::resetSensors()                  0x08006555   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::reset()                         0x08006561   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getSleepEnabled()               0x0800656d   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getWakeCycleEnabled()           0x0800658d   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setWakeCycleEnabled(bool)       0x080065ad   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getTempSensorEnabled()          0x080065b9   Thumb Code    34  mpu6050.o(.text)
-    MPU6050::setTempSensorEnabled(bool)      0x080065db   Thumb Code    14  mpu6050.o(.text)
-    MPU6050::getClockSource()                0x080065e9   Thumb Code    34  mpu6050.o(.text)
-    MPU6050::getWakeFrequency()              0x0800660b   Thumb Code    34  mpu6050.o(.text)
-    MPU6050::setWakeFrequency(unsigned char) 0x0800662d   Thumb Code    18  mpu6050.o(.text)
-    MPU6050::getStandbyXAccelEnabled()       0x0800663f   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setStandbyXAccelEnabled(bool)   0x0800665f   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getStandbyYAccelEnabled()       0x0800666b   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setStandbyYAccelEnabled(bool)   0x0800668b   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getStandbyZAccelEnabled()       0x08006697   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setStandbyZAccelEnabled(bool)   0x080066b7   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getStandbyXGyroEnabled()        0x080066c3   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setStandbyXGyroEnabled(bool)    0x080066e3   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getStandbyYGyroEnabled()        0x080066ef   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setStandbyYGyroEnabled(bool)    0x0800670f   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getStandbyZGyroEnabled()        0x0800671b   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setStandbyZGyroEnabled(bool)    0x0800673b   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getFIFOCount()                  0x08006747   Thumb Code    30  mpu6050.o(.text)
-    MPU6050::getFIFOByte()                   0x08006765   Thumb Code    22  mpu6050.o(.text)
-    MPU6050::setFIFOByte(unsigned char)      0x0800677b   Thumb Code    10  mpu6050.o(.text)
-    MPU6050::getFIFOBytes(unsigned char*, unsigned char) 0x08006785   Thumb Code    26  mpu6050.o(.text)
-    MPU6050::setDeviceID(unsigned char)      0x0800679f   Thumb Code    18  mpu6050.o(.text)
-    MPU6050::getOTPBankValid()               0x080067b1   Thumb Code    26  mpu6050.o(.text)
-    MPU6050::setOTPBankValid(bool)           0x080067cb   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getXGyroOffset()                0x080067d7   Thumb Code    36  mpu6050.o(.text)
-    MPU6050::setXGyroOffset(signed char)     0x080067fb   Thumb Code    20  mpu6050.o(.text)
-    MPU6050::getYGyroOffset()                0x0800680f   Thumb Code    42  mpu6050.o(.text)
-    MPU6050::setYGyroOffset(signed char)     0x08006839   Thumb Code    20  mpu6050.o(.text)
-    MPU6050::getZGyroOffset()                0x0800684d   Thumb Code    36  mpu6050.o(.text)
-    MPU6050::setZGyroOffset(signed char)     0x08006871   Thumb Code    20  mpu6050.o(.text)
-    MPU6050::getXFineGain()                  0x08006885   Thumb Code    24  mpu6050.o(.text)
-    MPU6050::setXFineGain(signed char)       0x0800689d   Thumb Code    10  mpu6050.o(.text)
-    MPU6050::getYFineGain()                  0x080068a7   Thumb Code    24  mpu6050.o(.text)
-    MPU6050::setYFineGain(signed char)       0x080068bf   Thumb Code    10  mpu6050.o(.text)
-    MPU6050::getZFineGain()                  0x080068c9   Thumb Code    24  mpu6050.o(.text)
-    MPU6050::setZFineGain(signed char)       0x080068e1   Thumb Code    10  mpu6050.o(.text)
-    MPU6050::getXAccelOffset()               0x080068eb   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setXAccelOffset(short)          0x0800690b   Thumb Code    10  mpu6050.o(.text)
-    MPU6050::getYAccelOffset()               0x08006915   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setYAccelOffset(short)          0x08006935   Thumb Code    10  mpu6050.o(.text)
-    MPU6050::getZAccelOffset()               0x0800693f   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setZAccelOffset(short)          0x0800695f   Thumb Code    10  mpu6050.o(.text)
-    MPU6050::getXGyroOffsetUser()            0x08006969   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setXGyroOffsetUser(short)       0x08006989   Thumb Code    10  mpu6050.o(.text)
-    MPU6050::getYGyroOffsetUser()            0x08006993   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setYGyroOffsetUser(short)       0x080069b3   Thumb Code    10  mpu6050.o(.text)
-    MPU6050::getZGyroOffsetUser()            0x080069bd   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setZGyroOffsetUser(short)       0x080069dd   Thumb Code    10  mpu6050.o(.text)
-    MPU6050::getIntPLLReadyEnabled()         0x080069e7   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setIntPLLReadyEnabled(bool)     0x08006a07   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getIntDMPEnabled()              0x08006a13   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setIntDMPEnabled(bool)          0x08006a33   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::getDMPInt5Status()              0x08006a3f   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getDMPInt4Status()              0x08006a5f   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getDMPInt3Status()              0x08006a7f   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getDMPInt2Status()              0x08006a9f   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getDMPInt1Status()              0x08006abf   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getDMPInt0Status()              0x08006adf   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getIntPLLReadyStatus()          0x08006aff   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getIntDMPStatus()               0x08006b1f   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::getDMPEnabled()                 0x08006b3f   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setDMPEnabled(bool)             0x08006b5f   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::resetDMP()                      0x08006b6b   Thumb Code    12  mpu6050.o(.text)
-    MPU6050::setMemoryBank(unsigned char, bool, bool) 0x08006b77   Thumb Code    32  mpu6050.o(.text)
-    MPU6050::setMemoryStartAddress(unsigned char) 0x08006b97   Thumb Code    10  mpu6050.o(.text)
-    MPU6050::readMemoryByte()                0x08006ba1   Thumb Code    22  mpu6050.o(.text)
-    MPU6050::writeMemoryByte(unsigned char)  0x08006bb7   Thumb Code    10  mpu6050.o(.text)
-    MPU6050::readMemoryBlock(unsigned char*, unsigned short, unsigned char, unsigned char) 0x08006bc1   Thumb Code   164  mpu6050.o(.text)
-    MPU6050::writeMemoryBlock(const unsigned char*, unsigned short, unsigned char, unsigned char, bool, bool) 0x08006c65   Thumb Code   304  mpu6050.o(.text)
-    MPU6050::writeProgMemoryBlock(const unsigned char*, unsigned short, unsigned char, unsigned char, bool) 0x08006d95   Thumb Code    36  mpu6050.o(.text)
-    MPU6050::writeDMPConfigurationSet(const unsigned char*, unsigned short, bool) 0x08006db9   Thumb Code   168  mpu6050.o(.text)
-    MPU6050::writeProgDMPConfigurationSet(const unsigned char*, unsigned short) 0x08006e61   Thumb Code     4  mpu6050.o(.text)
-    MPU6050::getDMPConfig1()                 0x08006e65   Thumb Code    22  mpu6050.o(.text)
-    MPU6050::setDMPConfig1(unsigned char)    0x08006e7b   Thumb Code    10  mpu6050.o(.text)
-    MPU6050::getDMPConfig2()                 0x08006e85   Thumb Code    22  mpu6050.o(.text)
-    MPU6050::setDMPConfig2(unsigned char)    0x08006e9b   Thumb Code    10  mpu6050.o(.text)
-    I2Cdev::I2Cdev()                         0x08006ea9   Thumb Code     2  i2cdev.o(.text)
-    I2Cdev::I2Cdev__sub_object()             0x08006ea9   Thumb Code     0  i2cdev.o(.text)
-    I2Cdev::readBit(unsigned char, unsigned char, unsigned char, unsigned char*, unsigned short) 0x08006eab   Thumb Code    70  i2cdev.o(.text)
-    I2Cdev::readBits(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char*, unsigned short) 0x08006ef1   Thumb Code    72  i2cdev.o(.text)
-    I2Cdev::readByte(unsigned char, unsigned char, unsigned char*, unsigned short) 0x08006f39   Thumb Code    48  i2cdev.o(.text)
-    I2Cdev::readBytes(unsigned char, unsigned char, unsigned char, unsigned char*, unsigned short) 0x08006f69   Thumb Code    74  i2cdev.o(.text)
-    I2Cdev::writeBytes(unsigned char, unsigned char, unsigned char, unsigned char*) 0x08006fb3   Thumb Code    94  i2cdev.o(.text)
-    I2Cdev::writeByte(unsigned char, unsigned char, unsigned char) 0x08007011   Thumb Code    14  i2cdev.o(.text)
-    I2Cdev::writeBit(unsigned char, unsigned char, unsigned char, unsigned char) 0x0800701f   Thumb Code    92  i2cdev.o(.text)
-    I2Cdev::writeBits(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char) 0x0800707b   Thumb Code   106  i2cdev.o(.text)
-    I2Cdev::writeWords(unsigned char, unsigned char, unsigned char, unsigned short*) 0x080070e5   Thumb Code     6  i2cdev.o(.text)
-    I2Cdev::writeWord(unsigned char, unsigned char, unsigned short) 0x080070eb   Thumb Code    14  i2cdev.o(.text)
-    free                                     0x0800710d   Thumb Code    78  h1_free.o(.text)
-    memcmp                                   0x0800715b   Thumb Code    88  memcmp.o(.text)
-    __use_two_region_memory                  0x080071b3   Thumb Code     2  heapauxi.o(.text)
-    __rt_heap_escrow                         0x080071b5   Thumb Code     2  heapauxi.o(.text)
-    __rt_heap_expand                         0x080071b7   Thumb Code     2  heapauxi.o(.text)
-    __cpp_initialize__aeabi_                 0x080071b9   Thumb Code    26  init_aeabi.o(.text)
-    __rt_heap_descriptor                     0x080071dd   Thumb Code     8  rt_heap_descriptor_intlibspace.o(.text)
-    __read_errno                             0x080071e5   Thumb Code    10  _rserrno.o(.text)
-    __set_errno                              0x080071ef   Thumb Code    12  _rserrno.o(.text)
-    __aeabi_errno_addr                       0x080071fd   Thumb Code     8  rt_errno_addr_intlibspace.o(.text)
-    __errno$intlibspace                      0x080071fd   Thumb Code     0  rt_errno_addr_intlibspace.o(.text)
-    __rt_errno_addr$intlibspace              0x080071fd   Thumb Code     0  rt_errno_addr_intlibspace.o(.text)
-    exit                                     0x08007205   Thumb Code    12  exit.o(.text)
-    _sys_exit                                0x08007211   Thumb Code     8  sys_exit.o(.text)
-    __I$use$semihosting                      0x0800721d   Thumb Code     0  use_no_semi.o(.text)
-    __use_no_semihosting_swi                 0x0800721d   Thumb Code     2  use_no_semi.o(.text)
-    Quaternion::getProduct(Quaternion)       0x0800721f   Thumb Code   114  main.o(i._ZN10Quaternion10getProductES_)
-    __semihosting_library_function           0x0800721f   Thumb Code     0  indicate_semi.o(.text)
-    __ARM_common_memcpy4_6                   0x08007291   Thumb Code    10  main.o(i.__ARM_common_memcpy4_6)
-    __ARM_fpclassifyf                        0x0800729b   Thumb Code    38  fpclassifyf.o(i.__ARM_fpclassifyf)
-    __hardfp_asinf                           0x080072c1   Thumb Code   250  asinf.o(i.__hardfp_asinf)
-    __hardfp_atan2f                          0x080073e5   Thumb Code   486  atan2f.o(i.__hardfp_atan2f)
-    __hardfp_atanf                           0x0800762d   Thumb Code   290  atanf.o(i.__hardfp_atanf)
-    __hardfp_sqrtf                           0x08007791   Thumb Code    58  sqrtf.o(i.__hardfp_sqrtf)
-    __mathlib_flt_underflow                  0x080077cd   Thumb Code    10  funder.o(i.__mathlib_flt_underflow)
-    sqrtf                                    0x080077dd   Thumb Code    62  sqrtf.o(i.sqrtf)
-    __aeabi_d2f                              0x0800781d   Thumb Code     0  d2f.o(x$fpl$d2f)
-    _d2f                                     0x0800781d   Thumb Code    98  d2f.o(x$fpl$d2f)
-    __aeabi_dadd                             0x08007881   Thumb Code     0  daddsub_clz.o(x$fpl$dadd)
-    _dadd                                    0x08007881   Thumb Code   332  daddsub_clz.o(x$fpl$dadd)
-    __aeabi_dmul                             0x080079d1   Thumb Code     0  dmul.o(x$fpl$dmul)
-    _dmul                                    0x080079d1   Thumb Code   332  dmul.o(x$fpl$dmul)
-    __fpl_dnaninf                            0x08007b25   Thumb Code   156  dnaninf.o(x$fpl$dnaninf)
-    __fpl_dretinf                            0x08007bc1   Thumb Code    12  dretinf.o(x$fpl$dretinf)
-    __aeabi_dsub                             0x08007bcd   Thumb Code     0  daddsub_clz.o(x$fpl$dsub)
-    _dsub                                    0x08007bcd   Thumb Code   464  daddsub_clz.o(x$fpl$dsub)
-    __aeabi_f2d                              0x08007da1   Thumb Code     0  f2d.o(x$fpl$f2d)
-    _f2d                                     0x08007da1   Thumb Code    86  f2d.o(x$fpl$f2d)
-    __fpl_fnaninf                            0x08007df7   Thumb Code   140  fnaninf.o(x$fpl$fnaninf)
-    _fp_init                                 0x08007e83   Thumb Code    10  fpinit.o(x$fpl$fpinit)
-    __fplib_config_fpu_vfp                   0x08007e8b   Thumb Code     0  fpinit.o(x$fpl$fpinit)
-    __fplib_config_pureend_doubles           0x08007e8b   Thumb Code     0  fpinit.o(x$fpl$fpinit)
-    __fpl_fretinf                            0x08007e8d   Thumb Code    10  fretinf.o(x$fpl$fretinf)
-    __I$use$fp                               0x08007e97   Thumb Code     0  usenofp.o(x$fpl$usenofp)
-    pal_default_config                       0x08007e98   Data         252  board.o(.constdata)
-    _stm32_dma_streams                       0x08007fc4   Data         192  stm32_dma.o(.constdata)
-    Region$$Table$$Base                      0x08008a70   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x08008a90   Number         0  anon$$obj.o(Region$$Table)
-    SHT$$INIT_ARRAY$$Base                    0x08008a90   Number         0  main.o(.init_array)
-    SHT$$INIT_ARRAY$$Limit                   0x08008a94   Number         0  main.o(.init_array)
+    rx_channel1_interrupt(EXTDriver*, unsigned) 0x08003981   Thumb Code    56  main.o(.text)
+    rx_channel2_interrupt(EXTDriver*, unsigned) 0x080039b9   Thumb Code    56  main.o(.text)
+    rx_channel3_interrupt(EXTDriver*, unsigned) 0x080039f1   Thumb Code    56  main.o(.text)
+    rx_channel4_interrupt(EXTDriver*, unsigned) 0x08003a29   Thumb Code    56  main.o(.text)
+    Regelung()                               0x08003a61   Thumb Code  1844  main.o(.text)
+    I2CInitialize()                          0x080041a7   Thumb Code    50  main.o(.text)
+    i2c_scanner1()                           0x080041d9   Thumb Code   164  main.o(.text)
+    main                                     0x0800427d   Thumb Code   410  main.o(.text)
+    MPU6050::MPU6050()                       0x0800446d   Thumb Code     6  mpu6050.o(.text)
+    MPU6050::MPU6050__sub_object()           0x0800446d   Thumb Code     0  mpu6050.o(.text)
+    MPU6050::MPU6050(unsigned char)          0x08004473   Thumb Code     4  mpu6050.o(.text)
+    MPU6050::MPU6050__sub_object(unsigned char) 0x08004473   Thumb Code     0  mpu6050.o(.text)
+    MPU6050::setSleepEnabled(bool)           0x08004477   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::setFullScaleAccelRange(unsigned char) 0x08004483   Thumb Code    18  mpu6050.o(.text)
+    MPU6050::setFullScaleGyroRange(unsigned char) 0x08004495   Thumb Code    18  mpu6050.o(.text)
+    MPU6050::setClockSource(unsigned char)   0x080044a7   Thumb Code    18  mpu6050.o(.text)
+    MPU6050::initialize()                    0x080044b9   Thumb Code    70  mpu6050.o(.text)
+    MPU6050::getDeviceID()                   0x080044ff   Thumb Code    34  mpu6050.o(.text)
+    MPU6050::testConnection()                0x08004521   Thumb Code    42  mpu6050.o(.text)
+    MPU6050::getAuxVDDIOLevel()              0x0800454b   Thumb Code    26  mpu6050.o(.text)
+    MPU6050::setAuxVDDIOLevel(unsigned char) 0x08004565   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getRate()                       0x08004571   Thumb Code    22  mpu6050.o(.text)
+    MPU6050::setRate(unsigned char)          0x08004587   Thumb Code    10  mpu6050.o(.text)
+    MPU6050::getExternalFrameSync()          0x08004591   Thumb Code    34  mpu6050.o(.text)
+    MPU6050::setExternalFrameSync(unsigned char) 0x080045b3   Thumb Code    18  mpu6050.o(.text)
+    MPU6050::getDLPFMode()                   0x080045c5   Thumb Code    34  mpu6050.o(.text)
+    MPU6050::setDLPFMode(unsigned char)      0x080045e7   Thumb Code    18  mpu6050.o(.text)
+    MPU6050::getFullScaleGyroRange()         0x080045f9   Thumb Code    34  mpu6050.o(.text)
+    MPU6050::getAccelXSelfTest()             0x0800461b   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setAccelXSelfTest(bool)         0x0800463b   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getAccelYSelfTest()             0x08004647   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setAccelYSelfTest(bool)         0x08004667   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getAccelZSelfTest()             0x08004673   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setAccelZSelfTest(bool)         0x08004693   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getFullScaleAccelRange()        0x0800469f   Thumb Code    34  mpu6050.o(.text)
+    MPU6050::getDHPFMode()                   0x080046c1   Thumb Code    34  mpu6050.o(.text)
+    MPU6050::setDHPFMode(unsigned char)      0x080046e3   Thumb Code    18  mpu6050.o(.text)
+    MPU6050::getFreefallDetectionThreshold() 0x080046f5   Thumb Code    22  mpu6050.o(.text)
+    MPU6050::setFreefallDetectionThreshold(unsigned char) 0x0800470b   Thumb Code    10  mpu6050.o(.text)
+    MPU6050::getFreefallDetectionDuration()  0x08004715   Thumb Code    22  mpu6050.o(.text)
+    MPU6050::setFreefallDetectionDuration(unsigned char) 0x0800472b   Thumb Code    10  mpu6050.o(.text)
+    MPU6050::getMotionDetectionThreshold()   0x08004735   Thumb Code    22  mpu6050.o(.text)
+    MPU6050::setMotionDetectionThreshold(unsigned char) 0x0800474b   Thumb Code    10  mpu6050.o(.text)
+    MPU6050::getMotionDetectionDuration()    0x08004755   Thumb Code    22  mpu6050.o(.text)
+    MPU6050::setMotionDetectionDuration(unsigned char) 0x0800476b   Thumb Code    10  mpu6050.o(.text)
+    MPU6050::getZeroMotionDetectionThreshold() 0x08004775   Thumb Code    22  mpu6050.o(.text)
+    MPU6050::setZeroMotionDetectionThreshold(unsigned char) 0x0800478b   Thumb Code    10  mpu6050.o(.text)
+    MPU6050::getZeroMotionDetectionDuration() 0x08004795   Thumb Code    22  mpu6050.o(.text)
+    MPU6050::setZeroMotionDetectionDuration(unsigned char) 0x080047ab   Thumb Code    10  mpu6050.o(.text)
+    MPU6050::getTempFIFOEnabled()            0x080047b5   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setTempFIFOEnabled(bool)        0x080047d5   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getXGyroFIFOEnabled()           0x080047e1   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setXGyroFIFOEnabled(bool)       0x08004801   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getYGyroFIFOEnabled()           0x0800480d   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setYGyroFIFOEnabled(bool)       0x0800482d   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getZGyroFIFOEnabled()           0x08004839   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setZGyroFIFOEnabled(bool)       0x08004859   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getAccelFIFOEnabled()           0x08004865   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setAccelFIFOEnabled(bool)       0x08004885   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getSlave2FIFOEnabled()          0x08004891   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setSlave2FIFOEnabled(bool)      0x080048b1   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getSlave1FIFOEnabled()          0x080048bd   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setSlave1FIFOEnabled(bool)      0x080048dd   Thumb Code    16  mpu6050.o(.text)
+    MPU6050::getSlave0FIFOEnabled()          0x080048ed   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setSlave0FIFOEnabled(bool)      0x0800490d   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getMultiMasterEnabled()         0x08004919   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setMultiMasterEnabled(bool)     0x08004939   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getWaitForExternalSensorEnabled() 0x08004945   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setWaitForExternalSensorEnabled(bool) 0x08004965   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getSlave3FIFOEnabled()          0x08004971   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setSlave3FIFOEnabled(bool)      0x08004991   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getSlaveReadWriteTransitionEnabled() 0x0800499d   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setSlaveReadWriteTransitionEnabled(bool) 0x080049bd   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getMasterClockSpeed()           0x080049c9   Thumb Code    34  mpu6050.o(.text)
+    MPU6050::setMasterClockSpeed(unsigned char) 0x080049eb   Thumb Code    18  mpu6050.o(.text)
+    MPU6050::getSlaveAddress(unsigned char)  0x080049fd   Thumb Code    36  mpu6050.o(.text)
+    MPU6050::setSlaveAddress(unsigned char, unsigned char) 0x08004a21   Thumb Code    20  mpu6050.o(.text)
+    MPU6050::getSlaveRegister(unsigned char) 0x08004a35   Thumb Code    36  mpu6050.o(.text)
+    MPU6050::setSlaveRegister(unsigned char, unsigned char) 0x08004a59   Thumb Code    20  mpu6050.o(.text)
+    MPU6050::getSlaveEnabled(unsigned char)  0x08004a6d   Thumb Code    46  mpu6050.o(.text)
+    MPU6050::setSlaveEnabled(unsigned char, bool) 0x08004a9b   Thumb Code    24  mpu6050.o(.text)
+    MPU6050::getSlaveWordByteSwap(unsigned char) 0x08004ab3   Thumb Code    46  mpu6050.o(.text)
+    MPU6050::setSlaveWordByteSwap(unsigned char, bool) 0x08004ae1   Thumb Code    24  mpu6050.o(.text)
+    MPU6050::getSlaveWriteMode(unsigned char) 0x08004af9   Thumb Code    46  mpu6050.o(.text)
+    MPU6050::setSlaveWriteMode(unsigned char, bool) 0x08004b27   Thumb Code    24  mpu6050.o(.text)
+    MPU6050::getSlaveWordGroupOffset(unsigned char) 0x08004b3f   Thumb Code    46  mpu6050.o(.text)
+    MPU6050::setSlaveWordGroupOffset(unsigned char, bool) 0x08004b6d   Thumb Code    24  mpu6050.o(.text)
+    MPU6050::getSlaveDataLength(unsigned char) 0x08004b85   Thumb Code    48  mpu6050.o(.text)
+    MPU6050::setSlaveDataLength(unsigned char, unsigned char) 0x08004bb5   Thumb Code    30  mpu6050.o(.text)
+    MPU6050::getSlave4Address()              0x08004bd3   Thumb Code    22  mpu6050.o(.text)
+    MPU6050::setSlave4Address(unsigned char) 0x08004be9   Thumb Code    10  mpu6050.o(.text)
+    MPU6050::getSlave4Register()             0x08004bf3   Thumb Code    22  mpu6050.o(.text)
+    MPU6050::setSlave4Register(unsigned char) 0x08004c09   Thumb Code    10  mpu6050.o(.text)
+    MPU6050::setSlave4OutputByte(unsigned char) 0x08004c13   Thumb Code    10  mpu6050.o(.text)
+    MPU6050::getSlave4Enabled()              0x08004c1d   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setSlave4Enabled(bool)          0x08004c3d   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getSlave4InterruptEnabled()     0x08004c49   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setSlave4InterruptEnabled(bool) 0x08004c69   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getSlave4WriteMode()            0x08004c75   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setSlave4WriteMode(bool)        0x08004c95   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getSlave4MasterDelay()          0x08004ca1   Thumb Code    34  mpu6050.o(.text)
+    MPU6050::setSlave4MasterDelay(unsigned char) 0x08004cc3   Thumb Code    22  mpu6050.o(.text)
+    MPU6050::getSlate4InputByte()            0x08004cd9   Thumb Code    22  mpu6050.o(.text)
+    MPU6050::getPassthroughStatus()          0x08004cef   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getSlave4IsDone()               0x08004d0f   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getLostArbitration()            0x08004d2f   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getSlave4Nack()                 0x08004d4f   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getSlave3Nack()                 0x08004d6f   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getSlave2Nack()                 0x08004d8f   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getSlave1Nack()                 0x08004daf   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getSlave0Nack()                 0x08004dcf   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getInterruptMode()              0x08004def   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setInterruptMode(bool)          0x08004e0f   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getInterruptDrive()             0x08004e1b   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setInterruptDrive(bool)         0x08004e3b   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getInterruptLatch()             0x08004e47   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setInterruptLatch(bool)         0x08004e67   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getInterruptLatchClear()        0x08004e73   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setInterruptLatchClear(bool)    0x08004e93   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getFSyncInterruptLevel()        0x08004e9f   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setFSyncInterruptLevel(bool)    0x08004ebf   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getFSyncInterruptEnabled()      0x08004ecb   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setFSyncInterruptEnabled(bool)  0x08004eeb   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getI2CBypassEnabled()           0x08004ef7   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setI2CBypassEnabled(bool)       0x08004f17   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getClockOutputEnabled()         0x08004f23   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setClockOutputEnabled(bool)     0x08004f43   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getIntEnabled()                 0x08004f4f   Thumb Code    22  mpu6050.o(.text)
+    MPU6050::setIntEnabled(unsigned char)    0x08004f65   Thumb Code    10  mpu6050.o(.text)
+    MPU6050::getIntFreefallEnabled()         0x08004f6f   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setIntFreefallEnabled(bool)     0x08004f8f   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getIntMotionEnabled()           0x08004f9b   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setIntMotionEnabled(bool)       0x08004fbb   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getIntZeroMotionEnabled()       0x08004fc7   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setIntZeroMotionEnabled(bool)   0x08004fe7   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getIntFIFOBufferOverflowEnabled() 0x08004ff3   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setIntFIFOBufferOverflowEnabled(bool) 0x08005013   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getIntI2CMasterEnabled()        0x0800501f   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setIntI2CMasterEnabled(bool)    0x0800503f   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getIntDataReadyEnabled()        0x0800504b   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setIntDataReadyEnabled(bool)    0x0800506b   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getIntStatus()                  0x08005077   Thumb Code    22  mpu6050.o(.text)
+    MPU6050::getIntFreefallStatus()          0x0800508d   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getIntMotionStatus()            0x080050ad   Thumb Code    36  mpu6050.o(.text)
+    MPU6050::getIntZeroMotionStatus()        0x080050d1   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getIntFIFOBufferOverflowStatus() 0x080050f1   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getIntI2CMasterStatus()         0x08005111   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getIntDataReadyStatus()         0x08005131   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getMotion6(short*, short*, short*, short*, short*, short*) 0x08005151   Thumb Code    94  mpu6050.o(.text)
+    MPU6050::getMotion9(short*, short*, short*, short*, short*, short*, short*, short*, short*) 0x080051af   Thumb Code    36  mpu6050.o(.text)
+    MPU6050::getAcceleration(short*, short*, short*) 0x080051d3   Thumb Code    54  mpu6050.o(.text)
+    MPU6050::getAccelerationX()              0x08005209   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getAccelerationY()              0x08005229   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getAccelerationZ()              0x08005249   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getTemperature()                0x08005269   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getRotation(short*, short*, short*) 0x08005289   Thumb Code    54  mpu6050.o(.text)
+    MPU6050::getRotationX()                  0x080052bf   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getRotationY()                  0x080052df   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getRotationZ()                  0x080052ff   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getExternalSensorByte(int)      0x0800531f   Thumb Code    24  mpu6050.o(.text)
+    MPU6050::getExternalSensorWord(int)      0x08005337   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getExternalSensorDWord(int)     0x08005357   Thumb Code    40  mpu6050.o(.text)
+    MPU6050::getXNegMotionDetected()         0x0800537f   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getXPosMotionDetected()         0x0800539f   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getYNegMotionDetected()         0x080053bf   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getYPosMotionDetected()         0x080053df   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getZNegMotionDetected()         0x080053ff   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getZPosMotionDetected()         0x0800541f   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getZeroMotionDetected()         0x0800543f   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setSlaveOutputByte(unsigned char, unsigned char) 0x0800545f   Thumb Code    16  mpu6050.o(.text)
+    MPU6050::getExternalShadowDelayEnabled() 0x0800546f   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setExternalShadowDelayEnabled(bool) 0x0800548f   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getSlaveDelayEnabled(unsigned char) 0x0800549b   Thumb Code    46  mpu6050.o(.text)
+    MPU6050::setSlaveDelayEnabled(unsigned char, bool) 0x080054c9   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::resetGyroscopePath()            0x080054d5   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::resetAccelerometerPath()        0x080054e1   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::resetTemperaturePath()          0x080054ed   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getAccelerometerPowerOnDelay()  0x080054f9   Thumb Code    34  mpu6050.o(.text)
+    MPU6050::setAccelerometerPowerOnDelay(unsigned char) 0x0800551b   Thumb Code    18  mpu6050.o(.text)
+    MPU6050::getFreefallDetectionCounterDecrement() 0x0800552d   Thumb Code    34  mpu6050.o(.text)
+    MPU6050::setFreefallDetectionCounterDecrement(unsigned char) 0x0800554f   Thumb Code    18  mpu6050.o(.text)
+    MPU6050::getMotionDetectionCounterDecrement() 0x08005561   Thumb Code    34  mpu6050.o(.text)
+    MPU6050::setMotionDetectionCounterDecrement(unsigned char) 0x08005583   Thumb Code    18  mpu6050.o(.text)
+    MPU6050::getFIFOEnabled()                0x08005595   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setFIFOEnabled(bool)            0x080055b5   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getI2CMasterModeEnabled()       0x080055c1   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setI2CMasterModeEnabled(bool)   0x080055e1   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::switchSPIEnabled(bool)          0x080055ed   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::resetFIFO()                     0x080055f9   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::resetI2CMaster()                0x08005605   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::resetSensors()                  0x08005611   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::reset()                         0x0800561d   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getSleepEnabled()               0x08005629   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getWakeCycleEnabled()           0x08005649   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setWakeCycleEnabled(bool)       0x08005669   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getTempSensorEnabled()          0x08005675   Thumb Code    34  mpu6050.o(.text)
+    MPU6050::setTempSensorEnabled(bool)      0x08005697   Thumb Code    14  mpu6050.o(.text)
+    MPU6050::getClockSource()                0x080056a5   Thumb Code    34  mpu6050.o(.text)
+    MPU6050::getWakeFrequency()              0x080056c7   Thumb Code    34  mpu6050.o(.text)
+    MPU6050::setWakeFrequency(unsigned char) 0x080056e9   Thumb Code    18  mpu6050.o(.text)
+    MPU6050::getStandbyXAccelEnabled()       0x080056fb   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setStandbyXAccelEnabled(bool)   0x0800571b   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getStandbyYAccelEnabled()       0x08005727   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setStandbyYAccelEnabled(bool)   0x08005747   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getStandbyZAccelEnabled()       0x08005753   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setStandbyZAccelEnabled(bool)   0x08005773   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getStandbyXGyroEnabled()        0x0800577f   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setStandbyXGyroEnabled(bool)    0x0800579f   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getStandbyYGyroEnabled()        0x080057ab   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setStandbyYGyroEnabled(bool)    0x080057cb   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getStandbyZGyroEnabled()        0x080057d7   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setStandbyZGyroEnabled(bool)    0x080057f7   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getFIFOCount()                  0x08005803   Thumb Code    30  mpu6050.o(.text)
+    MPU6050::getFIFOByte()                   0x08005821   Thumb Code    22  mpu6050.o(.text)
+    MPU6050::setFIFOByte(unsigned char)      0x08005837   Thumb Code    10  mpu6050.o(.text)
+    MPU6050::getFIFOBytes(unsigned char*, unsigned char) 0x08005841   Thumb Code    26  mpu6050.o(.text)
+    MPU6050::setDeviceID(unsigned char)      0x0800585b   Thumb Code    18  mpu6050.o(.text)
+    MPU6050::getOTPBankValid()               0x0800586d   Thumb Code    26  mpu6050.o(.text)
+    MPU6050::setOTPBankValid(bool)           0x08005887   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getXGyroOffset()                0x08005893   Thumb Code    36  mpu6050.o(.text)
+    MPU6050::setXGyroOffset(signed char)     0x080058b7   Thumb Code    20  mpu6050.o(.text)
+    MPU6050::getYGyroOffset()                0x080058cb   Thumb Code    42  mpu6050.o(.text)
+    MPU6050::setYGyroOffset(signed char)     0x080058f5   Thumb Code    20  mpu6050.o(.text)
+    MPU6050::getZGyroOffset()                0x08005909   Thumb Code    36  mpu6050.o(.text)
+    MPU6050::setZGyroOffset(signed char)     0x0800592d   Thumb Code    20  mpu6050.o(.text)
+    MPU6050::getXFineGain()                  0x08005941   Thumb Code    24  mpu6050.o(.text)
+    MPU6050::setXFineGain(signed char)       0x08005959   Thumb Code    10  mpu6050.o(.text)
+    MPU6050::getYFineGain()                  0x08005963   Thumb Code    24  mpu6050.o(.text)
+    MPU6050::setYFineGain(signed char)       0x0800597b   Thumb Code    10  mpu6050.o(.text)
+    MPU6050::getZFineGain()                  0x08005985   Thumb Code    24  mpu6050.o(.text)
+    MPU6050::setZFineGain(signed char)       0x0800599d   Thumb Code    10  mpu6050.o(.text)
+    MPU6050::getXAccelOffset()               0x080059a7   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setXAccelOffset(short)          0x080059c7   Thumb Code    10  mpu6050.o(.text)
+    MPU6050::getYAccelOffset()               0x080059d1   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setYAccelOffset(short)          0x080059f1   Thumb Code    10  mpu6050.o(.text)
+    MPU6050::getZAccelOffset()               0x080059fb   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setZAccelOffset(short)          0x08005a1b   Thumb Code    10  mpu6050.o(.text)
+    MPU6050::getXGyroOffsetUser()            0x08005a25   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setXGyroOffsetUser(short)       0x08005a45   Thumb Code    10  mpu6050.o(.text)
+    MPU6050::getYGyroOffsetUser()            0x08005a4f   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setYGyroOffsetUser(short)       0x08005a6f   Thumb Code    10  mpu6050.o(.text)
+    MPU6050::getZGyroOffsetUser()            0x08005a79   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setZGyroOffsetUser(short)       0x08005a99   Thumb Code    10  mpu6050.o(.text)
+    MPU6050::getIntPLLReadyEnabled()         0x08005aa3   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setIntPLLReadyEnabled(bool)     0x08005ac3   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getIntDMPEnabled()              0x08005acf   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setIntDMPEnabled(bool)          0x08005aef   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::getDMPInt5Status()              0x08005afb   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getDMPInt4Status()              0x08005b1b   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getDMPInt3Status()              0x08005b3b   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getDMPInt2Status()              0x08005b5b   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getDMPInt1Status()              0x08005b7b   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getDMPInt0Status()              0x08005b9b   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getIntPLLReadyStatus()          0x08005bbb   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getIntDMPStatus()               0x08005bdb   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::getDMPEnabled()                 0x08005bfb   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setDMPEnabled(bool)             0x08005c1b   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::resetDMP()                      0x08005c27   Thumb Code    12  mpu6050.o(.text)
+    MPU6050::setMemoryBank(unsigned char, bool, bool) 0x08005c33   Thumb Code    32  mpu6050.o(.text)
+    MPU6050::setMemoryStartAddress(unsigned char) 0x08005c53   Thumb Code    10  mpu6050.o(.text)
+    MPU6050::readMemoryByte()                0x08005c5d   Thumb Code    22  mpu6050.o(.text)
+    MPU6050::writeMemoryByte(unsigned char)  0x08005c73   Thumb Code    10  mpu6050.o(.text)
+    MPU6050::readMemoryBlock(unsigned char*, unsigned short, unsigned char, unsigned char) 0x08005c7d   Thumb Code   164  mpu6050.o(.text)
+    MPU6050::writeMemoryBlock(const unsigned char*, unsigned short, unsigned char, unsigned char, bool, bool) 0x08005d21   Thumb Code   304  mpu6050.o(.text)
+    MPU6050::writeProgMemoryBlock(const unsigned char*, unsigned short, unsigned char, unsigned char, bool) 0x08005e51   Thumb Code    36  mpu6050.o(.text)
+    MPU6050::writeDMPConfigurationSet(const unsigned char*, unsigned short, bool) 0x08005e75   Thumb Code   168  mpu6050.o(.text)
+    MPU6050::writeProgDMPConfigurationSet(const unsigned char*, unsigned short) 0x08005f1d   Thumb Code     4  mpu6050.o(.text)
+    MPU6050::getDMPConfig1()                 0x08005f21   Thumb Code    22  mpu6050.o(.text)
+    MPU6050::setDMPConfig1(unsigned char)    0x08005f37   Thumb Code    10  mpu6050.o(.text)
+    MPU6050::getDMPConfig2()                 0x08005f41   Thumb Code    22  mpu6050.o(.text)
+    MPU6050::setDMPConfig2(unsigned char)    0x08005f57   Thumb Code    10  mpu6050.o(.text)
+    I2Cdev::I2Cdev()                         0x08005f65   Thumb Code     2  i2cdev.o(.text)
+    I2Cdev::I2Cdev__sub_object()             0x08005f65   Thumb Code     0  i2cdev.o(.text)
+    I2Cdev::readBit(unsigned char, unsigned char, unsigned char, unsigned char*, unsigned short) 0x08005f67   Thumb Code    70  i2cdev.o(.text)
+    I2Cdev::readBits(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char*, unsigned short) 0x08005fad   Thumb Code    72  i2cdev.o(.text)
+    I2Cdev::readByte(unsigned char, unsigned char, unsigned char*, unsigned short) 0x08005ff5   Thumb Code    48  i2cdev.o(.text)
+    I2Cdev::readBytes(unsigned char, unsigned char, unsigned char, unsigned char*, unsigned short) 0x08006025   Thumb Code    74  i2cdev.o(.text)
+    I2Cdev::writeBytes(unsigned char, unsigned char, unsigned char, unsigned char*) 0x0800606f   Thumb Code    96  i2cdev.o(.text)
+    I2Cdev::writeByte(unsigned char, unsigned char, unsigned char) 0x080060cf   Thumb Code    14  i2cdev.o(.text)
+    I2Cdev::writeBit(unsigned char, unsigned char, unsigned char, unsigned char) 0x080060dd   Thumb Code    92  i2cdev.o(.text)
+    I2Cdev::writeBits(unsigned char, unsigned char, unsigned char, unsigned char, unsigned char) 0x08006139   Thumb Code   106  i2cdev.o(.text)
+    I2Cdev::writeWords(unsigned char, unsigned char, unsigned char, unsigned short*) 0x080061a3   Thumb Code    14  i2cdev.o(.text)
+    I2Cdev::writeWord(unsigned char, unsigned char, unsigned short) 0x080061b1   Thumb Code    16  i2cdev.o(.text)
+    dmpDataReady()                           0x080061d9   Thumb Code     8  lage.o(.text)
+    MPU6050::dmpGetFIFOPacketSize()          0x080061e1   Thumb Code     4  lage.o(.text)
+    MPU6050::dmpInitialize()                 0x080061e5   Thumb Code  1766  lage.o(.text)
+    setup_IMU()                              0x080068cb   Thumb Code    50  lage.o(.text)
+    MPU6050::dmpGetGyro(int*, const unsigned char*) 0x080068fd   Thumb Code    80  lage.o(.text)
+    MPU6050::dmpGetEuler(float*, Quaternion*) 0x0800694d   Thumb Code   178  lage.o(.text)
+    MPU6050::dmpGetQuaternion(short*, const unsigned char*) 0x080069ff   Thumb Code    50  lage.o(.text)
+    MPU6050::dmpGetQuaternion(Quaternion*, const unsigned char*) 0x08006a31   Thumb Code   148  lage.o(.text)
+    update_IMU()                             0x08006ac5   Thumb Code   356  lage.o(.text)
+    getEuler_nick()                          0x08006c29   Thumb Code     8  lage.o(.text)
+    getEuler_roll()                          0x08006c31   Thumb Code     8  lage.o(.text)
+    getEuler_yaw()                           0x08006c39   Thumb Code     8  lage.o(.text)
+    getRate_nick()                           0x08006c41   Thumb Code     8  lage.o(.text)
+    getRate_roll()                           0x08006c49   Thumb Code     8  lage.o(.text)
+    getRate_yaw()                            0x08006c51   Thumb Code     8  lage.o(.text)
+    MPU6050::dmpPacketAvailable()            0x08006c59   Thumb Code    16  lage.o(.text)
+    MPU6050::dmpGetAccel(int*, const unsigned char*) 0x08006c69   Thumb Code   150  lage.o(.text)
+    MPU6050::dmpGetAccel(short*, const unsigned char*) 0x08006cff   Thumb Code    52  lage.o(.text)
+    MPU6050::dmpGetAccel(VectorInt16*, const unsigned char*) 0x08006d33   Thumb Code    52  lage.o(.text)
+    MPU6050::dmpGetQuaternion(int*, const unsigned char*) 0x08006d67   Thumb Code   104  lage.o(.text)
+    MPU6050::dmpGetGyro(short*, const unsigned char*) 0x08006dcf   Thumb Code    40  lage.o(.text)
+    MPU6050::dmpGetMag(short*, const unsigned char*) 0x08006df7   Thumb Code    44  lage.o(.text)
+    MPU6050::dmpGetLinearAccel(VectorInt16*, VectorInt16*, VectorFloat*) 0x08006e23   Thumb Code    98  lage.o(.text)
+    MPU6050::dmpGetLinearAccelInWorld(VectorInt16*, VectorInt16*, Quaternion*) 0x08006e85   Thumb Code   180  lage.o(.text)
+    MPU6050::dmpGetGravity(VectorFloat*, Quaternion*) 0x08006f39   Thumb Code   108  lage.o(.text)
+    MPU6050::dmpGetYawPitchRoll(float*, Quaternion*, VectorFloat*) 0x08006fa5   Thumb Code   186  lage.o(.text)
+    MPU6050::dmpProcessFIFOPacket(const unsigned char*) 0x0800705f   Thumb Code     4  lage.o(.text)
+    MPU6050::dmpReadAndProcessFIFOPacket(unsigned char, unsigned char*) 0x08007063   Thumb Code    46  lage.o(.text)
+    free                                     0x080070c5   Thumb Code    78  h1_free.o(.text)
+    memcmp                                   0x08007113   Thumb Code    88  memcmp.o(.text)
+    __use_two_region_memory                  0x0800716b   Thumb Code     2  heapauxi.o(.text)
+    __rt_heap_escrow                         0x0800716d   Thumb Code     2  heapauxi.o(.text)
+    __rt_heap_expand                         0x0800716f   Thumb Code     2  heapauxi.o(.text)
+    __cpp_initialize__aeabi_                 0x08007171   Thumb Code    26  init_aeabi.o(.text)
+    __rt_heap_descriptor                     0x08007195   Thumb Code     8  rt_heap_descriptor_intlibspace.o(.text)
+    __read_errno                             0x0800719d   Thumb Code    10  _rserrno.o(.text)
+    __set_errno                              0x080071a7   Thumb Code    12  _rserrno.o(.text)
+    __aeabi_errno_addr                       0x080071b5   Thumb Code     8  rt_errno_addr_intlibspace.o(.text)
+    __errno$intlibspace                      0x080071b5   Thumb Code     0  rt_errno_addr_intlibspace.o(.text)
+    __rt_errno_addr$intlibspace              0x080071b5   Thumb Code     0  rt_errno_addr_intlibspace.o(.text)
+    exit                                     0x080071bd   Thumb Code    12  exit.o(.text)
+    _sys_exit                                0x080071c9   Thumb Code     8  sys_exit.o(.text)
+    __I$use$semihosting                      0x080071d5   Thumb Code     0  use_no_semi.o(.text)
+    __use_no_semihosting_swi                 0x080071d5   Thumb Code     2  use_no_semi.o(.text)
+    Quaternion::getProduct(Quaternion)       0x080071d7   Thumb Code   114  lage.o(i._ZN10Quaternion10getProductES_)
+    __semihosting_library_function           0x080071d7   Thumb Code     0  indicate_semi.o(.text)
+    __ARM_common_memcpy4_6                   0x08007249   Thumb Code    10  lage.o(i.__ARM_common_memcpy4_6)
+    __ARM_fpclassifyf                        0x08007253   Thumb Code    38  fpclassifyf.o(i.__ARM_fpclassifyf)
+    __hardfp_asinf                           0x08007279   Thumb Code   250  asinf.o(i.__hardfp_asinf)
+    __hardfp_atan2f                          0x0800739d   Thumb Code   486  atan2f.o(i.__hardfp_atan2f)
+    __hardfp_atanf                           0x080075e5   Thumb Code   290  atanf.o(i.__hardfp_atanf)
+    __hardfp_sqrtf                           0x08007749   Thumb Code    58  sqrtf.o(i.__hardfp_sqrtf)
+    __mathlib_flt_underflow                  0x08007785   Thumb Code    10  funder.o(i.__mathlib_flt_underflow)
+    sqrtf                                    0x08007795   Thumb Code    62  sqrtf.o(i.sqrtf)
+    __aeabi_d2f                              0x080077d5   Thumb Code     0  d2f.o(x$fpl$d2f)
+    _d2f                                     0x080077d5   Thumb Code    98  d2f.o(x$fpl$d2f)
+    __aeabi_dadd                             0x08007839   Thumb Code     0  daddsub_clz.o(x$fpl$dadd)
+    _dadd                                    0x08007839   Thumb Code   332  daddsub_clz.o(x$fpl$dadd)
+    __aeabi_dmul                             0x08007989   Thumb Code     0  dmul.o(x$fpl$dmul)
+    _dmul                                    0x08007989   Thumb Code   332  dmul.o(x$fpl$dmul)
+    __fpl_dnaninf                            0x08007add   Thumb Code   156  dnaninf.o(x$fpl$dnaninf)
+    __fpl_dretinf                            0x08007b79   Thumb Code    12  dretinf.o(x$fpl$dretinf)
+    __aeabi_dsub                             0x08007b85   Thumb Code     0  daddsub_clz.o(x$fpl$dsub)
+    _dsub                                    0x08007b85   Thumb Code   464  daddsub_clz.o(x$fpl$dsub)
+    __aeabi_f2d                              0x08007d59   Thumb Code     0  f2d.o(x$fpl$f2d)
+    _f2d                                     0x08007d59   Thumb Code    86  f2d.o(x$fpl$f2d)
+    __fpl_fnaninf                            0x08007daf   Thumb Code   140  fnaninf.o(x$fpl$fnaninf)
+    _fp_init                                 0x08007e3b   Thumb Code    10  fpinit.o(x$fpl$fpinit)
+    __fplib_config_fpu_vfp                   0x08007e43   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    __fplib_config_pureend_doubles           0x08007e43   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    __fpl_fretinf                            0x08007e45   Thumb Code    10  fretinf.o(x$fpl$fretinf)
+    __I$use$fp                               0x08007e4f   Thumb Code     0  usenofp.o(x$fpl$usenofp)
+    pal_default_config                       0x08007e50   Data         252  board.o(.constdata)
+    _stm32_dma_streams                       0x08007f7c   Data         192  stm32_dma.o(.constdata)
+    Region$$Table$$Base                      0x08008a28   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08008a48   Number         0  anon$$obj.o(Region$$Table)
+    SHT$$INIT_ARRAY$$Base                    0x08008a48   Number         0  lage.o(.init_array)
+    SHT$$INIT_ARRAY$$Limit                   0x08008a4c   Number         0  lage.o(.init_array)
     EXTD1                                    0x20000008   Data           8  ext_lld.o(.data)
-    dmpReady                                 0x20000018   Data           1  main.o(.data)
-    mpuInterrupt                             0x20000019   Data           1  main.o(.data)
-    dmpSuccess                               0x2000001a   Data           1  main.o(.data)
-    mpuIntStatus                             0x2000001b   Data           1  main.o(.data)
-    devStatus                                0x2000001c   Data           1  main.o(.data)
-    packetSize                               0x2000001e   Data           2  main.o(.data)
-    fifoCount                                0x20000020   Data           2  main.o(.data)
-    RC_INPUT_LAST_TCNT                       0x20000022   Data           2  main.o(.data)
-    Schub_Offset                             0x20000024   Data           4  main.o(.data)
-    v_Nick_tp1                               0x20000028   Data           4  main.o(.data)
-    v_Nick_tp1_alt                           0x2000002c   Data           4  main.o(.data)
-    di_Nick                                  0x20000030   Data           4  main.o(.data)
-    pi_Nick                                  0x20000034   Data           4  main.o(.data)
-    ii_Nick                                  0x20000038   Data           4  main.o(.data)
-    ia_Nick                                  0x2000003c   Data           4  main.o(.data)
-    ei_Nick                                  0x20000040   Data           4  main.o(.data)
-    ei_Nick_alt                              0x20000044   Data           4  main.o(.data)
-    ea_Nick                                  0x20000048   Data           4  main.o(.data)
-    Soll_v_Nick                              0x2000004c   Data           4  main.o(.data)
-    v_Roll_tp1                               0x20000050   Data           4  main.o(.data)
-    v_Roll_tp1_alt                           0x20000054   Data           4  main.o(.data)
-    di_Roll                                  0x20000058   Data           4  main.o(.data)
-    pi_Roll                                  0x2000005c   Data           4  main.o(.data)
-    ii_Roll                                  0x20000060   Data           4  main.o(.data)
-    ia_Roll                                  0x20000064   Data           4  main.o(.data)
-    ei_Roll                                  0x20000068   Data           4  main.o(.data)
-    ei_Roll_alt                              0x2000006c   Data           4  main.o(.data)
-    ea_Roll                                  0x20000070   Data           4  main.o(.data)
-    Soll_v_Roll                              0x20000074   Data           4  main.o(.data)
-    v_Yaw_tp1                                0x20000078   Data           4  main.o(.data)
-    v_Yaw_tp1_alt                            0x2000007c   Data           4  main.o(.data)
-    di_Yaw                                   0x20000080   Data           4  main.o(.data)
-    pi_Yaw                                   0x20000084   Data           4  main.o(.data)
-    ii_Yaw                                   0x20000088   Data           4  main.o(.data)
-    ia_Yaw                                   0x2000008c   Data           4  main.o(.data)
-    ei_Yaw                                   0x20000090   Data           4  main.o(.data)
-    ei_Yaw_alt                               0x20000094   Data           4  main.o(.data)
-    ea_Yaw                                   0x20000098   Data           4  main.o(.data)
-    Soll_v_Yaw                               0x2000009c   Data           4  main.o(.data)
-    inNickIstLage                            0x200000b0   Data           4  main.o(.data)
-    inNickIstV                               0x200000b4   Data           4  main.o(.data)
-    inNickSollLage                           0x200000b8   Data           4  main.o(.data)
-    inRollIstLage                            0x200000bc   Data           4  main.o(.data)
-    inRollIstV                               0x200000c0   Data           4  main.o(.data)
-    inRollSollLage                           0x200000c4   Data           4  main.o(.data)
-    inSchub                                  0x200000c8   Data           4  main.o(.data)
-    inYawIstLage                             0x200000cc   Data           4  main.o(.data)
-    inYawIstV                                0x200000d0   Data           4  main.o(.data)
-    inYawSollLage                            0x200000d4   Data           4  main.o(.data)
-    outMotor1                                0x200000d8   Data           4  main.o(.data)
-    outMotor2                                0x200000dc   Data           4  main.o(.data)
-    outMotor3                                0x200000e0   Data           4  main.o(.data)
-    outMotor4                                0x200000e4   Data           4  main.o(.data)
-    aNick                                    0x200000e8   Data           4  main.o(.data)
-    aRoll                                    0x200000ec   Data           4  main.o(.data)
-    aYaw                                     0x200000f0   Data           4  main.o(.data)
-    aa                                       0x200000f4   Data           6  main.o(.data)
-    aaReal                                   0x200000fa   Data           6  main.o(.data)
-    aaWorld                                  0x20000100   Data           6  main.o(.data)
-    RC_INPUT_CHANNELS                        0x20000106   Data           8  main.o(.data)
-    txbuf_global                             0x20000140   Data           1  i2cdev.o(.data)
-    rxbuf                                    0x20000141   Data           1  i2cdev.o(.data)
-    length_debug                             0x20000142   Data           1  i2cdev.o(.data)
-    regAddr_debug                            0x20000143   Data           1  i2cdev.o(.data)
-    devAddr_debug                            0x20000144   Data           1  i2cdev.o(.data)
-    I2Cdev::readTimeout                      0x20000146   Data           2  i2cdev.o(.data)
-    rxbuf_global                             0x20000148   Data           2  i2cdev.o(.data)
-    i                                        0x2000014a   Data           2  i2cdev.o(.data)
-    data_debug                               0x2000014c   Data           4  i2cdev.o(.data)
-    rlist                                    0x20000170   Data          32  chschd.o(.bss)
-    _idle_thread_wa                          0x200001d8   Data         192  chsys.o(.bss)
-    vtlist                                   0x20000298   Data          16  chvt.o(.bss)
-    ADCD1                                    0x200002a8   Data          52  adc_lld.o(.bss)
-    ADCD2                                    0x200002dc   Data          52  adc_lld.o(.bss)
-    ADCD3                                    0x20000310   Data          52  adc_lld.o(.bss)
-    PWMD4                                    0x20000344   Data          20  pwm_lld.o(.bss)
-    PWMD5                                    0x20000358   Data          20  pwm_lld.o(.bss)
-    SD2                                      0x2000036c   Data         116  serial_lld.o(.bss)
-    SPID1                                    0x200003e0   Data          48  spi_lld.o(.bss)
-    SPID2                                    0x20000410   Data          48  spi_lld.o(.bss)
-    I2CD1                                    0x200004c0   Data          52  i2c_lld.o(.bss)
-    mpu                                      0x200004f8   Data          20  main.o(.bss)
-    fifoBuffer                               0x2000050c   Data          64  main.o(.bss)
-    q                                        0x2000054c   Data          16  main.o(.bss)
-    gravity                                  0x2000055c   Data          12  main.o(.bss)
-    gyroRate                                 0x20000568   Data          12  main.o(.bss)
-    euler                                    0x20000574   Data          12  main.o(.bss)
-    gyro_rate_float                          0x20000580   Data          12  main.o(.bss)
-    tx                                       0x200006c0   Data         256  i2cdev.o(.bss)
-    __libspace_start                         0x200007c0   Data          96  libspace.o(.bss)
-    __main_thread_stack_base__               0x20000820   Data           0  cstartup.o(CSTACK)
-    __temporary_stack_top$libspace           0x20000820   Data           0  libspace.o(.bss)
-    __initial_sp                             0x20000c20   Data           0  cstartup.o(CSTACK)
-    Image$$RW_IRAM1$$ZI$$Limit               0x20001420   Number         0  cstartup.o(MSTACK)
-    __initial_msp                            0x20001420   Data           0  cstartup.o(MSTACK)
+    RC_INPUT_LAST_TCNT                       0x20000018   Data           2  main.o(.data)
+    Schub_Offset                             0x2000001c   Data           4  main.o(.data)
+    v_Nick_tp1                               0x20000020   Data           4  main.o(.data)
+    v_Nick_tp1_alt                           0x20000024   Data           4  main.o(.data)
+    di_Nick                                  0x20000028   Data           4  main.o(.data)
+    pi_Nick                                  0x2000002c   Data           4  main.o(.data)
+    ii_Nick                                  0x20000030   Data           4  main.o(.data)
+    ia_Nick                                  0x20000034   Data           4  main.o(.data)
+    ei_Nick                                  0x20000038   Data           4  main.o(.data)
+    ei_Nick_alt                              0x2000003c   Data           4  main.o(.data)
+    ea_Nick                                  0x20000040   Data           4  main.o(.data)
+    Soll_v_Nick                              0x20000044   Data           4  main.o(.data)
+    v_Roll_tp1                               0x20000048   Data           4  main.o(.data)
+    v_Roll_tp1_alt                           0x2000004c   Data           4  main.o(.data)
+    di_Roll                                  0x20000050   Data           4  main.o(.data)
+    pi_Roll                                  0x20000054   Data           4  main.o(.data)
+    ii_Roll                                  0x20000058   Data           4  main.o(.data)
+    ia_Roll                                  0x2000005c   Data           4  main.o(.data)
+    ei_Roll                                  0x20000060   Data           4  main.o(.data)
+    ei_Roll_alt                              0x20000064   Data           4  main.o(.data)
+    ea_Roll                                  0x20000068   Data           4  main.o(.data)
+    Soll_v_Roll                              0x2000006c   Data           4  main.o(.data)
+    v_Yaw_tp1                                0x20000070   Data           4  main.o(.data)
+    v_Yaw_tp1_alt                            0x20000074   Data           4  main.o(.data)
+    di_Yaw                                   0x20000078   Data           4  main.o(.data)
+    pi_Yaw                                   0x2000007c   Data           4  main.o(.data)
+    ii_Yaw                                   0x20000080   Data           4  main.o(.data)
+    ia_Yaw                                   0x20000084   Data           4  main.o(.data)
+    ei_Yaw                                   0x20000088   Data           4  main.o(.data)
+    ei_Yaw_alt                               0x2000008c   Data           4  main.o(.data)
+    ea_Yaw                                   0x20000090   Data           4  main.o(.data)
+    Soll_v_Yaw                               0x20000094   Data           4  main.o(.data)
+    inNickIstLage                            0x200000a8   Data           4  main.o(.data)
+    inNickIstV                               0x200000ac   Data           4  main.o(.data)
+    inNickSollLage                           0x200000b0   Data           4  main.o(.data)
+    inRollIstLage                            0x200000b4   Data           4  main.o(.data)
+    inRollIstV                               0x200000b8   Data           4  main.o(.data)
+    inRollSollLage                           0x200000bc   Data           4  main.o(.data)
+    inSchub                                  0x200000c0   Data           4  main.o(.data)
+    inYawIstLage                             0x200000c4   Data           4  main.o(.data)
+    inYawIstV                                0x200000c8   Data           4  main.o(.data)
+    inYawSollLage                            0x200000cc   Data           4  main.o(.data)
+    outMotor1                                0x200000d0   Data           4  main.o(.data)
+    outMotor2                                0x200000d4   Data           4  main.o(.data)
+    outMotor3                                0x200000d8   Data           4  main.o(.data)
+    outMotor4                                0x200000dc   Data           4  main.o(.data)
+    aNick                                    0x200000e0   Data           4  main.o(.data)
+    aRoll                                    0x200000e4   Data           4  main.o(.data)
+    aYaw                                     0x200000e8   Data           4  main.o(.data)
+    RC_INPUT_CHANNELS                        0x200000ec   Data           8  main.o(.data)
+    txbuf_global                             0x20000124   Data           1  i2cdev.o(.data)
+    rxbuf                                    0x20000125   Data           1  i2cdev.o(.data)
+    length_debug                             0x20000126   Data           1  i2cdev.o(.data)
+    regAddr_debug                            0x20000127   Data           1  i2cdev.o(.data)
+    devAddr_debug                            0x20000128   Data           1  i2cdev.o(.data)
+    I2Cdev::readTimeout                      0x2000012a   Data           2  i2cdev.o(.data)
+    rxbuf_global                             0x2000012c   Data           2  i2cdev.o(.data)
+    i                                        0x2000012e   Data           2  i2cdev.o(.data)
+    data_debug                               0x20000130   Data           4  i2cdev.o(.data)
+    dmpReady                                 0x20000134   Data           1  lage.o(.data)
+    mpuInterrupt                             0x20000135   Data           1  lage.o(.data)
+    dmpSuccess                               0x20000136   Data           1  lage.o(.data)
+    mpuIntStatus                             0x20000137   Data           1  lage.o(.data)
+    devStatus                                0x20000138   Data           1  lage.o(.data)
+    packetSize                               0x2000013a   Data           2  lage.o(.data)
+    fifoCount                                0x2000013c   Data           2  lage.o(.data)
+    rlist                                    0x20000160   Data          32  chschd.o(.bss)
+    _idle_thread_wa                          0x200001c8   Data         192  chsys.o(.bss)
+    vtlist                                   0x20000288   Data          16  chvt.o(.bss)
+    ADCD1                                    0x20000298   Data          52  adc_lld.o(.bss)
+    ADCD2                                    0x200002cc   Data          52  adc_lld.o(.bss)
+    ADCD3                                    0x20000300   Data          52  adc_lld.o(.bss)
+    PWMD4                                    0x20000334   Data          20  pwm_lld.o(.bss)
+    PWMD5                                    0x20000348   Data          20  pwm_lld.o(.bss)
+    SD2                                      0x2000035c   Data         116  serial_lld.o(.bss)
+    SPID1                                    0x200003d0   Data          48  spi_lld.o(.bss)
+    SPID2                                    0x20000400   Data          48  spi_lld.o(.bss)
+    I2CD1                                    0x200004b0   Data          52  i2c_lld.o(.bss)
+    tx                                       0x20000618   Data         256  i2cdev.o(.bss)
+    mpu                                      0x20000718   Data          20  lage.o(.bss)
+    fifoBuffer                               0x2000072c   Data          64  lage.o(.bss)
+    q                                        0x2000076c   Data          16  lage.o(.bss)
+    euler                                    0x2000077c   Data          12  lage.o(.bss)
+    gyroRate                                 0x20000788   Data          12  lage.o(.bss)
+    gyro_rate_float                          0x20000794   Data          12  lage.o(.bss)
+    __libspace_start                         0x200007a0   Data          96  libspace.o(.bss)
+    __main_thread_stack_base__               0x20000800   Data           0  cstartup.o(CSTACK)
+    __temporary_stack_top$libspace           0x20000800   Data           0  libspace.o(.bss)
+    __initial_sp                             0x20000c00   Data           0  cstartup.o(CSTACK)
+    Image$$RW_IRAM1$$ZI$$Limit               0x20001400   Number         0  cstartup.o(MSTACK)
+    __initial_msp                            0x20001400   Data           0  cstartup.o(MSTACK)
     Image$$RW_IRAM2$$Base                    0x20020000   Number         0  anon$$obj.o(linker$$defined$$symbols)
 
 
@@ -2103,58 +2119,58 @@ Memory Map of the image
 
   Image Entry point : 0x08000189
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00008be4, Max: 0x00100000, ABSOLUTE, COMPRESSED[0x00008ab0])
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00008b8c, Max: 0x00100000, ABSOLUTE, COMPRESSED[0x00008a6c])
 
-    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x00008a94, Max: 0x00100000, ABSOLUTE)
+    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x00008a4c, Max: 0x00100000, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x08000000   0x00000188   Data   RO          281    RESET               vectors.o
-    0x08000188   0x00000008   Code   RO         1696  * !!!main             c_w.l(__main.o)
-    0x08000190   0x00000034   Code   RO         1994    !!!scatter          c_w.l(__scatter.o)
-    0x080001c4   0x0000005a   Code   RO         1992    !!dczerorl2         c_w.l(__dczerorl2.o)
+    0x08000188   0x00000008   Code   RO         1729  * !!!main             c_w.l(__main.o)
+    0x08000190   0x00000034   Code   RO         2027    !!!scatter          c_w.l(__scatter.o)
+    0x080001c4   0x0000005a   Code   RO         2025    !!dczerorl2         c_w.l(__dczerorl2.o)
     0x0800021e   0x00000002   PAD
-    0x08000220   0x0000001c   Code   RO         1996    !!handler_zi        c_w.l(__scatter_zi.o)
-    0x0800023c   0x00000006   Code   RO         1926    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
-    0x08000242   0x00000000   Code   RO         1800    .ARM.Collect$$libinit$$00000006  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         1802    .ARM.Collect$$libinit$$00000008  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         1804    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         1807    .ARM.Collect$$libinit$$0000000D  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         1809    .ARM.Collect$$libinit$$0000000F  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         1811    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         1813    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         1815    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         1817    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         1819    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         1821    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         1823    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         1825    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         1827    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         1831    .ARM.Collect$$libinit$$00000028  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         1833    .ARM.Collect$$libinit$$0000002A  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         1835    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
-    0x08000242   0x00000004   Code   RO         1836    .ARM.Collect$$libinit$$0000002D  c_w.l(libinit2.o)
-    0x08000246   0x00000000   Code   RO         1837    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
-    0x08000246   0x00000002   Code   RO         1838    .ARM.Collect$$libinit$$0000002F  c_w.l(libinit2.o)
-    0x08000248   0x00000002   Code   RO         1988    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
-    0x0800024a   0x00000000   Code   RO         1944    .ARM.Collect$$libshutdown$$00000003  c_w.l(libshutdown2.o)
-    0x0800024a   0x00000000   Code   RO         1947    .ARM.Collect$$libshutdown$$00000006  c_w.l(libshutdown2.o)
-    0x0800024a   0x00000000   Code   RO         1950    .ARM.Collect$$libshutdown$$00000009  c_w.l(libshutdown2.o)
-    0x0800024a   0x00000000   Code   RO         1952    .ARM.Collect$$libshutdown$$0000000B  c_w.l(libshutdown2.o)
-    0x0800024a   0x00000000   Code   RO         1955    .ARM.Collect$$libshutdown$$0000000E  c_w.l(libshutdown2.o)
-    0x0800024a   0x00000002   Code   RO         1956    .ARM.Collect$$libshutdown$$0000000F  c_w.l(libshutdown2.o)
-    0x0800024c   0x00000000   Code   RO         1766    .ARM.Collect$$rtentry$$00000000  c_w.l(rtentry.o)
-    0x0800024c   0x00000000   Code   RO         1856    .ARM.Collect$$rtentry$$00000002  c_w.l(rtentry2.o)
-    0x0800024c   0x00000004   Code   RO         1870    .ARM.Collect$$rtentry$$00000005  c_w.l(rtentry5.o)
-    0x08000250   0x00000000   Code   RO         1858    .ARM.Collect$$rtentry$$00000009  c_w.l(rtentry2.o)
-    0x08000250   0x00000004   Code   RO         1859    .ARM.Collect$$rtentry$$0000000A  c_w.l(rtentry2.o)
-    0x08000254   0x00000000   Code   RO         1861    .ARM.Collect$$rtentry$$0000000C  c_w.l(rtentry2.o)
-    0x08000254   0x00000008   Code   RO         1862    .ARM.Collect$$rtentry$$0000000D  c_w.l(rtentry2.o)
-    0x0800025c   0x00000004   Code   RO         1871    .ARM.Collect$$rtentry$$00002716  c_w.l(rtentry5.o)
-    0x08000260   0x00000002   Code   RO         1932    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
-    0x08000262   0x00000000   Code   RO         1962    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
-    0x08000262   0x00000004   Code   RO         1963    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
-    0x08000266   0x00000006   Code   RO         1964    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
+    0x08000220   0x0000001c   Code   RO         2029    !!handler_zi        c_w.l(__scatter_zi.o)
+    0x0800023c   0x00000006   Code   RO         1959    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
+    0x08000242   0x00000000   Code   RO         1833    .ARM.Collect$$libinit$$00000006  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         1835    .ARM.Collect$$libinit$$00000008  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         1837    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         1840    .ARM.Collect$$libinit$$0000000D  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         1842    .ARM.Collect$$libinit$$0000000F  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         1844    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         1846    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         1848    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         1850    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         1852    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         1854    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         1856    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         1858    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         1860    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         1864    .ARM.Collect$$libinit$$00000028  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         1866    .ARM.Collect$$libinit$$0000002A  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         1868    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
+    0x08000242   0x00000004   Code   RO         1869    .ARM.Collect$$libinit$$0000002D  c_w.l(libinit2.o)
+    0x08000246   0x00000000   Code   RO         1870    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
+    0x08000246   0x00000002   Code   RO         1871    .ARM.Collect$$libinit$$0000002F  c_w.l(libinit2.o)
+    0x08000248   0x00000002   Code   RO         2021    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
+    0x0800024a   0x00000000   Code   RO         1977    .ARM.Collect$$libshutdown$$00000003  c_w.l(libshutdown2.o)
+    0x0800024a   0x00000000   Code   RO         1980    .ARM.Collect$$libshutdown$$00000006  c_w.l(libshutdown2.o)
+    0x0800024a   0x00000000   Code   RO         1983    .ARM.Collect$$libshutdown$$00000009  c_w.l(libshutdown2.o)
+    0x0800024a   0x00000000   Code   RO         1985    .ARM.Collect$$libshutdown$$0000000B  c_w.l(libshutdown2.o)
+    0x0800024a   0x00000000   Code   RO         1988    .ARM.Collect$$libshutdown$$0000000E  c_w.l(libshutdown2.o)
+    0x0800024a   0x00000002   Code   RO         1989    .ARM.Collect$$libshutdown$$0000000F  c_w.l(libshutdown2.o)
+    0x0800024c   0x00000000   Code   RO         1799    .ARM.Collect$$rtentry$$00000000  c_w.l(rtentry.o)
+    0x0800024c   0x00000000   Code   RO         1889    .ARM.Collect$$rtentry$$00000002  c_w.l(rtentry2.o)
+    0x0800024c   0x00000004   Code   RO         1903    .ARM.Collect$$rtentry$$00000005  c_w.l(rtentry5.o)
+    0x08000250   0x00000000   Code   RO         1891    .ARM.Collect$$rtentry$$00000009  c_w.l(rtentry2.o)
+    0x08000250   0x00000004   Code   RO         1892    .ARM.Collect$$rtentry$$0000000A  c_w.l(rtentry2.o)
+    0x08000254   0x00000000   Code   RO         1894    .ARM.Collect$$rtentry$$0000000C  c_w.l(rtentry2.o)
+    0x08000254   0x00000008   Code   RO         1895    .ARM.Collect$$rtentry$$0000000D  c_w.l(rtentry2.o)
+    0x0800025c   0x00000004   Code   RO         1904    .ARM.Collect$$rtentry$$00002716  c_w.l(rtentry5.o)
+    0x08000260   0x00000002   Code   RO         1965    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
+    0x08000262   0x00000000   Code   RO         1995    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
+    0x08000262   0x00000004   Code   RO         1996    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
+    0x08000266   0x00000006   Code   RO         1997    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
     0x0800026c   0x00000006   Code   RO            2    .text               board.o
     0x08000272   0x00000002   PAD
     0x08000274   0x00000050   Code   RO          248    .text               cstartup.o
@@ -2193,55 +2209,59 @@ Memory Map of the image
     0x08002f90   0x0000039c   Code   RO          845    .text               stm32_dma.o
     0x0800332c   0x00000650   Code   RO          881    .text               i2c_lld.o
     0x0800397c   0x00000004   PAD
-    0x08003980   0x00001a30   Code   RO         1224    .text               main.o
-    0x080053b0   0x00001af8   Code   RO         1586    .text               mpu6050.o
-    0x08006ea8   0x00000264   Code   RO         1615    .text               i2cdev.o
-    0x0800710c   0x0000004e   Code   RO         1638    .text               c_w.l(h1_free.o)
-    0x0800715a   0x00000058   Code   RO         1692    .text               c_w.l(memcmp.o)
-    0x080071b2   0x00000006   Code   RO         1694    .text               c_w.l(heapauxi.o)
-    0x080071b8   0x00000024   Code   RO         1701    .text               c_w.l(init_aeabi.o)
-    0x080071dc   0x00000008   Code   RO         1770    .text               c_w.l(rt_heap_descriptor_intlibspace.o)
-    0x080071e4   0x00000016   Code   RO         1794    .text               c_w.l(_rserrno.o)
-    0x080071fa   0x00000002   PAD
-    0x080071fc   0x00000008   Code   RO         1878    .text               c_w.l(rt_errno_addr_intlibspace.o)
-    0x08007204   0x0000000c   Code   RO         1911    .text               c_w.l(exit.o)
-    0x08007210   0x0000000c   Code   RO         1927    .text               c_w.l(sys_exit.o)
-    0x0800721c   0x00000002   Code   RO         1929    .text               c_w.l(use_no_semi.o)
-    0x0800721e   0x00000000   Code   RO         1931    .text               c_w.l(indicate_semi.o)
-    0x0800721e   0x00000072   Code   RO         1251    i._ZN10Quaternion10getProductES_  main.o
-    0x08007290   0x0000000a   Code   RO         1257    i.__ARM_common_memcpy4_6  main.o
-    0x0800729a   0x00000026   Code   RO         1848    i.__ARM_fpclassifyf  m_wm.l(fpclassifyf.o)
-    0x080072c0   0x00000124   Code   RO         1716    i.__hardfp_asinf    m_wm.l(asinf.o)
-    0x080073e4   0x00000248   Code   RO         1728    i.__hardfp_atan2f   m_wm.l(atan2f.o)
-    0x0800762c   0x00000164   Code   RO         1740    i.__hardfp_atanf    m_wm.l(atanf.o)
-    0x08007790   0x0000003a   Code   RO         1752    i.__hardfp_sqrtf    m_wm.l(sqrtf.o)
-    0x080077ca   0x00000002   PAD
-    0x080077cc   0x00000010   Code   RO         1850    i.__mathlib_flt_underflow  m_wm.l(funder.o)
-    0x080077dc   0x0000003e   Code   RO         1754    i.sqrtf             m_wm.l(sqrtf.o)
-    0x0800781a   0x00000002   PAD
-    0x0800781c   0x00000062   Code   RO         1704    x$fpl$d2f           fz_wm.l(d2f.o)
-    0x0800787e   0x00000002   PAD
-    0x08007880   0x00000150   Code   RO         1706    x$fpl$dadd          fz_wm.l(daddsub_clz.o)
-    0x080079d0   0x00000154   Code   RO         1712    x$fpl$dmul          fz_wm.l(dmul.o)
-    0x08007b24   0x0000009c   Code   RO         1839    x$fpl$dnaninf       fz_wm.l(dnaninf.o)
-    0x08007bc0   0x0000000c   Code   RO         1841    x$fpl$dretinf       fz_wm.l(dretinf.o)
-    0x08007bcc   0x000001d4   Code   RO         1708    x$fpl$dsub          fz_wm.l(daddsub_clz.o)
-    0x08007da0   0x00000056   Code   RO         1714    x$fpl$f2d           fz_wm.l(f2d.o)
-    0x08007df6   0x0000008c   Code   RO         1843    x$fpl$fnaninf       fz_wm.l(fnaninf.o)
-    0x08007e82   0x0000000a   Code   RO         1957    x$fpl$fpinit        fz_wm.l(fpinit.o)
-    0x08007e8c   0x0000000a   Code   RO         1845    x$fpl$fretinf       fz_wm.l(fretinf.o)
-    0x08007e96   0x00000000   Code   RO         1847    x$fpl$usenofp       fz_wm.l(usenofp.o)
-    0x08007e96   0x00000002   PAD
-    0x08007e98   0x000000fc   Data   RO            3    .constdata          board.o
-    0x08007f94   0x00000024   Data   RO          630    .constdata          serial.o
-    0x08007fb8   0x0000000c   Data   RO          801    .constdata          serial_lld.o
-    0x08007fc4   0x000000c0   Data   RO          847    .constdata          stm32_dma.o
-    0x08008084   0x000009ec   Data   RO         1229    .constdata          main.o
-    0x08008a70   0x00000020   Data   RO         1989    Region$$Table       anon$$obj.o
-    0x08008a90   0x00000004   Data   RO         1237    .init_array         main.o
+    0x08003980   0x00000aec   Code   RO         1224    .text               main.o
+    0x0800446c   0x00001af8   Code   RO         1523    .text               mpu6050.o
+    0x08005f64   0x00000270   Code   RO         1552    .text               i2cdev.o
+    0x080061d4   0x00000004   PAD
+    0x080061d8   0x00000eec   Code   RO         1571    .text               lage.o
+    0x080070c4   0x0000004e   Code   RO         1671    .text               c_w.l(h1_free.o)
+    0x08007112   0x00000058   Code   RO         1725    .text               c_w.l(memcmp.o)
+    0x0800716a   0x00000006   Code   RO         1727    .text               c_w.l(heapauxi.o)
+    0x08007170   0x00000024   Code   RO         1734    .text               c_w.l(init_aeabi.o)
+    0x08007194   0x00000008   Code   RO         1803    .text               c_w.l(rt_heap_descriptor_intlibspace.o)
+    0x0800719c   0x00000016   Code   RO         1827    .text               c_w.l(_rserrno.o)
+    0x080071b2   0x00000002   PAD
+    0x080071b4   0x00000008   Code   RO         1911    .text               c_w.l(rt_errno_addr_intlibspace.o)
+    0x080071bc   0x0000000c   Code   RO         1944    .text               c_w.l(exit.o)
+    0x080071c8   0x0000000c   Code   RO         1960    .text               c_w.l(sys_exit.o)
+    0x080071d4   0x00000002   Code   RO         1962    .text               c_w.l(use_no_semi.o)
+    0x080071d6   0x00000000   Code   RO         1964    .text               c_w.l(indicate_semi.o)
+    0x080071d6   0x00000072   Code   RO         1587    i._ZN10Quaternion10getProductES_  lage.o
+    0x08007248   0x0000000a   Code   RO         1593    i.__ARM_common_memcpy4_6  lage.o
+    0x08007252   0x00000026   Code   RO         1881    i.__ARM_fpclassifyf  m_wm.l(fpclassifyf.o)
+    0x08007278   0x00000124   Code   RO         1749    i.__hardfp_asinf    m_wm.l(asinf.o)
+    0x0800739c   0x00000248   Code   RO         1761    i.__hardfp_atan2f   m_wm.l(atan2f.o)
+    0x080075e4   0x00000164   Code   RO         1773    i.__hardfp_atanf    m_wm.l(atanf.o)
+    0x08007748   0x0000003a   Code   RO         1785    i.__hardfp_sqrtf    m_wm.l(sqrtf.o)
+    0x08007782   0x00000002   PAD
+    0x08007784   0x00000010   Code   RO         1883    i.__mathlib_flt_underflow  m_wm.l(funder.o)
+    0x08007794   0x0000003e   Code   RO         1787    i.sqrtf             m_wm.l(sqrtf.o)
+    0x080077d2   0x00000002   PAD
+    0x080077d4   0x00000062   Code   RO         1737    x$fpl$d2f           fz_wm.l(d2f.o)
+    0x08007836   0x00000002   PAD
+    0x08007838   0x00000150   Code   RO         1739    x$fpl$dadd          fz_wm.l(daddsub_clz.o)
+    0x08007988   0x00000154   Code   RO         1745    x$fpl$dmul          fz_wm.l(dmul.o)
+    0x08007adc   0x0000009c   Code   RO         1872    x$fpl$dnaninf       fz_wm.l(dnaninf.o)
+    0x08007b78   0x0000000c   Code   RO         1874    x$fpl$dretinf       fz_wm.l(dretinf.o)
+    0x08007b84   0x000001d4   Code   RO         1741    x$fpl$dsub          fz_wm.l(daddsub_clz.o)
+    0x08007d58   0x00000056   Code   RO         1747    x$fpl$f2d           fz_wm.l(f2d.o)
+    0x08007dae   0x0000008c   Code   RO         1876    x$fpl$fnaninf       fz_wm.l(fnaninf.o)
+    0x08007e3a   0x0000000a   Code   RO         1990    x$fpl$fpinit        fz_wm.l(fpinit.o)
+    0x08007e44   0x0000000a   Code   RO         1878    x$fpl$fretinf       fz_wm.l(fretinf.o)
+    0x08007e4e   0x00000000   Code   RO         1880    x$fpl$usenofp       fz_wm.l(usenofp.o)
+    0x08007e4e   0x00000002   PAD
+    0x08007e50   0x000000fc   Data   RO            3    .constdata          board.o
+    0x08007f4c   0x00000024   Data   RO          630    .constdata          serial.o
+    0x08007f70   0x0000000c   Data   RO          801    .constdata          serial_lld.o
+    0x08007f7c   0x000000c0   Data   RO          847    .constdata          stm32_dma.o
+    0x0800803c   0x000000cc   Data   RO         1227    .constdata          main.o
+    0x08008108   0x0000091e   Data   RO         1574    .constdata          lage.o
+    0x08008a26   0x00000002   PAD
+    0x08008a28   0x00000020   Data   RO         2022    Region$$Table       anon$$obj.o
+    0x08008a48   0x00000004   Data   RO         1576    .init_array         lage.o
 
 
-    Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x00001420, Max: 0x00020000, ABSOLUTE, COMPRESSED[0x0000001c])
+    Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x00001400, Max: 0x00020000, ABSOLUTE, COMPRESSED[0x00000020])
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -2249,32 +2269,35 @@ Memory Map of the image
     0x20000008   0x00000008   Data   RW          696    .data               ext_lld.o
     0x20000010   0x00000004   Data   RW          824    .data               spi_lld.o
     0x20000014   0x00000004   Data   RW          848    .data               stm32_dma.o
-    0x20000018   0x00000128   Data   RW         1230    .data               main.o
-    0x20000140   0x00000010   Data   RW         1618    .data               i2cdev.o
-    0x20000150   0x00000020   Zero   RW          346    .bss                chheap.o
-    0x20000170   0x00000020   Zero   RW          462    .bss                chschd.o
-    0x20000190   0x00000108   Zero   RW          500    .bss                chsys.o
-    0x20000298   0x00000010   Zero   RW          534    .bss                chvt.o
-    0x200002a8   0x0000009c   Zero   RW          721    .bss                adc_lld.o
-    0x20000344   0x00000028   Zero   RW          775    .bss                pwm_lld.o
-    0x2000036c   0x00000074   Zero   RW          800    .bss                serial_lld.o
-    0x200003e0   0x00000060   Zero   RW          823    .bss                spi_lld.o
-    0x20000440   0x00000080   Zero   RW          846    .bss                stm32_dma.o
-    0x200004c0   0x00000034   Zero   RW          882    .bss                i2c_lld.o
-    0x200004f4   0x00000004   PAD
-    0x200004f8   0x000001c8   Zero   RW         1226    .bss                main.o
-    0x200006c0   0x00000100   Zero   RW         1617    .bss                i2cdev.o
-    0x200007c0   0x00000060   Zero   RW         1853    .bss                c_w.l(libspace.o)
-    0x20000820   0x00000400   Zero   RW          246    CSTACK              cstartup.o
-    0x20000c20   0x00000400   Zero   RW          247    HEAP                cstartup.o
-    0x20001020   0x00000400   Zero   RW          245    MSTACK              cstartup.o
+    0x20000018   0x0000010c   Data   RW         1228    .data               main.o
+    0x20000124   0x00000010   Data   RW         1555    .data               i2cdev.o
+    0x20000134   0x0000000a   Data   RW         1575    .data               lage.o
+    0x2000013e   0x00000002   PAD
+    0x20000140   0x00000020   Zero   RW          346    .bss                chheap.o
+    0x20000160   0x00000020   Zero   RW          462    .bss                chschd.o
+    0x20000180   0x00000108   Zero   RW          500    .bss                chsys.o
+    0x20000288   0x00000010   Zero   RW          534    .bss                chvt.o
+    0x20000298   0x0000009c   Zero   RW          721    .bss                adc_lld.o
+    0x20000334   0x00000028   Zero   RW          775    .bss                pwm_lld.o
+    0x2000035c   0x00000074   Zero   RW          800    .bss                serial_lld.o
+    0x200003d0   0x00000060   Zero   RW          823    .bss                spi_lld.o
+    0x20000430   0x00000080   Zero   RW          846    .bss                stm32_dma.o
+    0x200004b0   0x00000034   Zero   RW          882    .bss                i2c_lld.o
+    0x200004e4   0x00000004   PAD
+    0x200004e8   0x00000130   Zero   RW         1226    .bss                main.o
+    0x20000618   0x00000100   Zero   RW         1554    .bss                i2cdev.o
+    0x20000718   0x00000088   Zero   RW         1573    .bss                lage.o
+    0x200007a0   0x00000060   Zero   RW         1886    .bss                c_w.l(libspace.o)
+    0x20000800   0x00000400   Zero   RW          246    CSTACK              cstartup.o
+    0x20000c00   0x00000400   Zero   RW          247    HEAP                cstartup.o
+    0x20001000   0x00000400   Zero   RW          245    MSTACK              cstartup.o
 
 
     Execution Region RW_IRAM2 (Base: 0x20020000, Size: 0x00000000, Max: 0x00000001, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20020000   0x00000000   Data   RO         1991    linker$$defined$$symbols  anon$$obj.o
+    0x20020000   0x00000000   Data   RO         2024    linker$$defined$$symbols  anon$$obj.o
 
 
 ==============================================================================
@@ -2284,49 +2307,50 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       292          4          0          0          0       7269   adc.o
-      1208         74          0          0        156       7146   adc_lld.o
-         6          0        252          0          0     265272   board.o
-         4          0          0          0          0        496   chcore.o
-       192         26          0          0          0       1865   chcore_v7m.o
-        36          0          0          0          0        560   chcoreasm_v7m.o
-       250          0          0          0          0       2573   chdynamic.o
-       788          4          0          0          0       6481   chevents.o
-       336         10          0          0         32       2736   chheap.o
-       108         12          0          8          0       2098   chmemcore.o
-       112          0          0          0          0       2223   chmempools.o
-         0          0          0          0          0        652   chmsg.o
-       552          6          0          0          0       4882   chmtx.o
-       840          4          0          0          0       5915   chqueues.o
-       456         10          0          0         32       5291   chschd.o
-       188         34          0          0        264       1674   chsys.o
-       540         12          0          0          0       5225   chthreads.o
-       148          6          0          0         16       2979   chvt.o
-        80         32          0          0       3072        516   cstartup.o
-       112          0          0          0          0       2060   ext.o
-      1164         50          0          8          0       6571   ext_lld.o
-       124          8          0          0          0       1834   hal.o
-       384         68          0          0          0       1400   hal_lld.o
-       208          0          0          0          0       2819   i2c.o
-      1616         54          0          0         52       8751   i2c_lld.o
-       612         20          0         16        256       5899   i2cdev.o
-      6828        426       2544        296        456     277465   main.o
-      6904         34          0          0          0      71848   mpu6050.o
-       160         10          0          0          0       1102   nvic.o
-       340         44          0          0          0       2262   pal_lld.o
-       140          0          0          0          0       2092   pwm.o
-       664         28          0          0         40       5294   pwm_lld.o
-       328          6         36          0          0       3952   serial.o
-       484         32         12          0        116       3962   serial_lld.o
-       400          4          0          0          0       4161   spi.o
-       904         64          0          4         96       4357   spi_lld.o
-       924         38        192          4        128      10274   stm32_dma.o
-         2          0        392          0          0        468   vectors.o
+       292          4          0          0          0       7185   adc.o
+      1208         74          0          0        156       7078   adc_lld.o
+         6          0        252          0          0     264572   board.o
+         4          0          0          0          0        476   chcore.o
+       192         26          0          0          0       1821   chcore_v7m.o
+        36          0          0          0          0        536   chcoreasm_v7m.o
+       250          0          0          0          0       2529   chdynamic.o
+       788          4          0          0          0       6437   chevents.o
+       336         10          0          0         32       2668   chheap.o
+       108         12          0          8          0       2030   chmemcore.o
+       112          0          0          0          0       2179   chmempools.o
+         0          0          0          0          0        632   chmsg.o
+       552          6          0          0          0       4818   chmtx.o
+       840          4          0          0          0       5871   chqueues.o
+       456         10          0          0         32       5179   chschd.o
+       188         34          0          0        264       1614   chsys.o
+       540         12          0          0          0       5161   chthreads.o
+       148          6          0          0         16       2911   chvt.o
+        80         32          0          0       3072        492   cstartup.o
+       112          0          0          0          0       2016   ext.o
+      1164         50          0          8          0       6471   ext_lld.o
+       124          8          0          0          0       1790   hal.o
+       384         68          0          0          0       1356   hal_lld.o
+       208          0          0          0          0       2779   i2c.o
+      1616         54          0          0         52       8663   i2c_lld.o
+       624         20          0         16        256       5875   i2cdev.o
+      3944         84       2338         10        136      41883   lage.o
+      2796        324        204        268        304     236179   main.o
+      6904         34          0          0          0      71756   mpu6050.o
+       160         10          0          0          0       1078   nvic.o
+       340         44          0          0          0       2214   pal_lld.o
+       140          0          0          0          0       2072   pwm.o
+       664         28          0          0         40       5182   pwm_lld.o
+       328          6         36          0          0       3888   serial.o
+       484         32         12          0        116       3878   serial_lld.o
+       400          4          0          0          0       4137   spi.o
+       904         64          0          4         96       4293   spi_lld.o
+       924         38        192          4        128      10190   stm32_dma.o
+         2          0        392          0          0        448   vectors.o
 
     ----------------------------------------------------------------------
-     28444       1124       3460        336       4720     742424   Object Totals
+     28372       1110       3460        320       4704     740337   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-        10          4          0          0          4          0   (incl. Padding)
+        14          8          2          2          4          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -2396,15 +2420,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     32016       1414       3460        336       4816     735800   Grand Totals
-     32016       1414       3460         28       4816     735800   ELF Image Totals (compressed)
-     32016       1414       3460         28          0          0   ROM Totals
+     31944       1400       3460        320       4800     733513   Grand Totals
+     31944       1400       3460         32       4800     733513   ELF Image Totals (compressed)
+     31944       1400       3460         32          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                35476 (  34.64kB)
-    Total RW  Size (RW Data + ZI Data)              5152 (   5.03kB)
-    Total ROM Size (Code + RO Data + RW Data)      35504 (  34.67kB)
+    Total RO  Size (Code + RO Data)                35404 (  34.57kB)
+    Total RW  Size (RW Data + ZI Data)              5120 (   5.00kB)
+    Total ROM Size (Code + RO Data + RW Data)      35436 (  34.61kB)
 
 ==============================================================================
 
