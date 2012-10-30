@@ -925,7 +925,7 @@
 
   <Group>
     <GroupName>test</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <File>
@@ -1109,10 +1109,10 @@
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>11</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>202</TopLine>
-      <CurrentLine>211</CurrentLine>
+      <TopLine>373</TopLine>
+      <CurrentLine>395</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
@@ -1161,14 +1161,28 @@
     <cbSel>0</cbSel>
     <File>
       <GroupNumber>9</GroupNumber>
+      <FileNumber>60</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <ColumnNumber>9</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>34</TopLine>
+      <CurrentLine>53</CurrentLine>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\Quad\Lage.cpp</PathWithFileName>
+      <FilenameWithoutPath>Lage.cpp</FilenameWithoutPath>
+    </File>
+    <File>
+      <GroupNumber>9</GroupNumber>
       <FileNumber>58</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>17</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>3031</TopLine>
+      <CurrentLine>3037</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\Quad\MPU6050\MPU6050.cpp</PathWithFileName>
       <FilenameWithoutPath>MPU6050.cpp</FilenameWithoutPath>
@@ -1179,10 +1193,10 @@
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>10</ColumnNumber>
+      <ColumnNumber>48</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>91</TopLine>
+      <CurrentLine>91</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\Quad\I2Cdev\I2Cdev.cpp</PathWithFileName>
       <FilenameWithoutPath>I2Cdev.cpp</FilenameWithoutPath>
@@ -1193,20 +1207,124 @@
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>34</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>73</TopLine>
-      <CurrentLine>92</CurrentLine>
+      <TopLine>1</TopLine>
+      <CurrentLine>1</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\Quad\Lage.cpp</PathWithFileName>
-      <FilenameWithoutPath>Lage.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Quad\Fernsteuerung.cpp</PathWithFileName>
+      <FilenameWithoutPath>Fernsteuerung.cpp</FilenameWithoutPath>
     </File>
   </Group>
 
   <AlienFiles>
+    <PathWithFilename>D:\STM32F4\Quadrocopter_F407_MPU6050\Quad\Fernsteuerung.h</PathWithFilename>
+    <TopLine>1</TopLine>
+    <CurrentLine>6</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
+  <AlienFiles>
+    <PathWithFilename>D:\STM32F4\Quadrocopter_F407_MPU6050\os\hal\platforms\STM32F4xx\hal_lld.h</PathWithFilename>
+    <TopLine>828</TopLine>
+    <CurrentLine>848</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
+  <AlienFiles>
+    <PathWithFilename>D:\STM32F4\Quadrocopter_F407_MPU6050\os\kernel\include\chschd.h</PathWithFilename>
+    <TopLine>25</TopLine>
+    <CurrentLine>43</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
+  <AlienFiles>
     <PathWithFilename>D:\STM32F4\Quadrocopter_F407_MPU6050\Quad\MPU6050\MPU6050_9Axis_MotionApps41.cpp</PathWithFilename>
-    <TopLine>350</TopLine>
-    <CurrentLine>358</CurrentLine>
+    <TopLine>364</TopLine>
+    <CurrentLine>380</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
+  <AlienFiles>
+    <PathWithFilename>D:\STM32F4\Quadrocopter_F407_MPU6050\Quad\Lage.h</PathWithFilename>
+    <TopLine>1</TopLine>
+    <CurrentLine>1</CurrentLine>
     <Constant>0</Constant>
     <WindowPosition>
       <length>0</length>
@@ -1234,25 +1352,67 @@
     <ActiveMDIGroup>0</ActiveMDIGroup>
     <MDIGroup>
       <Size>100</Size>
-      <ActiveTab>2</ActiveTab>
+      <ActiveTab>3</ActiveTab>
       <Documents>
         <Doc>
-          <Name>..\main.c</Name>
-          <ColumnNumber>11</ColumnNumber>
-          <TopLine>202</TopLine>
-          <CurrentLine>211</CurrentLine>
+          <Name>..\..\..\Quad\I2Cdev\I2Cdev.cpp</Name>
+          <ColumnNumber>48</ColumnNumber>
+          <TopLine>91</TopLine>
+          <CurrentLine>91</CurrentLine>
         </Doc>
         <Doc>
-          <Name>..\..\..\Quad\Lage.cpp</Name>
+          <Name>..\..\..\Quad\Lage.h</Name>
           <ColumnNumber>0</ColumnNumber>
-          <TopLine>73</TopLine>
-          <CurrentLine>92</CurrentLine>
+          <TopLine>1</TopLine>
+          <CurrentLine>1</CurrentLine>
         </Doc>
         <Doc>
           <Name>..\..\..\Quad\MPU6050\MPU6050_9Axis_MotionApps41.cpp</Name>
+          <ColumnNumber>70</ColumnNumber>
+          <TopLine>364</TopLine>
+          <CurrentLine>380</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\main.c</Name>
           <ColumnNumber>0</ColumnNumber>
-          <TopLine>350</TopLine>
-          <CurrentLine>358</CurrentLine>
+          <TopLine>373</TopLine>
+          <CurrentLine>395</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\..\..\Quad\Lage.cpp</Name>
+          <ColumnNumber>9</ColumnNumber>
+          <TopLine>34</TopLine>
+          <CurrentLine>53</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\..\..\Quad\MPU6050\MPU6050.cpp</Name>
+          <ColumnNumber>17</ColumnNumber>
+          <TopLine>3031</TopLine>
+          <CurrentLine>3037</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\..\..\Quad\Fernsteuerung.cpp</Name>
+          <ColumnNumber>34</ColumnNumber>
+          <TopLine>1</TopLine>
+          <CurrentLine>1</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\..\..\Quad\Fernsteuerung.h</Name>
+          <ColumnNumber>22</ColumnNumber>
+          <TopLine>1</TopLine>
+          <CurrentLine>6</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\..\..\os\hal\platforms\STM32F4xx\hal_lld.h</Name>
+          <ColumnNumber>7</ColumnNumber>
+          <TopLine>828</TopLine>
+          <CurrentLine>848</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\..\..\os\kernel\include\chschd.h</Name>
+          <ColumnNumber>8</ColumnNumber>
+          <TopLine>25</TopLine>
+          <CurrentLine>43</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>

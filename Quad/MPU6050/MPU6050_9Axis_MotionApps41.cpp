@@ -377,7 +377,7 @@ uint8_t MPU6050::dmpInitialize() {
     DEBUG_PRINT(MPU6050_DMP_CODE_SIZE);
     DEBUG_PRINTLN(F(" bytes)"));
 	writeProgMemoryBlock(dmpMemory, MPU6050_DMP_CODE_SIZE);
-  	 if (1) {
+	 if (1) {  //Dieser Workaround sollte nicht mehr nötig sein!!!!!!!!!!
 
         DEBUG_PRINTLN(F("Success! DMP code written and verified."));
 

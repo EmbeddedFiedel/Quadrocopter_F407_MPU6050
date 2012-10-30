@@ -31,6 +31,7 @@
 #include "lis302dl.h"
 #include "chprintf.h"
 #include "Lage.h"
+#include "Fernsteuerung.h"
 
 static void pwmpcb(PWMDriver *pwmp);
 
@@ -96,124 +97,17 @@ volatile unsigned short tmp111;
 enum {UP, DOWN};
 static int dir = UP,step = 5;
 
-#define RC_IN_RANGE(x) (((x)>900 && (x)<2300))
-volatile unsigned short RC_INPUT_CHANNELS[4], RC_INPUT_LAST_TCNT,tmp=0;
-char PPM_FRAME_GOOD = 1;
 
-/*
- *  _____       _                             _
- * |_   _|     | |                           | |
- *   | |  _ __ | |_ ___ _ __ _ __ _   _ _ __ | |_ ___
- *   | | | '_ \| __/ _ \ '__| '__| | | | '_ \| __/ __|
- *  _| |_| | | | ||  __/ |  | |  | |_| | |_) | |_\__ \
- * |_____|_| |_|\__\___|_|  |_|   \__,_| .__/ \__|___/
- *                                     | |
- *                                     |_|
- */
-void rx_channel1_interrupt(EXTDriver *extp, expchannel_t channel) {
-		(void)extp;
-		(void)channel;
-
-		chSysLockFromIsr();
-		if (palReadPad(GPIOB, 13) == PAL_LOW) {
-			unsigned short tmp = TIM4->CNT - RC_INPUT_LAST_TCNT;
-			if (RC_IN_RANGE(tmp)) RC_INPUT_CHANNELS[0] = tmp;
-		}
-		RC_INPUT_LAST_TCNT = TIM4->CNT;
-		chSysUnlockFromIsr();
-}
-
-void rx_channel2_interrupt(EXTDriver *extp, expchannel_t channel) {
-		(void)extp;
-		(void)channel;
-
-		chSysLockFromIsr();
-		if (palReadPad(GPIOB, 12) == PAL_LOW) {
-			unsigned short tmp = TIM4->CNT - RC_INPUT_LAST_TCNT;
-			if (RC_IN_RANGE(tmp)) 
-			{
-				RC_INPUT_CHANNELS[1] = tmp;
-			}
-		}
-		RC_INPUT_LAST_TCNT = TIM4->CNT;
-		chSysUnlockFromIsr(); 		  
-}
-void rx_channel3_interrupt(EXTDriver *extp, expchannel_t channel) {
-		(void)extp;
-		(void)channel;
-
-		chSysLockFromIsr();
-		if (palReadPad(GPIOB, 1) == PAL_LOW) {
-			unsigned short tmp = TIM4->CNT - RC_INPUT_LAST_TCNT;
-			if (RC_IN_RANGE(tmp)) 
-			{
-				RC_INPUT_CHANNELS[2] = tmp;
-			}
-		}
-		RC_INPUT_LAST_TCNT = TIM4->CNT;
-		chSysUnlockFromIsr(); 
-}
-void rx_channel4_interrupt(EXTDriver *extp, expchannel_t channel) {
-		(void)extp;
-		(void)channel;
-
-		chSysLockFromIsr();
-		if (palReadPad(GPIOB, 0) == PAL_LOW) {
-			unsigned short tmp = TIM4->CNT - RC_INPUT_LAST_TCNT;
-			if (RC_IN_RANGE(tmp)) 
-			{
-				RC_INPUT_CHANNELS[3] = tmp;
-			}
-		}
-		RC_INPUT_LAST_TCNT = TIM4->CNT;
-		chSysUnlockFromIsr();	  
-}
-static const EXTConfig extcfg = {
-	{
-	    {EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel4_interrupt},
-   	 	{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel3_interrupt},
-   	 	{EXT_CH_MODE_DISABLED, NULL},
-    	{EXT_CH_MODE_DISABLED, NULL},
-		{EXT_CH_MODE_DISABLED, NULL},
-		{EXT_CH_MODE_DISABLED, NULL},
-		{EXT_CH_MODE_DISABLED, NULL},
-    	{EXT_CH_MODE_DISABLED, NULL},
-    	{EXT_CH_MODE_DISABLED, NULL},
-    	{EXT_CH_MODE_DISABLED, NULL},
-    	{EXT_CH_MODE_DISABLED, NULL},
-    	{EXT_CH_MODE_DISABLED, NULL},
-		{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel2_interrupt},
-		{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel1_interrupt},
-		{EXT_CH_MODE_DISABLED, NULL},
-		{EXT_CH_MODE_DISABLED, NULL},
-	},
-	EXT_MODE_EXTI(EXT_MODE_GPIOB, /* 0 */
-	              EXT_MODE_GPIOB, /* 1 */
-	              0, /* 2 */
-	              0, /* 3 */
-	              0, /* 4 */
-	              0, /* 5 */
-	              0, /* 6 */
-	              0, /* 7 */
-	              0, /* 8 */
-	              0, /* 9 */
-	              0, /* 10 */
-	              0, /* 11 */
-	              EXT_MODE_GPIOD,//EXT_MODE_GPIOB, /* 12 */
-	              EXT_MODE_GPIOD,//EXT_MODE_GPIOB, /* 13 */
-	              0,//EXT_MODE_GPIOB, /* 14 */
-	              0)//EXT_MODE_GPIOB) /* 15 */
-};
 
 void Regelung(void)
 {
 	/// Werte übernehmen
 	update_IMU();
 
-	inSchub = float(RC_INPUT_CHANNELS[2] - 1100)/1000;
+	inSchub = getSchub();
 	
 	inNickSollLage = 0;
-	inRollSollLage = (float(RC_INPUT_CHANNELS[1]) - 1500)/1000;
+	inRollSollLage = getRoll();
 	inYawSollLage  = 0;
 	
 	inYawIstLage = getEuler_yaw();
@@ -451,20 +345,14 @@ void I2CInitialize(void)
 
 void i2c_scanner1(void){
    uint8_t x = 0, txbuf[2],rxbuf[6];
-   int32_t messages = 0;
-
    //chprintf((BaseChannel *)&SD2,"inside i2c1 scanner");
-   for(x=0;x<128;x++){
-
+   for(x=0;x<128;x++)
+   {
       txbuf[0] = 0x00;
       txbuf[1] = 0x00;
-
-       messages = i2cMasterTransmit(&I2CD1, x, txbuf, 2, rxbuf, 0);
-       //if(messages == 0)chprintf((BaseChannel *)&SD2, "I2C1: Sensor is available on Address: 0x%x \r\n", x, messages);
-	
+      //if(i2cMasterTransmit(&I2CD1, x, txbuf, 2, rxbuf, 0) == RDY_OK)chprintf((BaseChannel *)&SD2, "I2C1: Sensor is available on Address: 0x%x \r\n", x);
       chThdSleepMilliseconds(1);
-      }
-	 chThdSleepMilliseconds(500);
+   }
 }
 
 
@@ -493,6 +381,9 @@ int main(void)
 	palSetPadMode(GPIOD, 5, PAL_MODE_ALTERNATE(7));
 	palSetPadMode(GPIOD, 6, PAL_MODE_ALTERNATE(7));
 	
+	setup_IMU();
+	setup_Fernsteuerung();
+
 	/*
 	* Initializes the PWM driver 5 for ESCs
 	*/
@@ -502,8 +393,6 @@ int main(void)
 	palSetPadMode(GPIOA, 3, PAL_MODE_ALTERNATE(2)); 
 	pwmStart(&PWMD5, &pwmcfg_esc);
 
-	setup_IMU();
-
 	outMotor2 = 900;
 	outMotor3 = 1100;
 	
@@ -512,20 +401,7 @@ int main(void)
   //	if (tp == NULL)
   //  	chSysHalt();    /* Memory exausted. */
 	chThdCreateStatic(RegelungThreadWorkingArea, sizeof(RegelungThreadWorkingArea), NORMALPRIO, Regelungsthread, NULL);
-	/*
-	* Enable Timer 4
-	*/
-	
-	TIM4->CR1 = 0x00000000;
-	RCC->APB1ENR |= RCC_APB1ENR_TIM4EN;
-	TIM4->SMCR = 0; // slave mode disabled
-	TIM4->PSC = 84; // 84 mhz maximum apb1 bus speed
-	TIM4->ARR = 0xffff;
-	TIM4->SR = 0;
-	TIM4->DIER = 0;
-	TIM4->CR1 = 0x00000001;
-	
-	extStart(&EXTD1, &extcfg);  
+ 
 	/*
 	* Normal main() thread activity, in this demo it does nothing except
 	* sleeping in a loop and check the button state, when the button is

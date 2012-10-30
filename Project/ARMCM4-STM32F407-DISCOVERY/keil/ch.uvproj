@@ -712,6 +712,11 @@
           <GroupName>Quad</GroupName>
           <Files>
             <File>
+              <FileName>Lage.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\..\Quad\Lage.cpp</FilePath>
+            </File>
+            <File>
               <FileName>MPU6050.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\..\..\Quad\MPU6050\MPU6050.cpp</FilePath>
@@ -722,9 +727,9 @@
               <FilePath>..\..\..\Quad\I2Cdev\I2Cdev.cpp</FilePath>
             </File>
             <File>
-              <FileName>Lage.cpp</FileName>
+              <FileName>Fernsteuerung.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\..\..\Quad\Lage.cpp</FilePath>
+              <FilePath>..\..\..\Quad\Fernsteuerung.cpp</FilePath>
             </File>
           </Files>
         </Group>
