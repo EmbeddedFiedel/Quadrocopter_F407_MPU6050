@@ -100,7 +100,6 @@ static int dir = UP,step = 5;
 void Regelung(void)
 {
 	/// Werte übernehmen
-	update_IMU();
 
 	inSchub = getSchub();
 	
@@ -350,7 +349,8 @@ int main(void)
 	setup_IMU();
 	setup_Fernsteuerung();
 	setup_Motoren();
-
+	
+	
 
 	//Regelungsthread anlegen
 	//Thread *tp = chThdCreateFromHeap(NULL, THD_WA_SIZE(128), NORMALPRIO+1, Regelungsthread, NULL);
@@ -367,7 +367,7 @@ int main(void)
 
 	while (TRUE) 
 	{
-  		
+  		update_IMU();	
 		//i2c_scanner1();
 	    chThdSleepMilliseconds(10);
   }

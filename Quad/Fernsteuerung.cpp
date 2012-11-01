@@ -132,7 +132,7 @@ void setup_Fernsteuerung()
 	extStart(&EXTD1, &extcfg); 
 }
 
-float getNick() {return RC_INPUT_CHANNELS[0];}
-float getRoll() {return RC_INPUT_CHANNELS[1];}
-float getSchub() {return RC_INPUT_CHANNELS[2];}
-float getYaw() {return RC_INPUT_CHANNELS[3];}
+float getNick() {return((float(RC_INPUT_CHANNELS[1]) - 1500)/1000);}
+float getRoll() {return((float(RC_INPUT_CHANNELS[0]) - 1500)/1000);}
+float getSchub() {return((float(RC_INPUT_CHANNELS[2]) - 1100)/1000);}
+float getYaw() {return((float(RC_INPUT_CHANNELS[3]) - 1500)/1000);}
