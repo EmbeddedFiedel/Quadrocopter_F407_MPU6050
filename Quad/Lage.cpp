@@ -25,6 +25,8 @@ THE SOFTWARE.
 #include "I2Cdev.h"
 #include "Lage.h"
 #include "MPU6050_9Axis_MotionApps41.cpp"
+#include "ch.h"
+#include "hal.h"
 
 MPU6050 mpu;
 
@@ -57,8 +59,27 @@ void dmpDataReady()
 // ===                      INITIAL SETUP                       ===
 // ================================================================
 
+static const I2CConfig i2cfg1 = {
+    OPMODE_I2C,
+    100000,
+    STD_DUTY_CYCLE,
+};
+
+void I2CInitialize(void)
+{
+  i2cInit();
+	i2cStart(&I2CD1, &i2cfg1);
+	// Link PB6 and PB6 to I2C1 function
+	palSetPadMode(GPIOB, 6,  PAL_MODE_ALTERNATE(4)); 
+	palSetPadMode(GPIOB, 7,  PAL_MODE_ALTERNATE(4)); 
+
+	// startups. Pauses added just to be safe
+	chThdSleepMilliseconds(100);
+}
+
 void setup_IMU() 
 {
+	I2CInitialize();
 	mpu.initialize();
 	devStatus = mpu.dmpInitialize();
 	if (devStatus == 0) 
