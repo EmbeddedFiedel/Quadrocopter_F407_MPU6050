@@ -32,11 +32,9 @@
 #include "chprintf.h"
 #include "Lage.h"
 #include "Fernsteuerung.h"
+#include "Motoren.h"
 
-static void pwmpcb(PWMDriver *pwmp);
-
-
- float inNickIstLage;
+float inNickIstLage;
 float inNickIstV;
 float inNickSollLage;
 float inRollIstLage;
@@ -231,39 +229,28 @@ void Regelung(void)
    }
    else 
    {					
-  	 outMotor1 = 0.F;
-  	 outMotor2 = 0.F;
- 	 outMotor3 = 0.F;
- 	 outMotor4 = 0.F;
-   }						   
-	/////////////////////////// Motorwerte saturieren ////////////////////////////////////////// 
+  	outMotor1 = 0.F;
+  	outMotor2 = 0.F;
+		outMotor3 = 0.F;
+		outMotor4 = 0.F;
+   }						
+   
+	/////////////////////////// Motorwerte saturieren und übergeben //////////////////////// 
+   if (outMotor1 > 6800.F) 	setMotor_1(6800.F);
+   else if(outMotor1 < 0.F) setMotor_1(0.F);
+	 else setMotor_1(outMotor1);
 
-   if (outMotor1 > 6800.F)
-	   outMotor1 = 6800.F;
-   else if(outMotor1 < 0.F)
-	   outMotor1 = 0.F;
-
-   if (outMotor2 > 6800.F)
-	   outMotor2 = 6800.F;
-   else if(outMotor2 < 0.F)
-	   outMotor2 = 0.F;
-
-   if (outMotor3 > 6800.F)
-	   outMotor3 = 6800.F;
-   else if(outMotor3 < 0.F)
-	   outMotor3 = 0.F;
-
-   if (outMotor4 > 6800.F)
-	   outMotor4 = 6800.F;
-   else if(outMotor4 < 0.F)
-	   outMotor4 = 0.F;	
-	   
-/*	if(outMotor2 == 900) dir = UP;
-    else if (outMotor2 == 3000) dir = DOWN;
-    if (dir == UP) outMotor2 += step;
-    else if (dir == DOWN) outMotor2 -= step;
-    if (dir == UP) outMotor3 += step;
-    else if (dir == DOWN) outMotor3 -= step;*/			  
+   if (outMotor2 > 6800.F)  setMotor_2(6800.F);
+   else if(outMotor2 < 0.F) setMotor_2(0.F);
+	 else setMotor_2(outMotor2);
+	 
+   if (outMotor3 > 6800.F)  setMotor_3(6800.F);
+   else if(outMotor3 < 0.F) setMotor_3(0.F);
+	 else setMotor_3(outMotor3);
+	 
+   if (outMotor4 > 6800.F)  setMotor_4(6800.F);
+   else if(outMotor4 < 0.F) setMotor_4(0.F);	
+	 else setMotor_4(outMotor4);	
 
 	/////////////////////////// Alte Werte merken ////////////////////////////////////////// 
 
@@ -290,11 +277,7 @@ static msg_t Regelungsthread(void *arg) {
   systime_t time = chTimeNow();     // Tnow
   while (TRUE) {
     time += MS2ST(5);            // Next deadline
-    
-	
 	Regelung();
-	
-	 //
 	//chThdSleepMilliseconds(10); /* Fixed interval.*/
     chThdSleepUntil(time);
   }
@@ -302,24 +285,6 @@ static msg_t Regelungsthread(void *arg) {
 
 
 
-/*
- * PWM configuration structure.
- * Cyclic callback enabled, channels 1 and 4 enabled without callbacks,
- * the active state is a logic one.
- */
-static PWMConfig pwmcfg_esc = {
-  1000000,                                    /* 10kHz PWM clock frequency.   */
-  20000,                                    /* PWM period 20ms (in ticks).    */
-  NULL,
-  {
-    {PWM_OUTPUT_ACTIVE_HIGH, NULL},
-    {PWM_OUTPUT_ACTIVE_HIGH, NULL},
-    {PWM_OUTPUT_ACTIVE_HIGH, NULL},
-    {PWM_OUTPUT_ACTIVE_HIGH, NULL}
-  },
-  /* HW dependent part.*/
-  0
-};
 
 
 
@@ -333,7 +298,7 @@ static const I2CConfig i2cfg1 = {
 
 void I2CInitialize(void)
 {
-  	i2cInit();
+  i2cInit();
 	i2cStart(&I2CD1, &i2cfg1);
 	// Link PB6 and PB6 to I2C1 function
 	palSetPadMode(GPIOB, 6,  PAL_MODE_ALTERNATE(4)); 
@@ -343,14 +308,15 @@ void I2CInitialize(void)
 	chThdSleepMilliseconds(100);
 }
 
-void i2c_scanner1(void){
+void i2c_scanner1(void)
+{
    uint8_t x = 0, txbuf[2],rxbuf[6];
    //chprintf((BaseChannel *)&SD2,"inside i2c1 scanner");
    for(x=0;x<128;x++)
    {
       txbuf[0] = 0x00;
       txbuf[1] = 0x00;
-      //if(i2cMasterTransmit(&I2CD1, x, txbuf, 2, rxbuf, 0) == RDY_OK)chprintf((BaseChannel *)&SD2, "I2C1: Sensor is available on Address: 0x%x \r\n", x);
+      if(i2cMasterTransmit(&I2CD1, x, txbuf, 2, rxbuf, 0) == RDY_OK)chprintf((BaseChannel *)&SD2, "I2C1: Sensor is available on Address: 0x%x \r\n", x);
       chThdSleepMilliseconds(1);
    }
 }
@@ -383,19 +349,9 @@ int main(void)
 	
 	setup_IMU();
 	setup_Fernsteuerung();
+	setup_Motoren();
 
-	/*
-	* Initializes the PWM driver 5 for ESCs
-	*/
-	palSetPadMode(GPIOA, 0, PAL_MODE_ALTERNATE(2)); 
-	palSetPadMode(GPIOA, 1, PAL_MODE_ALTERNATE(2));  
-	palSetPadMode(GPIOA, 2, PAL_MODE_ALTERNATE(2));
-	palSetPadMode(GPIOA, 3, PAL_MODE_ALTERNATE(2)); 
-	pwmStart(&PWMD5, &pwmcfg_esc);
 
-	outMotor2 = 900;
-	outMotor3 = 1100;
-	
 	//Regelungsthread anlegen
 	//Thread *tp = chThdCreateFromHeap(NULL, THD_WA_SIZE(128), NORMALPRIO+1, Regelungsthread, NULL);
   //	if (tp == NULL)
@@ -411,19 +367,8 @@ int main(void)
 
 	while (TRUE) 
 	{
-  		static int width1 = 700, width2 = 700,width3 = 700,width4 = 700; /* starts at .7ms, ends at 2.0ms */
+  		
 		//i2c_scanner1();
- 	
-    	pwmEnableChannel(&PWMD5, 0, width1);
-    	pwmEnableChannel(&PWMD5, 1, width2);
-    	pwmEnableChannel(&PWMD5, 2, width3);
-    	pwmEnableChannel(&PWMD5, 3, width4);
-
-		width1 = outMotor1/6800*1000+1000;
-		width2 = outMotor2/6800*1000+1000;
-		width3 = outMotor3/6800*1000+1000;
-		width4 = outMotor4/6800*1000+1000;
-
 	    chThdSleepMilliseconds(10);
   }
 }

@@ -49,7 +49,7 @@ float gyro_rate_float[3];
 volatile bool mpuInterrupt = false;     // indicates whether MPU interrupt pin has gone high
 void dmpDataReady() 
 {
-    mpuInterrupt = true;
+	mpuInterrupt = true;
 }
 
 
@@ -59,15 +59,15 @@ void dmpDataReady()
 
 void setup_IMU() 
 {
-    mpu.initialize();
-    devStatus = mpu.dmpInitialize();
-    if (devStatus == 0) 
+	mpu.initialize();
+	devStatus = mpu.dmpInitialize();
+	if (devStatus == 0) 
 	{
-    	mpu.setDMPEnabled(true);
-        mpuIntStatus = mpu.getIntStatus();
-        dmpReady = true;
-        packetSize = mpu.dmpGetFIFOPacketSize();
-    } 
+		mpu.setDMPEnabled(true);
+		mpuIntStatus = mpu.getIntStatus();
+		dmpReady = true;
+		packetSize = mpu.dmpGetFIFOPacketSize();
+	} 
 }
 void update_IMU()
 {
@@ -79,15 +79,15 @@ void update_IMU()
 	// otherwise, check for DMP data ready interrupt (this should happen frequently)
 	else if (mpuIntStatus & 0x02) 
 	{
-        // wait for correct available data length, should be a VERY short wait
-        while (fifoCount < packetSize) fifoCount = mpu.getFIFOCount();
-        // read a packet from FIFO
-        mpu.getFIFOBytes(fifoBuffer, packetSize);
-        // track FIFO count here in case there is > 1 packet available
-        // (this lets us immediately read more without waiting for an interrupt)
-        fifoCount -= packetSize;
+		// wait for correct available data length, should be a VERY short wait
+		while (fifoCount < packetSize) fifoCount = mpu.getFIFOCount();
+		// read a packet from FIFO
+		mpu.getFIFOBytes(fifoBuffer, packetSize);
+		// track FIFO count here in case there is > 1 packet available
+		// (this lets us immediately read more without waiting for an interrupt)
+		fifoCount -= packetSize;
 		mpu.dmpGetQuaternion(&q, fifoBuffer);
-    	mpu.dmpGetEuler(euler, &q);
+    mpu.dmpGetEuler(euler, &q);
 		mpu.dmpGetGyro(gyroRate,fifoBuffer);
 		gyro_rate_float[0] = (float)gyroRate[0]/2147483648*2000*0.41;
 		gyro_rate_float[1] = (float)gyroRate[1]/2147483648*2000*0.41;
