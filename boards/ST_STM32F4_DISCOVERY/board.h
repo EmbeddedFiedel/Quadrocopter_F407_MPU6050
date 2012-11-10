@@ -78,6 +78,7 @@
 
 #define GPIOC_OTG_FS_POWER_ON   0
 #define GPIOC_DOUT              3
+#define GPIOC_CS_SPI            4
 #define GPIOC_MCLK              7
 #define GPIOC_SCLK              10
 #define GPIOC_SDIN              12
@@ -225,6 +226,7 @@
  * Port C setup.
  * All input with pull-up except:
  * PC0  - GPIOC_OTG_FS_POWER_ON (output push-pull).
+ * PC4  - GPIOC_CS_SPI           (output push-pull).
  * PC7  - GPIOC_MCLK            (alternate 6).
  * PC10 - GPIOC_SCLK            (alternate 6).
  * PC12 - GPIOC_SDIN            (alternate 6).
@@ -233,7 +235,7 @@
                              PIN_MODE_INPUT(1) |                            \
                              PIN_MODE_INPUT(2) |                            \
                              PIN_MODE_INPUT(3) |                            \
-                             PIN_MODE_INPUT(4) |                            \
+                             PIN_MODE_OUTPUT(GPIOC_CS_SPI) |                \
                              PIN_MODE_INPUT(5) |                            \
                              PIN_MODE_INPUT(6) |                            \
                              PIN_MODE_ALTERNATE(GPIOC_MCLK) |               \
@@ -251,7 +253,7 @@
                              PIN_PUDR_PULLUP(1) |                           \
                              PIN_PUDR_PULLUP(2) |                           \
                              PIN_PUDR_PULLUP(3) |                           \
-                             PIN_PUDR_PULLUP(4) |                           \
+                             PIN_PUDR_FLOATING(GPIOC_CS_SPI) |              \
                              PIN_PUDR_PULLUP(5) |                           \
                              PIN_PUDR_PULLUP(6) |                           \
                              PIN_PUDR_FLOATING(GPIOC_MCLK) |                \

@@ -21,7 +21,7 @@ void rx_channel1_interrupt(EXTDriver *extp, expchannel_t channel) {
 		(void)channel;
 
 		chSysLockFromIsr();
-		if (palReadPad(GPIOB, 13) == PAL_LOW) {
+		if (palReadPad(GPIOE, 10) == PAL_LOW) {
 			unsigned short tmp = TIM4->CNT - RC_INPUT_LAST_TCNT;
 			if (RC_IN_RANGE(tmp)) RC_INPUT_CHANNELS[0] = tmp;
 		}
@@ -34,7 +34,7 @@ void rx_channel2_interrupt(EXTDriver *extp, expchannel_t channel) {
 		(void)channel;
 
 		chSysLockFromIsr();
-		if (palReadPad(GPIOB, 12) == PAL_LOW) {
+		if (palReadPad(GPIOE, 11) == PAL_LOW) {
 			unsigned short tmp = TIM4->CNT - RC_INPUT_LAST_TCNT;
 			if (RC_IN_RANGE(tmp)) 
 			{
@@ -49,7 +49,7 @@ void rx_channel3_interrupt(EXTDriver *extp, expchannel_t channel) {
 		(void)channel;
 
 		chSysLockFromIsr();
-		if (palReadPad(GPIOB, 1) == PAL_LOW) {
+		if (palReadPad(GPIOE, 12) == PAL_LOW) {
 			unsigned short tmp = TIM4->CNT - RC_INPUT_LAST_TCNT;
 			if (RC_IN_RANGE(tmp)) 
 			{
@@ -64,7 +64,7 @@ void rx_channel4_interrupt(EXTDriver *extp, expchannel_t channel) {
 		(void)channel;
 
 		chSysLockFromIsr();
-		if (palReadPad(GPIOB, 0) == PAL_LOW) {
+		if (palReadPad(GPIOE, 13) == PAL_LOW) {
 			unsigned short tmp = TIM4->CNT - RC_INPUT_LAST_TCNT;
 			if (RC_IN_RANGE(tmp)) 
 			{
@@ -76,8 +76,6 @@ void rx_channel4_interrupt(EXTDriver *extp, expchannel_t channel) {
 }
 static const EXTConfig extcfg = {
 	{
-	    {EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel4_interrupt},
-   	 	{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel3_interrupt},
    	 	{EXT_CH_MODE_DISABLED, NULL},
     	{EXT_CH_MODE_DISABLED, NULL},
 		{EXT_CH_MODE_DISABLED, NULL},
@@ -88,13 +86,15 @@ static const EXTConfig extcfg = {
     	{EXT_CH_MODE_DISABLED, NULL},
     	{EXT_CH_MODE_DISABLED, NULL},
     	{EXT_CH_MODE_DISABLED, NULL},
-		{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel2_interrupt},
-		{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel1_interrupt},
+	    {EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel1_interrupt},
+   	 	{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel2_interrupt},
+		{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel3_interrupt},
+		{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel4_interrupt},
 		{EXT_CH_MODE_DISABLED, NULL},
 		{EXT_CH_MODE_DISABLED, NULL},
 	},
-	EXT_MODE_EXTI(EXT_MODE_GPIOB, 	/* 0 */
-	              EXT_MODE_GPIOB, 	/* 1 */
+	EXT_MODE_EXTI(0, 	/* 0 */
+	              0, 	/* 1 */
 	              0,			 	/* 2 */
 	              0, 				/* 3 */
 	              0, 				/* 4 */
@@ -103,10 +103,10 @@ static const EXTConfig extcfg = {
 	              0, 				/* 7 */
 	              0, 				/* 8 */
 	              0, 				/* 9 */
-	              0, 				/* 10 */
-	              0, 				/* 11 */
-	              EXT_MODE_GPIOD, 	/* 12 */
-	              EXT_MODE_GPIOD, 	/* 13 */
+	              EXT_MODE_GPIOE, 				/* 10 */
+	              EXT_MODE_GPIOE, 				/* 11 */
+	              EXT_MODE_GPIOE, 	/* 12 */
+	              EXT_MODE_GPIOE, 	/* 13 */
 	              0, /* 14 */
 	              0) /* 15 */
 };

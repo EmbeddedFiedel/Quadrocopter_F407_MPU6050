@@ -402,6 +402,8 @@ void mmcStop(MMCDriver *mmcp) {
 bool_t mmcConnect(MMCDriver *mmcp) {
   unsigned i;
   bool_t result;
+	
+  uint8_t r3[4];
 
   chDbgCheck(mmcp != NULL, "mmcConnect");
 
@@ -430,7 +432,6 @@ bool_t mmcConnect(MMCDriver *mmcp) {
      * by ElmChan.
      *
      * */
-    uint8_t r3[4];
     if(send_command_R3(mmcp, MMC_CMDINTERFACE_CONDITION, 0x01AA, r3) != 0x05){
 
       /* Switch to SDHC mode */
