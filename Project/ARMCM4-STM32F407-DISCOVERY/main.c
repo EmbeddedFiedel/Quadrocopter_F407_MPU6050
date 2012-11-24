@@ -34,81 +34,48 @@
 #include "Fernsteuerung.h"
 #include "Motoren.h"
 #include "Regelung.h"
+#include "Datalogger.h"
 #include "ff.h"
 
-	FATFS Fatfs;		/* File system object */
 	FIL Fil;			/* File object */
 	FRESULT rc;				/* Result code */
-	DIR dir;				/* Directory object */
-	FILINFO fno;			/* File information object */
 
+bool_t file_opened = 0;
 
-FATFS MMC_FS;
-MMCDriver MMCD1;
-static bool_t fs_ready = FALSE;
-static SPIConfig hs_spicfg = { NULL, GPIOC, 4, 0 };
-static SPIConfig ls_spicfg = { NULL, GPIOC, 4, SPI_CR1_BR_2 | SPI_CR1_BR_1 };
-/* Card insertion verification.*/
-bool_t mmc_is_inserted(void)
+void datalog(void)
 {
-//   return palReadPad(IOPORT3, GPIOC_MMCCP);
-   return 1;
-}
-
-/* Card protection verification.*/
-bool_t mmc_is_protected(void)
-{
-//   return !palReadPad(IOPORT3, GPIOC_MMCWP);
-   return 0;
-}
-// MMC card insertion event
-static void InsertHandler(eventid_t id)
-{
-  FRESULT err;
-  (void) id;
-	
-  if(mmcConnect(&MMCD1))
-  {
-    chprintf((BaseChannel *) &SD2, "SD: Failed to connect to card\r\n");
-    return;
-  }
-  else
-  {
-    chprintf((BaseChannel *) &SD2, "SD: Connected to card\r\n");
+		float nick, roll, yaw;
+	uint32_t system_time;
+	 		update_IMU();	 //Ersetzen durch Interrupt Handler!!!!!!
+			nick = getEuler_nick();
+			roll = getEuler_roll();
+			yaw = getEuler_yaw();
 		
-  }
-
-  err = f_mount(0, &MMC_FS);
-  if(err != FR_OK)
-  {
-    chprintf((BaseChannel *) &SD2, "SD: f_mount() failed %d\r\n", err);
-    mmcDisconnect(&MMCD1);
-    return;
-  }
-  else
-  {
-    chprintf((BaseChannel *) &SD2, "SD: File system mounted\r\n");
-  }
-  fs_ready = TRUE;
-
-  // quick and dirty
-  // directly decode all mp3's in the
-  // cards root in a loop (assuming the card is never pulled)
-  {
-	rc = f_open(&Fil, "Quad_Handler.TXT", FA_WRITE | FA_CREATE_ALWAYS);
-//	rc = f_printf(&Fil, "moin\r\n");	 
-	rc = f_sync(&Fil);
-  }
+		if(Datalogger_ready() && !file_opened)
+		{
+				//rc = f_mkfs(0,0,0);
+				rc = f_open(&Fil, "QuadD.TXT", FA_WRITE | FA_CREATE_ALWAYS);
+				if(rc != FR_OK)
+				{
+					chprintf((BaseChannel *) &SD2, "SD: f_open() failed %d\r\n", rc);
+					return;
+				}	
+				//rc = f_printf(&Fil, "moin\r\n");	 
+				rc = f_sync(&Fil);
+				if(rc != FR_OK)
+				{
+					chprintf((BaseChannel *) &SD2, "SD: f_sync() failed %d\r\n", rc);
+					return;
+				}	
+				file_opened = TRUE;
+		}
+		if(Datalogger_ready() && file_opened)
+		{
+			system_time = chTimeNow();
+			f_printf(&Fil, "%d;%d;%d;%d\r\n",system_time,(int)(nick*100),(int)(roll*100),(int)(yaw*100));
+			rc = f_sync(&Fil);
+		}
 }
-
-// MMC card removal event
-static void RemoveHandler(eventid_t id)
-{
-  (void) id;
-  fs_ready = FALSE;
-}
-
-
 
 
 /*
@@ -116,13 +83,6 @@ static void RemoveHandler(eventid_t id)
  */
 int main(void) 
 {
-	float nick, roll, yaw;
-	
-	
-	static const evhandler_t evhndl[] = {InsertHandler, RemoveHandler};
-  struct EventListener el0, el1;
-
-	FRESULT err;
 	/*
 	* System initializations.
 	* - HAL initialization, this also initializes the configured device drivers
@@ -145,50 +105,7 @@ int main(void)
 	setup_Fernsteuerung();
 	setup_Motoren();
 	setup_Regelung();
- 
-   // initialize MMC driver
-  // setup pads to SPI1 function (connect these pads to your SD card accordingly)
-  palSetPadMode(GPIOC, 4, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_HIGHEST); // NSS
-  palSetPadMode(GPIOA, 5, PAL_MODE_ALTERNATE(5) | PAL_STM32_OSPEED_HIGHEST); // SCK
-  palSetPadMode(GPIOA, 6, PAL_MODE_ALTERNATE(5)); // MISO
-  palSetPadMode(GPIOA, 7, PAL_MODE_ALTERNATE(5) | PAL_STM32_OSPEED_HIGHEST); // MOSI
-  palSetPad(GPIOC, 4); // set NSS high
-
-  
-	
-  // initialize MMC driver
-  mmcObjectInit(&MMCD1, &SPID1, &ls_spicfg, &hs_spicfg, mmc_is_protected, mmc_is_inserted);
-  mmcStart(&MMCD1, NULL);
-	chEvtRegister(&MMCD1.inserted_event, &el0, 0);
-  chEvtRegister(&MMCD1.removed_event, &el1, 1);
-	
-chThdSleepMilliseconds(7000);
- if(mmcConnect(&MMCD1))
-  {
-    chprintf((BaseChannel *) &SD2, "SD: Failed to connect to card\r\n");
-    return;
-  }
-  else
-  {
-    chprintf((BaseChannel *) &SD2, "SD: Connected to card\r\n");
-		
-  }
-
-  err = f_mount(0, &MMC_FS);
-  if(err != FR_OK)
-  {
-    chprintf((BaseChannel *) &SD2, "SD: f_mount() failed %d\r\n", err);
-    mmcDisconnect(&MMCD1);
-    return;
-  }
-  else
-  {
-    chprintf((BaseChannel *) &SD2, "SD: File system mounted\r\n");
-  }
-  fs_ready = TRUE;
-	rc = f_open(&Fil, "Quad.TXT", FA_WRITE | FA_CREATE_ALWAYS);
-	
-	
+	setup_Datalogger(); 
 	/*
 	* Normal main() thread activity, in this demo it does nothing except
 	* sleeping in a loop and check the button state, when the button is
@@ -197,12 +114,7 @@ chThdSleepMilliseconds(7000);
 	*/
 	while (TRUE) 
 	{
-  		update_IMU();	 //Ersetzen durch Interrupt Handler!!!!!!
-			nick = getEuler_nick();
-			roll = getEuler_roll();
-			yaw = getEuler_yaw();
-			f_printf(&Fil, "%d;%d;%d\r\n",(int)(nick*100),(int)(roll*100),(int)(yaw*100));
-			rc = f_sync(&Fil);
-	    chThdSleepMilliseconds(10);
+		datalog();
+		chThdSleepMilliseconds(10);
   }
 }

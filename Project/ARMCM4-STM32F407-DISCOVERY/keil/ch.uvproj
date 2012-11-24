@@ -751,6 +751,11 @@
               <FileType>8</FileType>
               <FilePath>..\..\..\Quad\Regelung.cpp</FilePath>
             </File>
+            <File>
+              <FileName>Datalogger.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\..\Quad\Datalogger.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

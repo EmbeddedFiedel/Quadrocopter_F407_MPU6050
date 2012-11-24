@@ -110,15 +110,11 @@ _DISCOVERY\\board.h"
    76 00000000         
    77 00000000         
    78 00000000         
-   79 00000000         
-   80 00000000         
-   81 00000000         
-   82 00000000         
-   83 00000000         
-   84 00000000         
-   85 00000000         #line   91               "..\\..\\..\\boards\\ST_STM32F4
+   79 00000000         #line   85               "..\\..\\..\\boards\\ST_STM32F4
 _DISCOVERY\\board.h"
-   91 00000000         
+   85 00000000         
+   86 00000000         #line   92               "..\\..\\..\\boards\\ST_STM32F4
+_DISCOVERY\\board.h"
    92 00000000         
    93 00000000         
    94 00000000         
@@ -128,18 +124,18 @@ _DISCOVERY\\board.h"
    98 00000000         
    99 00000000         
   100 00000000         
+  101 00000000         
+  102 00000000         
+  103 00000000         
+  104 00000000         
 
 
 
 ARM Macro Assembler    Page 3 
 
 
-  101 00000000         
-  102 00000000         
-  103 00000000         
-  104 00000000         #line   118              "..\\..\\..\\boards\\ST_STM32F4
+  105 00000000         #line   119              "..\\..\\..\\boards\\ST_STM32F4
 _DISCOVERY\\board.h"
-  118 00000000         
   119 00000000         
   120 00000000         
   121 00000000         
@@ -155,9 +151,9 @@ _DISCOVERY\\board.h"
   131 00000000         
   132 00000000         
   133 00000000         
-  134 00000000         #line   176              "..\\..\\..\\boards\\ST_STM32F4
+  134 00000000         
+  135 00000000         #line   177              "..\\..\\..\\boards\\ST_STM32F4
 _DISCOVERY\\board.h"
-  176 00000000         
   177 00000000         
   178 00000000         
   179 00000000         
@@ -165,9 +161,9 @@ _DISCOVERY\\board.h"
   181 00000000         
   182 00000000         
   183 00000000         
-  184 00000000         #line   223              "..\\..\\..\\boards\\ST_STM32F4
+  184 00000000         
+  185 00000000         #line   224              "..\\..\\..\\boards\\ST_STM32F4
 _DISCOVERY\\board.h"
-  223 00000000         
   224 00000000         
   225 00000000         
   226 00000000         
@@ -176,10 +172,10 @@ _DISCOVERY\\board.h"
   229 00000000         
   230 00000000         
   231 00000000         
-  232 00000000         #line   270              "..\\..\\..\\boards\\ST_STM32F4
+  232 00000000         
+  233 00000000         
+  234 00000000         #line   272              "..\\..\\..\\boards\\ST_STM32F4
 _DISCOVERY\\board.h"
-  270 00000000         
-  271 00000000         
   272 00000000         
   273 00000000         
   274 00000000         
@@ -189,59 +185,61 @@ _DISCOVERY\\board.h"
   278 00000000         
   279 00000000         
   280 00000000         
-  281 00000000         #line   318              "..\\..\\..\\boards\\ST_STM32F4
+  281 00000000         
+  282 00000000         
+  283 00000000         #line   320              "..\\..\\..\\boards\\ST_STM32F4
 _DISCOVERY\\board.h"
-  318 00000000         
-  319 00000000         
+  320 00000000         
+  321 00000000         
+  322 00000000         
+  323 00000000         
 
 
 
 ARM Macro Assembler    Page 4 
 
 
-  320 00000000         
-  321 00000000         
-  322 00000000         
-  323 00000000         
   324 00000000         
   325 00000000         
-  326 00000000         #line   363              "..\\..\\..\\boards\\ST_STM32F4
+  326 00000000         
+  327 00000000         
+  328 00000000         #line   365              "..\\..\\..\\boards\\ST_STM32F4
 _DISCOVERY\\board.h"
-  363 00000000         
-  364 00000000         
   365 00000000         
   366 00000000         
   367 00000000         
-  368 00000000         #line   390              "..\\..\\..\\boards\\ST_STM32F4
+  368 00000000         
+  369 00000000         
+  370 00000000         #line   392              "..\\..\\..\\boards\\ST_STM32F4
 _DISCOVERY\\board.h"
-  390 00000000         
-  391 00000000         
   392 00000000         
   393 00000000         
   394 00000000         
-  395 00000000         #line   417              "..\\..\\..\\boards\\ST_STM32F4
+  395 00000000         
+  396 00000000         
+  397 00000000         #line   419              "..\\..\\..\\boards\\ST_STM32F4
 _DISCOVERY\\board.h"
-  417 00000000         
-  418 00000000         
   419 00000000         
   420 00000000         
   421 00000000         
   422 00000000         
   423 00000000         
-  424 00000000         #line   461              "..\\..\\..\\boards\\ST_STM32F4
+  424 00000000         
+  425 00000000         
+  426 00000000         #line   463              "..\\..\\..\\boards\\ST_STM32F4
 _DISCOVERY\\board.h"
-  461 00000000         
-  462 00000000         
   463 00000000         
   464 00000000         
   465 00000000         
-  466 00000000         #line   488              "..\\..\\..\\boards\\ST_STM32F4
+  466 00000000         
+  467 00000000         
+  468 00000000         #line   490              "..\\..\\..\\boards\\ST_STM32F4
 _DISCOVERY\\board.h"
-  488 00000000         
-  489 00000000         #line   498              "..\\..\\..\\boards\\ST_STM32F4
+  490 00000000         
+  491 00000000         #line   500              "..\\..\\..\\boards\\ST_STM32F4
 _DISCOVERY\\board.h"
-  498 00000000         
-  499 00000000         #line   31               "..\\..\\..\\os\\ports\\RVCT\\A
+  500 00000000         
+  501 00000000         #line   31               "..\\..\\..\\os\\ports\\RVCT\\A
 RMCMx\\STM32F4xx\\vectors.s"
    31 00000000         
    32 00000000         
@@ -258,14 +256,14 @@ RMCMx\\STM32F4xx\\vectors.s"
    43 00000004 00000000        DCD              Reset_Handler
    44 00000008 00000000        DCD              NMIVector
    45 0000000C 00000000        DCD              HardFaultVector
+   46 00000010 00000000        DCD              MemManageVector
+   47 00000014 00000000        DCD              BusFaultVector
 
 
 
 ARM Macro Assembler    Page 5 
 
 
-   46 00000010 00000000        DCD              MemManageVector
-   47 00000014 00000000        DCD              BusFaultVector
    48 00000018 00000000        DCD              UsageFaultVector
    49 0000001C 00000000        DCD              Vector1C
    50 00000020 00000000        DCD              Vector20
@@ -323,14 +321,14 @@ ARM Macro Assembler    Page 5
   102 000000F0 00000000        DCD              VectorF0
   103 000000F4 00000000        DCD              VectorF4
   104 000000F8 00000000        DCD              VectorF8
+  105 000000FC 00000000        DCD              VectorFC
+  106 00000100 00000000        DCD              Vector100
 
 
 
 ARM Macro Assembler    Page 6 
 
 
-  105 000000FC 00000000        DCD              VectorFC
-  106 00000100 00000000        DCD              Vector100
   107 00000104 00000000        DCD              Vector104
   108 00000108 00000000        DCD              Vector108
   109 0000010C 00000000        DCD              Vector10C
@@ -388,14 +386,14 @@ ARM Macro Assembler    Page 6
   160 00000000                 EXPORT           Vector34                [WEAK]
   161 00000000                 EXPORT           PendSVVector            [WEAK]
   162 00000000                 EXPORT           SysTickVector           [WEAK]
+  163 00000000                 EXPORT           Vector40                [WEAK]
+  164 00000000                 EXPORT           Vector44                [WEAK]
 
 
 
 ARM Macro Assembler    Page 7 
 
 
-  163 00000000                 EXPORT           Vector40                [WEAK]
-  164 00000000                 EXPORT           Vector44                [WEAK]
   165 00000000                 EXPORT           Vector48                [WEAK]
   166 00000000                 EXPORT           Vector4C                [WEAK]
   167 00000000                 EXPORT           Vector50                [WEAK]
@@ -453,14 +451,14 @@ ARM Macro Assembler    Page 7
   219 00000000                 EXPORT           Vector120               [WEAK]
   220 00000000                 EXPORT           Vector124               [WEAK]
   221 00000000                 EXPORT           Vector128               [WEAK]
+  222 00000000                 EXPORT           Vector12C               [WEAK]
+  223 00000000                 EXPORT           Vector130               [WEAK]
 
 
 
 ARM Macro Assembler    Page 8 
 
 
-  222 00000000                 EXPORT           Vector12C               [WEAK]
-  223 00000000                 EXPORT           Vector130               [WEAK]
   224 00000000                 EXPORT           Vector134               [WEAK]
   225 00000000                 EXPORT           Vector138               [WEAK]
   226 00000000                 EXPORT           Vector13C               [WEAK]
@@ -518,14 +516,14 @@ ARM Macro Assembler    Page 8
   278 00000000         Vector88
   279 00000000         Vector8C
   280 00000000         Vector90
+  281 00000000         Vector94
+  282 00000000         Vector98
 
 
 
 ARM Macro Assembler    Page 9 
 
 
-  281 00000000         Vector94
-  282 00000000         Vector98
   283 00000000         Vector9C
   284 00000000         VectorA0
   285 00000000         VectorA4
@@ -583,14 +581,14 @@ ARM Macro Assembler    Page 9
   337 00000000         Vector174
   338 00000000         Vector178
   339 00000000         Vector17C
+  340 00000000         Vector180
+  341 00000000         Vector184
 
 
 
 ARM Macro Assembler    Page 10 
 
 
-  340 00000000         Vector180
-  341 00000000         Vector184
   342 00000000 E7FE            b                _unhandled_exception
   343 00000002                 ENDP
   344 00000002         
