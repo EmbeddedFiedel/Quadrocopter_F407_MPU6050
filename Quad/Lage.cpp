@@ -27,7 +27,7 @@ THE SOFTWARE.
 #include "MPU6050_9Axis_MotionApps41.cpp"
 #include "ch.h"
 #include "hal.h"
-
+#include "chprintf.h"
 MPU6050 mpu;
 
 // MPU control/status vars
@@ -43,6 +43,64 @@ Quaternion q;           // [w, x, y, z]         quaternion container
 float euler[3];         // [psi, theta, phi]    Euler angle container
 int32_t gyroRate[3];
 float gyro_rate_float[3];
+
+
+
+
+#include "Datalogger.h"
+#include "ff.h"
+
+	static FIL Fil_Lage;			/* File object */
+	FRESULT rc_datalog;				/* Result code */
+
+bool_t file_datalog_opened = 0;
+
+void datalog_lage(void)
+{
+		float nick, roll, yaw;
+	uint32_t system_time;
+	
+		if(Datalogger_ready() && !file_datalog_opened)
+		{
+				//rc = f_mkfs(0,0,0);
+				rc_datalog = f_open(&Fil_Lage, ("QuadLage.TXT"), FA_WRITE | FA_CREATE_ALWAYS);
+				if(rc_datalog != FR_OK)
+				{
+					chprintf((BaseChannel *) &SD2, "SD: f_open() failed %d\r\n", rc_datalog);
+					return;
+				}	
+				//rc = f_printf(&Fil, "moin\r\n");	 
+				rc_datalog = f_sync(&Fil_Lage);
+				if(rc_datalog != FR_OK)
+				{
+					chprintf((BaseChannel *) &SD2, "SD: f_sync() failed %d\r\n", rc_datalog);
+					return;
+				}	
+				file_datalog_opened = TRUE;
+				chprintf((BaseChannel *) &SD2, "SD: QuadLage.TXT opened successfull\r\n");
+				f_printf(&Fil_Lage, "Time_Lage; Nick_Lage; Roll_Lage; Yaw_Lage\r\n");
+				f_sync;
+		}
+		if(Datalogger_ready() && file_datalog_opened)
+		{
+			system_time = chTimeNow();
+			f_printf(&Fil_Lage, "%d;%d;%d;%d\r\n",system_time,(int)(euler[1]*100),(int)(euler[2]*100),(int)(euler[0]*100));
+			rc_datalog = f_sync(&Fil_Lage);
+		}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // ================================================================
 // ===               INTERRUPT DETECTION ROUTINE                ===
@@ -113,6 +171,7 @@ void update_IMU()
 		gyro_rate_float[0] = (float)gyroRate[0]/2147483648*2000*0.41;
 		gyro_rate_float[1] = (float)gyroRate[1]/2147483648*2000*0.41;
 		gyro_rate_float[2] = (float)gyroRate[2]/2147483648*2000*0.41;
+		datalog_lage();
 	}
 }
 
