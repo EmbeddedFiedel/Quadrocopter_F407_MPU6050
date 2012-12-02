@@ -53,35 +53,34 @@ float gyro_rate_float[3];
 	static FIL Fil_Lage;			/* File object */
 	FRESULT rc_datalog;				/* Result code */
 
-bool_t file_datalog_opened = 0;
+bool_t datalog_lage_opened = 0;
 
 void datalog_lage(void)
 {
-		float nick, roll, yaw;
 	uint32_t system_time;
 	
-		if(Datalogger_ready() && !file_datalog_opened)
+		if(Datalogger_ready() && !datalog_lage_opened)
 		{
 				//rc = f_mkfs(0,0,0);
 				rc_datalog = f_open(&Fil_Lage, ("QuadLage.TXT"), FA_WRITE | FA_CREATE_ALWAYS);
 				if(rc_datalog != FR_OK)
 				{
-					chprintf((BaseChannel *) &SD2, "SD: f_open() failed %d\r\n", rc_datalog);
+					chprintf((BaseChannel *) &SD2, "SD QuadLage.TXT: f_open() failed %d\r\n", rc_datalog);
 					return;
 				}	
 				//rc = f_printf(&Fil, "moin\r\n");	 
 				rc_datalog = f_sync(&Fil_Lage);
 				if(rc_datalog != FR_OK)
 				{
-					chprintf((BaseChannel *) &SD2, "SD: f_sync() failed %d\r\n", rc_datalog);
+					chprintf((BaseChannel *) &SD2, "SD QuadLage.TXT: f_sync() failed %d\r\n", rc_datalog);
 					return;
 				}	
-				file_datalog_opened = TRUE;
-				chprintf((BaseChannel *) &SD2, "SD: QuadLage.TXT opened successfull\r\n");
+				datalog_lage_opened = TRUE;
+				chprintf((BaseChannel *) &SD2, "SD QuadLage.TXT: opened successfull\r\n");
 				f_printf(&Fil_Lage, "Time_Lage; Nick_Lage; Roll_Lage; Yaw_Lage\r\n");
 				f_sync;
 		}
-		if(Datalogger_ready() && file_datalog_opened)
+		if(Datalogger_ready() && datalog_lage_opened)
 		{
 			system_time = chTimeNow();
 			f_printf(&Fil_Lage, "%d;%d;%d;%d\r\n",system_time,(int)(euler[1]*100),(int)(euler[2]*100),(int)(euler[0]*100));

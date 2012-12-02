@@ -40,7 +40,7 @@
 	static FIL Fil_Main;			/* File object */
 	FRESULT rc;				/* Result code */
 
-bool_t file_opened = 0;
+bool_t datalog_main_opened = 0;
 
 void datalog(void)
 {
@@ -51,28 +51,28 @@ void datalog(void)
 			roll = getEuler_roll();
 			yaw = getEuler_yaw();
 		
-		if(Datalogger_ready() && !file_opened)
+		if(Datalogger_ready() && !datalog_main_opened)
 		{
 				//rc = f_mkfs(0,0,0);
 				rc = f_open(&Fil_Main, "QuadMain.TXT", FA_WRITE | FA_CREATE_ALWAYS);
 				if(rc != FR_OK)
 				{
-					chprintf((BaseChannel *) &SD2, "SD: f_open() failed %d\r\n", rc);
+					chprintf((BaseChannel *) &SD2, "SD QuadMain.TXT: f_open() failed %d\r\n", rc);
 					return;
 				}	
 				//rc = f_printf(&Fil, "moin\r\n");	 
 				rc = f_sync(&Fil_Main);
 				if(rc != FR_OK)
 				{
-					chprintf((BaseChannel *) &SD2, "SD: f_sync() failed %d\r\n", rc);
+					chprintf((BaseChannel *) &SD2, "SD QuadMain.TXT: f_sync() failed %d\r\n", rc);
 					return;
 				}	
-				chprintf((BaseChannel *) &SD2, "SD: QuadMain.TXT opened successfull\r\n");
+				chprintf((BaseChannel *) &SD2, "SD QuadMain.TXT: opened successfull\r\n");
 				f_printf(&Fil_Main, "Time_Main; Nick_Main; Roll_Main; Yaw_Main\r\n");
 				f_sync(&Fil_Main);
-				file_opened = TRUE;
+				datalog_main_opened = TRUE;
 		}
-		if(Datalogger_ready() && file_opened)
+		if(Datalogger_ready() && datalog_main_opened)
 		{
 			system_time = chTimeNow();
 			f_printf(&Fil_Main, "%d;%d;%d;%d\r\n",system_time,(int)(nick*100),(int)(roll*100),(int)(yaw*100));
