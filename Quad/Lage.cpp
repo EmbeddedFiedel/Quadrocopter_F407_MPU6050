@@ -28,6 +28,8 @@ THE SOFTWARE.
 #include "ch.h"
 #include "hal.h"
 #include "chprintf.h"
+#include "Datalogger.h"
+#include "ff.h"
 MPU6050 mpu;
 
 // MPU control/status vars
@@ -44,14 +46,8 @@ float euler[3];         // [psi, theta, phi]    Euler angle container
 int32_t gyroRate[3];
 float gyro_rate_float[3];
 
-
-
-
-#include "Datalogger.h"
-#include "ff.h"
-
-	static FIL Fil_Lage;			/* File object */
-	FRESULT rc_lage;				/* Result code */
+static FIL Fil_Lage;			/* File object */
+FRESULT rc_lage;				/* Result code */
 
 bool_t datalog_lage_opened = 0;
 
@@ -87,19 +83,6 @@ void datalog_lage(void)
 			rc_lage = f_sync(&Fil_Lage);
 		}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // ================================================================
 // ===               INTERRUPT DETECTION ROUTINE                ===
