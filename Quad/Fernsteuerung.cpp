@@ -3,6 +3,7 @@
 #include "hal.h"
 
 #define RC_IN_RANGE(x) (((x)>900 && (x)<2300))
+short RC_INPUT_CHANNELS_Offset[4] = {-1500,-1500,-1100,-1500};
 volatile unsigned short RC_INPUT_CHANNELS[4], RC_INPUT_LAST_TCNT,tmp=0;
 char PPM_FRAME_GOOD = 1;
 
@@ -120,6 +121,12 @@ void setup_Fernsteuerung()
 	/*
 	* Enable Timer 4
 	*/
+
+	RC_INPUT_CHANNELS[0] = -RC_INPUT_CHANNELS_Offset[0]; 
+	RC_INPUT_CHANNELS[1] = -RC_INPUT_CHANNELS_Offset[1];
+	RC_INPUT_CHANNELS[2] = -RC_INPUT_CHANNELS_Offset[2];
+	RC_INPUT_CHANNELS[3] = -RC_INPUT_CHANNELS_Offset[3];
+
 	TIM4->CR1 = 0x00000000;
 	RCC->APB1ENR |= RCC_APB1ENR_TIM4EN;
 	TIM4->SMCR = 0; // slave mode disabled
@@ -132,7 +139,7 @@ void setup_Fernsteuerung()
 	extStart(&EXTD1, &extcfg); 
 }
 
-float getNick() {return((float(RC_INPUT_CHANNELS[1]) - 1500)/1000);}
-float getRoll() {return((float(RC_INPUT_CHANNELS[0]) - 1500)/1000);}
-float getSchub() {return((float(RC_INPUT_CHANNELS[2]) - 1100)/1000);}
-float getYaw() {return((float(RC_INPUT_CHANNELS[3]) - 1500)/1000);}
+float getNick() {return((float(RC_INPUT_CHANNELS[1]) + RC_INPUT_CHANNELS_Offset[1])/1000);}
+float getRoll() {return((float(RC_INPUT_CHANNELS[0]) + RC_INPUT_CHANNELS_Offset[0])/1000);}
+float getSchub() {return((float(RC_INPUT_CHANNELS[2]) + RC_INPUT_CHANNELS_Offset[2])/1000);}
+float getYaw() {return((float(RC_INPUT_CHANNELS[3]) + RC_INPUT_CHANNELS_Offset[3])/1000);}

@@ -51,7 +51,7 @@ float gyro_rate_float[3];
 #include "ff.h"
 
 	static FIL Fil_Lage;			/* File object */
-	FRESULT rc_datalog;				/* Result code */
+	FRESULT rc_lage;				/* Result code */
 
 bool_t datalog_lage_opened = 0;
 
@@ -62,17 +62,17 @@ void datalog_lage(void)
 		if(Datalogger_ready() && !datalog_lage_opened)
 		{
 				//rc = f_mkfs(0,0,0);
-				rc_datalog = f_open(&Fil_Lage, ("QuadLage.TXT"), FA_WRITE | FA_CREATE_ALWAYS);
-				if(rc_datalog != FR_OK)
+				rc_lage = f_open(&Fil_Lage, ("QuadLage.TXT"), FA_WRITE | FA_CREATE_ALWAYS);
+				if(rc_lage != FR_OK)
 				{
-					chprintf((BaseChannel *) &SD2, "SD QuadLage.TXT: f_open() failed %d\r\n", rc_datalog);
+					chprintf((BaseChannel *) &SD2, "SD QuadLage.TXT: f_open() failed %d\r\n", rc_lage);
 					return;
 				}	
 				//rc = f_printf(&Fil, "moin\r\n");	 
-				rc_datalog = f_sync(&Fil_Lage);
-				if(rc_datalog != FR_OK)
+				rc_lage = f_sync(&Fil_Lage);
+				if(rc_lage != FR_OK)
 				{
-					chprintf((BaseChannel *) &SD2, "SD QuadLage.TXT: f_sync() failed %d\r\n", rc_datalog);
+					chprintf((BaseChannel *) &SD2, "SD QuadLage.TXT: f_sync() failed %d\r\n", rc_lage);
 					return;
 				}	
 				datalog_lage_opened = TRUE;
@@ -84,7 +84,7 @@ void datalog_lage(void)
 		{
 			system_time = chTimeNow();
 			f_printf(&Fil_Lage, "%d;%d;%d;%d\r\n",system_time,(int)(euler[1]*100),(int)(euler[2]*100),(int)(euler[0]*100));
-			rc_datalog = f_sync(&Fil_Lage);
+			rc_lage = f_sync(&Fil_Lage);
 		}
 }
 

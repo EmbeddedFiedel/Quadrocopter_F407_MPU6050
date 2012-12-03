@@ -61,7 +61,88 @@ float ea_Yaw = 0;
 float Soll_v_Yaw = 0;
 float aYaw;
 volatile unsigned short tmp111;
+#include "ch.h"
+#include "hal.h"
+#include "chprintf.h"
+#include "Datalogger.h"
+#include "ff.h"
 
+	static FIL Fil_regelung;			/* File object */
+	FRESULT rc_datalog;				/* Result code */
+
+bool_t datalog_regelung_opened = 0;
+
+void datalog_regelung(void)
+{
+	uint32_t system_time;
+	
+		if(Datalogger_ready() && !datalog_regelung_opened)
+		{
+				//rc = f_mkfs(0,0,0);
+				rc_datalog = f_open(&Fil_regelung, ("Quadregelung.TXT"), FA_WRITE | FA_CREATE_ALWAYS);
+				if(rc_datalog != FR_OK)
+				{
+					chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: f_open() failed %d\r\n", rc_datalog);
+					return;
+				}	
+				//rc = f_printf(&Fil, "moin\r\n");	 
+				rc_datalog = f_sync(&Fil_regelung);
+				if(rc_datalog != FR_OK)
+				{
+					chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: f_sync() failed %d\r\n", rc_datalog);
+					return;
+				}	
+				datalog_regelung_opened = TRUE;
+				chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: opened successfull\r\n");
+				f_printf(&Fil_regelung, "Time_regelung;inSchub;inNickSollLage;inRollSollLage;inYawSollLage;inNickIstLage;inRollIstLage;inYawIstLage;inNickIstV;inRollIstV;inYawIstV;ea_Nick;ea_Roll;ea_Yaw;ia_Nick;ia_Roll;ia_Yaw;Soll_v_Nick;Soll_v_Roll;Soll_v_Yaw;ii_Nick;ii_Roll;ii_Yaw;pi_Nick;pi_Roll;pi_Yaw;di_Nick;di_Roll;di_Yaw;v_Nick_tp1;v_Roll_tp1;v_Yaw_tp1;aNick;aRoll;aYaw;outMotor1;outMotor2;outMotor3;outMotor4\r\n");
+				f_sync;
+		}
+		if(Datalogger_ready() && datalog_regelung_opened)
+		{
+			system_time = chTimeNow();
+			f_printf(&Fil_regelung, "%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d\r\n",system_time,
+						(int)(inSchub*100),
+						(int)(inNickSollLage*100),
+						(int)(inRollSollLage*100),
+						(int)(inYawSollLage*100),
+						(int)(inNickIstLage*100),
+						(int)(inRollIstLage*100),
+						(int)(inYawIstLage*100),
+						(int)(inNickIstV*100),
+						(int)(inRollIstV*100),
+						(int)(inYawIstV*100),
+						(int)(ea_Nick*100),
+						(int)(ea_Roll*100),
+						(int)(ea_Yaw*100),
+						(int)(ia_Nick*100),
+						(int)(ia_Roll*100),
+						(int)(ia_Yaw*100),
+						(int)(Soll_v_Nick*100),
+						(int)(Soll_v_Roll*100),
+						(int)(Soll_v_Yaw*100),
+						(int)(ii_Nick*100),
+						(int)(ii_Roll*100),
+						(int)(ii_Yaw*100),
+						(int)(pi_Nick*100),
+						(int)(pi_Roll*100),
+						(int)(pi_Yaw*100),
+						(int)(di_Nick*100),
+						(int)(di_Roll*100),
+						(int)(di_Yaw*100),
+						(int)(v_Nick_tp1*100),
+						(int)(v_Roll_tp1*100),
+						(int)(v_Yaw_tp1*100),
+						(int)(aNick*100),
+						(int)(aRoll*100),
+						(int)(aYaw*100),
+						(int)(outMotor1),
+						(int)(outMotor2),
+						(int)(outMotor3),
+						(int)(outMotor4)
+					);
+			rc_datalog = f_sync(&Fil_regelung);
+		}
+}
 
 void Regelung(void)
 {
@@ -194,8 +275,8 @@ void Regelung(void)
    }
    else 
    {					
-  	outMotor1 = 0.F;
-  	outMotor2 = 0.F;
+  		outMotor1 = 0.F;
+  		outMotor2 = 0.F;
 		outMotor3 = 0.F;
 		outMotor4 = 0.F;
    }						
@@ -228,6 +309,7 @@ void Regelung(void)
    v_Yaw_tp1_alt = v_Yaw_tp1;
    ei_Yaw_alt = ei_Yaw;
 
+   datalog_regelung();
 }
 /*
  * Working area for Regelung
