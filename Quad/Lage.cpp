@@ -50,14 +50,13 @@ static FIL Fil_Lage;			/* File object */
 FRESULT rc_lage;				/* Result code */
 
 bool_t datalog_lage_opened = 0;
-
 void datalog_lage(void)
 {
 	uint32_t system_time;
 	
 		if(Datalogger_ready() && !datalog_lage_opened)
 		{
-				//rc = f_mkfs(0,0,0);
+				//rc_lage = f_mkfs(0,0,0);
 				rc_lage = f_open(&Fil_Lage, ("QuadLage.TXT"), FA_WRITE | FA_CREATE_ALWAYS);
 				if(rc_lage != FR_OK)
 				{
@@ -74,7 +73,7 @@ void datalog_lage(void)
 				datalog_lage_opened = TRUE;
 				chprintf((BaseChannel *) &SD2, "SD QuadLage.TXT: opened successfull\r\n");
 				f_printf(&Fil_Lage, "Time_Lage; Nick_Lage; Roll_Lage; Yaw_Lage\r\n");
-				f_sync;
+				f_sync(&Fil_Lage);
 		}
 		if(Datalogger_ready() && datalog_lage_opened)
 		{
