@@ -13,7 +13,7 @@
 
 
 
-static bool_t fs_ready = FALSE;
+static bool_t Datalogger_ready_flag = FALSE;
 static SPIConfig hs_spicfg = { NULL, GPIOC, 4, 0 };
 static SPIConfig ls_spicfg = { NULL, GPIOC, 4, SPI_CR1_BR_2 | SPI_CR1_BR_1 };
 /* Card insertion verification.*/
@@ -58,7 +58,7 @@ static void InsertHandler(eventid_t id)
   {
     chprintf((BaseChannel *) &SD2, "SD: File system mounted\r\n");
   }
-	fs_ready = TRUE;
+	Datalogger_ready_flag = TRUE;
 	return;
 }
 
@@ -66,7 +66,7 @@ static void InsertHandler(eventid_t id)
 static void RemoveHandler(eventid_t id)
 {
   (void) id;
-  fs_ready = FALSE;
+  Datalogger_ready_flag = FALSE;
 }
 
 
@@ -110,5 +110,5 @@ void setup_Datalogger(void)
 
 bool Datalogger_ready(void)
 {
-	return fs_ready;
+	return Datalogger_ready_flag;
 }

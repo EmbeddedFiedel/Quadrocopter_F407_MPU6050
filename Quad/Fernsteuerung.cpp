@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 short RC_INPUT_CHANNELS_Offset[4] = {-1500,-1500,-1100,-1500};
 volatile unsigned short RC_INPUT_CHANNELS[4], RC_INPUT_LAST_TCNT,tmp=0;
 char PPM_FRAME_GOOD = 1;
+static bool_t Fernsteuerung_ready_flag = FALSE;
 
 /*
  *  _____       _                             _
@@ -94,18 +95,18 @@ void rx_channel4_interrupt(EXTDriver *extp, expchannel_t channel) {
 }
 static const EXTConfig extcfg = {
 	{
-   	 	{EXT_CH_MODE_DISABLED, NULL},
-    		{EXT_CH_MODE_DISABLED, NULL},
 		{EXT_CH_MODE_DISABLED, NULL},
 		{EXT_CH_MODE_DISABLED, NULL},
 		{EXT_CH_MODE_DISABLED, NULL},
-    		{EXT_CH_MODE_DISABLED, NULL},
-    		{EXT_CH_MODE_DISABLED, NULL},
-    		{EXT_CH_MODE_DISABLED, NULL},
-    		{EXT_CH_MODE_DISABLED, NULL},
-    		{EXT_CH_MODE_DISABLED, NULL},
-	    	{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel1_interrupt},
-   	 	{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel2_interrupt},
+		{EXT_CH_MODE_DISABLED, NULL},
+		{EXT_CH_MODE_DISABLED, NULL},
+		{EXT_CH_MODE_DISABLED, NULL},
+		{EXT_CH_MODE_DISABLED, NULL},
+		{EXT_CH_MODE_DISABLED, NULL},
+		{EXT_CH_MODE_DISABLED, NULL},
+		{EXT_CH_MODE_DISABLED, NULL},
+		{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel1_interrupt},
+		{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel2_interrupt},
 		{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel3_interrupt},
 		{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel4_interrupt},
 		{EXT_CH_MODE_DISABLED, NULL},
@@ -154,9 +155,28 @@ void setup_Fernsteuerung()
 	TIM4->CR1 = 0x00000001;
 
 	extStart(&EXTD1, &extcfg); 
+	Fernsteuerung_ready_flag = TRUE;
 }
 
-float getNick() {return((float(RC_INPUT_CHANNELS[1]) + RC_INPUT_CHANNELS_Offset[1])/1000);}
-float getRoll() {return((float(RC_INPUT_CHANNELS[0]) + RC_INPUT_CHANNELS_Offset[0])/1000);}
-float getSchub() {return((float(RC_INPUT_CHANNELS[2]) + RC_INPUT_CHANNELS_Offset[2])/1000);}
-float getYaw() {return((float(RC_INPUT_CHANNELS[3]) + RC_INPUT_CHANNELS_Offset[3])/1000);}
+float getNick() 
+{
+	if(Fernsteuerung_ready_flag) return((float(RC_INPUT_CHANNELS[1]) + RC_INPUT_CHANNELS_Offset[1])/1000);
+	else return 0;
+}
+float getRoll() 
+{
+	if(Fernsteuerung_ready_flag) return((float(RC_INPUT_CHANNELS[0]) + RC_INPUT_CHANNELS_Offset[0])/1000);
+	else return 0;
+}
+float getSchub() 
+{
+	if(Fernsteuerung_ready_flag) return((float(RC_INPUT_CHANNELS[2]) + RC_INPUT_CHANNELS_Offset[2])/1000);
+	else return 0;
+}
+float getYaw() 
+{
+	if(Fernsteuerung_ready_flag) return((float(RC_INPUT_CHANNELS[3]) + RC_INPUT_CHANNELS_Offset[3])/1000);
+	else return 0;
+}
+
+

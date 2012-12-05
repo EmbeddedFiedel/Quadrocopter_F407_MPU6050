@@ -1,6 +1,7 @@
-void setup_Fernsteuerung(); 
+void setup_Fernsteuerung(void); 
 
-float getNick();
-float getRoll();
-float getSchub();
-float getYaw();
+float getNick(void);
+float getRoll(void);
+float getSchub(void);
+float getYaw(void);
+
