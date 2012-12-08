@@ -25,11 +25,10 @@ THE SOFTWARE.
 #include "I2Cdev.h"
 #include "Lage.h"
 #include "MPU6050_9Axis_MotionApps41.cpp"
-#include "ch.h"
-#include "hal.h"
 #include "chprintf.h"
 #include "Datalogger.h"
 #include "ff.h"
+#include "tm.h"
 MPU6050 mpu;
 
 // MPU control/status vars
@@ -104,7 +103,7 @@ static const I2CConfig i2cfg1 = {
     STD_DUTY_CYCLE,
 };
 
-void I2CInitialize(void)
+void I2CInitialize()
 {
   i2cInit();
 	i2cStart(&I2CD1, &i2cfg1);
@@ -129,30 +128,57 @@ void setup_IMU()
 		packetSize = mpu.dmpGetFIFOPacketSize();
 	} 
 }
+
+void mpu_6050_interrupt(EXTDriver *extp, expchannel_t channel) 
+{
+		(void)extp;
+		(void)channel;
+	
+		chSysLockFromIsr();
+		if (palReadPad(GPIOD, 7) == PAL_HIGH) 
+		{
+			mpuInterrupt = true;
+		}
+		
+		chSysUnlockFromIsr();
+}
+
+int zaehler = 0;
 void update_IMU()
 {
-	mpuIntStatus = mpu.getIntStatus();
-	// get current FIFO count
-	fifoCount = mpu.getFIFOCount();
-	// check for overflow (this should never happen unless our code is too inefficient)
-	if ((mpuIntStatus & 0x10) || fifoCount == 1024)	mpu.resetFIFO();
-	// otherwise, check for DMP data ready interrupt (this should happen frequently)
-	else if (mpuIntStatus & 0x02) 
+	if(mpuInterrupt)
 	{
-		// wait for correct available data length, should be a VERY short wait
-		while (fifoCount < packetSize) fifoCount = mpu.getFIFOCount();
-		// read a packet from FIFO
-		mpu.getFIFOBytes(fifoBuffer, packetSize);
-		// track FIFO count here in case there is > 1 packet available
-		// (this lets us immediately read more without waiting for an interrupt)
-		fifoCount -= packetSize;
-		mpu.dmpGetQuaternion(&q, fifoBuffer);
-    mpu.dmpGetEuler(euler, &q);
-		mpu.dmpGetGyro(gyroRate,fifoBuffer);
-		gyro_rate_float[0] = (float)gyroRate[0]/2147483648*2000*0.41;
-		gyro_rate_float[1] = (float)gyroRate[1]/2147483648*2000*0.41;
-		gyro_rate_float[2] = (float)gyroRate[2]/2147483648*2000*0.41;
-		datalog_lage();
+		mpuInterrupt = FALSE;
+		mpuIntStatus = mpu.getIntStatus();
+		// get current FIFO count
+		fifoCount = mpu.getFIFOCount();
+		// check for overflow (this should never happen unless our code is too inefficient)
+		if ((mpuIntStatus & 0x10) || fifoCount == 1024)
+		{
+			mpu.resetFIFO();
+		}
+		// otherwise, check for DMP data ready interrupt (this should happen frequently)
+		else if (mpuIntStatus & 0x02) 
+		{
+			// wait for correct available data length, should be a VERY short wait
+			while (fifoCount < packetSize) fifoCount = mpu.getFIFOCount();
+			// read a packet from FIFO
+			mpu.getFIFOBytes(fifoBuffer, packetSize);
+			// track FIFO count here in case there is > 1 packet available
+			// (this lets us immediately read more without waiting for an interrupt)
+			fifoCount -= packetSize;
+			mpu.dmpGetQuaternion(&q, fifoBuffer);
+			mpu.dmpGetEuler(euler, &q);
+			mpu.dmpGetGyro(gyroRate,fifoBuffer);
+			gyro_rate_float[0] = (float)gyroRate[0]/2147483648*2000*0.41;
+			gyro_rate_float[1] = (float)gyroRate[1]/2147483648*2000*0.41;
+			gyro_rate_float[2] = (float)gyroRate[2]/2147483648*2000*0.41;
+			datalog_lage();
+		}
+		else
+		{
+			zaehler++;
+		}
 	}
 }
 

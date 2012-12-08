@@ -35,7 +35,9 @@
 #include "Motoren.h"
 #include "Regelung.h"
 #include "Datalogger.h"
+#include "ExternalInterrupt.h"
 #include "ff.h"
+
 
 	static FIL Fil_Main;			/* File object */
 	FRESULT rc_main;				/* Result code */
@@ -46,7 +48,7 @@ void datalog(void)
 {
 		float nick, roll, yaw;
 	uint32_t system_time;
-	 		update_IMU();	 //Ersetzen durch Interrupt Handler!!!!!!
+	 		//update_IMU();	 //Ersetzen durch Interrupt Handler!!!!!!
 			nick = getEuler_nick();
 			roll = getEuler_roll();
 			yaw = getEuler_yaw();
@@ -105,6 +107,7 @@ int main(void)
 	palSetPadMode(GPIOD, 6, PAL_MODE_ALTERNATE(7));
 	
 	setup_IMU();
+	setup_ExternalInterrupt();
 	setup_Fernsteuerung();
 	setup_Motoren();
 	setup_Regelung();
@@ -117,7 +120,8 @@ int main(void)
 	*/
 	while (TRUE) 
 	{
-		datalog();
-		chThdSleepMilliseconds(10);
+		update_IMU();
+		//datalog();
+		//chThdSleepMilliseconds(10);
   }
 }

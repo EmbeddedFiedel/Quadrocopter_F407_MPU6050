@@ -16,9 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "Fernsteuerung.h"
-#include "ch.h"
-#include "hal.h"
-
+#include "chprintf.h"
 #define RC_IN_RANGE(x) (((x)>900 && (x)<2300))
 short RC_INPUT_CHANNELS_Offset[4] = {-1500,-1500,-1100,-1500};
 volatile unsigned short RC_INPUT_CHANNELS[4], RC_INPUT_LAST_TCNT,tmp=0;
@@ -93,43 +91,6 @@ void rx_channel4_interrupt(EXTDriver *extp, expchannel_t channel) {
 		RC_INPUT_LAST_TCNT = TIM4->CNT;
 		chSysUnlockFromIsr();	  
 }
-static const EXTConfig extcfg = {
-	{
-		{EXT_CH_MODE_DISABLED, NULL},
-		{EXT_CH_MODE_DISABLED, NULL},
-		{EXT_CH_MODE_DISABLED, NULL},
-		{EXT_CH_MODE_DISABLED, NULL},
-		{EXT_CH_MODE_DISABLED, NULL},
-		{EXT_CH_MODE_DISABLED, NULL},
-		{EXT_CH_MODE_DISABLED, NULL},
-		{EXT_CH_MODE_DISABLED, NULL},
-		{EXT_CH_MODE_DISABLED, NULL},
-		{EXT_CH_MODE_DISABLED, NULL},
-		{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel1_interrupt},
-		{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel2_interrupt},
-		{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel3_interrupt},
-		{EXT_CH_MODE_BOTH_EDGES | EXT_CH_MODE_AUTOSTART, rx_channel4_interrupt},
-		{EXT_CH_MODE_DISABLED, NULL},
-		{EXT_CH_MODE_DISABLED, NULL},
-	},
-	EXT_MODE_EXTI(0, 				/* 0 */
-	              0, 				/* 1 */
-	              0,			 	/* 2 */
-	              0, 				/* 3 */
-	              0, 				/* 4 */
-	              0, 				/* 5 */
-	              0, 				/* 6 */
-	              0, 				/* 7 */
-	              0, 				/* 8 */
-	              0, 				/* 9 */
-	              EXT_MODE_GPIOE, 			/* 10 */
-	              EXT_MODE_GPIOE, 			/* 11 */
-	              EXT_MODE_GPIOE, 			/* 12 */
-	              EXT_MODE_GPIOE, 			/* 13 */
-	              0, 				/* 14 */
-	              0) 				/* 15 */
-};
-
 // ================================================================
 // ===                      INITIAL SETUP                       ===
 // ================================================================
@@ -153,9 +114,15 @@ void setup_Fernsteuerung()
 	TIM4->SR = 0;
 	TIM4->DIER = 0;
 	TIM4->CR1 = 0x00000001;
-
-	extStart(&EXTD1, &extcfg); 
-	Fernsteuerung_ready_flag = TRUE;
+	if(EXTD1.state == EXT_ACTIVE)
+	{
+    chprintf((BaseChannel *) &SD2, "Fernsteuerung Init erfolgreich\r\n");
+		Fernsteuerung_ready_flag = TRUE;
+	}
+	else
+	{
+    chprintf((BaseChannel *) &SD2, "Fernsteuerung Init failed, ExtInt nicht konfiguriert\r\n");
+	}
 }
 
 float getNick() 

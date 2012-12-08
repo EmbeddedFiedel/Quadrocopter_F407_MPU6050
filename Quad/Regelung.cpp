@@ -315,12 +315,14 @@ static WORKING_AREA(RegelungThreadWorkingArea, 1024);
 /*
  * Regelungsthread
  */
+systime_t delta_t;
 static msg_t Regelungsthread(void *arg) {
  
   systime_t time = chTimeNow();     // Tnow
   while (TRUE) 
 	{
-		time += MS2ST(5);            // Next deadline
+		delta_t = MS2ST(5);
+		time += delta_t;            // Next deadline
 		Regelung();
 		chThdSleepUntil(time);
   }

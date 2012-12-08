@@ -756,6 +756,11 @@
               <FileType>8</FileType>
               <FilePath>..\..\..\Quad\Datalogger.cpp</FilePath>
             </File>
+            <File>
+              <FileName>ExternalInterrupt.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\..\Quad\ExternalInterrupt.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
