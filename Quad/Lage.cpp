@@ -27,8 +27,9 @@ THE SOFTWARE.
 #include "MPU6050_9Axis_MotionApps41.cpp"
 #include "chprintf.h"
 #include "Datalogger.h"
-#include "ff.h"
 #include "tm.h"
+#include "ff.h"
+
 MPU6050 mpu;
 
 // MPU control/status vars
@@ -49,6 +50,9 @@ static FIL Fil_Lage;			/* File object */
 FRESULT rc_lage;				/* Result code */
 
 bool_t datalog_lage_opened = 0;
+static TimeMeasurement lagedatalogsync_tmup;
+
+
 void datalog_lage(void)
 {
 	uint32_t system_time;
@@ -76,9 +80,16 @@ void datalog_lage(void)
 		}
 		if(Datalogger_ready() && datalog_lage_opened)
 		{
+			int worst, last, best;
 			system_time = chTimeNow();
 			f_printf(&Fil_Lage, "%d;%d;%d;%d\r\n",system_time,(int)(euler[1]*100),(int)(euler[2]*100),(int)(euler[0]*100));
+			tmStartMeasurement(&lagedatalogsync_tmup);
 			rc_lage = f_sync(&Fil_Lage);
+			tmStopMeasurement(&lagedatalogsync_tmup);
+			best = RTT2MS(lagedatalogsync_tmup.best);
+			last = RTT2MS(lagedatalogsync_tmup.last);
+			worst = RTT2MS(lagedatalogsync_tmup.worst);
+			chprintf((BaseChannel *) &SD2, "Lage SD Sync Best:%d Worst:%d Last:%d \r\n",best ,worst , last);
 		}
 }
 
@@ -117,6 +128,7 @@ void I2CInitialize()
 
 void setup_IMU() 
 {
+	tmObjectInit(&lagedatalogsync_tmup);
 	I2CInitialize();
 	mpu.initialize();
 	devStatus = mpu.dmpInitialize();
