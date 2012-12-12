@@ -24,7 +24,7 @@ THE SOFTWARE.
 
 #include "I2Cdev.h"
 #include "Lage.h"
-#include "MPU6050_9Axis_MotionApps41.cpp"
+#include "MPU6050_6Axis_MotionApps20.h"
 #include "chprintf.h"
 #include "Datalogger.h"
 #include "tm.h"
