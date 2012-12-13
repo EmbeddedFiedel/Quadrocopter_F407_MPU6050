@@ -49,10 +49,33 @@ float gyro_rate_float[3];
 static FIL Fil_Lage;			/* File object */
 FRESULT rc_lage;				/* Result code */
 
+
 bool_t datalog_lage_opened = 0;
+bool_t datalog_lage_syncing = 0;
+/*
+ * Working area for LageSync
+ */
+static WORKING_AREA(LageSyncThreadWorkingArea, 2048);
+/*
+ * LageSync
+ */
+static msg_t LageSyncthread(void *arg) {
+ 
+  systime_t time = chTimeNow();     // Tnow
+  while (TRUE) 
+	{
+		datalog_lage_syncing = 1;
+		rc_lage = f_sync(&Fil_Lage);
+		datalog_lage_syncing = 0;
+		chThdSleepMilliseconds(700);
+  }
+}
+
+
+
+
+
 static TimeMeasurement lagedatalogsync_tmup;
-
-
 void datalog_lage(void)
 {
 	uint32_t system_time;
@@ -64,32 +87,39 @@ void datalog_lage(void)
 				if(rc_lage != FR_OK)
 				{
 					chprintf((BaseChannel *) &SD2, "SD QuadLage.TXT: f_open() failed %d\r\n", rc_lage);
-					return;
 				}	
 				//rc = f_printf(&Fil, "moin\r\n");	 
 				rc_lage = f_sync(&Fil_Lage);
 				if(rc_lage != FR_OK)
 				{
 					chprintf((BaseChannel *) &SD2, "SD QuadLage.TXT: f_sync() failed %d\r\n", rc_lage);
-					return;
 				}	
+				f_printf(&Fil_Lage, "Time_Lage; Nick_Lage; Roll_Lage; Yaw_Lage\r\n");
+				rc_lage = f_sync(&Fil_Lage);
+				if(rc_lage != FR_OK)
+				{
+					chprintf((BaseChannel *) &SD2, "SD QuadLage.TXT: f_sync() failed %d\r\n", rc_lage);
+				}	
+				else
+				{
 				datalog_lage_opened = TRUE;
 				chprintf((BaseChannel *) &SD2, "SD QuadLage.TXT: opened successfull\r\n");
-				f_printf(&Fil_Lage, "Time_Lage; Nick_Lage; Roll_Lage; Yaw_Lage\r\n");
-				f_sync(&Fil_Lage);
+				chThdCreateStatic(LageSyncThreadWorkingArea, sizeof(LageSyncThreadWorkingArea), NORMALPRIO, LageSyncthread, NULL);
+				}
+
 		}
-		if(Datalogger_ready() && datalog_lage_opened)
+		if(Datalogger_ready() && datalog_lage_opened && datalog_lage_syncing == 0)
 		{
-			int worst, last, best;
+			//int worst, last, best;
 			system_time = chTimeNow();
 			f_printf(&Fil_Lage, "%d;%d;%d;%d\r\n",system_time,(int)(euler[1]*100),(int)(euler[2]*100),(int)(euler[0]*100));
-			tmStartMeasurement(&lagedatalogsync_tmup);
-			rc_lage = f_sync(&Fil_Lage);
-			tmStopMeasurement(&lagedatalogsync_tmup);
-			best = RTT2MS(lagedatalogsync_tmup.best);
-			last = RTT2MS(lagedatalogsync_tmup.last);
-			worst = RTT2MS(lagedatalogsync_tmup.worst);
-			chprintf((BaseChannel *) &SD2, "Lage SD Sync Best:%d Worst:%d Last:%d \r\n",best ,worst , last);
+			//tmStartMeasurement(&lagedatalogsync_tmup);
+			//rc_lage = f_sync(&Fil_Lage);
+			//tmStopMeasurement(&lagedatalogsync_tmup);
+			//best = RTT2MS(lagedatalogsync_tmup.best);
+			//last = RTT2MS(lagedatalogsync_tmup.last);
+			//worst = RTT2MS(lagedatalogsync_tmup.worst);
+			//chprintf((BaseChannel *) &SD2, "Lage SD Sync Best:%d Worst:%d Last:%d \r\n",best ,worst , last);
 		}
 }
 
@@ -151,7 +181,6 @@ void mpu_6050_interrupt(EXTDriver *extp, expchannel_t channel)
 		{
 			mpuInterrupt = true;
 		}
-		
 		chSysUnlockFromIsr();
 }
 
@@ -185,7 +214,7 @@ void update_IMU()
 			gyro_rate_float[0] = (float)gyroRate[0]/2147483648*2000*0.41;
 			gyro_rate_float[1] = (float)gyroRate[1]/2147483648*2000*0.41;
 			gyro_rate_float[2] = (float)gyroRate[2]/2147483648*2000*0.41;
-			datalog_lage();
+		//	datalog_lage();
 		}
 		else
 		{

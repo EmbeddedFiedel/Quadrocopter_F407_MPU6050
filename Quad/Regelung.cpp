@@ -4,7 +4,7 @@
 #include "Lage.h"
 #include "Fernsteuerung.h"
 #include "Motoren.h"
-
+#include "tm.h"
 float inNickIstLage;
 float inNickIstV;
 float inNickSollLage;
@@ -69,12 +69,88 @@ volatile unsigned short tmp111;
 
 	static FIL Fil_regelung;			/* File object */
 	FRESULT rc_datalog;				/* Result code */
+	
 bool_t datalog_regelung_opened = 0;
+bool_t datalog_regelung_syncing = 0;
+static TimeMeasurement regelungdatalogsync_tmup;
+	/*
+ * Working area for LageSync
+ */
+static WORKING_AREA(RegelungSyncThreadWorkingArea, 2048);
+/*
+ * LageSync
+ */
+static msg_t RegelungSyncthread(void *arg) {
+ 
+  systime_t time = chTimeNow();     // Tnow
+  while (TRUE) 
+	{
+		if(Datalogger_ready() && !datalog_regelung_opened)
+		{
+			//time +=  MS2ST(500);           // Next deadline
+			//rc = f_mkfs(0,0,0);
+				rc_datalog = f_open(&Fil_regelung, ("QuadRege.TXT"), FA_WRITE | FA_CREATE_ALWAYS);
+				if(rc_datalog != FR_OK)
+				{
+					chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: f_open() failed %d\r\n", rc_datalog);
+					chThdSleepMilliseconds(10);
+				}	
+/*				
+				rc_datalog = f_sync(&Fil_regelung);
+				if(rc_datalog != FR_OK)
+				{
+					chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: f_sync() failed %d\r\n", rc_datalog);
+				}	
+				*/
+				f_printf(&Fil_regelung, "Time_regelung;inSchub;inNickSollLage;inRollSollLage;inYawSollLage;inNickIstLage;inRollIstLage;inYawIstLage;inNickIstV;inRollIstV;inYawIstV;ea_Nick;ea_Roll;ea_Yaw;ia_Nick;ia_Roll;ia_Yaw;Soll_v_Nick;Soll_v_Roll;Soll_v_Yaw;ii_Nick;ii_Roll;ii_Yaw;pi_Nick;pi_Roll;pi_Yaw;di_Nick;di_Roll;di_Yaw;v_Nick_tp1;v_Roll_tp1;v_Yaw_tp1;aNick;aRoll;aYaw;outMotor1;outMotor2;outMotor3;outMotor4\r\n");
+				//f_printf(&Fil_regelung, "Time_reg");
+				rc_datalog = f_sync(&Fil_regelung);	
+				if(rc_datalog != FR_OK)
+				{
+					chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: initial f_sync() failed %d\r\n", rc_datalog);
+					chThdSleepMilliseconds(10);
+				}	
+				else
+				{
+					chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: opened successfull\r\n");
+					chThdSleepMilliseconds(10);
+					datalog_regelung_opened = TRUE;	
+				}
+				chThdSleepMilliseconds(10);
+		}
+		else if (Datalogger_ready() && datalog_regelung_opened)
+		{
+			datalog_regelung_syncing = 1;
+			rc_datalog = f_sync(&Fil_regelung);
+				if(rc_datalog != FR_OK)
+				{
+					chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: datalog f_sync() failed %d\r\n", rc_datalog);
+				}	
+				else
+				{
+					chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: datalog f_sync() succeeded\r\n");
+				}
+			datalog_regelung_syncing = 0;
+			chThdSleepMilliseconds(1000);
+		}
+		else
+		{
+			chThdSleepMilliseconds(10);
+		}		
+  }
+}
+
+
 void datalog_regelung(void)
 {
 	uint32_t system_time;
-		if(Datalogger_ready() && datalog_regelung_opened)
+uint32_t system_time_after_printf;
+		int worst, last, best;
+		
+	
+		if(Datalogger_ready() && datalog_regelung_opened && datalog_regelung_syncing == 0)
 		{
+			tmStartMeasurement(&regelungdatalogsync_tmup);
 			system_time = chTimeNow();
 			f_printf(&Fil_regelung, "%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d\r\n",system_time,
 						(int)(inSchub*100),
@@ -116,27 +192,14 @@ void datalog_regelung(void)
 						(int)(outMotor3),
 						(int)(outMotor4)
 					);
-			rc_datalog = f_sync(&Fil_regelung);
-		}
-		if(Datalogger_ready() && !datalog_regelung_opened)
-		{
-			//rc = f_mkfs(0,0,0);
-				rc_datalog = f_open(&Fil_regelung, ("QuadRege.TXT"), FA_WRITE | FA_CREATE_ALWAYS);
-				if(rc_datalog != FR_OK)
-				{
-					chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: f_open() failed %d\r\n", rc_datalog);
-					return;
-				}		 
-				rc_datalog = f_sync(&Fil_regelung);
-				if(rc_datalog != FR_OK)
-				{
-					chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: f_sync() failed %d\r\n", rc_datalog);
-					return;
-				}	
-				datalog_regelung_opened = TRUE;
-				chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: opened successfull\r\n");
-				f_printf(&Fil_regelung, "Time_regelung;inSchub;inNickSollLage;inRollSollLage;inYawSollLage;inNickIstLage;inRollIstLage;inYawIstLage;inNickIstV;inRollIstV;inYawIstV;ea_Nick;ea_Roll;ea_Yaw;ia_Nick;ia_Roll;ia_Yaw;Soll_v_Nick;Soll_v_Roll;Soll_v_Yaw;ii_Nick;ii_Roll;ii_Yaw;pi_Nick;pi_Roll;pi_Yaw;di_Nick;di_Roll;di_Yaw;v_Nick_tp1;v_Roll_tp1;v_Yaw_tp1;aNick;aRoll;aYaw;outMotor1;outMotor2;outMotor3;outMotor4\r\n");
-				rc_datalog = f_sync(&Fil_regelung);	
+					system_time_after_printf = chTimeNow();
+			//rc_datalog = f_sync(&Fil_regelung);
+				 tmStopMeasurement(&regelungdatalogsync_tmup);
+	 best = RTT2MS(regelungdatalogsync_tmup.best);
+	last = RTT2MS(regelungdatalogsync_tmup.last);
+	worst = RTT2MS(regelungdatalogsync_tmup.worst);
+	
+	chprintf((BaseChannel *) &SD2, "Data_t:%d, After_pritf_t:%d - RegelungLog L:%d B:%d W:%d\r\n",system_time, system_time_after_printf,last, best,worst);
 		}
 }
 
@@ -310,7 +373,7 @@ void Regelung(void)
 /*
  * Working area for Regelung
  */
-static WORKING_AREA(RegelungThreadWorkingArea, 1024);
+static WORKING_AREA(RegelungThreadWorkingArea, 2048);
 //int dennis=0; 
 /*
  * Regelungsthread
@@ -321,7 +384,7 @@ static msg_t Regelungsthread(void *arg) {
   systime_t time = chTimeNow();     // Tnow
   while (TRUE) 
 	{
-		delta_t = MS2ST(5);
+		delta_t = MS2ST(10);
 		time += delta_t;            // Next deadline
 		Regelung();
 		chThdSleepUntil(time);
@@ -337,5 +400,7 @@ void setup_Regelung()
 	//Thread *tp = chThdCreateFromHeap(NULL, THD_WA_SIZE(128), NORMALPRIO+1, Regelungsthread, NULL);
   //	if (tp == NULL)
   //  	chSysHalt();    /* Memory exausted. */
-	chThdCreateStatic(RegelungThreadWorkingArea, sizeof(RegelungThreadWorkingArea), NORMALPRIO, Regelungsthread, NULL);
+	tmObjectInit(&regelungdatalogsync_tmup);
+	chThdCreateStatic(RegelungSyncThreadWorkingArea, sizeof(RegelungSyncThreadWorkingArea), NORMALPRIO, RegelungSyncthread, NULL);
+	chThdCreateStatic(RegelungThreadWorkingArea, sizeof(RegelungThreadWorkingArea), ABSPRIO, Regelungsthread, NULL);
 }
