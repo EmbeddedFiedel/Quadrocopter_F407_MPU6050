@@ -67,6 +67,10 @@ volatile unsigned short tmp111;
 #include "Datalogger.h"
 #include "ff.h"
 
+	uint32_t regelung_timebuffer[50];
+	int regelung_databuffer[50][39];
+	uint8_t readcounter = 0;
+	uint8_t writecounter = 0;
 	static FIL Fil_regelung;			/* File object */
 	FRESULT rc_datalog;				/* Result code */
 	
@@ -140,67 +144,115 @@ static msg_t RegelungSyncthread(void *arg) {
   }
 }
 
-
+	/*
+ * Working area for LageSync
+ */
+static WORKING_AREA(RegelungPrintThreadWorkingArea, 2048);
+/*
+ * LageSync
+ */
+static msg_t RegelungPrintthread(void *arg) 
+{
+	while (TRUE) 
+	{
+		if(readcounter!=writecounter && Datalogger_ready() && datalog_regelung_opened && datalog_regelung_syncing==0)
+		{
+			systime_t time = chTimeNow();     // Tnow
+			chprintf((BaseChannel *) &SD2, "Printing:%d\r\n",time);
+				f_printf(&Fil_regelung, "%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d\r\n",
+							regelung_timebuffer[readcounter],
+							regelung_databuffer[readcounter][0],
+							regelung_databuffer[readcounter][1],
+							regelung_databuffer[readcounter][2],
+							regelung_databuffer[readcounter][3],
+							regelung_databuffer[readcounter][4],
+							regelung_databuffer[readcounter][5],
+							regelung_databuffer[readcounter][6],
+							regelung_databuffer[readcounter][7],
+							regelung_databuffer[readcounter][8],
+							regelung_databuffer[readcounter][9],
+							regelung_databuffer[readcounter][11],
+							regelung_databuffer[readcounter][12],
+							regelung_databuffer[readcounter][13],
+							regelung_databuffer[readcounter][14],
+							regelung_databuffer[readcounter][15],
+							regelung_databuffer[readcounter][16],
+							regelung_databuffer[readcounter][17],
+							regelung_databuffer[readcounter][18],
+							regelung_databuffer[readcounter][19],
+							regelung_databuffer[readcounter][20],
+							regelung_databuffer[readcounter][21],
+							regelung_databuffer[readcounter][22],
+							regelung_databuffer[readcounter][23],
+							regelung_databuffer[readcounter][24],
+							regelung_databuffer[readcounter][25],
+							regelung_databuffer[readcounter][26],
+							regelung_databuffer[readcounter][27],
+							regelung_databuffer[readcounter][28],
+							regelung_databuffer[readcounter][29],
+							regelung_databuffer[readcounter][30],
+							regelung_databuffer[readcounter][31],
+							regelung_databuffer[readcounter][32],
+							regelung_databuffer[readcounter][33],
+							regelung_databuffer[readcounter][34],
+							regelung_databuffer[readcounter][35],
+							regelung_databuffer[readcounter][36],
+							regelung_databuffer[readcounter][37],
+							regelung_databuffer[readcounter][38]);
+							readcounter++;
+							if(readcounter >=50)readcounter=0;
+							
+		}
+		chThdSleepMilliseconds(2);
+	}
+}
+ 
 void datalog_regelung(void)
 {
-	uint32_t system_time;
-uint32_t system_time_after_printf;
-		int worst, last, best;
-		
+	uint32_t system_time = chTimeNow();
+			//f_printf(&Fil_regelung, "%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d\r\n",
 	
-		if(Datalogger_ready() && datalog_regelung_opened && datalog_regelung_syncing == 0)
-		{
-			tmStartMeasurement(&regelungdatalogsync_tmup);
-			system_time = chTimeNow();
-			f_printf(&Fil_regelung, "%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d\r\n",system_time,
-						(int)(inSchub*100),
-						(int)(inNickSollLage*100),
-						(int)(inRollSollLage*100),
-						(int)(inYawSollLage*100),
-						(int)(inNickIstLage*100),
-						(int)(inRollIstLage*100),
-						(int)(inYawIstLage*100),
-						(int)(inNickIstV*100),
-						(int)(inRollIstV*100),
-						(int)(inYawIstV*100),
-						(int)(ea_Nick*100),
-						(int)(ea_Roll*100),
-						(int)(ea_Yaw*100),
-						(int)(ia_Nick*100),
-						(int)(ia_Roll*100),
-						(int)(ia_Yaw*100),
-						(int)(Soll_v_Nick*100),
-						(int)(Soll_v_Roll*100),
-						(int)(Soll_v_Yaw*100),
-						(int)(ii_Nick*100),
-						(int)(ii_Roll*100),
-						(int)(ii_Yaw*100),
-						(int)(pi_Nick*100),
-						(int)(pi_Roll*100),
-						(int)(pi_Yaw*100),
-						(int)(di_Nick*100),
-						(int)(di_Roll*100),
-						(int)(di_Yaw*100),
-						(int)(v_Nick_tp1*100),
-						(int)(v_Roll_tp1*100),
-						(int)(v_Yaw_tp1*100),
-						(int)(aNick*100),
-						(int)(aRoll*100),
-						(int)(aYaw*100),
-						(int)(outMotor1),
-						(int)(outMotor2),
-						(int)(outMotor3),
-						(int)(outMotor4)
-					);
-					system_time_after_printf = chTimeNow();
-			//rc_datalog = f_sync(&Fil_regelung);
-				 tmStopMeasurement(&regelungdatalogsync_tmup);
-	 best = RTT2MS(regelungdatalogsync_tmup.best);
-	last = RTT2MS(regelungdatalogsync_tmup.last);
-	worst = RTT2MS(regelungdatalogsync_tmup.worst);
-	
-	chprintf((BaseChannel *) &SD2, "Data_t:%d, After_pritf_t:%d - RegelungLog L:%d B:%d W:%d\r\n",system_time, system_time_after_printf,last, best,worst);
-		}
+						regelung_timebuffer[writecounter] = system_time;
+						regelung_databuffer[writecounter][0]=(int)(inSchub*100);
+						regelung_databuffer[writecounter][1]=(int)(inNickSollLage*100);
+						regelung_databuffer[writecounter][2]=(int)(inRollSollLage*100);
+						regelung_databuffer[writecounter][3]=(int)(inYawSollLage*100);
+						regelung_databuffer[writecounter][4]=(int)(inNickIstLage*100);
+						regelung_databuffer[writecounter][5]=(int)(inRollIstLage*100);
+						regelung_databuffer[writecounter][6]=(int)(inYawIstLage*100);
+						regelung_databuffer[writecounter][7]=(int)(inNickIstV*100);
+						regelung_databuffer[writecounter][8]=(int)(inRollIstV*100);
+						regelung_databuffer[writecounter][9]=(int)(inYawIstV*100);
+						regelung_databuffer[writecounter][11]=(int)(ea_Nick*100);
+						regelung_databuffer[writecounter][12]=(int)(ea_Roll*100);
+						regelung_databuffer[writecounter][13]=(int)(ea_Yaw*100);
+						regelung_databuffer[writecounter][14]=(int)(ia_Nick*100);
+						regelung_databuffer[writecounter][15]=(int)(ia_Roll*100);
+						regelung_databuffer[writecounter][16]=(int)(ia_Yaw*100);
+						regelung_databuffer[writecounter][17]=(int)(Soll_v_Nick*100);
+						regelung_databuffer[writecounter][18]=(int)(Soll_v_Roll*100);
+						regelung_databuffer[writecounter][19]=(int)(Soll_v_Yaw*100);
+						regelung_databuffer[writecounter][20]=(int)(ii_Nick*100);
+						regelung_databuffer[writecounter][21]=(int)(ii_Roll*100);
+						regelung_databuffer[writecounter][22]=(int)(ii_Yaw*100);
+						regelung_databuffer[writecounter][23]=(int)(pi_Nick*100);
+						regelung_databuffer[writecounter][24]=(int)(pi_Roll*100);
+						regelung_databuffer[writecounter][25]=(int)(pi_Yaw*100);
+						regelung_databuffer[writecounter][26]=(int)(di_Nick*100);
+						regelung_databuffer[writecounter][27]=(int)(di_Roll*100);
+						regelung_databuffer[writecounter][28]=(int)(di_Yaw*100);
+						regelung_databuffer[writecounter][29]=(int)(v_Nick_tp1*100);
+						regelung_databuffer[writecounter][30]=(int)(v_Roll_tp1*100);
+						regelung_databuffer[writecounter][31]=(int)(v_Yaw_tp1*100);
+						regelung_databuffer[writecounter][32]=(int)(aNick*100);
+						regelung_databuffer[writecounter][33]=(int)(aRoll*100);
+						regelung_databuffer[writecounter][34]=(int)(aYaw*100);
+						regelung_databuffer[writecounter][35]=(int)(outMotor1);
+						regelung_databuffer[writecounter][36]=(int)(outMotor2);
+						regelung_databuffer[writecounter][37]=(int)(outMotor3);
+						regelung_databuffer[writecounter][38]=(int)(outMotor4);
+						writecounter++;
+						if(writecounter >=50)writecounter=0;
 }
 
 void Regelung(void)
@@ -402,5 +454,7 @@ void setup_Regelung()
   //  	chSysHalt();    /* Memory exausted. */
 	tmObjectInit(&regelungdatalogsync_tmup);
 	chThdCreateStatic(RegelungSyncThreadWorkingArea, sizeof(RegelungSyncThreadWorkingArea), NORMALPRIO, RegelungSyncthread, NULL);
+	
+	chThdCreateStatic(RegelungPrintThreadWorkingArea, sizeof(RegelungPrintThreadWorkingArea), HIGHPRIO, RegelungPrintthread, NULL);
 	chThdCreateStatic(RegelungThreadWorkingArea, sizeof(RegelungThreadWorkingArea), ABSPRIO, Regelungsthread, NULL);
 }

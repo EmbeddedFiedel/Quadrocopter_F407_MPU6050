@@ -64,22 +64,6 @@ static msg_t LageSyncthread(void *arg) {
   systime_t time = chTimeNow();     // Tnow
   while (TRUE) 
 	{
-		datalog_lage_syncing = 1;
-		rc_lage = f_sync(&Fil_Lage);
-		datalog_lage_syncing = 0;
-		chThdSleepMilliseconds(700);
-  }
-}
-
-
-
-
-
-static TimeMeasurement lagedatalogsync_tmup;
-void datalog_lage(void)
-{
-	uint32_t system_time;
-	
 		if(Datalogger_ready() && !datalog_lage_opened)
 		{
 				//rc_lage = f_mkfs(0,0,0);
@@ -104,10 +88,29 @@ void datalog_lage(void)
 				{
 				datalog_lage_opened = TRUE;
 				chprintf((BaseChannel *) &SD2, "SD QuadLage.TXT: opened successfull\r\n");
-				chThdCreateStatic(LageSyncThreadWorkingArea, sizeof(LageSyncThreadWorkingArea), NORMALPRIO, LageSyncthread, NULL);
 				}
+				chThdSleepMilliseconds(10);
 
 		}
+		else if(Datalogger_ready() && datalog_lage_opened)
+		{
+		datalog_lage_syncing = 1;
+		rc_lage = f_sync(&Fil_Lage);
+		datalog_lage_syncing = 0;
+		chThdSleepMilliseconds(700);
+		}
+  }
+}
+
+
+
+
+
+static TimeMeasurement lagedatalogsync_tmup;
+void datalog_lage(void)
+{
+	uint32_t system_time;
+	
 		if(Datalogger_ready() && datalog_lage_opened && datalog_lage_syncing == 0)
 		{
 			//int worst, last, best;
@@ -164,6 +167,7 @@ void setup_IMU()
 	devStatus = mpu.dmpInitialize();
 	if (devStatus == 0) 
 	{
+		//chThdCreateStatic(LageSyncThreadWorkingArea, sizeof(LageSyncThreadWorkingArea), NORMALPRIO, LageSyncthread, NULL);
 		mpu.setDMPEnabled(true);
 		mpuIntStatus = mpu.getIntStatus();
 		dmpReady = true;
@@ -214,7 +218,7 @@ void update_IMU()
 			gyro_rate_float[0] = (float)gyroRate[0]/2147483648*2000*0.41;
 			gyro_rate_float[1] = (float)gyroRate[1]/2147483648*2000*0.41;
 			gyro_rate_float[2] = (float)gyroRate[2]/2147483648*2000*0.41;
-		//	datalog_lage();
+			//datalog_lage();
 		}
 		else
 		{
