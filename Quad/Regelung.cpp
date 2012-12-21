@@ -5,6 +5,9 @@
 #include "Fernsteuerung.h"
 #include "Motoren.h"
 #include "tm.h"
+#include <string>
+using namespace std;
+
 float inNickIstLage;
 float inNickIstV;
 float inNickSollLage;
@@ -86,12 +89,20 @@ static WORKING_AREA(RegelungSyncThreadWorkingArea, 2048);
  */
 static msg_t RegelungSyncthread(void *arg) 
 {
+	int filecounter = 0;
   	while (TRUE) 
 	{
 		if(Datalogger_ready() && !datalog_regelung_opened)
 		{
-				rc_datalog = f_open(&Fil_regelung, ("QuadRege.TXT"), FA_WRITE | FA_CREATE_ALWAYS);
-				if(rc_datalog != FR_OK)
+				string myString = "QuadRege" + filecounter;
+				myString.append(".txt");
+				char *fileName = (char*)myString.c_str();
+				rc_datalog = f_open(&Fil_regelung, fileName, FA_WRITE | FA_CREATE_NEW);
+				if(rc_datalog == FR_EXIST)
+				{
+					filecounter++;
+				}
+				else if(rc_datalog != FR_OK)
 				{
 					chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: f_open() failed %d\r\n", rc_datalog);
 					chThdSleepMilliseconds(10);
