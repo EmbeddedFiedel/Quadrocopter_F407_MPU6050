@@ -6,6 +6,7 @@
 #include "Motoren.h"
 #include "tm.h"
 #include <string>
+#include <sstream>
 using namespace std;
 
 float inNickIstLage;
@@ -23,6 +24,7 @@ float outMotor2;
 float outMotor3;
 float outMotor4;	 
 float Schub_Offset = 0;
+int counter = 0;
 
 
 float v_Nick_tp1 = 0;   	
@@ -80,6 +82,7 @@ volatile unsigned short tmp111;
 bool_t datalog_regelung_opened = 0;
 bool_t datalog_regelung_syncing = 0;
 static TimeMeasurement regelungdatalogsync_tmup;
+char fileName[20] = "QuadReg0.TXT";
 /*
  * Working area for RegelungSyncThread
  */
@@ -89,18 +92,17 @@ static WORKING_AREA(RegelungSyncThreadWorkingArea, 2048);
  */
 static msg_t RegelungSyncthread(void *arg) 
 {
-	int filecounter = 0;
+	//int filecounter = 0;	
+	//stringstream ss;
+
   	while (TRUE) 
 	{
 		if(Datalogger_ready() && !datalog_regelung_opened)
 		{
-				string myString = "QuadRege" + filecounter;
-				myString.append(".txt");
-				char *fileName = (char*)myString.c_str();
-				rc_datalog = f_open(&Fil_regelung, fileName, FA_WRITE | FA_CREATE_NEW);
+				rc_datalog = f_open(&Fil_regelung, fileName, FA_WRITE | FA_CREATE_NEW/* | FA_CREATE_ALWAYS*/);
 				if(rc_datalog == FR_EXIST)
 				{
-					filecounter++;
+					fileName[7]++;
 				}
 				else if(rc_datalog != FR_OK)
 				{
@@ -144,8 +146,8 @@ static msg_t RegelungSyncthread(void *arg)
 		{
 			chThdSleepMilliseconds(10);
 		}		
-  	}
-}
+  	}	
+}							 
 
 	/*
  * Working area for LageSync
@@ -320,7 +322,7 @@ void Regelung(void)
    else if(di_Roll < -1.5)
 	   di_Roll = -1.5;	  //Saturierung des D-Anteils
 
-   aRoll = (pi_Roll + (ii_Roll+37)*0.02 + di_Roll)*567; //Ausgang des inneren Reglers		 */
+   aRoll = (pi_Roll + (ii_Roll+37)*0.02 + di_Roll)*567; //Ausgang des inneren Reglers		 
 
 	ea_Roll = (inRollSollLage) - (inRollIstLage+0.08*inRollIstV);  // Eingang in den �u�eren Regler
    if(inSchub > 0.1 && inSchub <=1 && inRollIstLage < 0.2 && inRollIstLage > -0.2)
@@ -332,7 +334,7 @@ void Regelung(void)
    v_Roll_tp1 = 0.95*v_Roll_tp1 + 0.05*inRollIstV; // Tiefpass-gefilterter Gyrowert
    ei_Roll= Soll_v_Roll - v_Roll_tp1;	//Eingang in die innere Regelung
    pi_Roll = ei_Roll * 0.1;	//p-Anteil
-   if(inSchub > 0.1 && inSchub <=1 /*&& inRollIstLage < 0.2 && inRollIstLage > -0.2*/)
+   if(inSchub > 0.1 && inSchub <=1 /*&& inRollIstLage < 0.2 && inRollIstLage > -0.2)
    	ii_Roll = 0.01 * ei_Roll + ii_Roll;	//I-Anteil nur nahe der Nulllage ver�ndern 
 
 
@@ -342,7 +344,9 @@ void Regelung(void)
    else if(di_Roll < -1.5)
 	   di_Roll = -1.5;	  //Saturierung des D-Anteils
 
-   aRoll = (pi_Roll + (ii_Roll)*0.005 + di_Roll)*567; //Ausgang des inneren Reglers
+   aRoll = (pi_Roll + (ii_Roll)*0.005 + di_Roll)*567; //Ausgang des inneren Reglers	 */
+
+   aRoll = ((inRollSollLage) - (inRollIstLage))*567*-0.5;
 
 	/////////////////////////// Yaw-Regler berechnen ////////////////////////////////////////// 
 
@@ -392,24 +396,24 @@ void Regelung(void)
   		outMotor2 = 0.F;
 		outMotor3 = 0.F;
 		outMotor4 = 0.F;
-   }						
-   
+   }
+
 	/////////////////////////// Motorwerte saturieren und �bergeben //////////////////////// 
    if (outMotor1 > 6800.F) 	setMotor_1(6800.F);
    else if(outMotor1 < 0.F) setMotor_1(0.F);
-	 else setMotor_1(outMotor1);
+   else setMotor_1(outMotor1);
 
    if (outMotor2 > 6800.F)  setMotor_2(6800.F);
    else if(outMotor2 < 0.F) setMotor_2(0.F);
-	 else setMotor_2(outMotor2);
+   else setMotor_2(outMotor2);
 	 
    if (outMotor3 > 6800.F)  setMotor_3(6800.F);
    else if(outMotor3 < 0.F) setMotor_3(0.F);
-	 else setMotor_3(outMotor3);
+   else setMotor_3(outMotor3);
 	 
    if (outMotor4 > 6800.F)  setMotor_4(6800.F);
    else if(outMotor4 < 0.F) setMotor_4(0.F);	
-	 else setMotor_4(outMotor4);	
+   else setMotor_4(outMotor4);	
 
 	/////////////////////////// Alte Werte merken ////////////////////////////////////////// 
 
