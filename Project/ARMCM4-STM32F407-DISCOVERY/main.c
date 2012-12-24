@@ -36,52 +36,6 @@
 #include "Regelung.h"
 #include "Datalogger.h"
 #include "ExternalInterrupt.h"
-#include "ff.h"
-
-
-	static FIL Fil_Main;			/* File object */
-	FRESULT rc_main;				/* Result code */
-
-bool_t datalog_main_opened = 0;
-
-void datalog(void)
-{
-		float nick, roll, yaw;
-	uint32_t system_time;
-	 		//update_IMU();	 //Ersetzen durch Interrupt Handler!!!!!!
-			nick = getEuler_nick();
-			roll = getEuler_roll();
-			yaw = getEuler_yaw();
-		
-		if(Datalogger_ready() && !datalog_main_opened)
-		{
-				//rc_main = f_mkfs(0,0,0);
-				rc_main = f_open(&Fil_Main, "QuadMain.TXT", FA_WRITE | FA_CREATE_ALWAYS);
-				if(rc_main != FR_OK)
-				{
-					chprintf((BaseChannel *) &SD2, "SD QuadMain.TXT: f_open() failed %d\r\n", rc_main);
-					return;
-				}	
-				//rc_main = f_printf(&Fil, "moin\r\n");	 
-				rc_main = f_sync(&Fil_Main);
-				if(rc_main != FR_OK)
-				{
-					chprintf((BaseChannel *) &SD2, "SD QuadMain.TXT: f_sync() failed %d\r\n", rc_main);
-					return;
-				}	
-				chprintf((BaseChannel *) &SD2, "SD QuadMain.TXT: opened successfull\r\n");
-				f_printf(&Fil_Main, "Time_Main; Nick_Main; Roll_Main; Yaw_Main\r\n");
-				f_sync(&Fil_Main);
-				datalog_main_opened = TRUE;
-		}
-		if(Datalogger_ready() && datalog_main_opened)
-		{
-			system_time = chTimeNow();
-			f_printf(&Fil_Main, "%d;%d;%d;%d\r\n",system_time,(int)(nick*100),(int)(roll*100),(int)(yaw*100));
-			rc_main = f_sync(&Fil_Main);
-		}
-}
-
 
 /*
  * Application entry point.

@@ -263,19 +263,19 @@ void Regelung(void)
 {
 	/// Werte �bernehmen
 
-	inSchub = getSchub();
+	inSchub = get_schub_soll();
 	
 	inNickSollLage = 0;
-	inRollSollLage = getRoll();
+	inRollSollLage = get_euler_roll_soll();
 	inYawSollLage  = 0;
 	
-	inYawIstLage = getEuler_yaw();
-	inNickIstLage = getEuler_nick();
-	inRollIstLage = getEuler_roll();
+	inYawIstLage = get_euler_yaw_ist();
+	inNickIstLage = get_euler_nick_ist();
+	inRollIstLage = get_euler_roll_ist();
 		 
-	inRollIstV = getRate_roll();
-	inNickIstV = getRate_nick();
-	inYawIstV = getRate_yaw();
+	inRollIstV = get_rate_roll_ist();
+	inNickIstV = get_rate_nick_ist();
+	inYawIstV = get_rate_yaw_ist();
 
 	/////////////////////////// Nick-Regler berechnen //////////////////////////////////////////
    //�u�erer Regler

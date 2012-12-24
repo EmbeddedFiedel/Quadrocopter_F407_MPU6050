@@ -5,9 +5,9 @@ void setup_IMU();
 
 void mpu_6050_interrupt(EXTDriver *extp, expchannel_t channel);
 void update_IMU();
-float getEuler_nick();
-float getEuler_roll();
-float getEuler_yaw();
-float getRate_nick();
-float getRate_roll();
-float getRate_yaw();
+float get_euler_nick_ist();
+float get_euler_roll_ist();
+float get_euler_yaw_ist();
+float get_rate_nick_ist();
+float get_rate_roll_ist();
+float get_rate_yaw_ist();
