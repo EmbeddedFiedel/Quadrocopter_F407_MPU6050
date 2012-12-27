@@ -31,17 +31,17 @@ void step_regler_X(){
 	OverrunFlag = TRUE;
 	//Sollwerte
 	
-	Regelglied_U.In_Soll_Roll=getRoll();
-	Regelglied_U.In_Soll_Nick=getNick();
-	Regelglied_U.In_Soll_Gier=getYaw();
+	Regelglied_U.In_Soll_Roll=get_euler_roll_soll();
+	Regelglied_U.In_Soll_Nick=get_euler_nick_soll();
+	Regelglied_U.In_Soll_Gier=get_euler_yaw_soll();
   
 	//Istwerte
 	//getRoll + Gier funktion negiert, da miniquad nach Luftfahrtnorm
-	Regelglied_U.In_Ist_Roll=-getEuler_roll();
-	Regelglied_U.In_Ist_Nick=getEuler_nick();
-	Regelglied_U.In_Ist_Gier=-getEuler_yaw();
-	Regelglied_U.In_Ist_V_Roll=-getRate_roll();
-	Regelglied_U.In_Ist_V_Nick=getRate_nick();
+	Regelglied_U.In_Ist_Roll=-get_euler_roll_ist();
+	Regelglied_U.In_Ist_Nick=get_euler_roll_ist();
+	Regelglied_U.In_Ist_Gier=-get_euler_yaw_ist();
+	Regelglied_U.In_Ist_V_Roll=-get_rate_roll_ist();
+	Regelglied_U.In_Ist_V_Nick=get_rate_nick_ist();
 
 	//Step Regler
 	Regelglied_step();
@@ -50,7 +50,7 @@ void step_regler_X(){
 	Schubverteilung0_U.In_M_Roll=Regelglied_Y.Out_M_Roll;
 	Schubverteilung0_U.In_M_Nick=Regelglied_Y.Out_M_Nick;
 	Schubverteilung0_U.In_M_Gier=Regelglied_Y.Out_M_Gier;	
-	Schubverteilung0_U.In_Throttle=getSchub();
+	Schubverteilung0_U.In_Throttle=get_schub_soll();
 
 	//Step Schubkraftverteilung
 	Schubverteilung0_step();
