@@ -401,19 +401,19 @@ void Regelung(void)
 	/////////////////////////// Motorwerte saturieren und �bergeben //////////////////////// 
    if (outMotor1 > 6800.F) 	setMotor_1(6800.F);
    else if(outMotor1 < 0.F) setMotor_1(0.F);
-   else setMotor_1(outMotor1);
+   else setMotor_1(outMotor1/6800);
 
    if (outMotor2 > 6800.F)  setMotor_2(6800.F);
    else if(outMotor2 < 0.F) setMotor_2(0.F);
-   else setMotor_2(outMotor2);
+   else setMotor_2(outMotor2/6800);
 	 
    if (outMotor3 > 6800.F)  setMotor_3(6800.F);
    else if(outMotor3 < 0.F) setMotor_3(0.F);
-   else setMotor_3(outMotor3);
+   else setMotor_3(outMotor3/6800);
 	 
    if (outMotor4 > 6800.F)  setMotor_4(6800.F);
    else if(outMotor4 < 0.F) setMotor_4(0.F);	
-   else setMotor_4(outMotor4);	
+   else setMotor_4(outMotor4/6800);	
 
 	/////////////////////////// Alte Werte merken ////////////////////////////////////////// 
 
