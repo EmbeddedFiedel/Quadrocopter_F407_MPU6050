@@ -97,10 +97,10 @@ void setup_Datalogger(void)
 	
 	// initialize MMC driver
   // setup pads to SPI1 function (connect these pads to your SD card accordingly)
-  palSetPadMode(GPIOC, 4, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_HIGHEST); // NSS
-  palSetPadMode(GPIOA, 5, PAL_MODE_ALTERNATE(5) | PAL_STM32_OSPEED_HIGHEST); // SCK
-  palSetPadMode(GPIOA, 6, PAL_MODE_ALTERNATE(5)); // MISO
-  palSetPadMode(GPIOA, 7, PAL_MODE_ALTERNATE(5) | PAL_STM32_OSPEED_HIGHEST); // MOSI
+  palSetPadMode(GPIOC, 4, PAL_MODE_OUTPUT_PUSHPULL | PAL_STM32_OSPEED_HIGHEST); // NSS /CS
+  palSetPadMode(GPIOA, 5, PAL_MODE_ALTERNATE(5) | PAL_STM32_OSPEED_HIGHEST); // SCK /clk
+  palSetPadMode(GPIOA, 6, PAL_MODE_ALTERNATE(5)); // MISO /D0
+  palSetPadMode(GPIOA, 7, PAL_MODE_ALTERNATE(5) | PAL_STM32_OSPEED_HIGHEST); // MOSI /Di
   palSetPad(GPIOC, 4); // set NSS high
 	
 	//chThdSleepMilliseconds(7000);

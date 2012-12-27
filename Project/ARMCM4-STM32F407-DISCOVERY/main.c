@@ -120,6 +120,7 @@ int main(void)
 	*/
 	while (TRUE) 
 	{
+
 		update_IMU();
 		//datalog();
 		//chThdSleepMilliseconds(10);

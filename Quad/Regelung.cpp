@@ -1,4 +1,5 @@
 #include "Regelung.h"
+#include "regelung_x.h"
 #include "ch.h"
 #include "hal.h"
 #include "Lage.h"
@@ -444,7 +445,9 @@ static msg_t Regelungsthread(void *arg) {
 	{
 		delta_t = MS2ST(10);
 		time += delta_t;            // Next deadline
-		Regelung();
+		//Für X Konfig Regelung();
+		step_regler_X();
+		datalog_regelung();
 		chThdSleepUntil(time);
   }
 }
@@ -457,4 +460,6 @@ void setup_Regelung()
 	chThdCreateStatic(RegelungSyncThreadWorkingArea, sizeof(RegelungSyncThreadWorkingArea), HIGHPRIO, RegelungSyncthread, NULL);
 	chThdCreateStatic(RegelungPrintThreadWorkingArea, sizeof(RegelungPrintThreadWorkingArea), NORMALPRIO, RegelungPrintthread, NULL);
 	chThdCreateStatic(RegelungThreadWorkingArea, sizeof(RegelungThreadWorkingArea), ABSPRIO, Regelungsthread, NULL);
+	
+	
 }

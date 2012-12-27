@@ -43,21 +43,21 @@ void setup_Motoren()
 
 void setMotor_1(float value)
 {
-	width1 = value/6800*1000+1000;
+	width1 = value/22000*1000+1000;
 	pwmEnableChannel(&PWMD5, 0, width1);
 }
 void setMotor_2(float value)
 {
-	width2 = value/6800*1000+1000;
+	width2 = value/22000*1000+1000;
   pwmEnableChannel(&PWMD5, 1, width2);
 }
 void setMotor_3(float value)
 {
-	width3 = value/6800*1000+1000;
+	width3 = value/22000*1000+1000;
   pwmEnableChannel(&PWMD5, 2, width3);
 }
 void setMotor_4(float value)
 {
-	width4 = value/6800*1000+1000;
+	width4 = value/22000*1000+1000;
   pwmEnableChannel(&PWMD5, 3, width4);
 }
