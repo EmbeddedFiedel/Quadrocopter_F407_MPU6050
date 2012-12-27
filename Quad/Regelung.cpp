@@ -264,19 +264,19 @@ void Regelung(void)
 {
 	/// Werte �bernehmen
 
-	inSchub = getSchub();
+	inSchub = get_schub_soll();
 	
 	inNickSollLage = 0;
-	inRollSollLage = getRoll();
+	inRollSollLage = get_euler_roll_soll();
 	inYawSollLage  = 0;
 	
-	inYawIstLage = getEuler_yaw();
-	inNickIstLage = getEuler_nick();
-	inRollIstLage = getEuler_roll();
+	inYawIstLage = get_euler_yaw_ist();
+	inNickIstLage = get_euler_nick_ist();
+	inRollIstLage = get_euler_roll_ist();
 		 
-	inRollIstV = getRate_roll();
-	inNickIstV = getRate_nick();
-	inYawIstV = getRate_yaw();
+	inRollIstV = get_rate_roll_ist();
+	inNickIstV = get_rate_nick_ist();
+	inYawIstV = get_rate_yaw_ist();
 
 	/////////////////////////// Nick-Regler berechnen //////////////////////////////////////////
    //�u�erer Regler
@@ -402,19 +402,19 @@ void Regelung(void)
 	/////////////////////////// Motorwerte saturieren und �bergeben //////////////////////// 
    if (outMotor1 > 6800.F) 	setMotor_1(6800.F);
    else if(outMotor1 < 0.F) setMotor_1(0.F);
-   else setMotor_1(outMotor1);
+   else setMotor_1(outMotor1/6800);
 
    if (outMotor2 > 6800.F)  setMotor_2(6800.F);
    else if(outMotor2 < 0.F) setMotor_2(0.F);
-   else setMotor_2(outMotor2);
+   else setMotor_2(outMotor2/6800);
 	 
    if (outMotor3 > 6800.F)  setMotor_3(6800.F);
    else if(outMotor3 < 0.F) setMotor_3(0.F);
-   else setMotor_3(outMotor3);
+   else setMotor_3(outMotor3/6800);
 	 
    if (outMotor4 > 6800.F)  setMotor_4(6800.F);
    else if(outMotor4 < 0.F) setMotor_4(0.F);	
-   else setMotor_4(outMotor4);	
+   else setMotor_4(outMotor4/6800);	
 
 	/////////////////////////// Alte Werte merken ////////////////////////////////////////// 
 

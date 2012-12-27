@@ -227,9 +227,9 @@ void update_IMU()
 	}
 }
 
-float getEuler_nick() {return euler[1];}
-float getEuler_roll() {return euler[2];}
-float getEuler_yaw() {return euler[0];}
-float getRate_nick() {return gyro_rate_float[1];}
-float getRate_roll() {return gyro_rate_float[0];}
-float getRate_yaw() {return gyro_rate_float[2];}
+float get_euler_nick_ist() {return euler[1];}
+float get_euler_roll_ist() {return euler[2];}
+float get_euler_yaw_ist() {return euler[0];}
+float get_rate_nick_ist() {return gyro_rate_float[1];}
+float get_rate_roll_ist() {return gyro_rate_float[0];}
+float get_rate_yaw_ist() {return gyro_rate_float[2];}

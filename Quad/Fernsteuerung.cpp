@@ -125,22 +125,22 @@ void setup_Fernsteuerung()
 	}
 }
 
-float getNick() 
+float get_euler_nick_soll() 
 {
 	if(Fernsteuerung_ready_flag) return((float(RC_INPUT_CHANNELS[1]) + RC_INPUT_CHANNELS_Offset[1])/1000);
 	else return 0;
 }
-float getRoll() 
+float get_euler_roll_soll() 
 {
 	if(Fernsteuerung_ready_flag) return((float(RC_INPUT_CHANNELS[0]) + RC_INPUT_CHANNELS_Offset[0])/1000);
 	else return 0;
 }
-float getSchub() 
+float get_schub_soll() 
 {
 	if(Fernsteuerung_ready_flag) return((float(RC_INPUT_CHANNELS[2]) + RC_INPUT_CHANNELS_Offset[2])/1000);
 	else return 0;
 }
-float getYaw() 
+float get_euler_yaw_soll() 
 {
 	if(Fernsteuerung_ready_flag) return((float(RC_INPUT_CHANNELS[3]) + RC_INPUT_CHANNELS_Offset[3])/1000);
 	else return 0;
