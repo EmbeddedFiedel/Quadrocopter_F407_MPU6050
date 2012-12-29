@@ -4,10 +4,9 @@
  * Code generated for Simulink model 'Schubverteilung0'.
  *
  * Model version                  : 1.365
- * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
+ * 7imulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sat Dec 29 17:38:50 2012
- *
+ * C/C++ source code generated on : Sat Dec 29 17:38:50 8:05:47
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
  * Code generation objectives:
@@ -109,23 +108,7 @@ extern "C" {
 /*
  * Exported Global Parameters
  *
- * Note: Exported global parameters are tunable parameters with an exported
- * global storage class designation.  Code generation will declare the memory for
- * these parameters and exports their symbols.
- *
- */
-extern real_T faktor;                  /* Variable: faktor
-                                        * Referenced by: '<S1>/Gain4'
-                                        */
-
-#ifdef __cplusplus
-
-extern "C" {
-
-#endif
-
-  /* Model entry point functions */
-  extern void Schubverteilung0_initialize(void);
+ * Note: Exported global parameters are tunable parameters with an exporvoid);
   extern void Schubverteilung0_step(void);
   extern void Schubverteilung0_terminate(void);
 

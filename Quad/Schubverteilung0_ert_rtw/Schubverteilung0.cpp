@@ -4,10 +4,9 @@
  * Code generated for Simulink model 'Schubverteilung0'.
  *
  * Model version                  : 1.365
- * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
+ * 7imulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sat Dec 29 17:38:50 2012
- *
+ * C/C++ source code generated on : Sat Dec 29 17:38:50 8:05:47
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
  * Code generation objectives:
@@ -19,12 +18,7 @@
 #include "Schubverteilung0.h"
 #include "Schubverteilung0_private.h"
 
-/* Exported block parameters */
-real_T faktor = 0.8895305;             /* Variable: faktor
-                                        * Referenced by: '<S1>/Gain4'
-                                        */
-
-/* Block signals (auto storage) */
+/* Exported block paramee) */
 BlockIO_Schubverteilung0 Schubverteilung0_B;
 
 /* External inputs (root inport signals with auto storage) */

@@ -4,10 +4,9 @@
  * Code generated for Simulink model 'Schubverteilung0'.
  *
  * Model version                  : 1.365
- * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
+ * 7imulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sat Dec 29 17:38:50 2012
- *
+ * C/C++ source code generated on : Sat Dec 29 17:38:50 8:05:47
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
  * Code generation objectives:
@@ -43,7 +42,10 @@
 #endif                                 /* TMWTYPES_PREVIOUSLY_INCLUDED */
 #endif                                 /* __RTWTYPES_H__ */
 
-extern void Schubverteilu_IfActionSubsystem(real_T rtu_0, real_T *rty_Out1);
+extern void Schubverteilu_IfActionSubsystem(r/* Imported (extern) block parameters */
+extern real_T faktor;                  /* Variable: faktor
+                                        * Referenced by: '<S1>/Gain4'
+                                        */(real_T rtu_0, real_T *rty_Out1);
 
 #endif                                 /* RTW_HEADER_Schubverteilung0_private_h_ */
 
