@@ -11,3 +11,6 @@ float get_euler_yaw_ist();
 float get_rate_nick_ist();
 float get_rate_roll_ist();
 float get_rate_yaw_ist();
+float get_ypr_nick_ist();
+float get_ypr_roll_ist();
+float get_ypr_yaw_ist();
