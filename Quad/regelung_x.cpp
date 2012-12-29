@@ -35,7 +35,7 @@ void step_regler_X(){
 	//getRoll + Gier funktion negiert, da miniquad nach Luftfahrtnorm
 	Regelglied_U.In_Ist_Roll=-get_euler_roll_ist();
 	Regelglied_U.In_Ist_Nick=get_euler_rnickist();
-	Regelglied_U.In_Ist_Gier=-get_euler_yaw_ist();
+ //Behoben	Regelglied_U.In_Ist_Gier=-get_euler_yaw_ist();
 	Regelglied_U.In_Ist_V_Roll=-get_rate_roll_ist();
 	Regelglied_U.In_Ist_V_Nick=get_rate_nick_ist();
 
