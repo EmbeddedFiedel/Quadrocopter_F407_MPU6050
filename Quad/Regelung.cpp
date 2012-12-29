@@ -74,7 +74,7 @@ volatile unsigned short tmp111;
 #include "ff.h"
 
 	uint32_t regelung_timebuffer[50];
-	int regelung_databuffer[50][39];
+	int regelung_databuffer[50][38];
 	uint8_t readcounter = 0;
 	uint8_t writecounter = 0;
 	static FIL Fil_regelung;			/* File object */
@@ -165,7 +165,7 @@ static msg_t RegelungPrintthread(void *arg)
 		{
 			systime_t time = chTimeNow();     // Tnow
 			chprintf((BaseChannel *) &SD2, "Printing:%d\r\n",time);
-			f_printf(&Fil_regelung, "%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d\r\n",
+			f_printf(&Fil_regelung, "%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d\r\n",
 							regelung_timebuffer[readcounter],
 							regelung_databuffer[readcounter][0],
 							regelung_databuffer[readcounter][1],
@@ -177,6 +177,7 @@ static msg_t RegelungPrintthread(void *arg)
 							regelung_databuffer[readcounter][7],
 							regelung_databuffer[readcounter][8],
 							regelung_databuffer[readcounter][9],
+                            regelung_databuffer[readcounter][10],
 							regelung_databuffer[readcounter][11],
 							regelung_databuffer[readcounter][12],
 							regelung_databuffer[readcounter][13],
@@ -203,8 +204,7 @@ static msg_t RegelungPrintthread(void *arg)
 							regelung_databuffer[readcounter][34],
 							regelung_databuffer[readcounter][35],
 							regelung_databuffer[readcounter][36],
-							regelung_databuffer[readcounter][37],
-							regelung_databuffer[readcounter][38]);
+							regelung_databuffer[readcounter][37]);
 							readcounter++;
 							if(readcounter >=50)readcounter=0;
 		}
@@ -226,34 +226,34 @@ void datalog_regelung(void)
 	regelung_databuffer[writecounter][7]=(int)(inNickIstV*100);
 	regelung_databuffer[writecounter][8]=(int)(inRollIstV*100);
 	regelung_databuffer[writecounter][9]=(int)(inYawIstV*100);
-	regelung_databuffer[writecounter][11]=(int)(ea_Nick*100);
-	regelung_databuffer[writecounter][12]=(int)(ea_Roll*100);
-	regelung_databuffer[writecounter][13]=(int)(ea_Yaw*100);
-	regelung_databuffer[writecounter][14]=(int)(ia_Nick*100);
-	regelung_databuffer[writecounter][15]=(int)(ia_Roll*100);
-	regelung_databuffer[writecounter][16]=(int)(ia_Yaw*100);
-	regelung_databuffer[writecounter][17]=(int)(Soll_v_Nick*100);
-	regelung_databuffer[writecounter][18]=(int)(Soll_v_Roll*100);
-	regelung_databuffer[writecounter][19]=(int)(Soll_v_Yaw*100);
-	regelung_databuffer[writecounter][20]=(int)(ii_Nick*100);
-	regelung_databuffer[writecounter][21]=(int)(ii_Roll*100);
-	regelung_databuffer[writecounter][22]=(int)(ii_Yaw*100);
-	regelung_databuffer[writecounter][23]=(int)(pi_Nick*100);
-	regelung_databuffer[writecounter][24]=(int)(pi_Roll*100);
-	regelung_databuffer[writecounter][25]=(int)(pi_Yaw*100);
-	regelung_databuffer[writecounter][26]=(int)(di_Nick*100);
-	regelung_databuffer[writecounter][27]=(int)(di_Roll*100);
-	regelung_databuffer[writecounter][28]=(int)(di_Yaw*100);
-	regelung_databuffer[writecounter][29]=(int)(v_Nick_tp1*100);
-	regelung_databuffer[writecounter][30]=(int)(v_Roll_tp1*100);
-	regelung_databuffer[writecounter][31]=(int)(v_Yaw_tp1*100);
-	regelung_databuffer[writecounter][32]=(int)(aNick*100);
-	regelung_databuffer[writecounter][33]=(int)(aRoll*100);
-	regelung_databuffer[writecounter][34]=(int)(aYaw*100);
-	regelung_databuffer[writecounter][35]=(int)(outMotor1);
-	regelung_databuffer[writecounter][36]=(int)(outMotor2);
-	regelung_databuffer[writecounter][37]=(int)(outMotor3);
-	regelung_databuffer[writecounter][38]=(int)(outMotor4);
+	regelung_databuffer[writecounter][10]=(int)(ea_Nick*100);
+	regelung_databuffer[writecounter][11]=(int)(ea_Roll*100);
+	regelung_databuffer[writecounter][12]=(int)(ea_Yaw*100);
+	regelung_databuffer[writecounter][13]=(int)(ia_Nick*100);
+	regelung_databuffer[writecounter][14]=(int)(ia_Roll*100);
+	regelung_databuffer[writecounter][15]=(int)(ia_Yaw*100);
+	regelung_databuffer[writecounter][16]=(int)(Soll_v_Nick*100);
+	regelung_databuffer[writecounter][17]=(int)(Soll_v_Roll*100);
+	regelung_databuffer[writecounter][18]=(int)(Soll_v_Yaw*100);
+	regelung_databuffer[writecounter][19]=(int)(ii_Nick*100);
+	regelung_databuffer[writecounter][20]=(int)(ii_Roll*100);
+	regelung_databuffer[writecounter][21]=(int)(ii_Yaw*100);
+	regelung_databuffer[writecounter][22]=(int)(pi_Nick*100);
+	regelung_databuffer[writecounter][23]=(int)(pi_Roll*100);
+	regelung_databuffer[writecounter][24]=(int)(pi_Yaw*100);
+	regelung_databuffer[writecounter][25]=(int)(di_Nick*100);
+	regelung_databuffer[writecounter][26]=(int)(di_Roll*100);
+	regelung_databuffer[writecounter][27]=(int)(di_Yaw*100);
+	regelung_databuffer[writecounter][28]=(int)(v_Nick_tp1*100);
+	regelung_databuffer[writecounter][29]=(int)(v_Roll_tp1*100);
+	regelung_databuffer[writecounter][30]=(int)(v_Yaw_tp1*100);
+	regelung_databuffer[writecounter][31]=(int)(aNick*100);
+	regelung_databuffer[writecounter][32]=(int)(aRoll*100);
+	regelung_databuffer[writecounter][33]=(int)(aYaw*100);
+	regelung_databuffer[writecounter][34]=(int)(outMotor1);
+	regelung_databuffer[writecounter][35]=(int)(outMotor2);
+	regelung_databuffer[writecounter][36]=(int)(outMotor3);
+	regelung_databuffer[writecounter][37]=(int)(outMotor4);
 	
 	writecounter++;
 	
