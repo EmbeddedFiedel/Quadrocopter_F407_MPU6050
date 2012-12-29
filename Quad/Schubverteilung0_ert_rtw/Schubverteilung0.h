@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'Schubverteilung0'.
  *
- * Model version                  : 1.333
+ * Model version                  : 1.365
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sun Dec 23 11:27:34 2012
+ * C/C++ source code generated on : Sat Dec 29 17:38:50 2012
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
@@ -58,7 +58,7 @@ typedef struct {
   real_T Out_F_A;                      /* '<Root>/Out_F_A' */
   real_T Out_F_B;                      /* '<Root>/Out_F_B' */
   real_T Out_F_C;                      /* '<Root>/Out_F_C' */
-  real_T Out_F_D;                      /* '<Root>/Out_F_:D' */
+  real_T Out_F_D;                      /* '<Root>/Out_F_D' */
 } ExternalOutputs_Schubverteilung;
 
 /* Real-time Model Data Structure */
@@ -105,6 +105,18 @@ extern "C" {
 
 }
 #endif
+
+/*
+ * Exported Global Parameters
+ *
+ * Note: Exported global parameters are tunable parameters with an exported
+ * global storage class designation.  Code generation will declare the memory for
+ * these parameters and exports their symbols.
+ *
+ */
+extern real_T faktor;                  /* Variable: faktor
+                                        * Referenced by: '<S1>/Gain4'
+                                        */
 
 #ifdef __cplusplus
 

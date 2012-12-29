@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'Regelglied'.
  *
- * Model version                  : 1.333
+ * Model version                  : 1.365
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sun Dec 23 11:25:19 2012
+ * C/C++ source code generated on : Sat Dec 29 17:36:47 2012
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic

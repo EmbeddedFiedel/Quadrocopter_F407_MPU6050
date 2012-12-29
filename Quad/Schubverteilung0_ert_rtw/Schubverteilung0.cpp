@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'Schubverteilung0'.
  *
- * Model version                  : 1.333
+ * Model version                  : 1.365
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sun Dec 23 11:27:34 2012
+ * C/C++ source code generated on : Sat Dec 29 17:38:50 2012
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
@@ -18,6 +18,11 @@
 
 #include "Schubverteilung0.h"
 #include "Schubverteilung0_private.h"
+
+/* Exported block parameters */
+real_T faktor = 0.8895305;             /* Variable: faktor
+                                        * Referenced by: '<S1>/Gain4'
+                                        */
 
 /* Block signals (auto storage) */
 BlockIO_Schubverteilung0 Schubverteilung0_B;
@@ -53,18 +58,23 @@ void Schubverteilung0_step(void)
   real_T rtb_Add5;
   real_T rtb_Add6;
   real_T rtb_Add7;
+  real_T rtb_Gain4;
+
+  /* Gain: '<S1>/Gain4' incorporates:
+   *  Inport: '<Root>/In_Throttle'
+   */
+  rtb_Gain4 = faktor * 9.81 / 1000.0 * 418.5561064490916 *
+    Schubverteilung0_U.In_Throttle;
 
   /* Sum: '<S1>/Add4' incorporates:
    *  Gain: '<S1>/Gain'
    *  Inport: '<Root>/In_M_Gier'
    *  Inport: '<Root>/In_M_Nick'
    *  Inport: '<Root>/In_M_Roll'
-   *  Inport: '<Root>/In_Throttle'
    *  Sum: '<S1>/Add'
    */
   rtb_Add4 = ((Schubverteilung0_U.In_M_Roll + Schubverteilung0_U.In_M_Nick) +
-              Schubverteilung0_U.In_M_Gier) * 0.25 +
-    Schubverteilung0_U.In_Throttle;
+              Schubverteilung0_U.In_M_Gier) * 0.25 + rtb_Gain4;
 
   /* If: '<S2>/If' incorporates:
    *  Constant: '<S7>/Constant'
@@ -95,12 +105,10 @@ void Schubverteilung0_step(void)
    *  Inport: '<Root>/In_M_Gier'
    *  Inport: '<Root>/In_M_Nick'
    *  Inport: '<Root>/In_M_Roll'
-   *  Inport: '<Root>/In_Throttle'
    *  Sum: '<S1>/Add1'
    */
   rtb_Add5 = ((Schubverteilung0_U.In_M_Nick - Schubverteilung0_U.In_M_Roll) -
-              Schubverteilung0_U.In_M_Gier) * 0.25 +
-    Schubverteilung0_U.In_Throttle;
+              Schubverteilung0_U.In_M_Gier) * 0.25 + rtb_Gain4;
 
   /* If: '<S3>/If' incorporates:
    *  Constant: '<S9>/Constant'
@@ -131,12 +139,10 @@ void Schubverteilung0_step(void)
    *  Inport: '<Root>/In_M_Gier'
    *  Inport: '<Root>/In_M_Nick'
    *  Inport: '<Root>/In_M_Roll'
-   *  Inport: '<Root>/In_Throttle'
    *  Sum: '<S1>/Add2'
    */
   rtb_Add6 = ((Schubverteilung0_U.In_M_Gier - Schubverteilung0_U.In_M_Roll) -
-              Schubverteilung0_U.In_M_Nick) * 0.25 +
-    Schubverteilung0_U.In_Throttle;
+              Schubverteilung0_U.In_M_Nick) * 0.25 + rtb_Gain4;
 
   /* If: '<S4>/If' incorporates:
    *  Constant: '<S11>/Constant'
@@ -167,12 +173,10 @@ void Schubverteilung0_step(void)
    *  Inport: '<Root>/In_M_Gier'
    *  Inport: '<Root>/In_M_Nick'
    *  Inport: '<Root>/In_M_Roll'
-   *  Inport: '<Root>/In_Throttle'
    *  Sum: '<S1>/Add3'
    */
   rtb_Add7 = ((Schubverteilung0_U.In_M_Roll - Schubverteilung0_U.In_M_Nick) -
-              Schubverteilung0_U.In_M_Gier) * 0.25 +
-    Schubverteilung0_U.In_Throttle;
+              Schubverteilung0_U.In_M_Gier) * 0.25 + rtb_Gain4;
 
   /* If: '<S5>/If' incorporates:
    *  Constant: '<S13>/Constant'
@@ -195,7 +199,7 @@ void Schubverteilung0_step(void)
 
   /* End of If: '<S5>/If' */
 
-  /* Outport: '<Root>/Out_F_:D' */
+  /* Outport: '<Root>/Out_F_D' */
   Schubverteilung0_Y.Out_F_D = Schubverteilung0_B.Merge_pb;
 }
 
