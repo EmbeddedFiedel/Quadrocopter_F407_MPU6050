@@ -6,11 +6,6 @@
 #include "Fernsteuerung.h"
 #include "Motoren.h"
 
-//Model Includes
-#include "Regelglied.h"                /* Model's header file */
-#include "Schubverteilung0.h"          /* Model's header file */
-#include "Inverse_Propeller.h"         /* Model's header file */
-#include "rtwtypes.h"                  /* MathWorks types */
 
 
 //Init Models
