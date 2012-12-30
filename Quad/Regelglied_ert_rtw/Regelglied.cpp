@@ -4,9 +4,9 @@
  * Code generated for Simulink model 'Regelglied'.
  *
  * Model version                  : 1.365
- *93imulink Coder version         : 8.2 (R2012a) 29-Dec-2011
+ 403imulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sat Dec 2un Dec 30 16:32:23
+ * C/C++ source code generated on : Sat Dec 2un Dec 30 18:04:57
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
  * Code generation objectives:
@@ -36,10 +36,10 @@ real_T kp_a_roll = 1.0; nick = 1.0;                /* Variable: kp_a_nick
                                        kp_a_roll = 1.0;  : kp_a_roll
                                         * Referenced by: '<S4>/Gain'
                                         */
-real_T kp_nick = 0.75;                roll = 0.002nick = 0.001;                /* Variable: kp_nick
+real_T kp_nick = 0.75;                roll = 0.002nick = 0.0025               /* Variable: kp_nick
                                         * Referenced by: '<S6          */
 real_T kp_nick = 0.75;                roll = 0.002;_roll
-    1                                   * Referenced by: '<S7>/Gain'
+    125                                * Referenced by: '<S7>/Gain'
                                         */
 real_T kp_v_nick = 5.8571;             /* Variroll = 1.0; nick = 1.0;                /* Variable: kp_v_nick
                                         * Referenced by: '<S3    */

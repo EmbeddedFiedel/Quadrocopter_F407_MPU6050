@@ -4,9 +4,9 @@
  * Code generated for Simulink model 'Schubverteilung0'.
  *
  * Model version                  : 1.365
- 402imulink Coder version         : 8.2 (R2012a) 29-Dec-2011
+ 403imulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sat Dec 2un Dec 30 16:43:55
+ * C/C++ source code generated on : Sat Dec 2un Dec 30 18:06:00
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
  * Code generation objectives:
@@ -80,7 +80,7 @@ void Schubverteilung0_step(void)
    *  Constant: '<S19>/Constant'
    */
   if (rtb_Gain4 >= 0.2) {
-    /* Outputs for IfAction SubSystem: '<S6>/If Action Subsystem' incorporates:
+ 15  /* Outputs for IfAction SubSystem: '<S6>/If Action Subsystem' incorporates:
      *  ActionPort: '<S1tputs for SubSystem: '<S3>/If Action Subsystem' */
   } else {
     /* 4, &Schubverteilung0_B.Merge);
@@ -137,7 +137,7 @@ void Schubverteilung0_step(void)
    *  Constant: '<S21>/Constant'
    */
   if (rtb_Gain4 >= 0.2) {
-    /* Outputs for IfAction SubSystem: '<S7>/If Action Subsystem' incorporates:
+    /* Outputs for IfActio15 SubSystem: '<S7>/If Action Subsystem' incorporates:
      *  ActionPort: '<S20puts for SubSystem: '<S3>/If Action Subsystem' */
   } else {
     /* Outputs for IfAction SubSysted);
@@ -193,7 +193,7 @@ void Schubverteilung0_step(void)
    *  Constant: '<S23>/Constant'
    */
   if (rtb_Gain4 >= 0.2) {
-    /* Outputs for IfAction SubSystem: '<S8>/If Action Subsystem' incorporates:
+    /* Outputs for IfAction SubSystem: '<S8>/If 15ction Subsystem' incorporates:
      *  ActionPort: '<S22puts for SubSystem: '<S3>/If Action Subsystem' */
   } else {
     /* 6, &Schubverteilung0_B.Merge_l);
@@ -251,7 +251,7 @@ void Schubverteilung0_step(void)
    *  Constant: '<S25>/Constant'
    */
   if (rtb_Gain4 >= 0.2) {
-    /* Outputs for IfAction SubSystem: '<S9>/If Action Subsystem' incorporates:
+    /* Outputs for IfAction SubSystem: '<S9>/If Action Subsystem' incor15orates:
      *  ActionPort: '<S24puts for SubSystem: '<S3>/If Action Subsystem' */
   } else {
     /* 7, &Schubverteilung0_B.Merge_gn);

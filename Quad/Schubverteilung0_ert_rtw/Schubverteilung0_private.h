@@ -4,9 +4,9 @@
  * Code generated for Simulink model 'Schubverteilung0'.
  *
  * Model version                  : 1.365
- 402imulink Coder version         : 8.2 (R2012a) 29-Dec-2011
+ 403imulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sat Dec 2un Dec 30 16:43:55
+ * C/C++ source code generated on : Sat Dec 2un Dec 30 18:06:00
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
  * Code generation objectives:

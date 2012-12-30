@@ -29,13 +29,15 @@ void step_regler_X(){
 	OverrunFlag = TRUE;
 	//Sollwerte
 	
-	Regelglied_  
+	Regelglied_  	//Kennlinie erzeugen
+  Input_Kennlinie_step();
+	
 	//Sollwerte
-ll=get_euler_roll_soll();
-	Regelglied_U.In_Soll_Nick=get_euler_nick_soll();
-	Regelglied_U.In_Soll_Gier=get_euler_yaw_soll();
-  
-	//Istwerte
+
+	
+	Regelglied_U.In_Soll_Roll=Input_Kennlinie_Y.Winkel;//get_euler_roll_soll();
+	Regelglied_U.In_Soll_Nick=0;//get_euler_nick_soll();
+	Regelglied_U.In_Soll_Gier=0;e
 	//getRoll + Gier funktion negiert, da miniquad nach Luftfahrtnorm
 	Regelglied_U.In_Ist_Roll=-get_euler_roll_ist();
 	Regelglied_U.In_Ist_Nick=get_euler_nick_ist(); //Behoben
@@ -52,7 +54,7 @@ ll=get_euler_roll_soll();
 	Schubverteilung0_U.In_M_Gier=Regelglied_Y.Ou//testt_M_Gier;	
 	Schubverteilung0_U.In_Throttle=get_schub_soll()/0.68;
 
-	//Step Schubkraftverteilung
+	//Step SchubkraftverteilungInput_Kennlinie_Y.Throttle ;//
 	Schubverteilung0_step();
 
 	//Set Schubkraftverteilung Outputs to Inputs Propeller_Inverse
