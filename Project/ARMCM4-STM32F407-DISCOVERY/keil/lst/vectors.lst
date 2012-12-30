@@ -595,10 +595,10 @@ ARM Macro Assembler    Page 10
   345 00000002                 END
 Command Line: --debug --xref --cpreproc --cpu=Cortex-M4.fp --apcs=interwork --d
 epend=.\obj\vectors.d -o.\obj\vectors.o -I..\ -I..\..\..\boards\ST_STM32F4_DISC
-OVERY -I..\..\..\os\ports\RVCT\ARMCMx\STM32F4xx -I"D:\Program Files\Keil\ARM\RV
-31\INC" -I"D:\Program Files\Keil\ARM\CMSIS\Include" -I"D:\Program Files\Keil\AR
-M\Inc\ST\STM32F4xx" --list=.\lst\vectors.lst ..\..\..\os\ports\RVCT\ARMCMx\STM3
-2F4xx\vectors.s
+OVERY -I..\..\..\os\ports\RVCT\ARMCMx\STM32F4xx -I"C:\Program Files (x86)\Keil\
+ARM\RV31\INC" -I"C:\Program Files (x86)\Keil\ARM\CMSIS\Include" -I"C:\Program F
+iles (x86)\Keil\ARM\Inc\ST\STM32F4xx" --list=.\lst\vectors.lst ..\..\..\os\port
+s\RVCT\ARMCMx\STM32F4xx\vectors.s
 
 
 
