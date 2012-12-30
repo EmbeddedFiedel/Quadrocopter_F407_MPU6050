@@ -45,6 +45,8 @@ Quaternion q;           // [w, x, y, z]         quaternion container
 float euler[3];         // [psi, theta, phi]    Euler angle container
 int32_t gyroRate[3];
 float gyro_rate_float[3];
+VectorFloat gravity; // [x, y, z] gravity vector
+float ypr[3]; // [yaw, pitch, roll] yaw/pitch/roll container and gravity vector
 
 static FIL Fil_Lage;			/* File object */
 FRESULT rc_lage;				/* Result code */
@@ -213,6 +215,8 @@ void update_IMU()
 			// (this lets us immediately read more without waiting for an interrupt)
 			fifoCount -= packetSize;
 			mpu.dmpGetQuaternion(&q, fifoBuffer);
+			mpu.dmpGetGravity(&gravity, &q);
+			mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
 			mpu.dmpGetEuler(euler, &q);
 			mpu.dmpGetGyro(gyroRate,fifoBuffer);
 			gyro_rate_float[0] = (float)gyroRate[0]/2147483648*2000*0.41;
@@ -233,3 +237,6 @@ float get_euler_yaw_ist() {return euler[0];}
 float get_rate_nick_ist() {return gyro_rate_float[1];}
 float get_rate_roll_ist() {return gyro_rate_float[0];}
 float get_rate_yaw_ist() {return gyro_rate_float[2];}
+float get_ypr_nick_ist() {return ypr[1];}
+float get_ypr_roll_ist() {return ypr[2];}
+float get_ypr_yaw_ist() {return ypr[0];}
