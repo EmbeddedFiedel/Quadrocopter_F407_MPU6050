@@ -4,9 +4,9 @@
  * Code generated for Simulink model 'Regelglied'.
  *
  * Model version                  : 1.365
- *91imulink Coder version         : 8.2 (R2012a) 29-Dec-2011
+ *93imulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sat Dec 2un Dec 30 12:54:15
+ * C/C++ source code generated on : Sat Dec 2un Dec 30 16:32:23
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
  * Code generation objectives:

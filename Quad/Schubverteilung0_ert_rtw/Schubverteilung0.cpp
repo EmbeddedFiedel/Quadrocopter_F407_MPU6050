@@ -4,9 +4,9 @@
  * Code generated for Simulink model 'Schubverteilung0'.
  *
  * Model version                  : 1.365
- * 7imulink Coder version         : 8.2 (R2012a) 29-Dec-2011
+ 402imulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sat Dec 29 17:38:50 8:05:47
+ * C/C++ source code generated on : Sat Dec 2un Dec 30 16:43:55
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
  * Code generation objectives:
@@ -38,13 +38,16 @@ RT_MODEL_Schubverteilung0 *const Schubverteilung0_M = &Schubverteilung0_M_;
  *    '<S4>/If Action Subsystem'
  *    '<S5>/If Action Subsystem'
  */
-void Schubverteilu_IfActionSubsystem(real_T rtu_0, real_T *rty_Out1)
+void Schubverteilu_IfActionSubsystem(real_T    '<S6>/If Action Subsystem'
+ *    '<S7>/If Action Subsystem'
+ *    '<S8>/If Action Subsystem'
+ *    '<S9u_IfActionSubsystem(real_T rtu_0, real_T *rty_Out1)
 {
   /* Inport: '<S6>/In1' */
   *rty_Out1 = rtu_0;
 }
 
-/* Model step function */
+/* Model step10function */
 void Schubverteilung0_step(void)
 {
   /* local block i/o variables */
@@ -73,23 +76,45 @@ void Schubverteilung0_step(void)
   /* If: '<S2>/If' incorporates:
    *  Constant: '<S7>/Constant'
    */
-  if (rtb_Add4 >= 0.0) {
-    /* Outputs for IfAction SubSystem: '<S2>/If Action Subsystem' incorporates:
+  if (rtb_Add4 >= 06>/If' incorporates:
+   *  Constant: '<S19>/Constant'
+   */
+  if (rtb_Gain4 >= 0.2) {
+    /* Outputs for IfAction SubSystem: '<S6>/If Action Subsystem' incorporates:
+     *  ActionPort: '<S1tputs for SubSystem: '<S3>/If Action Subsystem' */
+  } else {
+    /* 4, &Schubverteilung0_B.Merge);
+
+    /* End of Outputs for SubSystem: '<S6tion Subsystem1' incorporates:
+     *  ActionPort: '<S7>/Action Port'
+     */
+   6>/If Action Subsystem1' incorporates:
+     *  ActionPort: '<S19>/Action Port'
+     */
+    Schubverteilung0_B.Merge = 0.0;
+
+    /* End of Outputs for SubSystem: '<S6>/If Action Subsystem1' */
+  }
+
+  /* End of If: '<S6>/If' */
+
+  /* If: '<S2>/If' incorporates:
+   *  Constant: '<S11>/Constant'
+   */
+  if (Schubverteilung0_B.Mergerporates:
      *  ActionPort: '<S6>/Action Port'
      */
-    Schubverteilu_IfActionSubsystem(rtb_Add4, &Schubverteilung0_B.Merge);
-
-    /* End of Outputs for SubSystem: '<S2>/If Action Subsystem' */
-  } else {
-    /* Outputs for IfAction SubSystem: '<S2>/If Action Subsystem1' incorporates:
+    Schubverteilu_IfActionSubsystem(rtb_Add4, &Schubverteil10>/Action Port'
+     */
+    Schubverteilu_IfActionSubsystem(Schubverteilung0_B.Merge,
+      &Schubverteilung0_B.Merge_m /* Outputs for IfAction SubSystem: '<S2>/If Action Subsystem1' incorporates:
      *  ActionPort: '<S7>/Action Port'
      */
     Schubverteilung0_B.Merge = 0.0;
 
-    /* End of Outputs for SubSystem: '<S2>/If Action Subsystem1' */
-  }
-
-  /* End of If: '<S2>/If' */
+    /* End of Outputs for Sub11>/Action Port'
+     */
+    Schubverteilung0_B.Merge_mf If: '<S2>/If' */
 
   /* Outport: '<Root>/Out_F_A' */
   Schubverteilung0_Y.Out_F_A = Schubverteilung0_B.Merge;
@@ -97,7 +122,7 @@ void Schubverteilung0_step(void)
   /* Sum: '<S1>/Add5' incorporates:
    *  Gain: '<S1>/Gain1'
    *  Inport: '<Root>/In_M_Gier'
-   *  Inport: '<Root>/In_M_Nick'
+   _m*  Inport: '<Root>/In_M_Nick'
    *  Inport: '<Root>/In_M_Roll'
    *  Sum: '<S1>/Add1'
    */
@@ -108,19 +133,41 @@ void Schubverteilung0_step(void)
    *  Constant: '<S9>/Constant'
    */
   if (rtb_Add5 >= 0.0) {
-    /* Outputs for IfAction SubSystem: '<S3>/If Action Subsystem' incorporates:
-     *  ActionPort: '<S8>/Action Port'
-     */
-    Schubverteilu_IfActionSubsystem(rtb_Add5, &Schubverteilung0_B.Merge_g);
-
-    /* End of Outputs for SubSystem: '<S3>/If Action Subsystem' */
+    /* Outputs for IfAction 7>/If' incorporates:
+   *  Constant: '<S21>/Constant'
+   */
+  if (rtb_Gain4 >= 0.2) {
+    /* Outputs for IfAction SubSystem: '<S7>/If Action Subsystem' incorporates:
+     *  ActionPort: '<S20puts for SubSystem: '<S3>/If Action Subsystem' */
   } else {
-    /* Outputs for IfAction SubSystem: '<S3>/If Action Subsystem1' incorporates:
+    /* Outputs for IfAction SubSysted);
+
+    /* End of Outputs for SubSystem: '<S7tion Subsystem1' incorporates:
+     *  ActionPort: '<S7>/Action Port'
+     */
+   7>/If Action Subsystem1' incorporates:
+     *  ActionPort: '<S21>/Action Port'
+     */
+    Schubverteilung0_B.Merge_d = 0.0;
+
+    /* End of Outputs for SubSystem: '<S7>/If Action Subsystem1' */
+  }
+
+  /* End of If: '<S7>/If' */
+
+  /* If: '<S3>/If' incorporates:
+   *  Constant: '<S13>/Constant'
+   */
+  if (Schubverteilung0_B.Merge_d >= 0.0) {
+    /* Outputs for IfAction SubSystem: '<S3 for SubSystem: '<S5>/If Action Subsystem' */
+  } else {
+    /* Outputs for IfAction SubSystem: '<S5>/If Action Subsystem1' Schubverteilung0_B.Merge_d,
+     tputs for IfAction SubSystem: '<S3>/If Action Subsystem1' incorporates:
      *  ActionPort: '<S9>/Action Port'
      */
     Schubverteilung0_B.Merge_g = 0.0;
 
-    /* End of Outputs for SubSystem: '<S3>/If Action Subsystem1' */
+    /* End of Outputs for SubSystem: '<S3>/If Action Subsyste131' */
   }
 
   /* End of If: '<S3>/If' */
@@ -142,14 +189,37 @@ void Schubverteilung0_step(void)
    *  Constant: '<S11>/Constant'
    */
   if (rtb_Add6 >= 0.0) {
-    /* Outputs for IfAction SubSystem: '<S4>/If Action Subsystem' incorporates:
-     *  ActionPort: '<S10>/Action Port'
-     */
-    Schubverteilu_IfActionSubsystem(rtb_Add6, &Schubverteilung0_B.Merge_p);
-
-    /* End of Outputs for SubSystem: '<S4>/If Action Subsystem' */
+    /* Outputs for IfAction SubSystem: '<S4>/If Action Subsys8>/If' incorporates:
+   *  Constant: '<S23>/Constant'
+   */
+  if (rtb_Gain4 >= 0.2) {
+    /* Outputs for IfAction SubSystem: '<S8>/If Action Subsystem' incorporates:
+     *  ActionPort: '<S22puts for SubSystem: '<S3>/If Action Subsystem' */
   } else {
-    /* Outputs for IfAction SubSystem: '<S4>/If Action Subsystem1' incorporates:
+    /* 6, &Schubverteilung0_B.Merge_l);
+
+    /* End of Outputs for SubSystem: '<S8tion Subsystem1' incorporates:
+     *  ActionPort: '<S7>/Action Port'
+     */
+   8>/If Action Subsystem1' incorporates:
+     *  ActionPort: '<S23>/Action Port'
+     */
+    Schubverteilung0_B.Merge_l = 0.0;
+
+    /* End of Outputs for SubSystem: '<S8>/If Action Subsystem1' */
+  }
+
+  /* End of If: '<S8>/If' */
+
+  /* If: '<S4>/If' incorporates:
+   *  Constant: '<S15>/Constant'
+   */
+  if (Schubverteilung0_B.Merge_lerteilu_IfActionSubsystem(rtb_Add6, &Schubverteilung0_B.Merge_p);
+
+    /* End of Outputs for SubSystem: '<S4>/If Acti4>/Action Port'
+     */
+    Schubverteilu_IfActionSubsystem(Schubverteilung0_B.Merge_l,
+     >/If Action Subsystem1' incorporates:
      *  ActionPort: '<S11>/Action Port'
      */
     Schubverteilung0_B.Merge_p = 0.0;
@@ -157,7 +227,7 @@ void Schubverteilung0_step(void)
     /* End of Outputs for SubSystem: '<S4>/If Action Subsystem1' */
   }
 
-  /* End of If: '<S4>/If' */
+  /* End of If: '<S4>/5f' */
 
   /* Outport: '<Root>/Out_F_C' */
   Schubverteilung0_Y.Out_F_C = Schubverteilung0_B.Merge_p;
@@ -177,13 +247,39 @@ void Schubverteilung0_step(void)
    */
   if (rtb_Add7 >= 0.0) {
     /* Outputs for IfAction SubSystem: '<S5>/If Action Subsystem' incorporates:
-     *  ActionPort: '<S12>/Action Port'
+     *  ActionP9>/If' incorporates:
+   *  Constant: '<S25>/Constant'
+   */
+  if (rtb_Gain4 >= 0.2) {
+    /* Outputs for IfAction SubSystem: '<S9>/If Action Subsystem' incorporates:
+     *  ActionPort: '<S24puts for SubSystem: '<S3>/If Action Subsystem' */
+  } else {
+    /* 7, &Schubverteilung0_B.Merge_gn);
+
+    /* End of Outputs for SubSystem: '<S9tion Subsystem1' incorporates:
+     *  ActionPort: '<S7>/Action Port'
      */
-    Schubverteilu_IfActionSubsystem(rtb_Add7, &Schubverteilung0_B.Merge_pb);
+   9>/If Action Subsystem1' incorporates:
+     *  ActionPort: '<S25>/Action Port'
+     */
+    Schubverteilung0_B.Merge_gn = 0.0;
+
+    /* End of Outputs for SubSystem: '<S9>/If Action Subsystem1' */
+  }
+
+  /* End of If: '<S9>/If' */
+
+  /* If: '<S5>/If' incorporates:
+   *  Constant: '<S17>/Constant'
+   */
+  if (Schubverteilung0_B.Merge_gn, &Schubverteilung0_B.Merge_pb);
 
     /* End of Outputs for SubSystem: '<S5>/If Action Subsystem' */
   } else {
-    /* Outputs for IfAction SubSystem: '<S5>/If Action Subsystem1' incorporates:
+    /6>/Action Port'
+     */
+    Schubverteilu_IfActionSubsystem(Schubverteilung0_B.Merge_gn,
+     tes:
      *  ActionPort: '<S13>/Action Port'
      */
     Schubverteilung0_B.Merge_pb = 0.0;
@@ -193,7 +289,7 @@ void Schubverteilung0_step(void)
 
   /* End of If: '<S5>/If' */
 
-  /* Outport: '<Root>/Out_F_D' */
+  /* Outport: '<Root>/Out7F_D' */
   Schubverteilung0_Y.Out_F_D = Schubverteilung0_B.Merge_pb;
 }
 
@@ -227,13 +323,28 @@ void Schubverteilung0_initialize(void)
   /* End of InitializeConditions for Merge: '<S2>/Merge' */
 
   /* InitializeConditions for Merge: '<S3>/Merge' */
-  if (rtmIsFirstInitCond(Schubverteilung0_M)) {
+  if (rtmIs6irstInitCond(Schubverteilung0_M)) {
     Schubverteilung0_B.Merge_g = 0.0;
   }
 
   /* End of InitializeConditions for Merge: '<S3>/Merge' */
 
+  /* Initiali6>/Merge' */tions for Merge: '<S3>/Merge' */
+  if (rtmIsFirstInitCond(Schubverteilung0_M)) {
+    Schubverteilung0_B.Merge_g = 0.0;
+  }
+
+  /* End of_m InitializeConditions for Merge: '<S3>/Merge' */
+
   /* InitializeConditions for Merge: '<S4>/Merge' */
+  if (rtmIsFirst7irstInitCond(Schubverteilung0_M)) {
+    Schubverteilung0_B.Merge_g = 0.0;
+  }
+
+  /* End of_d = 0.0;
+  }
+
+  /* End of InitializeConditions for Merge: '<S7eConditions for Merge: '<S4>/Merge' */
   if (rtmIsFirstInitCond(Schubverteilung0_M)) {
     Schubverteilung0_B.Merge_p = 0.0;
   }
@@ -241,6 +352,14 @@ void Schubverteilung0_initialize(void)
   /* End of InitializeConditions for Merge: '<S4>/Merge' */
 
   /* InitializeConditions for Merge: '<S5>/Merge' */
+  if (rtmIsFirstInitCon8irstInitCond(Schubverteilung0_M)) {
+    Schubverteilung0_B.Merge_g = 0.0;
+  }
+
+  /* End of_l = 0.0;
+  }
+
+  /* End of InitializeConditions for Merge: '<S8ions for Merge: '<S5>/Merge' */
   if (rtmIsFirstInitCond(Schubverteilung0_M)) {
     Schubverteilung0_B.Merge_pb = 0.0;
   }
@@ -248,6 +367,14 @@ void Schubverteilung0_initialize(void)
   /* End of InitializeConditions for Merge: '<S5>/Merge' */
 
   /* set "at time zero" to false */
+  if (rtmIsFirstInitCond(Schubverteilung0_M)) 9irstInitCond(Schubverteilung0_M)) {
+    Schubverteilung0_B.Merge_g = 0.0;
+  }
+
+  /* End of_gn = 0.0;
+  }
+
+  /* End of InitializeConditions for Merge: '<S9false */
   if (rtmIsFirstInitCond(Schubverteilung0_M)) {
     rtmSetFirstInitCond(Schubverteilung0_M, 0);
   }

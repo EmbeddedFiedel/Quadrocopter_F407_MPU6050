@@ -67,6 +67,7 @@ float ea_Yaw = 0;
 float Soll_v_Yaw = 0;
 float aYaw;
 volatile unsigned short tmp111;
+
 #include "ch.h"
 #include "hal.h"
 #include "chprintf.h"
@@ -74,7 +75,7 @@ volatile unsigned short tmp111;
 #include "ff.h"
 
 	uint32_t regelung_timebuffer[50];
-	int regelung_databuffer[50][28];
+	int regelung_databuffer[50][20];
 	uint8_t readcounter = 0;
 	uint8_t writecounter = 0;
 	static FIL Fil_regelung;			/* File object */
@@ -112,7 +113,7 @@ static msg_t RegelungSyncthread(void *arg)
 				}
 				else
 				{
-					f_printf(&Fil_regelung, "Time_regelung;In_Throttle;In_Soll_Nick;In_Soll_Roll;In_Soll_Gier;In_Ist_Nick;In_Ist_Roll;In_Ist_Gier;In_Ist_V_Nick;In_Ist_V_Roll;Out_M_Roll;Out_M_Nick;Out_M_Gier;Out_F_A;Out_F_B;Out_F_C;Out_F_D;Out_n_A;Out_n_B;Out_n_C;Out_n_D;xd_roll;p_anteil;i_anteil;d_anteil;y_roll;Xd_V_Roll;Xf_a_Roll;Soll_V_Roll;Ist_a_Roll\r\n");	
+					f_printf(&Fil_regelung, "Time_regelung;In_Throttle;In_Soll_Nick;In_Soll_Roll;In_Soll_Gier;In_Ist_Nick;In_Ist_Roll;In_Ist_Gier;In_Ist_V_Nick;In_Ist_V_Roll;Out_M_Roll;Out_M_Nick;Out_M_Gier;Out_F_A;Out_F_B;Out_F_C;Out_F_D;Out_n_A;Out_n_B;Out_n_C;Out_n_D\r\n");	
 					rc_datalog = f_sync(&Fil_regelung);	
 					if(rc_datalog != FR_OK)
 					{
@@ -186,17 +187,7 @@ static msg_t RegelungPrintthread(void *arg)
 							regelung_databuffer[readcounter][16],
 							regelung_databuffer[readcounter][17],
 							regelung_databuffer[readcounter][18],
-							regelung_databuffer[readcounter][19],
-							regelung_databuffer[readcounter][20],
-							regelung_databuffer[readcounter][21],
-							regelung_databuffer[readcounter][22],
-							regelung_databuffer[readcounter][23],
-							regelung_databuffer[readcounter][24],
-							regelung_databuffer[readcounter][25],
-							regelung_databuffer[readcounter][26],
-							regelung_databuffer[readcounter][27],
-							regelung_databuffer[readcounter][28]);
-							
+							regelung_databuffer[readcounter][19]);
 							readcounter++;
 							if(readcounter >=50)readcounter=0;
 		}
@@ -207,43 +198,31 @@ static msg_t RegelungPrintthread(void *arg)
 void datalog_regelung(void)
 {
 	uint32_t system_time = chTimeNow();
-	regelung_timebuffer[writecounter] = system_time;
-	regelung_databuffer[writecounter][0]=(int)(Schubverteilung0_U.In_Throttle*100);
+	regelung_timebuffer[writecounter] = system_time;_databuffer[writecounter][0]=(int)(Schubverteilung0_U.In_Throttle*100);
+	regelung
 	regelung_databuffer[writecounter][1]=(int)(Regelglied_U.In_Soll_Nick*100);
 	regelung_databuffer[writecounter][2]=(int)(Regelglied_U.In_Soll_Roll*100);
 	regelung_databuffer[writecounter][3]=(int)(Regelglied_U.In_Soll_Gier*100);
-	regelung_databuffer[writecounter][4]=(int)(Regelglied_U.In_Ist_Nick*100);
-	regelung_databuffer[writecounter][5]=(int)(Regelglied_U.In_Ist_Roll*100);
+	regelung_databuffer[writecounter][4]=(int)(Regelglied_U.In_Ist_Nick*100);_databuffer[writecounter][5]=(int)(Regelglied_U.In_Ist_Roll*100);
+	regelung
 	regelung_databuffer[writecounter][6]=(int)(Regelglied_U.In_Ist_Gier*100);
 	regelung_databuffer[writecounter][7]=(int)(Regelglied_U.In_Ist_V_Nick*100);
 	regelung_databuffer[writecounter][8]=(int)(Regelglied_U.In_Ist_V_Roll*100);
 	regelung_databuffer[writecounter][9]=(int)(Regelglied_Y.Out_M_Roll*100);
-	regelung_databuffer[writecounter][10]=(int)(Regelglied_Y.Out_M_Nick*100);
-	regelung_databuffer[writecounter][11]=(int)(Regelglied_Y.Out_M_Gier*100);
+	regelung_databuffer[writecounter][10]=(int)(Regelglied_Y.Out_M_Nick*100);_databuffer[writecounter][11]=(int)(Regelglied_Y.Out_M_Gier*100);
+	regelung
 	regelung_databuffer[writecounter][12]=(int)(Schubverteilung0_Y.Out_F_A*100);
 	regelung_databuffer[writecounter][13]=(int)(Schubverteilung0_Y.Out_F_B*100);
 	regelung_databuffer[writecounter][14]=(int)(Schubverteilung0_Y.Out_F_C*100);
-	regelung_databuffer[writecounter][15]=(int)(Schubverteilung0_Y.Out_F_D*100);
-	regelung_databuffer[writecounter][16]=(int)(Inverse_Propeller_Y.Out_n_A*100);
+	regelung_databuffer[writecounter][15]=(int)(Schubverteilung0_Y.Out_F_D*100);_databuffer[writecounter][16]=(int)(Inverse_Propeller_Y.Out_n_A*100);
+	regelung
 	regelung_databuffer[writecounter][17]=(int)(Inverse_Propeller_Y.Out_n_B*100);
 	regelung_databuffer[writecounter][18]=(int)(Inverse_Propeller_Y.Out_n_C*100);
 	regelung_databuffer[writecounter][19]=(int)(Inverse_Propeller_Y.Out_n_D*100);
-	regelung_databuffer[writecounter][20]=(int)(xd_roll*100);
-	regelung_databuffer[writecounter][21]=(int)(p_anteil*100);
-	regelung_databuffer[writecounter][22]=(int)(i_anteil*100);
-	regelung_databuffer[writecounter][23]=(int)(d_anteil*100);
-	regelung_databuffer[writecounter][24]=(int)(y_roll*100);
-	regelung_databuffer[writecounter][25]=(int)(Xd_V_Roll*100);
-	regelung_databuffer[writecounter][26]=(int)(Xf_a_Roll*100);
-	regelung_databuffer[writecounter][27]=(int)(Soll_V_Roll*100);
-	regelung_databuffer[writecounter][28]=(int)(Ist_a_Roll*100);
 	
 	writecounter++;
 	
-	if(writecounter >=50)writecounter=0;
-}
-
-void Regelung(void)
+	if(writecounter >=50)writecounter=0;oid)
 {
 	/// Werte �bernehmen
 
@@ -444,5 +423,8 @@ void setup_Regelung()
 	chThdCreateStatic(RegelungPrintThreadWorkingArea, sizeof(RegelungPrintThreadWorkingArea), NORMALPRIO, RegelungPrintthread, NULL);
 	chThdCreateStatic(RegelungThreadWorkingArea, sizeof(RegelungThreadWorkingArea), ABSPRIO, Regelungsthread, NULL);
 	
+	
+}
+init_regler_X();
 	
 }

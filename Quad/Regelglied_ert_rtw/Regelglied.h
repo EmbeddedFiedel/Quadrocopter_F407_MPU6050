@@ -4,9 +4,9 @@
  * Code generated for Simulink model 'Regelglied'.
  *
  * Model version                  : 1.365
- *91imulink Coder version         : 8.2 (R2012a) 29-Dec-2011
+ *93imulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sat Dec 2un Dec 30 12:54:15
+ * C/C++ source code generated on : Sat Dec 2un Dec 30 16:32:23
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
  * Code generation objectives:
@@ -78,18 +78,18 @@ typedef struct {
     real_T Tim4_RWORK;                 /* '<S1>/Derivative4TE;               /* '<S7>/I-Anteil' */
   real_T DAnteil_CSTATE;               /* '<S7>/D-Anteil' */
   real_T IAnteil_CSTATE_h;             /* '<S6>/I-Anteil' */
-  real_T DAnteil_CSTATE_f;             /* '<S6>/D-Anteil' *DAnteil_CSTATE_f;             /* '<S6>/D-Anteil' */
-  real_T IAnteil_CSTATE_h;             /* '<S6>/Iteil_CSTATE;               /* '<S7>/I-Anteil' */
+  real_T DAnteil_CSTATE_f;             /* '<S6>/D-Anteil' *IAnteil_CSTATE_h;             /* '<S6>/I-Anteil' */
+  real_T DAnteil_CSTATE_f;             /* '<S6>/Deil_CSTATE;               /* '<S7>/I-Anteil' */
   real_T DAnteil_CSTATE;               /* '<S7>/D-Anteil' */
   real_T IAnteil_CSTATE_h;             /* '<S6>/I-Anteil' */
   real_T DAnteil_CSTATE_f;             /* '<S6>/D-Anteil' */
-} StatDAnteil_CSTATE_f;             /* '<S6>/D-Anteil' */
-  real_T IAnteil_CSTATE_h;             /* '<S6>/I  /* '<S7>/I-Anteil' */
+} StatDIAnteil_CSTATE_h;             /* '<S6>/I-Anteil' */
+  real_T DAnteil_CSTATE_f;             /* '<S6>/D/* '<S7>/I-Anteil' */
   boolean_T DAnteil_CSTATE;            /* '<S7>/D-Anteil' */
   boolean_T IAnteil_CSTATE_h;          /* '<S6>/I-Anteil' */
   boolean_T DAnteil_CSTATE_f;          /* '<S6>/D-Anteil' */
-} StateDisabled_RDAnteil_CSTATE_f;          /* '<S6>/D-Anteil' */
-  boolean_T IAnteil_CSTATE_h;          /* '<S6>/Il_T *y;                           /* output */
+} StateDisabled_RDAIAnteil_CSTATE_h;          /* '<S6>/I-Anteil' */
+  boolean_T DAnteil_CSTATE_f;          /* '<S6>/D *y;                           /* output */
   real_T *f[3];                        /* derivatives */
 } ODE3_IntgData;
 
@@ -229,12 +229,19 @@ extern real_T kp_a_nick;               /* Variable: kp_a_nick
                                         * Referenced by: '<S2>/Gain'
                                         */
 extern real_T kp_a_roll;               /* Variable: kp_a_roll
-                                      eferenced by: '<S6>/Gain'
+                                      eferenced by: '<S6nick;               /* Variable: kp_a_nick
+                                        * Referenced by: '<S2>/Gain'
+                                             eferenced by: '<S6>/Gain'
                                         */
 extern real_T kp_roll;                 /* Variable: kp_roll
+                                        * Refeenced by: '<S3>/Ganick;                 /* Variable: kp_nick
+                                        * Referenced by: '<S6_roll
                                         * Refeenced by: '<S3>/Gain'
                                         */
 extern real_T kp_v_roll;               /* Variable: kp_v_roll
+                                        * Referencvoid);
+  extern vonick;               /* Variable: kp_v_nick
+                                        * Referenced by: '<S3oll
                                         * Referencvoid);
   extern void Regelglied_step(void);
   extern void Regelglied_terminate(void);
