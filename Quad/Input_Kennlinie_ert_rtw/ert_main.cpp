@@ -1,12 +1,13 @@
 /*
  * File: ert_main.cpp
  *
- * Code generated for Simulink model 'Regelglied'.
+ * Code generated for Simulink model 'Input_Kennlinie'.
  *
- * Model version                  : 1.365
- *91imulink Coder version         : 8.2 (R2012a) 29-Dec-2011
+ * Model version                  : 1.392
+ * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sat Dec 2un Dec 30 12:54:15
+ * C/C++ source code generated on : Sun Dec 30 12:57:46 2012
+ *
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
  * Code generation objectives:
@@ -16,7 +17,7 @@
  */
 
 #include <stdio.h>                     /* This ert_main.c example uses printf/fflush */
-#include "Regelglied.h"                /* Model's header file */
+#include "Input_Kennlinie.h"           /* Model's header file */
 #include "rtwtypes.h"                  /* MathWorks types */
 
 /*
@@ -39,7 +40,7 @@ void rt_OneStep(void)
 
   /* Check for overrun */
   if (OverrunFlag) {
-    rtmSetErrorStatus(Regelglied_M, "Overrun");
+    rtmSetErrorStatus(Input_Kennlinie_M, "Overrun");
     return;
   }
 
@@ -50,7 +51,7 @@ void rt_OneStep(void)
   /* Set model inputs here */
 
   /* Step the model for base rate */
-  Regelglied_step();
+  Input_Kennlinie_step();
 
   /* Get model outputs here */
 
@@ -72,20 +73,26 @@ int_T main(int_T argc, const char_T *argv[]);
 int_T main(int_T argc, const char_T *argv[])
 {
   /* Initialize model */
-  Regelglied_initialize();
+  Input_Kennlinie_initialize();
 
-  /* Simulating the model step behavior (in non real-time) to
-   *  simulate model behavior at stop time.
+  /* Attach rt_OneStep to a timer or interrupt service routine with
+   * period 0.01 seconds (the model's base sample time) here.  The
+   * call syntax for rt_OneStep is
+   *
+   *  rt_OneStep();
    */
-  while ((rtmGetErrorStatus(Regelglied_M) == (NULL)) && !rtmGetStopRequested
-         (Regelglied_M)) {
-    rt_OneStep();
+  printf("Warning: The simulation will run forever. "
+         "Generated ERT main won't simulate model step behavior. "
+         "To change this behavior select the 'MAT-file logging' option.\n");
+  fflush((NULL));
+  while (rtmGetErrorStatus(Input_Kennlinie_M) == (NULL)) {
+    /*  Perform other application tasks here */
   }
 
   /* Disable rt_OneStep() here */
 
   /* Terminate model */
-  Regelglied_terminate();
+  Input_Kennlinie_terminate();
   return 0;
 }
 

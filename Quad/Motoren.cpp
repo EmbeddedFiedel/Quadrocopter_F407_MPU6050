@@ -33,6 +33,21 @@ void setup_Motoren()
 	palSetPadMode(GPIOA, 3, PAL_MODE_ALTERNATE(2)); 
 	pwmStart(&PWMD5, &pwmcfg_esc);
 
+	//for escs throttle range  setting comment for normal use
+	//Highest point
+// 	width1 = 2000; width2 = 2000; width3 = 2000;	width4 = 2000;
+//   pwmEnableChannel(&PWMD5, 0, width1);
+//   pwmEnableChannel(&PWMD5, 1, width2);
+//   pwmEnableChannel(&PWMD5, 2, width3);
+//   pwmEnableChannel(&PWMD5, 3, width4);
+	//Lowest point
+	
+// 	width1 = 1000; width2 = 1000; width3 = 1000;	width4 = 1000;
+//   pwmEnableChannel(&PWMD5, 0, width1);
+//   pwmEnableChannel(&PWMD5, 1, width2);
+//   pwmEnableChannel(&PWMD5, 2, width3);
+//   pwmEnableChannel(&PWMD5, 3, width4);
+	//normal init
 	width1 = 700; width2 = 700; width3 = 700;	width4 = 700;
   pwmEnableChannel(&PWMD5, 0, width1);
   pwmEnableChannel(&PWMD5, 1, width2);

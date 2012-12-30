@@ -74,7 +74,7 @@ volatile unsigned short tmp111;
 #include "ff.h"
 
 	uint32_t regelung_timebuffer[50];
-	int regelung_databuffer[50][20];
+	int regelung_databuffer[50][28];
 	uint8_t readcounter = 0;
 	uint8_t writecounter = 0;
 	static FIL Fil_regelung;			/* File object */
@@ -112,7 +112,7 @@ static msg_t RegelungSyncthread(void *arg)
 				}
 				else
 				{
-					f_printf(&Fil_regelung, "Time_regelung;In_Throttle;In_Soll_Nick;In_Soll_Roll;In_Soll_Gier;In_Ist_Nick;In_Ist_Roll;In_Ist_Gier;In_Ist_V_Nick;In_Ist_V_Roll;Out_M_Roll;Out_M_Nick;Out_M_Gier;Out_F_A;Out_F_B;Out_F_C;Out_F_D;Out_n_A;Out_n_B;Out_n_C;Out_n_D\r\n");	
+					f_printf(&Fil_regelung, "Time_regelung;In_Throttle;In_Soll_Nick;In_Soll_Roll;In_Soll_Gier;In_Ist_Nick;In_Ist_Roll;In_Ist_Gier;In_Ist_V_Nick;In_Ist_V_Roll;Out_M_Roll;Out_M_Nick;Out_M_Gier;Out_F_A;Out_F_B;Out_F_C;Out_F_D;Out_n_A;Out_n_B;Out_n_C;Out_n_D;xd_roll;p_anteil;i_anteil;d_anteil;y_roll;Xd_V_Roll;Xf_a_Roll;Soll_V_Roll;Ist_a_Roll\r\n");	
 					rc_datalog = f_sync(&Fil_regelung);	
 					if(rc_datalog != FR_OK)
 					{
@@ -186,7 +186,17 @@ static msg_t RegelungPrintthread(void *arg)
 							regelung_databuffer[readcounter][16],
 							regelung_databuffer[readcounter][17],
 							regelung_databuffer[readcounter][18],
-							regelung_databuffer[readcounter][19]);
+							regelung_databuffer[readcounter][19],
+							regelung_databuffer[readcounter][20],
+							regelung_databuffer[readcounter][21],
+							regelung_databuffer[readcounter][22],
+							regelung_databuffer[readcounter][23],
+							regelung_databuffer[readcounter][24],
+							regelung_databuffer[readcounter][25],
+							regelung_databuffer[readcounter][26],
+							regelung_databuffer[readcounter][27],
+							regelung_databuffer[readcounter][28]);
+							
 							readcounter++;
 							if(readcounter >=50)readcounter=0;
 		}
@@ -218,6 +228,15 @@ void datalog_regelung(void)
 	regelung_databuffer[writecounter][17]=(int)(Inverse_Propeller_Y.Out_n_B*100);
 	regelung_databuffer[writecounter][18]=(int)(Inverse_Propeller_Y.Out_n_C*100);
 	regelung_databuffer[writecounter][19]=(int)(Inverse_Propeller_Y.Out_n_D*100);
+	regelung_databuffer[writecounter][20]=(int)(xd_roll*100);
+	regelung_databuffer[writecounter][21]=(int)(p_anteil*100);
+	regelung_databuffer[writecounter][22]=(int)(i_anteil*100);
+	regelung_databuffer[writecounter][23]=(int)(d_anteil*100);
+	regelung_databuffer[writecounter][24]=(int)(y_roll*100);
+	regelung_databuffer[writecounter][25]=(int)(Xd_V_Roll*100);
+	regelung_databuffer[writecounter][26]=(int)(Xf_a_Roll*100);
+	regelung_databuffer[writecounter][27]=(int)(Soll_V_Roll*100);
+	regelung_databuffer[writecounter][28]=(int)(Ist_a_Roll*100);
 	
 	writecounter++;
 	
