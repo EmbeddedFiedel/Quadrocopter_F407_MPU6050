@@ -72,24 +72,24 @@ static msg_t LageSyncthread(void *arg) {
 				rc_lage = f_open(&Fil_Lage, ("QuadLage.TXT"), FA_WRITE | FA_CREATE_ALWAYS);
 				if(rc_lage != FR_OK)
 				{
-					chprintf((BaseChannel *) &SD2, "SD QuadLage.TXT: f_open() failed %d\r\n", rc_lage);
+					//chprintf((BaseChannel *) &SD2, "SD QuadLage.TXT: f_open() failed %d\r\n", rc_lage);
 				}	
 				//rc = f_printf(&Fil, "moin\r\n");	 
 				rc_lage = f_sync(&Fil_Lage);
 				if(rc_lage != FR_OK)
 				{
-					chprintf((BaseChannel *) &SD2, "SD QuadLage.TXT: f_sync() failed %d\r\n", rc_lage);
+					//chprintf((BaseChannel *) &SD2, "SD QuadLage.TXT: f_sync() failed %d\r\n", rc_lage);
 				}	
 				f_printf(&Fil_Lage, "Time_Lage; Nick_Lage; Roll_Lage; Yaw_Lage\r\n");
 				rc_lage = f_sync(&Fil_Lage);
 				if(rc_lage != FR_OK)
 				{
-					chprintf((BaseChannel *) &SD2, "SD QuadLage.TXT: f_sync() failed %d\r\n", rc_lage);
+					//chprintf((BaseChannel *) &SD2, "SD QuadLage.TXT: f_sync() failed %d\r\n", rc_lage);
 				}	
 				else
 				{
 				datalog_lage_opened = TRUE;
-				chprintf((BaseChannel *) &SD2, "SD QuadLage.TXT: opened successfull\r\n");
+				//chprintf((BaseChannel *) &SD2, "SD QuadLage.TXT: opened successfull\r\n");
 				}
 				chThdSleepMilliseconds(10);
 

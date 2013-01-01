@@ -38,25 +38,25 @@ static void InsertHandler(eventid_t id)
 	
   if(mmcConnect(&MMCD1))
   {
-    chprintf((BaseChannel *) &SD2, "SD: Failed to connect to card\r\n");
+    //chprintf((BaseChannel *) &SD2, "SD: Failed to connect to card\r\n");
     return;
   }
   else
   {
-    chprintf((BaseChannel *) &SD2, "SD: Connected to card\r\n");
+    //chprintf((BaseChannel *) &SD2, "SD: Connected to card\r\n");
 		
   }
 
   err = f_mount(0, &MMC_FS);
   if(err != FR_OK)
   {
-    chprintf((BaseChannel *) &SD2, "SD: f_mount() failed %d\r\n", err);
+    //chprintf((BaseChannel *) &SD2, "SD: f_mount() failed %d\r\n", err);
     mmcDisconnect(&MMCD1);
     return;
   }
   else
   {
-    chprintf((BaseChannel *) &SD2, "SD: File system mounted\r\n");
+    //chprintf((BaseChannel *) &SD2, "SD: File system mounted\r\n");
   }
 	Datalogger_ready_flag = TRUE;
 	return;

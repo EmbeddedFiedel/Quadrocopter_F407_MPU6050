@@ -116,12 +116,12 @@ void setup_Fernsteuerung()
 	TIM4->CR1 = 0x00000001;
 	if(EXTD1.state == EXT_ACTIVE)
 	{
-    chprintf((BaseChannel *) &SD2, "Fernsteuerung Init erfolgreich\r\n");
+    //chprintf((BaseChannel *) &SD2, "Fernsteuerung Init erfolgreich\r\n");
 		Fernsteuerung_ready_flag = TRUE;
 	}
 	else
 	{
-    chprintf((BaseChannel *) &SD2, "Fernsteuerung Init failed, ExtInt nicht konfiguriert\r\n");
+    //chprintf((BaseChannel *) &SD2, "Fernsteuerung Init failed, ExtInt nicht konfiguriert\r\n");
 	}
 }
 

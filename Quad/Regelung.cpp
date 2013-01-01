@@ -106,7 +106,7 @@ static msg_t RegelungSyncthread(void *arg)
 				}
 				else if(rc_datalog != FR_OK)
 				{
-					chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: f_open() failed %d\r\n", rc_datalog);
+					//chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: f_open() failed %d\r\n", rc_datalog);
 					chThdSleepMilliseconds(10);
 				}
 				else
@@ -115,12 +115,12 @@ static msg_t RegelungSyncthread(void *arg)
 					rc_datalog = f_sync(&Fil_regelung);	
 					if(rc_datalog != FR_OK)
 					{
-						chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: initial f_sync() failed %d\r\n", rc_datalog);
+						//chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: initial f_sync() failed %d\r\n", rc_datalog);
 						chThdSleepMilliseconds(10);
 					}	
 					else
 					{
-						chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: opened successfull\r\n");
+						//chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: opened successfull\r\n");
 						chThdSleepMilliseconds(10);
 						datalog_regelung_opened = TRUE;	
 					}
@@ -133,11 +133,11 @@ static msg_t RegelungSyncthread(void *arg)
 			rc_datalog = f_sync(&Fil_regelung);
 			if(rc_datalog != FR_OK)
 			{
-				chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: datalog f_sync() failed %d\r\n", rc_datalog);
+				//chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: datalog f_sync() failed %d\r\n", rc_datalog);
 			}	
 			else
 			{
-				chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: datalog f_sync() succeeded\r\n");
+				//chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: datalog f_sync() succeeded\r\n");
 			}
 			datalog_regelung_syncing = 0;
 			chThdSleepMilliseconds(1000);
@@ -163,7 +163,7 @@ static msg_t RegelungPrintthread(void *arg)
 		if(readcounter!=writecounter && Datalogger_ready() && datalog_regelung_opened && datalog_regelung_syncing==0)
 		{
 			systime_t time = chTimeNow();     // Tnow
-			chprintf((BaseChannel *) &SD2, "Printing:%d\r\n",time);
+			//chprintf((BaseChannel *) &SD2, "Printing:%d\r\n",time);
 			f_printf(&Fil_regelung, "%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d\r\n",
 							regelung_timebuffer[readcounter],
 							regelung_databuffer[readcounter][0],
