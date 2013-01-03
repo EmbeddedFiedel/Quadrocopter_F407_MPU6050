@@ -61,3 +61,20 @@ void setMotor_4(float value)
 	width4 = value*1000+1000;
   pwmEnableChannel(&PWMD5, 3, width4);
 }
+
+uint16_t getMotor_1()
+{
+	return (uint16_t)width1;
+}
+uint16_t getMotor_2()
+{	
+	return (uint16_t)width2;
+}
+uint16_t getMotor_3()
+{
+	return (uint16_t)width3;
+}
+uint16_t getMotor_4()
+{
+	return (uint16_t)width4;
+}

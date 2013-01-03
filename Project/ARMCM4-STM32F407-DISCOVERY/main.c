@@ -132,7 +132,7 @@ void send_rc_channels_scaled(void)
 	uint8_t buf[MAVLINK_MAX_PACKET_LEN];
     
     uint32_t time_boot_ms = chTimeNow();
-    uint8_t port = 0; //?????
+    uint8_t port = 0; //????? Sinn?
     int16_t chan1_scaled = get_chan1_scaled();
     int16_t chan2_scaled = get_chan2_scaled();
     int16_t chan3_scaled = get_chan3_scaled();
@@ -168,6 +168,48 @@ static msg_t MavlinkRCChannelsScaledThread(void *arg)
     }
 }
 
+void send_servo_output_raw(void)
+{
+    // Initialize the required buffers
+	mavlink_message_t msg;
+	uint8_t buf[MAVLINK_MAX_PACKET_LEN];
+    
+    uint32_t time_boot_ms = chTimeNow();
+    uint8_t port = 0; //????? Sinn?
+    uint16_t servo1_raw = getMotor_1();
+    uint16_t servo2_raw = getMotor_2();
+    uint16_t servo3_raw = getMotor_3();
+    uint16_t servo4_raw = getMotor_4();
+    uint16_t servo5_raw = 0;
+    uint16_t servo6_raw = 0;
+    uint16_t servo7_raw = 0;
+    uint16_t servo8_raw = 0;
+    
+    mavlink_msg_servo_output_raw_pack(mavlink_system.sysid, mavlink_system.compid, &msg, time_boot_ms, port, servo1_raw, servo2_raw, servo3_raw, servo4_raw, servo5_raw, servo6_raw, servo7_raw, servo8_raw)
+    
+    // Copy the message to the send buffer
+	uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
+    
+	// Send the message with the standard UART send function
+	sdWrite(&SD2, buf, len);
+}
+/*
+ * Working area for MavlinkHeartbeatThread
+ */
+static WORKING_AREA(MavlinkServoOutputThreadWorkingArea, 2048);
+/*
+ * MavlinkHeartbeatThread
+ */
+
+static msg_t MavlinkServoOutputThread(void *arg)
+{
+    while (TRUE)
+    {
+		send_servo_output_raw();
+		chThdSleepMilliseconds(100);
+    }
+}
+
 
 void setup_Mavlink()
 {
@@ -187,6 +229,8 @@ void setup_Mavlink()
 	chThdCreateStatic(MavlinkAttitudeThreadWorkingArea, sizeof(MavlinkAttitudeThreadWorkingArea), NORMALPRIO, MavlinkAttitudeThread, NULL);
     chThdSleepMilliseconds(20);
     chThdCreateStatic(MavlinkRCChannelsScaledThreadWorkingArea, sizeof(MavlinkRCChannelsScaledThreadWorkingArea), NORMALPRIO, MavlinkRCChannelsScaledThread, NULL);
+    chThdSleepMilliseconds(20);
+    chThdCreateStatic(MavlinkServoOutputThreadWorkingArea, sizeof(MavlinkServoOutputThreadWorkingArea), NORMALPRIO, MavlinkServoOutputThread, NULL);
     
 }
 
