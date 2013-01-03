@@ -91,7 +91,7 @@ void send_attitude(void)
 	mavlink_message_t msg;
 	uint8_t buf[MAVLINK_MAX_PACKET_LEN];
     
-    uint32_t time_boot_ms = chtimenow();
+    uint32_t time_boot_ms = chTimeNow();
     float roll = get_euler_roll_ist();
     float pitch = get_euler_nick_ist();
     float yaw = get_euler_yaw_ist();
@@ -107,7 +107,8 @@ void send_attitude(void)
 	// Send the message with the standard UART send function
 	// uart0_send might be named differently depending on
 	// the individual microcontroller / library in use.
-	sdAsynchronousWrite(&SD2, buf, len);
+	//sdAsynchronousWrite(&SD2, buf, len);
+	sdWrite(&SD2, buf, len);
 }
 /*
  * Working area for MavlinkHeartbeatThread
@@ -122,7 +123,7 @@ static msg_t MavlinkAttitudeThread(void *arg)
     while (TRUE)
     {
 		send_attitude();
-		chThdSleepMilliseconds(100);
+		chThdSleepMilliseconds(1000);
     }
 }
 
@@ -140,6 +141,7 @@ void setup_Mavlink()
 	mavlink_system.compid = MAV_COMP_ID_ALL;     ///< The component sending the message is the IMU, it could be also a Linux process
     
 	chThdCreateStatic(MavlinkHeartbeatThreadWorkingArea, sizeof(MavlinkHeartbeatThreadWorkingArea), NORMALPRIO, MavlinkHeartbeatThread, NULL);
+    chThdSleepMilliseconds(400);
 	chThdCreateStatic(MavlinkAttitudeThreadWorkingArea, sizeof(MavlinkAttitudeThreadWorkingArea), NORMALPRIO, MavlinkAttitudeThread, NULL);
 }
 
