@@ -3,12 +3,10 @@
  *
  * Code generated for Simulink model 'Schubverteilung0'.
  *
- * Model version                  : 1.333
- * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
+ * Model version                  : 1.365
+ 418imulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sun Dec 23 11:27:34 2012
- *
- * Target selection: ert.tlc
+ * C/C++ source code generated on : Sat Dec Wed Jan 02 18:06:25 2013arget selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
  * Code generation objectives:
  *    1. Execution efficiency
@@ -40,9 +38,13 @@
 /* Block signals (auto storage) */
 typedef struct {
   real_T Merge;                        /* '<S2>/Merge' */
+  real_T Merge_g;           6>/Merge' */
+  real_T Merge_m;                      /* '<S2>/Merge' */
+  real_T Merge_d;                      /* '<S7>/Merge' */
   real_T Merge_g;                      /* '<S3>/Merge' */
+  real_T Merge_l;                      /* '<S8>/Merge' */
   real_T Merge_p;                      /* '<S4>/Merge' */
-  real_T Merge_pb;                     /* '<S5>/Merge' */
+  real_T Merge_gn;                     /* '<S9        /* '<S5>/Merge' */
 } BlockIO_Schubverteilung0;
 
 /* External inputs (root inport signals with auto storage) */
@@ -58,7 +60,7 @@ typedef struct {
   real_T Out_F_A;                      /* '<Root>/Out_F_A' */
   real_T Out_F_B;                      /* '<Root>/Out_F_B' */
   real_T Out_F_C;                      /* '<Root>/Out_F_C' */
-  real_T Out_F_D;                      /* '<Root>/Out_F_:D' */
+  real_T Out_F_D;                      /* '<Root>/Out_F_D' */
 } ExternalOutputs_Schubverteilung;
 
 /* Real-time Model Data Structure */
@@ -106,14 +108,10 @@ extern "C" {
 }
 #endif
 
-#ifdef __cplusplus
-
-extern "C" {
-
-#endif
-
-  /* Model entry point functions */
-  extern void Schubverteilung0_initialize(void);
+/*
+ * Exported Global Parameters
+ *
+ * Note: Exported global parameters are tunable parameters with an exporvoid);
   extern void Schubverteilung0_step(void);
   extern void Schubverteilung0_terminate(void);
 
@@ -161,17 +159,26 @@ extern "C" {
  * '<S5>'   : 'regler/Regelkreis/Schubverteilung/Begrenzung groeﬂer Null3'
  * '<S6>'   : 'regler/Regelkreis/Schubverteilung/Begrenzung groeﬂer Null/If Action Subsystem'
  * '<S7>'   : 'regler/Regelkreis/Schubverteilung/Begrenzung groeﬂer Null/If Action Subsystem1'
- * '<S8>'   : 'regler/Regelkreis/Schubverteilung/Begrenzung groeﬂer Null1/If Action Subsystem'
- * '<S9>'   : 'regler/Regelkreis/Schubverteilung/Begrenzung groeﬂer Null1/If Action Subsystem1'
- * '<S10>'  : 'regler/Regelkreis/Schubverteilung/Begrenzung groeﬂer Null2/If Action Subsystem'
- * '<S11>'  : 'regler/Regelkreis/Schubverteilung/Begrenzung groeﬂer Null2/If Action Subsystem1'
- * '<S12>'  : 'regler/Regelkreis/Schubverteilung/Begrenzung groeﬂer Null3/If Action Subsystem'
- * '<S13>'  : 'regler/Regelkreis/Schubverteilung/Begrenzung groeﬂer Null3/If Action Subsystem1'
+ * '<S8>'   : 'regler/Regelkreis/SchubvThrottlecutoff'
+ * '<S7>'   : 'regler/Regelkreis/Schubverteilung/Throttlecutoff1'
+ * '<S8>'   : 'regler/Regelkreis/Schubverteilung/Throttlecutoff2'
+ * '<S9>'   : 'regler/Regelkreis/Schubverteilung/Throttlecutoff3S10>'tem1'
+ * '<S8>'   : 'regler/Regelkreis/Schubverteilung/Begrenzung groeﬂer Null1/If Action S11>'  : 'regler/Regelkreis/Schubverteilung/Begrenzung groeﬂer Null/If Action Subsystem1'
+ * '<S12>'tem1'
+ * '<S10>'  : 'regler/Regelkreis/Schubverteilung/Begrenzung groeﬂer Null2/If Action Su13>'  : 'regler/Regelkreis/Schubverteilung/Begrenzung groeﬂer Null1/If Action Subsystem1'
+ * '<S14tem1'
+ * '<S12>'  : 'regler/Regelkreis/Schubverteilung/Begrenzung groeﬂer Null3/If Action Subsy5>'  : 'regler/Regelkreis/Schubverteilung/Begrenzung groeﬂer Null2/If Action Subsystem1'
+ * '<S16m1'
  */
 #endif                                 /* RTW_HEADER_Schubverteilung0_h_ */
 
 /*
- * File trailer for generated code.
- *
- * [EOF]
- */
+ * File7>'  : 'regler/Regelkreis/Schubverteilung/Begrenzung groeﬂer Null3/If Action Subsystem1'
+ * '<S18>'  : 'regler/Regelkreis/Schubverteilung/Begrenzung gThrottlecutoff/If Action Subsystem'
+ * '<S19>'  : 'regler/Regelkreis/Schubverteilung/Throttlecutoff/If Action Subsystem1'
+ * '<S20>'  : 'regler/Regelkreis/Schubverteilung/Throttlecutoff1/If Action Subsystem'
+ * '<S21>'  : 'regler/Regelkreis/Schubverteilung/Throttlecutoff1/If Action Subsystem1'
+ * '<S22>'  : 'regler/Regelkreis/Schubverteilung/Throttlecutoff2/If Action Subsystem'
+ * '<S23>'  : 'regler/Regelkreis/Schubverteilung/Throttlecutoff2/If Action Subsystem1'
+ * '<S24>'  : 'regler/Regelkreis/Schubverteilung/Throttlecutoff3/If Action Subsystem'
+ * '<S25>'  : 'regler/Regelkreis/Schubverteilung/Throttlecutoff3

@@ -1,12 +1,14 @@
 /*
- * File: Regelglied_private.h
+ * File: Input_Kennlinie_private.h
  *
- * Code generated for Simulink model 'Regelglied'.
+ * Code generated for Simulink model 'Input_Kennlinie'.
  *
- * Model version                  : 1.365
- 418imulink Coder version         : 8.2 (R2012a) 29-Dec-2011
+ * Model version                  : 1.392
+ * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sat Dec Wed Jan 02 18:05:17 2013arget selection: ert.tlc
+ * C/C++ source code generated on : Sun Dec 30 12:57:46 2012
+ *
+ * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
  * Code generation objectives:
  *    1. Execution efficiency
@@ -14,8 +16,8 @@
  * Validation result: Passed (7), Warnings (5), Error (0)
  */
 
-#ifndef RTW_HEADER_Regelglied_private_h_
-#define RTW_HEADER_Regelglied_private_h_
+#ifndef RTW_HEADER_Input_Kennlinie_private_h_
+#define RTW_HEADER_Input_Kennlinie_private_h_
 #include "rtwtypes.h"
 
 /* Private macros used by the generated code to access rtModel */
@@ -48,11 +50,7 @@
 #endif                                 /* RTWTYPES_ID_C08S16I32L32N32F1 */
 #endif                                 /* TMWTYPES_PREVIOUSLY_INCLUDED */
 #endif                                 /* __RTWTYPES_H__ */
-
-/* private model entry point functions */
-extern void Regelglied_derivatives(void);
-
-#endif                                 /* RTW_HEADER_Regelglied_private_h_ */
+#endif                                 /* RTW_HEADER_Input_Kennlinie_private_h_ */
 
 /*
  * File trailer for generated code.

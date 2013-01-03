@@ -1,21 +1,19 @@
 //Normal Includes
 #include "Regelung.h"
+#include "regelung_x.h"
 #include "ch.h"
 #include "hal.h"
 #include "Lage.h"
 #include "Fernsteuerung.h"
 #include "Motoren.h"
 
-//Model Includes
-#include "Regelglied.h"                /* Model's header file */
-#include "Schubverteilung0.h"          /* Model's header file */
-#include "Inverse_Propeller.h"         /* Model's header file */
-#include "rtwtypes.h"                  /* MathWorks types */
 
 
 //Init Models
 void init_regler_X(){
-	Regelglied_initialize();
+	Regelglied_in//Zur Parametrierung
+	Input_Kennlinie_initialize();
+	//normale Inits_initialize();
 	Schubverteilung0_initialize();
 	Inverse_Propeller_initialize();
 }
@@ -31,15 +29,19 @@ void step_regler_X(){
 	OverrunFlag = TRUE;
 	//Sollwerte
 	
-	Regelglied_U.In_Soll_Roll=get_euler_roll_soll();
-	Regelglied_U.In_Soll_Nick=get_euler_nick_soll();
-	Regelglied_U.In_Soll_Gier=get_euler_yaw_soll();
-  
-	//Istwerte
+	Regelglied_  	//Kennlinie erzeugen
+  Input_Kennlinie_step();
+	
+	//Sollwerte
+
+	
+	Regelglied_U.In_Soll_Roll=Input_Kennlinie_Y.Winkel;//get_euler_roll_soll();
+	Regelglied_U.In_Soll_Nick=0;//get_euler_nick_soll();
+	Regelglied_U.In_Soll_Gier=0;e
 	//getRoll + Gier funktion negiert, da miniquad nach Luftfahrtnorm
 	Regelglied_U.In_Ist_Roll=-get_euler_roll_ist();
-	Regelglied_U.In_Ist_Nick=get_euler_roll_ist();
-	Regelglied_U.In_Ist_Gier=-get_euler_yaw_ist();
+	Regelglied_U.In_Ist_Nick=get_euler_nick_ist(); //Behoben
+	Regelglied_U.In_Ist_Gier=r_yaw_ist();
 	Regelglied_U.In_Ist_V_Roll=-get_rate_roll_ist();
 	Regelglied_U.In_Ist_V_Nick=get_rate_nick_ist();
 
@@ -49,10 +51,10 @@ void step_regler_X(){
 	//Set Outputs into Schubkraftverteilung
 	Schubverteilung0_U.In_M_Roll=Regelglied_Y.Out_M_Roll;
 	Schubverteilung0_U.In_M_Nick=Regelglied_Y.Out_M_Nick;
-	Schubverteilung0_U.In_M_Gier=Regelglied_Y.Out_M_Gier;	
-	Schubverteilung0_U.In_Throttle=get_schub_soll();
+	Schubverteilung0_U.In_M_Gier=Regelglied_Y.Ou//testt_M_Gier;	
+	Schubverteilung0_U.In_Throttle=get_schub_soll()/0.68;
 
-	//Step Schubkraftverteilung
+	//Step SchubkraftverteilungInput_Kennlinie_Y.Throttle ;//
 	Schubverteilung0_step();
 
 	//Set Schubkraftverteilung Outputs to Inputs Propeller_Inverse
