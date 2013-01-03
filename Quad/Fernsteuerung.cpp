@@ -125,6 +125,23 @@ void setup_Fernsteuerung()
 	}
 }
 
+int16_t get_chan1_scaled()
+{
+    return (int16_t)((RC_INPUT_CHANNELS[1]) + RC_INPUT_CHANNELS_Offset[1])*20);
+}
+int16_t get_chan2_scaled()
+{
+    return (int16_t)((RC_INPUT_CHANNELS[2]) + RC_INPUT_CHANNELS_Offset[2])*20);
+}
+int16_t get_chan3_scaled()
+{
+    return (int16_t)((RC_INPUT_CHANNELS[3]) + RC_INPUT_CHANNELS_Offset[3])*10);
+}
+int16_t get_chan4_scaled()
+{
+    return (int16_t)((RC_INPUT_CHANNELS[4]) + RC_INPUT_CHANNELS_Offset[4])*20);
+}
+
 float get_euler_nick_soll() 
 {
 	if(Fernsteuerung_ready_flag) return((float(RC_INPUT_CHANNELS[1]) + RC_INPUT_CHANNELS_Offset[1])/1000);

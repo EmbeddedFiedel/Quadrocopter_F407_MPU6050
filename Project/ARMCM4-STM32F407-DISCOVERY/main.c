@@ -61,10 +61,9 @@ void send_heartbeat(void)
 	 
 	// Copy the message to the send buffer
 	uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
+    
 	// Send the message with the standard UART send function
-	// uart0_send might be named differently depending on
-	// the individual microcontroller / library in use.
-	sdAsynchronousWrite(&SD2, buf, len);
+	sdWrite(&SD2, buf, len);
 }
 
 /*
@@ -104,10 +103,8 @@ void send_attitude(void)
     
     // Copy the message to the send buffer
 	uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
+    
 	// Send the message with the standard UART send function
-	// uart0_send might be named differently depending on
-	// the individual microcontroller / library in use.
-	//sdAsynchronousWrite(&SD2, buf, len);
 	sdWrite(&SD2, buf, len);
 }
 /*
@@ -123,9 +120,54 @@ static msg_t MavlinkAttitudeThread(void *arg)
     while (TRUE)
     {
 		send_attitude();
-		chThdSleepMilliseconds(1000);
+		chThdSleepMilliseconds(100);
     }
 }
+
+
+void send_rc_channels_scaled(void)
+{
+    // Initialize the required buffers
+	mavlink_message_t msg;
+	uint8_t buf[MAVLINK_MAX_PACKET_LEN];
+    
+    uint32_t time_boot_ms = chTimeNow();
+    uint8_t port = 0; //?????
+    int16_t chan1_scaled = get_chan1_scaled();
+    int16_t chan2_scaled = get_chan2_scaled();
+    int16_t chan3_scaled = get_chan3_scaled();
+    int16_t chan4_scaled = get_chan4_scaled();
+    int16_t chan5_scaled = 32767;
+    int16_t chan6_scaled = 32767;
+    int16_t chan7_scaled = 32767;
+    int16_t chan8_scaled = 32767;
+    uint8_t rssi = 255;
+    
+    mavlink_msg_rc_channels_scaled_pack(mavlink_system.sysid, mavlink_system.compid, &msg, time_boot_ms, port, chan1_scaled, chan2_scaled, chan3_scaled, chan4_scaled, chan5_scaled, chan6_scaled, chan7_scaled, chan8_scaled, rssi)
+    
+    // Copy the message to the send buffer
+	uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
+    
+	// Send the message with the standard UART send function
+	sdWrite(&SD2, buf, len);
+}
+/*
+ * Working area for MavlinkHeartbeatThread
+ */
+static WORKING_AREA(MavlinkRCChannelsScaledThreadWorkingArea, 2048);
+/*
+ * MavlinkHeartbeatThread
+ */
+
+static msg_t MavlinkRCChannelsScaledThread(void *arg)
+{
+    while (TRUE)
+    {
+		send_rc_channels_scaled();
+		chThdSleepMilliseconds(100);
+    }
+}
+
 
 void setup_Mavlink()
 {
@@ -141,8 +183,11 @@ void setup_Mavlink()
 	mavlink_system.compid = MAV_COMP_ID_ALL;     ///< The component sending the message is the IMU, it could be also a Linux process
     
 	chThdCreateStatic(MavlinkHeartbeatThreadWorkingArea, sizeof(MavlinkHeartbeatThreadWorkingArea), NORMALPRIO, MavlinkHeartbeatThread, NULL);
-    chThdSleepMilliseconds(400);
+    chThdSleepMilliseconds(20);
 	chThdCreateStatic(MavlinkAttitudeThreadWorkingArea, sizeof(MavlinkAttitudeThreadWorkingArea), NORMALPRIO, MavlinkAttitudeThread, NULL);
+    chThdSleepMilliseconds(20);
+    chThdCreateStatic(MavlinkRCChannelsScaledThreadWorkingArea, sizeof(MavlinkRCChannelsScaledThreadWorkingArea), NORMALPRIO, MavlinkRCChannelsScaledThread, NULL);
+    
 }
 
 

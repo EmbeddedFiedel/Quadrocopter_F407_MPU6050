@@ -8,6 +8,11 @@ float get_euler_nick_soll(void);
 float get_euler_roll_soll(void);
 float get_euler_yaw_soll(void);
 
+int16_t get_chan1_scaled();
+int16_t get_chan2_scaled();
+int16_t get_chan3_scaled();
+int16_t get_chan4_scaled();
+
 void rx_channel1_interrupt(EXTDriver *extp, expchannel_t channel);
 void rx_channel2_interrupt(EXTDriver *extp, expchannel_t channel);
 void rx_channel3_interrupt(EXTDriver *extp, expchannel_t channel);
