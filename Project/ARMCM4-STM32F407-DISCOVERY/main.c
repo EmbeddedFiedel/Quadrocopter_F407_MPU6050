@@ -40,15 +40,10 @@
 #include "common.h"
 
 
-uint16_t len;
+mavlink_system_t mavlink_system;
 
 void send_heartbeat(void)
 {
-	mavlink_system_t mavlink_system;
- 
-	mavlink_system.sysid = 1;                   ///< ID 1 for this airplane
-	mavlink_system.compid = MAV_COMP_ID_ALL;     ///< The component sending the message is the IMU, it could be also a Linux process
-	 
 	// Define the system type, in this case an airplane
 	uint8_t system_type = MAV_TYPE_QUADROTOR;
 	uint8_t autopilot_type = MAV_AUTOPILOT_GENERIC;
@@ -65,7 +60,7 @@ void send_heartbeat(void)
 	mavlink_msg_heartbeat_pack(mavlink_system.sysid, mavlink_system.compid, &msg, system_type, autopilot_type, system_mode, custom_mode, system_state);
 	 
 	// Copy the message to the send buffer
-	len = mavlink_msg_to_send_buffer(buf, &msg);
+	uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
 	// Send the message with the standard UART send function
 	// uart0_send might be named differently depending on
 	// the individual microcontroller / library in use.
@@ -75,7 +70,7 @@ void send_heartbeat(void)
 /*
  * Working area for MavlinkHeartbeatThread
  */
-static WORKING_AREA(MavlinkHeartbeatThreadWorkingArea, 4096);
+static WORKING_AREA(MavlinkHeartbeatThreadWorkingArea, 2048);
 /*
  * MavlinkHeartbeatThread
  */
@@ -90,6 +85,63 @@ static msg_t MavlinkHeartbeatThread(void *arg)
 }
 
 
+void send_attitude(void)
+{
+    // Initialize the required buffers
+	mavlink_message_t msg;
+	uint8_t buf[MAVLINK_MAX_PACKET_LEN];
+    
+    uint32_t time_boot_ms = chtimenow();
+    float roll = get_euler_roll_ist();
+    float pitch = get_euler_nick_ist();
+    float yaw = get_euler_yaw_ist();
+    float rollspeed = get_rate_roll_ist();
+    float pitchspeed = get_rate_nick_ist();
+    float yawspeed = get_rate_yaw_ist();
+
+	// Pack the message
+    mavlink_msg_attitude_pack(mavlink_system.sysid, mavlink_system.compid, &msg, time_boot_ms, roll, pitch, yaw, rollspeed, pitchspeed, yawspeed);
+    
+    // Copy the message to the send buffer
+	uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
+	// Send the message with the standard UART send function
+	// uart0_send might be named differently depending on
+	// the individual microcontroller / library in use.
+	sdAsynchronousWrite(&SD2, buf, len);
+}
+/*
+ * Working area for MavlinkHeartbeatThread
+ */
+static WORKING_AREA(MavlinkAttitudeThreadWorkingArea, 2048);
+/*
+ * MavlinkHeartbeatThread
+ */
+
+static msg_t MavlinkAttitudeThread(void *arg)
+{
+    while (TRUE)
+    {
+		send_attitude();
+		chThdSleepMilliseconds(100);
+    }
+}
+
+void setup_Mavlink()
+{
+    /*
+     * Activates the serial driver 2 using the driver default configuration.
+     * PA2(TX) and PA3(RX) are routed to USART2.
+     */
+	sdStart(&SD2, NULL);
+	palSetPadMode(GPIOD, 5, PAL_MODE_ALTERNATE(7));
+	palSetPadMode(GPIOD, 6, PAL_MODE_ALTERNATE(7));
+    
+    mavlink_system.sysid = 1;                   ///< ID 1 for this airplane
+	mavlink_system.compid = MAV_COMP_ID_ALL;     ///< The component sending the message is the IMU, it could be also a Linux process
+    
+	chThdCreateStatic(MavlinkHeartbeatThreadWorkingArea, sizeof(MavlinkHeartbeatThreadWorkingArea), NORMALPRIO, MavlinkHeartbeatThread, NULL);
+	chThdCreateStatic(MavlinkAttitudeThreadWorkingArea, sizeof(MavlinkAttitudeThreadWorkingArea), NORMALPRIO, MavlinkAttitudeThread, NULL);
+}
 
 
 
@@ -108,22 +160,13 @@ int main(void)
 	halInit();	   
 	chSysInit();
 	
-	/*
-	* Activates the serial driver 2 using the driver default configuration.
-	* PA2(TX) and PA3(RX) are routed to USART2.
-	*/
-	sdStart(&SD2, NULL);
-	palSetPadMode(GPIOD, 5, PAL_MODE_ALTERNATE(7));
-	palSetPadMode(GPIOD, 6, PAL_MODE_ALTERNATE(7));
-	
 	setup_IMU();
 	setup_ExternalInterrupt();
 	setup_Fernsteuerung();
 	setup_Motoren();
 	setup_Regelung();
 	setup_Datalogger(); 
-	
-	chThdCreateStatic(MavlinkHeartbeatThreadWorkingArea, sizeof(MavlinkHeartbeatThreadWorkingArea), NORMALPRIO, MavlinkHeartbeatThread, NULL);
+	setup_Mavlink();
 	/*
 	* Normal main() thread activity, in this demo it does nothing except
 	* sleeping in a loop and check the button state, when the button is
@@ -133,7 +176,5 @@ int main(void)
 	while (TRUE) 
 	{
 		update_IMU();
-		//datalog();
-		//chThdSleepMilliseconds(10);
-  }
+    }
 }
