@@ -4,10 +4,9 @@
  * Code generated for Simulink model 'Regelglied'.
  *
  * Model version                  : 1.365
- 403imulink Coder version         : 8.2 (R2012a) 29-Dec-2011
+ 418imulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sat Dec 2un Dec 30 18:04:57
- * Target selection: ert.tlc
+ * C/C++ source code generated on : Sat Dec Wed Jan 02 18:05:17 2013arget selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
  * Code generation objectives:
  *    1. Execution efficiency
@@ -55,12 +54,7 @@
 
 /* Block signals (auto storage) */
 typedef struct {
-  real_T Add;                          /* '<S1>/Add' */
-  real_T Add3;lglied;
-
-/* Block states (auto storage) for system '<Root>' */
-typedef struct {
-  struct {
+  real_T Add;  struct {
     real_T TimeStampA;
     real_T LastUAtTimeA;
     real_T TimeStampB;
@@ -75,7 +69,31 @@ typedef struct {
   } Derivative1_RWORK;                 /* '<S1>/Derivative1' */
 
   struct {
-    real_T Tim4_RWORK;                 /* '<S1>/Derivative4TE;               /* '<S7>/I-Anteil' */
+    real_T Tim1_RWORK;                 /* '<S1>/Derivative1' */
+ real_T TimeStampB;
+    real_T LastUAtTimeB;
+  } Derivative_RWORK;                  /* '<S1>/Derivative' */
+
+  struct {
+    real4_RWORK;                 /* '<S1>/Derivative4' */
+ real_T TimeStampB;
+    real_T LastUAtTimeB;
+  } Derivative_RWORK;                  /* '<S1>/Derivative' */
+
+  struct {
+    real2_RWORK;                 /* '<S1>/Derivative2' */
+ real_T TimeStampB;
+    real_T LastUAtTimeB;
+  } Derivative_RWORK;                  /* '<S1>/Derivative' */
+
+  struct {
+    real3_RWORK;                 /* '<S1>/Derivative3' */
+ real_T TimeStampB;
+    real_T LastUAtTimeB;
+  } Derivative_RWORK;                  /* '<S1>/Derivative' */
+
+  struct {
+    real5_RWORK;                 /* '<S1>/Derivative5TE;               /* '<S7>/I-Anteil' */
   real_T DAnteil_CSTATE;               /* '<S7>/D-Anteil' */
   real_T IAnteil_CSTATE_h;             /* '<S6>/I-Anteil' */
   real_T DAnteil_CSTATE_f;             /* '<S6>/D-Anteil' *IAnteil_CSTATE_h;             /* '<S6>/I-Anteil' */
@@ -170,9 +188,7 @@ extern BlockIO_Regelglied Regelglied_B;
 extern ContinuousStates_Regelglied Regelglied_X;
 
 /* Block states (auto storage) */
-extern D_Work_Regelglied Regelglied_DWork;
-
-/* External inputs (root inport signals with auto storage) */
+extern D_Work_Regelgge) */
 #ifdef __cplusplus
 
 extern "C" {
@@ -215,17 +231,22 @@ extern real_T kp_a_nicSignals
  * these signals and export their symbols.
  *
  */
-extern real_T xd_roll;                 /* '<S1>/Add' */
+extern real_T xd_roll;     Soll_V_Roll;             /* '<S1>/Derivative' */
+extern real_T Soll_a_Roll;             /* '<S1>/Derivative1' */
+extern real_T Xd_R        /* '<S1>/Add' */
 extern real_T p_anteil;                /* '<S7>/Gain' */
 extern real_T i_anteil;                /* '<S7>/I-Anteil' */
 extern real_T d_anteil;                /* '<S7>/D-Anteil' */
-extern real_T y_roll;                  /* '<S7>/Add' */
+extern real_T y_roll;          Y       /* '<S7>/Add' */
 extern real_T Xd_V_Roll;               /* '<S1>/Add1' */
-extern real_T Xf_a_Roll;               /* '<S1>/Add2' */
-extern real_T Soll_V_Roll;             /* '<S1>/Derivative' */
-extern real_T Ist_a_Roll;              /* '<S1>/Derivative4' */
- */
-extern real_T kp_a_nick;               /* Variable: kp_a_nick
+extern real_T Xf_a_Roll;         Ist_a_Roll;              /* '<S1>/Derivative4' */
+extern real_T Xd_a_Roll;               /* '<S1>/Add2' */
+extern real_T Soll_V_Nick;             /* '<S1>/Derivative2' */
+extern real_T Soll_a_Nick;             /* '<S1>/Derivative3' */
+extern real_T Xd_Nick;                 /* '<S1>/Add3' */
+extern real_T Y_Nick;                  /* '<S6>/Add' */
+extern real_T Ist_a_Nick;              /* '<S1>/Derivative5' */
+extern real_T Xd_a_Nick;               /* '<S1>/Add5T kp_a_nick;               /* Variable: kp_a_nick
                                         * Referenced by: '<S2>/Gain'
                                         */
 extern real_T kp_a_roll;               /* Variable: kp_a_roll
