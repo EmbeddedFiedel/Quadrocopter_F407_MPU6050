@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'Regelglied'.
  *
- * Model version                  : 1.333
+ * Model version                  : 1.418
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sun Dec 23 11:25:19 2012
+ * C/C++ source code generated on : Wed Jan 02 18:05:17 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
@@ -19,8 +19,26 @@
 #include "Regelglied.h"
 #include "Regelglied_private.h"
 
+/* Exported block signals */
+real_T Soll_V_Roll;                    /* '<S1>/Derivative' */
+real_T Soll_a_Roll;                    /* '<S1>/Derivative1' */
+real_T Xd_Roll;                        /* '<S1>/Add' */
+real_T p_anteil;                       /* '<S7>/Gain' */
+real_T i_anteil;                       /* '<S7>/I-Anteil' */
+real_T d_anteil;                       /* '<S7>/D-Anteil' */
+real_T Y_roll;                         /* '<S7>/Add' */
+real_T Xd_V_Roll;                      /* '<S1>/Add1' */
+real_T Ist_a_Roll;                     /* '<S1>/Derivative4' */
+real_T Xd_a_Roll;                      /* '<S1>/Add2' */
+real_T Soll_V_Nick;                    /* '<S1>/Derivative2' */
+real_T Soll_a_Nick;                    /* '<S1>/Derivative3' */
+real_T Xd_Nick;                        /* '<S1>/Add3' */
+real_T Y_Nick;                         /* '<S6>/Add' */
+real_T Ist_a_Nick;                     /* '<S1>/Derivative5' */
+real_T Xd_a_Nick;                      /* '<S1>/Add5' */
+
 /* Exported block parameters */
-real_T kp_a_nick = 0.007;              /* Variable: kp_a_nick
+real_T kp_a_nick = 0;              /* Variable: kp_a_nick
                                         * Referenced by: '<S2>/Gain'
                                         */
 real_T kp_a_roll = 0.007;              /* Variable: kp_a_roll
@@ -38,9 +56,6 @@ real_T kp_v_nick = 5.8571;             /* Variable: kp_v_nick
 real_T kp_v_roll = 5.8571;             /* Variable: kp_v_roll
                                         * Referenced by: '<S5>/Gain'
                                         */
-
-/* Block signals (auto storage) */
-BlockIO_Regelglied Regelglied_B;
 
 /* Continuous states */
 ContinuousStates_Regelglied Regelglied_X;
@@ -143,11 +158,8 @@ static void rt_ertODEUpdateContinuousStates(RTWSolverInfo *si )
 void Regelglied_step(void)
 {
   /* local block i/o variables */
-  real_T rtb_Derivative;
-  real_T rtb_Derivative2;
+  real_T rtb_IAnteil;
   real_T rtb_DAnteil;
-  real_T rtb_Derivative5;
-  real_T rtb_Derivative3;
   real_T rtb_Gain;
   if (rtmIsMajorTimeStep(Regelglied_M)) {
     /* set solver stop time */
@@ -168,7 +180,7 @@ void Regelglied_step(void)
     real_T timeStampB = Regelglied_DWork.Derivative_RWORK.TimeStampB;
     real_T *lastU = &Regelglied_DWork.Derivative_RWORK.LastUAtTimeA;
     if (timeStampA >= t && timeStampB >= t) {
-      rtb_Derivative = 0.0;
+      Soll_V_Roll = 0.0;
     } else {
       real_T deltaT;
       real_T lastTime = timeStampA;
@@ -183,7 +195,7 @@ void Regelglied_step(void)
       }
 
       deltaT = t - lastTime;
-      rtb_Derivative = (Regelglied_U.In_Soll_Roll - *lastU++) / deltaT;
+      Soll_V_Roll = (Regelglied_U.In_Soll_Roll - *lastU++) / deltaT;
     }
   }
 
@@ -194,7 +206,7 @@ void Regelglied_step(void)
     real_T timeStampB = Regelglied_DWork.Derivative1_RWORK.TimeStampB;
     real_T *lastU = &Regelglied_DWork.Derivative1_RWORK.LastUAtTimeA;
     if (timeStampA >= t && timeStampB >= t) {
-      rtb_DAnteil = 0.0;
+      Soll_a_Roll = 0.0;
     } else {
       real_T deltaT;
       real_T lastTime = timeStampA;
@@ -209,7 +221,7 @@ void Regelglied_step(void)
       }
 
       deltaT = t - lastTime;
-      rtb_DAnteil = (rtb_Derivative - *lastU++) / deltaT;
+      Soll_a_Roll = (Soll_V_Roll - *lastU++) / deltaT;
     }
   }
 
@@ -217,25 +229,28 @@ void Regelglied_step(void)
    *  Inport: '<Root>/In_Ist_Roll'
    *  Inport: '<Root>/In_Soll_Roll'
    */
-  Regelglied_B.Add = Regelglied_U.In_Soll_Roll - Regelglied_U.In_Ist_Roll;
+  Xd_Roll = Regelglied_U.In_Soll_Roll - Regelglied_U.In_Ist_Roll;
 
   /* Gain: '<S7>/Gain' */
-  rtb_Gain = kp_roll * Regelglied_B.Add;
+  p_anteil = kp_roll * Xd_Roll;
 
   /* TransferFcn: '<S7>/I-Anteil' */
-  rtb_Derivative5 = 0.001*Regelglied_X.IAnteil_CSTATE;
+  i_anteil = 0.001*Regelglied_X.IAnteil_CSTATE;
 
   /* TransferFcn: '<S7>/D-Anteil' */
-  rtb_Derivative3 = 37.5*Regelglied_B.Add;
-  rtb_Derivative3 += (-937.5)*Regelglied_X.DAnteil_CSTATE;
+  d_anteil = 37.5*Xd_Roll;
+  d_anteil += (-937.5)*Regelglied_X.DAnteil_CSTATE;
 
-  /* Gain: '<S5>/Gain' incorporates:
+  /* Sum: '<S7>/Add' */
+  Y_roll = (p_anteil + i_anteil) + d_anteil;
+
+  /* Sum: '<S1>/Add1' incorporates:
    *  Inport: '<Root>/In_Ist_V_Roll'
-   *  Sum: '<S1>/Add1'
-   *  Sum: '<S7>/Add'
    */
-  rtb_Gain = ((((rtb_Gain + rtb_Derivative5) + rtb_Derivative3) + rtb_Derivative)
-              - Regelglied_U.In_Ist_V_Roll) * kp_v_roll;
+  Xd_V_Roll = (Soll_V_Roll + Y_roll) - Regelglied_U.In_Ist_V_Roll;
+
+  /* Gain: '<S5>/Gain' */
+  rtb_Gain = kp_v_roll * Xd_V_Roll;
 
   /* Derivative: '<S1>/Derivative4' */
   {
@@ -244,7 +259,7 @@ void Regelglied_step(void)
     real_T timeStampB = Regelglied_DWork.Derivative4_RWORK.TimeStampB;
     real_T *lastU = &Regelglied_DWork.Derivative4_RWORK.LastUAtTimeA;
     if (timeStampA >= t && timeStampB >= t) {
-      rtb_Derivative3 = 0.0;
+      Ist_a_Roll = 0.0;
     } else {
       real_T deltaT;
       real_T lastTime = timeStampA;
@@ -259,16 +274,17 @@ void Regelglied_step(void)
       }
 
       deltaT = t - lastTime;
-      rtb_Derivative3 = (Regelglied_U.In_Ist_V_Roll - *lastU++) / deltaT;
+      Ist_a_Roll = (Regelglied_U.In_Ist_V_Roll - *lastU++) / deltaT;
     }
   }
 
+  /* Sum: '<S1>/Add2' */
+  Xd_a_Roll = (Soll_a_Roll + rtb_Gain) - Ist_a_Roll;
+
   /* Outport: '<Root>/Out_M_Roll' incorporates:
    *  Gain: '<S4>/Gain'
-   *  Sum: '<S1>/Add2'
    */
-  Regelglied_Y.Out_M_Roll = ((rtb_DAnteil + rtb_Gain) - rtb_Derivative3) *
-    kp_a_roll;
+  Regelglied_Y.Out_M_Roll = kp_a_roll * Xd_a_Roll;
 
   /* Derivative: '<S1>/Derivative2' */
   {
@@ -277,7 +293,7 @@ void Regelglied_step(void)
     real_T timeStampB = Regelglied_DWork.Derivative2_RWORK.TimeStampB;
     real_T *lastU = &Regelglied_DWork.Derivative2_RWORK.LastUAtTimeA;
     if (timeStampA >= t && timeStampB >= t) {
-      rtb_Derivative2 = 0.0;
+      Soll_V_Nick = 0.0;
     } else {
       real_T deltaT;
       real_T lastTime = timeStampA;
@@ -292,7 +308,7 @@ void Regelglied_step(void)
       }
 
       deltaT = t - lastTime;
-      rtb_Derivative2 = (Regelglied_U.In_Soll_Nick - *lastU++) / deltaT;
+      Soll_V_Nick = (Regelglied_U.In_Soll_Nick - *lastU++) / deltaT;
     }
   }
 
@@ -303,7 +319,7 @@ void Regelglied_step(void)
     real_T timeStampB = Regelglied_DWork.Derivative3_RWORK.TimeStampB;
     real_T *lastU = &Regelglied_DWork.Derivative3_RWORK.LastUAtTimeA;
     if (timeStampA >= t && timeStampB >= t) {
-      rtb_Derivative3 = 0.0;
+      Soll_a_Nick = 0.0;
     } else {
       real_T deltaT;
       real_T lastTime = timeStampA;
@@ -318,7 +334,7 @@ void Regelglied_step(void)
       }
 
       deltaT = t - lastTime;
-      rtb_Derivative3 = (rtb_Derivative2 - *lastU++) / deltaT;
+      Soll_a_Nick = (Soll_V_Nick - *lastU++) / deltaT;
     }
   }
 
@@ -326,25 +342,26 @@ void Regelglied_step(void)
    *  Inport: '<Root>/In_Ist_Nick'
    *  Inport: '<Root>/In_Soll_Nick'
    */
-  Regelglied_B.Add3 = Regelglied_U.In_Soll_Nick - Regelglied_U.In_Ist_Nick;
+  Xd_Nick = Regelglied_U.In_Soll_Nick - Regelglied_U.In_Ist_Nick;
 
   /* Gain: '<S6>/Gain' */
-  rtb_Gain = kp_nick * Regelglied_B.Add3;
+  rtb_Gain = kp_nick * Xd_Nick;
 
   /* TransferFcn: '<S6>/I-Anteil' */
-  rtb_Derivative5 = 0.001*Regelglied_X.IAnteil_CSTATE_h;
+  rtb_IAnteil = 0.001*Regelglied_X.IAnteil_CSTATE_h;
 
   /* TransferFcn: '<S6>/D-Anteil' */
-  rtb_DAnteil = 37.5*Regelglied_B.Add3;
+  rtb_DAnteil = 37.5*Xd_Nick;
   rtb_DAnteil += (-937.5)*Regelglied_X.DAnteil_CSTATE_f;
+
+  /* Sum: '<S6>/Add' */
+  Y_Nick = (rtb_Gain + rtb_IAnteil) + rtb_DAnteil;
 
   /* Gain: '<S3>/Gain' incorporates:
    *  Inport: '<Root>/In_Ist_V_Nick'
    *  Sum: '<S1>/Add4'
-   *  Sum: '<S6>/Add'
    */
-  rtb_Gain = ((((rtb_Gain + rtb_Derivative5) + rtb_DAnteil) + rtb_Derivative2) -
-              Regelglied_U.In_Ist_V_Nick) * kp_v_nick;
+  rtb_Gain = ((Soll_V_Nick + Y_Nick) - Regelglied_U.In_Ist_V_Nick) * kp_v_nick;
 
   /* Derivative: '<S1>/Derivative5' */
   {
@@ -353,7 +370,7 @@ void Regelglied_step(void)
     real_T timeStampB = Regelglied_DWork.Derivative5_RWORK.TimeStampB;
     real_T *lastU = &Regelglied_DWork.Derivative5_RWORK.LastUAtTimeA;
     if (timeStampA >= t && timeStampB >= t) {
-      rtb_Derivative5 = 0.0;
+      Ist_a_Nick = 0.0;
     } else {
       real_T deltaT;
       real_T lastTime = timeStampA;
@@ -368,16 +385,17 @@ void Regelglied_step(void)
       }
 
       deltaT = t - lastTime;
-      rtb_Derivative5 = (Regelglied_U.In_Ist_V_Nick - *lastU++) / deltaT;
+      Ist_a_Nick = (Regelglied_U.In_Ist_V_Nick - *lastU++) / deltaT;
     }
   }
 
+  /* Sum: '<S1>/Add5' */
+  Xd_a_Nick = (Soll_a_Nick + rtb_Gain) - Ist_a_Nick;
+
   /* Outport: '<Root>/Out_M_Nick' incorporates:
    *  Gain: '<S2>/Gain'
-   *  Sum: '<S1>/Add5'
    */
-  Regelglied_Y.Out_M_Nick = ((rtb_Derivative3 + rtb_Gain) - rtb_Derivative5) *
-    kp_a_nick;
+  Regelglied_Y.Out_M_Nick = kp_a_nick * Xd_a_Nick;
   if (rtmIsMajorTimeStep(Regelglied_M)) {
     /* Update for Derivative: '<S1>/Derivative' */
     {
@@ -416,7 +434,7 @@ void Regelglied_step(void)
       }
 
       *lastTime = Regelglied_M->Timing.t[0];
-      *lastU++ = rtb_Derivative;
+      *lastU++ = Soll_V_Roll;
     }
 
     /* Update for Derivative: '<S1>/Derivative4' */
@@ -476,7 +494,7 @@ void Regelglied_step(void)
       }
 
       *lastTime = Regelglied_M->Timing.t[0];
-      *lastU++ = rtb_Derivative2;
+      *lastU++ = Soll_V_Nick;
     }
 
     /* Update for Derivative: '<S1>/Derivative5' */
@@ -530,7 +548,7 @@ void Regelglied_derivatives(void)
   /* Derivatives for TransferFcn: '<S7>/I-Anteil' */
   {
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
-      ->IAnteil_CSTATE = Regelglied_B.Add;
+      ->IAnteil_CSTATE = Xd_Roll;
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
       ->IAnteil_CSTATE += (-0.0)*Regelglied_X.IAnteil_CSTATE;
   }
@@ -538,7 +556,7 @@ void Regelglied_derivatives(void)
   /* Derivatives for TransferFcn: '<S7>/D-Anteil' */
   {
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
-      ->DAnteil_CSTATE = Regelglied_B.Add;
+      ->DAnteil_CSTATE = Xd_Roll;
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
       ->DAnteil_CSTATE += (-25.0)*Regelglied_X.DAnteil_CSTATE;
   }
@@ -546,7 +564,7 @@ void Regelglied_derivatives(void)
   /* Derivatives for TransferFcn: '<S6>/I-Anteil' */
   {
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
-      ->IAnteil_CSTATE_h = Regelglied_B.Add3;
+      ->IAnteil_CSTATE_h = Xd_Nick;
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
       ->IAnteil_CSTATE_h += (-0.0)*Regelglied_X.IAnteil_CSTATE_h;
   }
@@ -554,7 +572,7 @@ void Regelglied_derivatives(void)
   /* Derivatives for TransferFcn: '<S6>/D-Anteil' */
   {
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
-      ->DAnteil_CSTATE_f = Regelglied_B.Add3;
+      ->DAnteil_CSTATE_f = Xd_Nick;
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
       ->DAnteil_CSTATE_f += (-25.0)*Regelglied_X.DAnteil_CSTATE_f;
   }
@@ -602,8 +620,24 @@ void Regelglied_initialize(void)
   Regelglied_M->Timing.stepSize0 = 0.01;
 
   /* block I/O */
-  (void) memset(((void *) &Regelglied_B), 0,
-                sizeof(BlockIO_Regelglied));
+
+  /* exported global signals */
+  Soll_V_Roll = 0.0;
+  Soll_a_Roll = 0.0;
+  Xd_Roll = 0.0;
+  p_anteil = 0.0;
+  i_anteil = 0.0;
+  d_anteil = 0.0;
+  Y_roll = 0.0;
+  Xd_V_Roll = 0.0;
+  Ist_a_Roll = 0.0;
+  Xd_a_Roll = 0.0;
+  Soll_V_Nick = 0.0;
+  Soll_a_Nick = 0.0;
+  Xd_Nick = 0.0;
+  Y_Nick = 0.0;
+  Ist_a_Nick = 0.0;
+  Xd_a_Nick = 0.0;
 
   /* states (continuous) */
   {

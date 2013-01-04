@@ -1,32 +1,40 @@
 /*
- * File: Schubverteilung0_private.h
+ * File: Input_Kennlinie_private.h
  *
- * Code generated for Simulink model 'Schubverteilung0'.
+ * Code generated for Simulink model 'Input_Kennlinie'.
  *
- * Model version                  : 1.418
+ * Model version                  : 1.392
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Wed Jan 02 18:06:25 2013
+ * C/C++ source code generated on : Sun Dec 30 12:57:46 2012
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
  * Code generation objectives:
  *    1. Execution efficiency
  *    2. RAM efficiency
- * Validation result: Passed (8), Warnings (4), Error (0)
+ * Validation result: Passed (7), Warnings (5), Error (0)
  */
 
-#ifndef RTW_HEADER_Schubverteilung0_private_h_
-#define RTW_HEADER_Schubverteilung0_private_h_
+#ifndef RTW_HEADER_Input_Kennlinie_private_h_
+#define RTW_HEADER_Input_Kennlinie_private_h_
 #include "rtwtypes.h"
 
 /* Private macros used by the generated code to access rtModel */
-#ifndef rtmSetFirstInitCond
-# define rtmSetFirstInitCond(rtm, val) ((rtm)->Timing.firstInitCondFlag = (val))
+#ifndef rtmIsMajorTimeStep
+# define rtmIsMajorTimeStep(rtm)       (((rtm)->Timing.simTimeStep) == MAJOR_TIME_STEP)
 #endif
 
-#ifndef rtmIsFirstInitCond
-# define rtmIsFirstInitCond(rtm)       ((rtm)->Timing.firstInitCondFlag)
+#ifndef rtmIsMinorTimeStep
+# define rtmIsMinorTimeStep(rtm)       (((rtm)->Timing.simTimeStep) == MINOR_TIME_STEP)
+#endif
+
+#ifndef rtmGetTPtr
+# define rtmGetTPtr(rtm)               ((rtm)->Timing.t)
+#endif
+
+#ifndef rtmSetTPtr
+# define rtmSetTPtr(rtm, val)          ((rtm)->Timing.t = (val))
 #endif
 
 #ifndef __RTWTYPES_H__
@@ -42,14 +50,7 @@
 #endif                                 /* RTWTYPES_ID_C08S16I32L32N32F1 */
 #endif                                 /* TMWTYPES_PREVIOUSLY_INCLUDED */
 #endif                                 /* __RTWTYPES_H__ */
-
-/* Imported (extern) block parameters */
-extern real_T faktor;                  /* Variable: faktor
-                                        * Referenced by: '<S1>/Gain4'
-                                        */
-extern void Schubverteilu_IfActionSubsystem(real_T rtu_0, real_T *rty_Out1);
-
-#endif                                 /* RTW_HEADER_Schubverteilung0_private_h_ */
+#endif                                 /* RTW_HEADER_Input_Kennlinie_private_h_ */
 
 /*
  * File trailer for generated code.

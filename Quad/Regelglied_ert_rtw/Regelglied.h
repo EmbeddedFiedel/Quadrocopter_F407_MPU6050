@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'Regelglied'.
  *
- * Model version                  : 1.333
+ * Model version                  : 1.418
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sun Dec 23 11:25:19 2012
+ * C/C++ source code generated on : Wed Jan 02 18:05:17 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: 32-bit Generic
@@ -53,12 +53,6 @@
 #ifndef rtmGetT
 # define rtmGetT(rtm)                  (rtmGetTPtr((rtm))[0])
 #endif
-
-/* Block signals (auto storage) */
-typedef struct {
-  real_T Add;                          /* '<S1>/Add' */
-  real_T Add3;                         /* '<S1>/Add3' */
-} BlockIO_Regelglied;
 
 /* Block states (auto storage) for system '<Root>' */
 typedef struct {
@@ -208,9 +202,6 @@ struct RT_MODEL_Regelglied {
   } Timing;
 };
 
-/* Block signals (auto storage) */
-extern BlockIO_Regelglied Regelglied_B;
-
 /* Continuous states (auto storage) */
 extern ContinuousStates_Regelglied Regelglied_X;
 
@@ -244,6 +235,31 @@ extern "C" {
 
 }
 #endif
+
+/*
+ * Exported Global Signals
+ *
+ * Note: Exported global signals are block signals with an exported global
+ * storage class designation.  Code generation will declare the memory for
+ * these signals and export their symbols.
+ *
+ */
+extern real_T Soll_V_Roll;             /* '<S1>/Derivative' */
+extern real_T Soll_a_Roll;             /* '<S1>/Derivative1' */
+extern real_T Xd_Roll;                 /* '<S1>/Add' */
+extern real_T p_anteil;                /* '<S7>/Gain' */
+extern real_T i_anteil;                /* '<S7>/I-Anteil' */
+extern real_T d_anteil;                /* '<S7>/D-Anteil' */
+extern real_T Y_roll;                  /* '<S7>/Add' */
+extern real_T Xd_V_Roll;               /* '<S1>/Add1' */
+extern real_T Ist_a_Roll;              /* '<S1>/Derivative4' */
+extern real_T Xd_a_Roll;               /* '<S1>/Add2' */
+extern real_T Soll_V_Nick;             /* '<S1>/Derivative2' */
+extern real_T Soll_a_Nick;             /* '<S1>/Derivative3' */
+extern real_T Xd_Nick;                 /* '<S1>/Add3' */
+extern real_T Y_Nick;                  /* '<S6>/Add' */
+extern real_T Ist_a_Nick;              /* '<S1>/Derivative5' */
+extern real_T Xd_a_Nick;               /* '<S1>/Add5' */
 
 /*
  * Exported Global Parameters
