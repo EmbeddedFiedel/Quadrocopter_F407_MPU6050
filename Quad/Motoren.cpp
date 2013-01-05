@@ -1,6 +1,4 @@
 #include "Motoren.h"
-#include "ch.h"
-#include "hal.h"
 
 /*
  * PWM configuration structure.
