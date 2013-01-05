@@ -37,7 +37,9 @@
 #include "Datalogger.h"
 #include "ExternalInterrupt.h"
 #include "mavlink.h"
+#include "mavlink_helpers.h"
 #include "common.h"
+
 
 
 mavlink_system_t mavlink_system;
@@ -63,7 +65,7 @@ void send_heartbeat(void)
 	uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
     
 	// Send the message with the standard UART send function
-	sdWrite(&SD2, buf, len);
+	uartStartSend(&UARTD2, len, buf);
 }
 
 /*
@@ -105,7 +107,7 @@ void send_attitude(void)
 	uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
     
 	// Send the message with the standard UART send function
-	sdWrite(&SD2, buf, len);
+	uartStartSend(&UARTD2, len, buf);
 }
 /*
  * Working area for MavlinkHeartbeatThread
@@ -149,7 +151,7 @@ void send_rc_channels_scaled(void)
 	uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
     
 	// Send the message with the standard UART send function
-	sdWrite(&SD2, buf, len);
+	uartStartSend(&UARTD2, len, buf);
 }
 /*
  * Working area for MavlinkHeartbeatThread
@@ -191,7 +193,7 @@ void send_servo_output_raw(void)
 	uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
     
 	// Send the message with the standard UART send function
-	sdWrite(&SD2, buf, len);
+	uartStartSend(&UARTD2, len, buf);
 }
 /*
  * Working area for MavlinkHeartbeatThread
@@ -211,13 +213,67 @@ static msg_t MavlinkServoOutputThread(void *arg)
 }
 
 
+/*
+ * This callback is invoked when a character is received but the application
+ * was not ready to receive it, the character is passed as parameter.
+ */
+void rxchar(UARTDriver *uartp, uint16_t c) {
+
+	(void)uartp;
+	(void)c;
+	
+	mavlink_message_t msg;
+	mavlink_status_t status;
+	if(mavlink_parse_char(MAVLINK_COMM_0, c, &msg, &status))
+	{
+	switch(msg.msgid)
+	{
+		case MAVLINK_MSG_ID_HEARTBEAT:
+		{
+			// E.g. read GCS heartbeat and go into
+			// comm lost mode if timer times out
+		}
+		break;
+		
+		case MAVLINK_MSG_ID_COMMAND_LONG:
+		{
+			// EXECUTE ACTION
+		}
+		break;
+		
+		default:
+		{
+			//Do nothing
+		}
+		break;
+	}
+	}
+}
+
+/*
+ * UART driver configuration structure.
+ */
+static UARTConfig uart_cfg_1 = {
+  NULL,
+  NULL,
+  NULL,
+  rxchar,
+  NULL,
+  57600, //oder 115200 bin nicht sicher
+  0,
+  0,
+  0
+};
+
+
 void setup_Mavlink()
 {
     /*
      * Activates the serial driver 2 using the driver default configuration.
      * PA2(TX) and PA3(RX) are routed to USART2.
      */
-	sdStart(&SD2, NULL);
+	//sdStart(&SD2, NULL);
+	uartStart(&UARTD2, &uart_cfg_1);
 	palSetPadMode(GPIOD, 5, PAL_MODE_ALTERNATE(7));
 	palSetPadMode(GPIOD, 6, PAL_MODE_ALTERNATE(7));
     

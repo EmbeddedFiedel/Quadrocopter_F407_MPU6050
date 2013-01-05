@@ -591,6 +591,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\os\hal\src\uart.c</FilePath>
             </File>
+            <File>
+              <FileName>uart_lld.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\os\hal\platforms\STM32\uart_lld.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
