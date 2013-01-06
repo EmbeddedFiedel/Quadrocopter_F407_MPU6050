@@ -17,3 +17,5 @@ void rx_channel1_interrupt(EXTDriver *extp, expchannel_t channel);
 void rx_channel2_interrupt(EXTDriver *extp, expchannel_t channel);
 void rx_channel3_interrupt(EXTDriver *extp, expchannel_t channel);
 void rx_channel4_interrupt(EXTDriver *extp, expchannel_t channel);
+
+void calib_interrupt(EXTDriver *extp, expchannel_t channel);

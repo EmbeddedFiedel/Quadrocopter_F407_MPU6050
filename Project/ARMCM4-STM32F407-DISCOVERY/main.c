@@ -39,6 +39,9 @@
 #include "GCS.h"
 
 
+
+float dummy;
+
 /*
  * Application entry point.
  */
@@ -67,5 +70,6 @@ int main(void)
 	while (TRUE) 
 	{
 		update_IMU();
-  }
+		dummy=get_euler_roll_soll();
+  	}
 }
