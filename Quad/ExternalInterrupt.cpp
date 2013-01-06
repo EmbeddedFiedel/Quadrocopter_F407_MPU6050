@@ -7,7 +7,7 @@
 
 static const EXTConfig extcfg = {
 	{
-		{EXT_CH_MODE_DISABLED, NULL},
+		{EXT_CH_MODE_FALLING_EDGE | EXT_CH_MODE_AUTOSTART, calib_interrupt},			//JR
 		{EXT_CH_MODE_DISABLED, NULL},
 		{EXT_CH_MODE_DISABLED, NULL},
 		{EXT_CH_MODE_DISABLED, NULL},
@@ -24,7 +24,7 @@ static const EXTConfig extcfg = {
 		{EXT_CH_MODE_DISABLED, NULL},
 		{EXT_CH_MODE_DISABLED, NULL},
 	},
-	EXT_MODE_EXTI(0, 				/* 0 */
+	EXT_MODE_EXTI(EXT_MODE_GPIOD, 				/* 0 */						//JR
 	              0, 				/* 1 */
 	              0,			 	/* 2 */
 	              0, 				/* 3 */

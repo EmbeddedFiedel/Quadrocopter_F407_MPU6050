@@ -37,6 +37,9 @@
 #include "Datalogger.h"
 #include "ExternalInterrupt.h"
 
+
+float dummy;
+
 /*
  * Application entry point.
  */
@@ -60,12 +63,12 @@ int main(void)
 	palSetPadMode(GPIOD, 5, PAL_MODE_ALTERNATE(7));
 	palSetPadMode(GPIOD, 6, PAL_MODE_ALTERNATE(7));
 	
-	setup_IMU();
+	//setup_IMU();
 	setup_ExternalInterrupt();
 	setup_Fernsteuerung();
-	setup_Motoren();
-	setup_Regelung();
-	setup_Datalogger(); 
+	//setup_Motoren();
+	//setup_Regelung();
+	//setup_Datalogger(); 
 	/*
 	* Normal main() thread activity, in this demo it does nothing except
 	* sleeping in a loop and check the button state, when the button is
@@ -74,8 +77,8 @@ int main(void)
 	*/
 	while (TRUE) 
 	{
-
-		update_IMU();
+		dummy=get_euler_roll_soll();
+		//update_IMU();
 		//datalog();
 		//chThdSleepMilliseconds(10);
   }

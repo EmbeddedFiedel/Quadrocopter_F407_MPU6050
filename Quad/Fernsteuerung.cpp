@@ -18,10 +18,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "Fernsteuerung.h"
 #include "chprintf.h"
 #define RC_IN_RANGE(x) (((x)>900 && (x)<2300))
+
+/**********************************
+***															***
+***	Defines für Kalibrierung		***
+***															***
+**********************************/
+#define max_roll 	0.5
+#define max_nick 	0.5
+#define max_yaw 	0.5
+#define max_schub 1.0
+
+
 short RC_INPUT_CHANNELS_Offset[4] = {-1500,-1500,-1100,-1500};
 volatile unsigned short RC_INPUT_CHANNELS[4], RC_INPUT_LAST_TCNT,tmp=0;
 char PPM_FRAME_GOOD = 1;
 static bool_t Fernsteuerung_ready_flag = FALSE;
+
+/**********************************
+***															***
+***	Variablen für Kalibrierung	***
+***															***
+**********************************/
+uint16_t rc_roll_max=1000, rc_roll_min=2000, rc_roll_null;
+uint16_t rc_nick_max=2000, rc_nick_min=1000, rc_nick_null;
+uint16_t rc_yaw_max=2000, rc_yaw_min=1000, rc_yaw_null;
+uint16_t rc_schub_max=2000, rc_schub_null;
+uint16_t first_visit_roll = 1, calibration_active=0, calibration_ready_flag=0;
+
 
 /*
  *  _____       _                             _
@@ -33,14 +57,36 @@ static bool_t Fernsteuerung_ready_flag = FALSE;
  *                                     | |
  *                                     |_|
  */
+
+
+//DEBUGGING
+unsigned short tmp_dbg;
+
 void rx_channel1_interrupt(EXTDriver *extp, expchannel_t channel) {
 		(void)extp;
 		(void)channel;
 
 		chSysLockFromIsr();
 		if (palReadPad(GPIOE, 10) == PAL_LOW) {
-			unsigned short tmp = TIM4->CNT - RC_INPUT_LAST_TCNT;
-			if (RC_IN_RANGE(tmp)) RC_INPUT_CHANNELS[0] = tmp;
+			tmp_dbg = TIM4->CNT - RC_INPUT_LAST_TCNT;
+			if (RC_IN_RANGE(tmp_dbg)) 
+			{	
+				RC_INPUT_CHANNELS[0] = tmp_dbg;
+				if (calibration_active)
+				{
+					if (first_visit_roll)
+					{
+						rc_roll_null=RC_INPUT_CHANNELS[0];
+						first_visit_roll=0;
+					}
+					else
+					{
+						rc_roll_min = RC_INPUT_CHANNELS[0] < rc_roll_min ? RC_INPUT_CHANNELS[0] : rc_roll_min;
+						rc_roll_max = RC_INPUT_CHANNELS[0] > rc_roll_max ? RC_INPUT_CHANNELS[0] : rc_roll_max;
+					}
+					
+				}
+			}
 		}
 		RC_INPUT_LAST_TCNT = TIM4->CNT;
 		chSysUnlockFromIsr();
@@ -132,7 +178,9 @@ float get_euler_nick_soll()
 }
 float get_euler_roll_soll() 
 {
-	if(Fernsteuerung_ready_flag) return((float(RC_INPUT_CHANNELS[0]) + RC_INPUT_CHANNELS_Offset[0])/1000);
+	if(Fernsteuerung_ready_flag && calibration_ready_flag && !calibration_active) 
+		return RC_INPUT_CHANNELS[0] > rc_roll_null ? max_roll/(rc_roll_max-rc_roll_null)*(RC_INPUT_CHANNELS[0]-rc_roll_null) :  \
+		max_roll/(rc_roll_null-rc_roll_min)*(RC_INPUT_CHANNELS[0]-rc_roll_null) ;
 	else return 0;
 }
 float get_schub_soll() 
@@ -146,4 +194,31 @@ float get_euler_yaw_soll()
 	else return 0;
 }
 
+
+/******************************************************************
+***																															***
+***									Kalibrationsroutine													***
+***					-setzt und löscht Kalibrationsmodus-								***
+******************************************************************/
+
+
+void calib_interrupt(EXTDriver *extp, expchannel_t channel)
+{
+	static uint16_t on_off = 0;
+	if (palReadPad(GPIOD, 0) == PAL_LOW)
+	{
+		if (on_off)			//Kalibration aus
+		{
+			calibration_active = 0;
+			calibration_ready_flag = 1;
+		}
+		else 						//Kalibration ein
+		{
+			calibration_active = 1;
+			calibration_ready_flag = 0;
+			first_visit_roll=1;
+		}
+		on_off = on_off== 1 ? 0 : 1 ;
+	}
+}
 
