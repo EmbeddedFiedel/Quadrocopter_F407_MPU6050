@@ -1,4 +1,4 @@
-/*
+﻿/*
     ChibiOS/RT - Copyright (C) 2006,2007,2008,2009,2010,
                  2011,2012 Giovanni Di Sirio.
 
@@ -40,7 +40,7 @@
 
 
 
-float dummy;
+float dummy1,dummy2,dummy3,dummy4;
 
 /*
  * Application entry point.
@@ -70,6 +70,9 @@ int main(void)
 	while (TRUE) 
 	{
 		update_IMU();
-		dummy=get_euler_roll_soll();
-  	}
+		dummy1=get_euler_roll_soll();
+		dummy2=get_euler_nick_soll();
+		dummy3=get_euler_yaw_soll();
+		dummy4=get_schub_soll();
+  }
 }

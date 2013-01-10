@@ -42,11 +42,12 @@ static bool_t Fernsteuerung_ready_flag = FALSE;
 ***	Variablen für Kalibrierung	***
 ***															***
 **********************************/
-uint16_t rc_roll_max=1000, rc_roll_min=2000, rc_roll_null;
-uint16_t rc_nick_max=2000, rc_nick_min=1000, rc_nick_null;
-uint16_t rc_yaw_max=2000, rc_yaw_min=1000, rc_yaw_null;
-uint16_t rc_schub_max=2000, rc_schub_null;
-uint16_t first_visit_roll = 1, calibration_active=0, calibration_ready_flag=0;
+uint16_t rc_roll_max, rc_roll_min, rc_roll_null;
+uint16_t rc_nick_max, rc_nick_min, rc_nick_null;
+uint16_t rc_yaw_max, rc_yaw_min, rc_yaw_null;
+uint16_t rc_schub_max, rc_schub_null;
+uint16_t first_visit_roll = 1,  first_visit_nick=1, first_visit_yaw=1,first_visit_schub=1;
+uint16_t calibration_active=0, calibration_ready_flag=0;
 
 
 /*
@@ -106,6 +107,22 @@ void rx_channel2_interrupt(EXTDriver *extp, expchannel_t channel) {
 			if (RC_IN_RANGE(tmp)) 
 			{
 				RC_INPUT_CHANNELS[1] = tmp;
+				if (calibration_active)
+				{
+					if (first_visit_nick)
+					{
+						rc_nick_null=RC_INPUT_CHANNELS[1];
+						rc_nick_min=RC_INPUT_CHANNELS[1];
+						rc_nick_max=RC_INPUT_CHANNELS[1];
+						first_visit_nick=0;
+					}
+					else
+					{
+						rc_nick_min = RC_INPUT_CHANNELS[1] < rc_nick_min ? RC_INPUT_CHANNELS[1] : rc_nick_min;
+						rc_nick_max = RC_INPUT_CHANNELS[1] > rc_nick_max ? RC_INPUT_CHANNELS[1] : rc_nick_max;
+					}
+					
+				}
 			}
 		}
 		RC_INPUT_LAST_TCNT = TIM4->CNT;
@@ -121,6 +138,20 @@ void rx_channel3_interrupt(EXTDriver *extp, expchannel_t channel) {
 			if (RC_IN_RANGE(tmp)) 
 			{
 				RC_INPUT_CHANNELS[2] = tmp;
+				if (calibration_active)
+				{
+					if (first_visit_schub)
+					{
+						rc_schub_null=RC_INPUT_CHANNELS[2];
+						rc_schub_max=RC_INPUT_CHANNELS[2];
+						first_visit_schub=0;
+					}
+					else
+					{
+						rc_schub_null = RC_INPUT_CHANNELS[2] < rc_schub_null ? RC_INPUT_CHANNELS[2] : rc_schub_null;
+						rc_schub_max = RC_INPUT_CHANNELS[2] > rc_schub_max ? RC_INPUT_CHANNELS[2] : rc_schub_max;
+					}
+				}
 			}
 		}
 		RC_INPUT_LAST_TCNT = TIM4->CNT;
@@ -136,6 +167,22 @@ void rx_channel4_interrupt(EXTDriver *extp, expchannel_t channel) {
 			if (RC_IN_RANGE(tmp)) 
 			{
 				RC_INPUT_CHANNELS[3] = tmp;
+				if (calibration_active)
+				{
+					if (first_visit_yaw)
+					{
+						rc_yaw_null=RC_INPUT_CHANNELS[3];
+						rc_yaw_min=RC_INPUT_CHANNELS[3];
+						rc_yaw_max=RC_INPUT_CHANNELS[3];
+						first_visit_yaw=0;
+					}
+					else
+					{
+						rc_yaw_min = RC_INPUT_CHANNELS[3] < rc_yaw_min ? RC_INPUT_CHANNELS[3] : rc_yaw_min;
+						rc_yaw_max = RC_INPUT_CHANNELS[3] > rc_yaw_max ? RC_INPUT_CHANNELS[3] : rc_yaw_max;
+					}
+					
+				}
 			}
 		}
 		RC_INPUT_LAST_TCNT = TIM4->CNT;
@@ -196,7 +243,9 @@ int16_t get_chan4_scaled()
 
 float get_euler_nick_soll() 
 {
-	if(Fernsteuerung_ready_flag) return((float(RC_INPUT_CHANNELS[1]) + RC_INPUT_CHANNELS_Offset[1])/1000);
+	if(Fernsteuerung_ready_flag && calibration_ready_flag && !calibration_active) 
+		return RC_INPUT_CHANNELS[1] > rc_nick_null ? max_nick/(rc_nick_max-rc_nick_null)*(RC_INPUT_CHANNELS[1]-rc_nick_null) :  \
+		max_nick/(rc_nick_null-rc_nick_min)*(RC_INPUT_CHANNELS[1]-rc_nick_null) ;
 	else return 0;
 }
 float get_euler_roll_soll() 
@@ -208,12 +257,15 @@ float get_euler_roll_soll()
 }
 float get_schub_soll() 
 {
-	if(Fernsteuerung_ready_flag) return((float(RC_INPUT_CHANNELS[2]) + RC_INPUT_CHANNELS_Offset[2])/1000);
+	if(Fernsteuerung_ready_flag && calibration_ready_flag && !calibration_active) 
+		return  max_schub/(rc_schub_max-rc_schub_null)*(RC_INPUT_CHANNELS[2]-rc_schub_null);
 	else return 0;
 }
 float get_euler_yaw_soll() 
 {
-	if(Fernsteuerung_ready_flag) return((float(RC_INPUT_CHANNELS[3]) + RC_INPUT_CHANNELS_Offset[3])/1000);
+	if(Fernsteuerung_ready_flag && calibration_ready_flag && !calibration_active) 
+		return RC_INPUT_CHANNELS[3] > rc_yaw_null ? max_yaw/(rc_yaw_max-rc_yaw_null)*(RC_INPUT_CHANNELS[3]-rc_yaw_null) :  \
+		max_yaw/(rc_yaw_null-rc_yaw_min)*(RC_INPUT_CHANNELS[3]-rc_yaw_null) ;
 	else return 0;
 }
 
@@ -246,6 +298,9 @@ void calib_interrupt(EXTDriver *extp, expchannel_t channel)
 				calibration_active = 1;
 				calibration_ready_flag = 0;
 				first_visit_roll=1;
+				first_visit_nick=1;
+				first_visit_yaw=1;
+				first_visit_schub=1;
 			}
 			on_off = on_off== 1 ? 0 : 1 ;
 		}
