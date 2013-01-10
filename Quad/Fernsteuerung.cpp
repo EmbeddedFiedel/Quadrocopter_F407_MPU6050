@@ -77,6 +77,8 @@ void rx_channel1_interrupt(EXTDriver *extp, expchannel_t channel) {
 					if (first_visit_roll)
 					{
 						rc_roll_null=RC_INPUT_CHANNELS[0];
+						rc_roll_min=RC_INPUT_CHANNELS[0];
+						rc_roll_max=RC_INPUT_CHANNELS[0];
 						first_visit_roll=0;
 					}
 					else
@@ -152,14 +154,14 @@ void setup_Fernsteuerung()
 	RC_INPUT_CHANNELS[2] = -RC_INPUT_CHANNELS_Offset[2];
 	RC_INPUT_CHANNELS[3] = -RC_INPUT_CHANNELS_Offset[3];
 
-	TIM4->CR1 = 0x00000000;
+	TIM4->CR1 = 0x0000;
 	RCC->APB1ENR |= RCC_APB1ENR_TIM4EN;
 	TIM4->SMCR = 0; // slave mode disabled
 	TIM4->PSC = 84; // 84 mhz maximum apb1 bus speed
 	TIM4->ARR = 0xffff;
 	TIM4->SR = 0;
 	TIM4->DIER = 0;
-	TIM4->CR1 = 0x00000001;
+	TIM4->CR1 = 0x0001;
 	if(EXTD1.state == EXT_ACTIVE)
 	{
     chprintf((BaseChannel *) &SD2, "Fernsteuerung Init erfolgreich\r\n");
@@ -207,18 +209,25 @@ void calib_interrupt(EXTDriver *extp, expchannel_t channel)
 	static uint16_t on_off = 0;
 	if (palReadPad(GPIOD, 0) == PAL_LOW)
 	{
-		if (on_off)			//Kalibration aus
-		{
-			calibration_active = 0;
-			calibration_ready_flag = 1;
+			if (on_off)			//Kalibration aus
+			{
+				palClearPad(GPIOD, GPIOD_LED4);
+				palClearPad(GPIOD, GPIOD_LED5);
+				palClearPad(GPIOD, GPIOD_LED6);
+				calibration_active = 0;
+				calibration_ready_flag = 1;
+			}
+			else 						//Kalibration ein
+			{
+				palSetPad(GPIOD, GPIOD_LED4);
+				palSetPad(GPIOD, GPIOD_LED5);
+				palSetPad(GPIOD, GPIOD_LED6);
+				calibration_active = 1;
+				calibration_ready_flag = 0;
+				first_visit_roll=1;
+			}
+			on_off = on_off== 1 ? 0 : 1 ;
 		}
-		else 						//Kalibration ein
-		{
-			calibration_active = 1;
-			calibration_ready_flag = 0;
-			first_visit_roll=1;
-		}
-		on_off = on_off== 1 ? 0 : 1 ;
-	}
+
 }
 
