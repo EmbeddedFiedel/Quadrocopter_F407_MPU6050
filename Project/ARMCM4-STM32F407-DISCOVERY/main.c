@@ -38,7 +38,7 @@
 #include "ExternalInterrupt.h"
 
 
-float dummy;
+float dummy1,dummy2,dummy3,dummy4;
 
 /*
  * Application entry point.
@@ -80,7 +80,10 @@ int main(void)
 	*/
 	while (TRUE) 
 	{
-		dummy=get_euler_roll_soll();
+		dummy1=get_euler_roll_soll();
+		dummy2=get_euler_nick_soll();
+		dummy3=get_euler_yaw_soll();
+		dummy4=get_schub_soll();
 		//update_IMU();
 		//datalog();
 		//chThdSleepMilliseconds(10);
