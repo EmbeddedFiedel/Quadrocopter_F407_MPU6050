@@ -29,21 +29,21 @@ void step_regler_X(){
 
 	OverrunFlag = TRUE;
 	//Kennlinie erzeugen
-  Input_Kennlinie_step();
+  //Input_Kennlinie_step();
 	
 	//Sollwerte
 
 	
-	Regelglied_U.In_Soll_Roll=Input_Kennlinie_Y.Winkel;//get_euler_roll_soll();
-	Regelglied_U.In_Soll_Nick=0;//get_euler_nick_soll();
-	Regelglied_U.In_Soll_Gier=0;get_euler_yaw_soll();
+	Regelglied_U.In_Soll_Roll=get_euler_roll_soll();
+	Regelglied_U.In_Soll_Nick=get_euler_nick_soll();
+	Regelglied_U.In_Soll_Gier=get_euler_yaw_soll();
   
 	//Istwerte
 	//getRoll + Gier funktion negiert, da miniquad nach Luftfahrtnorm
-	Regelglied_U.In_Ist_Roll=-get_euler_roll_ist();
-	Regelglied_U.In_Ist_Nick=get_euler_nick_ist(); 
-	Regelglied_U.In_Ist_Gier=-get_euler_yaw_ist();
-	Regelglied_U.In_Ist_V_Roll=-get_rate_roll_ist();
+	Regelglied_U.In_Ist_Roll=get_ypr_roll_ist();
+	Regelglied_U.In_Ist_Nick=get_ypr_nick_ist(); 
+	Regelglied_U.In_Ist_Gier=get_ypr_roll_ist();
+	Regelglied_U.In_Ist_V_Roll=get_rate_roll_ist();
 	Regelglied_U.In_Ist_V_Nick=get_rate_nick_ist();
 
 	//Step Regler
@@ -51,9 +51,9 @@ void step_regler_X(){
 
 	//Set Outputs into Schubkraftverteilung
 	Schubverteilung0_U.In_M_Roll=Regelglied_Y.Out_M_Roll;
-	Schubverteilung0_U.In_M_Nick=Regelglied_Y.Out_M_Nick;//test
+	Schubverteilung0_U.In_M_Nick=Regelglied_Y.Out_M_Nick;
 	Schubverteilung0_U.In_M_Gier=Regelglied_Y.Out_M_Gier;	
-	Schubverteilung0_U.In_Throttle=Input_Kennlinie_Y.Throttle ;//get_schub_soll()/0.68;
+	Schubverteilung0_U.In_Throttle=get_schub_soll()/0.68;
 
 	//Step Schubkraftverteilung
 	Schubverteilung0_step();
@@ -72,6 +72,15 @@ void step_regler_X(){
 	setMotor_2(Inverse_Propeller_Y.Out_n_B);
 	setMotor_3(Inverse_Propeller_Y.Out_n_C);
 	setMotor_4(Inverse_Propeller_Y.Out_n_D);
+	
+// 	setMotor_1(0.2);
+// 	setMotor_1(0.0);
+// 	setMotor_2(0.2);
+// 	setMotor_2(0.0);
+// 	setMotor_3(0.2);
+// 	setMotor_3(0.0);
+// 	setMotor_4(0.2);
+// 	setMotor_4(0.0);
 
 	/* Indicate task complete */
 	OverrunFlag = FALSE;
