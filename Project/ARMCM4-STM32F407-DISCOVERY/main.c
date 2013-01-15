@@ -69,8 +69,11 @@ int main(void)
 
 	//setup_Motoren();
 	//setup_Regelung();
-	//setup_Datalogger(); 
+	setup_Datalogger(); 
     palSetPad(GPIOD, GPIOD_LED3);       /* Orange.  */
+
+	
+
 
 	/*
 	* Normal main() thread activity, in this demo it does nothing except

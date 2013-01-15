@@ -46,8 +46,12 @@ uint16_t rc_yaw_max, rc_yaw_min, rc_yaw_null;
 uint16_t rc_schub_max, rc_schub_null;
 uint16_t first_visit_roll = 1,  first_visit_nick=1, first_visit_yaw=1,first_visit_schub=1;
 uint16_t calibration_active=0, calibration_ready_flag=0;
+uint16_t timer_finish=1;
 
-
+static const GPTConfig gpt2cfg = {
+  10000,    /* 10kHz timer clock.*/
+  gpt2cb    /* Timer callback.*/
+};
 /*
  *  _____       _                             _
  * |_   _|     | |                           | |
@@ -186,6 +190,7 @@ void rx_channel4_interrupt(EXTDriver *extp, expchannel_t channel) {
 		RC_INPUT_LAST_TCNT = TIM4->CNT;
 		chSysUnlockFromIsr();	  
 }
+
 // ================================================================
 // ===                      INITIAL SETUP                       ===
 // ================================================================
@@ -218,6 +223,10 @@ void setup_Fernsteuerung()
 	{
     chprintf((BaseChannel *) &SD2, "Fernsteuerung Init failed, ExtInt nicht konfiguriert\r\n");
 	}
+	/*
+	* Einstellungen für Kalibration
+	*/
+	gptStart(&GPTD2, &gpt2cfg);
 }
 
 float get_euler_nick_soll() 
@@ -259,30 +268,41 @@ float get_euler_yaw_soll()
 void calib_interrupt(EXTDriver *extp, expchannel_t channel)
 {
 	static uint16_t on_off = 0;
-	if (palReadPad(GPIOD, 0) == PAL_LOW)
+	if (timer_finish)
 	{
-			if (on_off)			//Kalibration aus
-			{
-				palClearPad(GPIOD, GPIOD_LED4);
-				palClearPad(GPIOD, GPIOD_LED5);
-				palClearPad(GPIOD, GPIOD_LED6);
-				calibration_active = 0;
-				calibration_ready_flag = 1;
-			}
-			else 						//Kalibration ein
-			{
-				palSetPad(GPIOD, GPIOD_LED4);
-				palSetPad(GPIOD, GPIOD_LED5);
-				palSetPad(GPIOD, GPIOD_LED6);
-				calibration_active = 1;
-				calibration_ready_flag = 0;
-				first_visit_roll=1;
-				first_visit_nick=1;
-				first_visit_yaw=1;
-				first_visit_schub=1;
-			}
-			on_off = on_off== 1 ? 0 : 1 ;
-		}
-
+				if (on_off)			//Kalibration aus
+				{
+					palClearPad(GPIOD, GPIOD_LED4);
+					palClearPad(GPIOD, GPIOD_LED5);
+					palClearPad(GPIOD, GPIOD_LED6);
+					calibration_active = 0;
+					calibration_ready_flag = 1;
+				}
+				else 						//Kalibration ein
+				{
+					palSetPad(GPIOD, GPIOD_LED4);
+					palSetPad(GPIOD, GPIOD_LED5);
+					palSetPad(GPIOD, GPIOD_LED6);
+					calibration_active = 1;
+					calibration_ready_flag = 0;
+					first_visit_roll=1;
+					first_visit_nick=1;
+					first_visit_yaw=1;
+					first_visit_schub=1;
+				}
+				on_off = on_off== 1 ? 0 : 1 ;	
+				timer_finish=0;
+				gptStartOneShot(&GPTD2,7000);
+	}
 }
 
+
+/******************************************************************
+***																															***
+***									Timerroutine																***
+***					-setzt Variable timer_finish-												***
+******************************************************************/
+static void gpt2cb(GPTDriver *gptp) 
+{
+	timer_finish=1;
+}
