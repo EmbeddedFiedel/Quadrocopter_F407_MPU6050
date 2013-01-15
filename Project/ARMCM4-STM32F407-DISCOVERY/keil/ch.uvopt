@@ -156,11 +156,16 @@
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
+<<<<<<< HEAD
           <ItemText>euler</ItemText>
+=======
+          <ItemText>timer_finish</ItemText>
+>>>>>>> 50e693c... Taster-Softwareentprellung implementiert
         </Ww>
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
+<<<<<<< HEAD
           <ItemText>inSchub</ItemText>
         </Ww>
         <Ww>
@@ -242,6 +247,9 @@
           <count>17</count>
           <WinNumber>1</WinNumber>
           <ItemText>EXT_ACTIVE</ItemText>
+=======
+          <ItemText>first_visit</ItemText>
+>>>>>>> 50e693c... Taster-Softwareentprellung implementiert
         </Ww>
       </WatchWindow1>
 <<<<<<< HEAD
@@ -427,10 +435,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>3</ColumnNumber>
+      <ColumnNumber>15</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>10</TopLine>
-      <CurrentLine>20</CurrentLine>
+      <TopLine>26</TopLine>
+      <CurrentLine>28</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\boards\ST_STM32F4_DISCOVERY\board.c</PathWithFileName>
       <FilenameWithoutPath>board.c</FilenameWithoutPath>
@@ -441,7 +449,7 @@
 
   <Group>
     <GroupName>port</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -454,10 +462,14 @@
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <TopLine>71</TopLine>
 =======
       <TopLine>72</TopLine>
 >>>>>>> 4168db3... Repair
+=======
+      <TopLine>74</TopLine>
+>>>>>>> 50e693c... Taster-Softwareentprellung implementiert
       <CurrentLine>78</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\ports\RVCT\ARMCMx\cstartup.s</PathWithFileName>
@@ -519,10 +531,10 @@
       <FileType>2</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>30</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>66</TopLine>
+      <CurrentLine>86</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\ports\RVCT\ARMCMx\STM32F4xx\vectors.s</PathWithFileName>
       <FilenameWithoutPath>vectors.s</FilenameWithoutPath>
@@ -535,10 +547,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>21</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>42</TopLine>
+      <CurrentLine>46</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\ports\common\ARMCMx\nvic.c</PathWithFileName>
       <FilenameWithoutPath>nvic.c</FilenameWithoutPath>
@@ -609,8 +621,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>266</TopLine>
+      <CurrentLine>267</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\kernel\src\chevents.c</PathWithFileName>
       <FilenameWithoutPath>chevents.c</FilenameWithoutPath>
@@ -876,10 +888,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>6</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>81</TopLine>
+      <CurrentLine>85</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\hal\src\hal.c</PathWithFileName>
       <FilenameWithoutPath>hal.c</FilenameWithoutPath>
@@ -910,7 +922,7 @@
       <Focus>0</Focus>
       <ColumnNumber>34</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>164</TopLine>
+      <TopLine>169</TopLine>
       <CurrentLine>173</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\hal\src\pwm.c</PathWithFileName>
@@ -926,7 +938,7 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>157</TopLine>
+      <TopLine>163</TopLine>
       <CurrentLine>165</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\hal\src\serial.c</PathWithFileName>
@@ -972,10 +984,14 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
+<<<<<<< HEAD
       <ColumnNumber>69</ColumnNumber>
+=======
+      <ColumnNumber>12</ColumnNumber>
+>>>>>>> 50e693c... Taster-Softwareentprellung implementiert
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>66</TopLine>
+      <CurrentLine>70</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\hal\src\ext.c</PathWithFileName>
       <FilenameWithoutPath>ext.c</FilenameWithoutPath>
@@ -990,8 +1006,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>68</TopLine>
+      <CurrentLine>78</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\hal\platforms\STM32\ext_lld.c</PathWithFileName>
       <FilenameWithoutPath>ext_lld.c</FilenameWithoutPath>
@@ -1006,8 +1022,8 @@
       <Focus>0</Focus>
       <ColumnNumber>33</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>321</TopLine>
+      <CurrentLine>325</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\hal\src\mmc_spi.c</PathWithFileName>
       <FilenameWithoutPath>mmc_spi.c</FilenameWithoutPath>
@@ -1022,11 +1038,27 @@
       <Focus>0</Focus>
       <ColumnNumber>32</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>103</TopLine>
+      <CurrentLine>104</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\hal\src\tm.c</PathWithFileName>
       <FilenameWithoutPath>tm.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>4</GroupNumber>
+      <FileNumber>37</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <ColumnNumber>15</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>171</TopLine>
+      <CurrentLine>191</CurrentLine>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\os\hal\src\gpt.c</PathWithFileName>
+      <FilenameWithoutPath>gpt.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1034,13 +1066,13 @@
 
   <Group>
     <GroupName>platform</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>5</GroupNumber>
-      <FileNumber>37</FileNumber>
+      <FileNumber>38</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1056,14 +1088,14 @@
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
-      <FileNumber>38</FileNumber>
+      <FileNumber>39</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>3</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>81</TopLine>
+      <CurrentLine>82</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\hal\platforms\STM32F4xx\hal_lld.c</PathWithFileName>
       <FilenameWithoutPath>hal_lld.c</FilenameWithoutPath>
@@ -1072,7 +1104,7 @@
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
-      <FileNumber>39</FileNumber>
+      <FileNumber>40</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1088,14 +1120,14 @@
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
-      <FileNumber>40</FileNumber>
+      <FileNumber>41</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>26</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>186</TopLine>
+      <CurrentLine>205</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\hal\platforms\STM32\pwm_lld.c</PathWithFileName>
       <FilenameWithoutPath>pwm_lld.c</FilenameWithoutPath>
@@ -1104,7 +1136,7 @@
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
-      <FileNumber>41</FileNumber>
+      <FileNumber>42</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1120,7 +1152,7 @@
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
-      <FileNumber>42</FileNumber>
+      <FileNumber>43</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1136,7 +1168,7 @@
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
-      <FileNumber>43</FileNumber>
+      <FileNumber>44</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1152,17 +1184,38 @@
     </File>
     <File>
       <GroupNumber>5</GroupNumber>
-      <FileNumber>44</FileNumber>
+      <FileNumber>45</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <ColumnNumber>28</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+<<<<<<< HEAD
+      <TopLine>888</TopLine>
+      <CurrentLine>896</CurrentLine>
+=======
+      <TopLine>616</TopLine>
+      <CurrentLine>633</CurrentLine>
+>>>>>>> 50e693c... Taster-Softwareentprellung implementiert
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\os\hal\platforms\STM32\i2c_lld.c</PathWithFileName>
+      <FilenameWithoutPath>i2c_lld.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>5</GroupNumber>
+      <FileNumber>46</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>888</TopLine>
-      <CurrentLine>896</CurrentLine>
+      <TopLine>135</TopLine>
+      <CurrentLine>141</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\os\hal\platforms\STM32\i2c_lld.c</PathWithFileName>
-      <FilenameWithoutPath>i2c_lld.c</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\os\hal\platforms\STM32F4xx\gpt_lld.c</PathWithFileName>
+      <FilenameWithoutPath>gpt_lld.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1176,7 +1229,7 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>45</FileNumber>
+      <FileNumber>47</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1192,7 +1245,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>46</FileNumber>
+      <FileNumber>48</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1208,7 +1261,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>47</FileNumber>
+      <FileNumber>49</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1224,7 +1277,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>48</FileNumber>
+      <FileNumber>50</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1240,7 +1293,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>49</FileNumber>
+      <FileNumber>51</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1256,7 +1309,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>50</FileNumber>
+      <FileNumber>52</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1272,7 +1325,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>51</FileNumber>
+      <FileNumber>53</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1288,7 +1341,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>52</FileNumber>
+      <FileNumber>54</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1304,7 +1357,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>53</FileNumber>
+      <FileNumber>55</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1320,7 +1373,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>54</FileNumber>
+      <FileNumber>56</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1336,7 +1389,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>55</FileNumber>
+      <FileNumber>57</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1352,7 +1405,7 @@
     </File>
     <File>
       <GroupNumber>6</GroupNumber>
-      <FileNumber>56</FileNumber>
+      <FileNumber>58</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1376,12 +1429,13 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>7</GroupNumber>
-      <FileNumber>57</FileNumber>
+      <FileNumber>59</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>32</ColumnNumber>
+      <ColumnNumber>16</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1399,6 +1453,10 @@
       <TopLine>63</TopLine>
       <CurrentLine>85</CurrentLine>
 >>>>>>> fc8f4aa... Kalibration auf alle Kanäle ausgeweitet
+=======
+      <TopLine>68</TopLine>
+      <CurrentLine>91</CurrentLine>
+>>>>>>> 50e693c... Taster-Softwareentprellung implementiert
       <bDave2>0</bDave2>
       <PathWithFileName>..\main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
@@ -1415,7 +1473,7 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>8</GroupNumber>
-      <FileNumber>58</FileNumber>
+      <FileNumber>60</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1431,7 +1489,7 @@
     </File>
     <File>
       <GroupNumber>8</GroupNumber>
-      <FileNumber>59</FileNumber>
+      <FileNumber>61</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1447,14 +1505,14 @@
     </File>
     <File>
       <GroupNumber>8</GroupNumber>
-      <FileNumber>60</FileNumber>
+      <FileNumber>62</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>82</TopLine>
+      <CurrentLine>86</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\various\chprintf.c</PathWithFileName>
       <FilenameWithoutPath>chprintf.c</FilenameWithoutPath>
@@ -1465,13 +1523,13 @@
 
   <Group>
     <GroupName>Quad</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>9</GroupNumber>
-      <FileNumber>61</FileNumber>
+      <FileNumber>63</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1492,7 +1550,7 @@
     </File>
     <File>
       <GroupNumber>9</GroupNumber>
-      <FileNumber>62</FileNumber>
+      <FileNumber>64</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1508,7 +1566,7 @@
     </File>
     <File>
       <GroupNumber>9</GroupNumber>
-      <FileNumber>63</FileNumber>
+      <FileNumber>65</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1526,51 +1584,11 @@
       <ColumnNumber>0</ColumnNumber>
 >>>>>>> fc8f4aa... Kalibration auf alle Kanäle ausgeweitet
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>22</TopLine>
-      <CurrentLine>247</CurrentLine>
+      <TopLine>40</TopLine>
+      <CurrentLine>253</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\Quad\Fernsteuerung.cpp</PathWithFileName>
       <FilenameWithoutPath>Fernsteuerung.cpp</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>9</GroupNumber>
-      <FileNumber>64</FileNumber>
-      <FileType>8</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-<<<<<<< HEAD
-      <ColumnNumber>0</ColumnNumber>
-=======
-      <ColumnNumber>9</ColumnNumber>
->>>>>>> fc8f4aa... Kalibration auf alle Kanäle ausgeweitet
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>39</TopLine>
-      <CurrentLine>52</CurrentLine>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\Quad\Motoren.cpp</PathWithFileName>
-      <FilenameWithoutPath>Motoren.cpp</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>9</GroupNumber>
-      <FileNumber>65</FileNumber>
-      <FileType>8</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-<<<<<<< HEAD
-      <ColumnNumber>0</ColumnNumber>
-=======
-      <ColumnNumber>2</ColumnNumber>
->>>>>>> fc8f4aa... Kalibration auf alle Kanäle ausgeweitet
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>311</TopLine>
-      <CurrentLine>453</CurrentLine>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\Quad\Regelung.cpp</PathWithFileName>
-      <FilenameWithoutPath>Regelung.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1580,13 +1598,17 @@
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
+<<<<<<< HEAD
       <ColumnNumber>0</ColumnNumber>
+=======
+      <ColumnNumber>9</ColumnNumber>
+>>>>>>> fc8f4aa... Kalibration auf alle Kanäle ausgeweitet
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>83</TopLine>
-      <CurrentLine>95</CurrentLine>
+      <TopLine>48</TopLine>
+      <CurrentLine>52</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\Quad\Datalogger.cpp</PathWithFileName>
-      <FilenameWithoutPath>Datalogger.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Quad\Motoren.cpp</PathWithFileName>
+      <FilenameWithoutPath>Motoren.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1596,13 +1618,21 @@
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
+<<<<<<< HEAD
+<<<<<<< HEAD
       <ColumnNumber>0</ColumnNumber>
+=======
+      <ColumnNumber>2</ColumnNumber>
+>>>>>>> fc8f4aa... Kalibration auf alle Kanäle ausgeweitet
+=======
+      <ColumnNumber>0</ColumnNumber>
+>>>>>>> 50e693c... Taster-Softwareentprellung implementiert
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>16</TopLine>
-      <CurrentLine>1</CurrentLine>
+      <TopLine>94</TopLine>
+      <CurrentLine>95</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\..\..\Quad\ExternalInterrupt.cpp</PathWithFileName>
-      <FilenameWithoutPath>ExternalInterrupt.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\..\..\Quad\Regelung.cpp</PathWithFileName>
+      <FilenameWithoutPath>Regelung.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1612,10 +1642,97 @@
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
+      <ColumnNumber>9</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>81</TopLine>
+      <CurrentLine>85</CurrentLine>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\Quad\Datalogger.cpp</PathWithFileName>
+      <FilenameWithoutPath>Datalogger.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>9</GroupNumber>
+      <FileNumber>69</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <ColumnNumber>0</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>1</TopLine>
+      <CurrentLine>1</CurrentLine>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\Quad\ExternalInterrupt.cpp</PathWithFileName>
+      <FilenameWithoutPath>ExternalInterrupt.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>9</GroupNumber>
+      <FileNumber>70</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+<<<<<<< HEAD
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>281</TopLine>
       <CurrentLine>289</CurrentLine>
+=======
+      <ColumnNumber>40</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\Quad\Inverse_Propeller_ert_rtw\Inverse_Propeller.cpp</PathWithFileName>
+      <FilenameWithoutPath>Inverse_Propeller.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>9</GroupNumber>
+      <FileNumber>71</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <ColumnNumber>0</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\Quad\Inverse_Propeller_ert_rtw\rt_nonfinite.cpp</PathWithFileName>
+      <FilenameWithoutPath>rt_nonfinite.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>9</GroupNumber>
+      <FileNumber>72</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <ColumnNumber>0</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\Quad\Inverse_Propeller_ert_rtw\rtGetInf.cpp</PathWithFileName>
+      <FilenameWithoutPath>rtGetInf.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>9</GroupNumber>
+      <FileNumber>73</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <ColumnNumber>0</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
+>>>>>>> 50e693c... Taster-Softwareentprellung implementiert
       <bDave2>0</bDave2>
 <<<<<<< HEAD
       <PathWithFileName>..\..\..\Quad\GCS.cpp</PathWithFileName>
@@ -1628,7 +1745,7 @@
     </File>
     <File>
       <GroupNumber>9</GroupNumber>
-      <FileNumber>72</FileNumber>
+      <FileNumber>74</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1644,7 +1761,7 @@
     </File>
     <File>
       <GroupNumber>9</GroupNumber>
-      <FileNumber>73</FileNumber>
+      <FileNumber>75</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1660,7 +1777,7 @@
     </File>
     <File>
       <GroupNumber>9</GroupNumber>
-      <FileNumber>74</FileNumber>
+      <FileNumber>76</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1676,7 +1793,7 @@
     </File>
     <File>
       <GroupNumber>9</GroupNumber>
-      <FileNumber>75</FileNumber>
+      <FileNumber>77</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1701,7 +1818,11 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>10</GroupNumber>
+<<<<<<< HEAD
       <FileNumber>69</FileNumber>
+=======
+      <FileNumber>78</FileNumber>
+>>>>>>> 50e693c... Taster-Softwareentprellung implementiert
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1717,14 +1838,18 @@
     </File>
     <File>
       <GroupNumber>10</GroupNumber>
+<<<<<<< HEAD
       <FileNumber>70</FileNumber>
+=======
+      <FileNumber>79</FileNumber>
+>>>>>>> 50e693c... Taster-Softwareentprellung implementiert
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>3885</TopLine>
+      <CurrentLine>3886</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\ext\fatfs-0.8b-patched\fatfs\src\ff.c</PathWithFileName>
       <FilenameWithoutPath>ff.c</FilenameWithoutPath>

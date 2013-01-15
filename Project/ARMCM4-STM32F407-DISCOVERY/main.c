@@ -63,10 +63,8 @@ int main(void)
 	setup_Motoren();
 	setup_Regelung();
 	setup_Datalogger(); 
-
 	palSetPad(GPIOD, GPIOD_LED3);       /* Orange.  */
 	send_statustext(MAV_SEVERITY_ALERT, "Initialization finished");
-	
 	while (TRUE) 
 	{
 		update_IMU();

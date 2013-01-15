@@ -586,6 +586,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\os\hal\src\tm.c</FilePath>
             </File>
+            <File>
+              <FileName>gpt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\os\hal\src\gpt.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -630,6 +635,11 @@
               <FileName>i2c_lld.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\os\hal\platforms\STM32\i2c_lld.c</FilePath>
+            </File>
+            <File>
+              <FileName>gpt_lld.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\os\hal\platforms\STM32F4xx\gpt_lld.c</FilePath>
             </File>
           </Files>
         </Group>
