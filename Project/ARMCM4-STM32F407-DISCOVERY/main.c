@@ -50,7 +50,7 @@ void send_heartbeat(void)
 	uint8_t system_type = MAV_TYPE_QUADROTOR;
 	uint8_t autopilot_type = MAV_AUTOPILOT_GENERIC;
 	 
-	uint8_t system_mode = MAV_MODE_STABILIZE_ARMED; ///< Booting up
+	uint8_t system_mode = MAV_MODE_PREFLIGHT; ///< Booting up
 	uint32_t custom_mode = 0;                 ///< Custom mode, can be defined by user/adopter
 	uint8_t system_state = MAV_STATE_ACTIVE; ///< System ready for flight
 	 
@@ -65,7 +65,8 @@ void send_heartbeat(void)
 	uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
     
 	// Send the message with the standard UART send function
-	uartStartSend(&UARTD2, len, buf);
+	sdWrite(&SD2, buf, len);
+	//uartStartSend(&UARTD2, len, buf);
 }
 
 /*
@@ -93,9 +94,9 @@ void send_attitude(void)
 	uint8_t buf[MAVLINK_MAX_PACKET_LEN];
     
     uint32_t time_boot_ms = chTimeNow();
-    float roll = get_euler_roll_ist();
-    float pitch = get_euler_nick_ist();
-    float yaw = get_euler_yaw_ist();
+    float roll = get_ypr_roll_ist();
+    float pitch = get_ypr_nick_ist();
+    float yaw = get_ypr_yaw_ist();
     float rollspeed = get_rate_roll_ist();
     float pitchspeed = get_rate_nick_ist();
     float yawspeed = get_rate_yaw_ist();
@@ -107,7 +108,8 @@ void send_attitude(void)
 	uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
     
 	// Send the message with the standard UART send function
-	uartStartSend(&UARTD2, len, buf);
+	sdWrite(&SD2, buf, len);
+	//uartStartSend(&UARTD2, len, buf);
 }
 /*
  * Working area for MavlinkHeartbeatThread
@@ -151,7 +153,8 @@ void send_rc_channels_scaled(void)
 	uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
     
 	// Send the message with the standard UART send function
-	uartStartSend(&UARTD2, len, buf);
+	sdWrite(&SD2, buf, len);
+	//uartStartSend(&UARTD2, len, buf);
 }
 /*
  * Working area for MavlinkHeartbeatThread
@@ -193,7 +196,8 @@ void send_servo_output_raw(void)
 	uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
     
 	// Send the message with the standard UART send function
-	uartStartSend(&UARTD2, len, buf);
+	sdWrite(&SD2, buf, len);
+	//uartStartSend(&UARTD2, len, buf);
 }
 /*
  * Working area for MavlinkHeartbeatThread
@@ -212,82 +216,92 @@ static msg_t MavlinkServoOutputThread(void *arg)
     }
 }
 
-
-/*
- * This callback is invoked when a character is received but the application
- * was not ready to receive it, the character is passed as parameter.
- */
-void rxchar(UARTDriver *uartp, uint16_t c) {
-
-	(void)uartp;
-	(void)c;
+uint16_t c_global;
+static WORKING_AREA(waThreadRadio, 4096);
+static msg_t ThreadRadio(void *arg) {
+    (void)arg;
+    chRegSetThreadName("radio");
+	
 	
 	mavlink_message_t msg;
 	mavlink_status_t status;
-	if(mavlink_parse_char(MAVLINK_COMM_0, c, &msg, &status))
-	{
-	switch(msg.msgid)
-	{
-		case MAVLINK_MSG_ID_HEARTBEAT:
-		{
-			// E.g. read GCS heartbeat and go into
-			// comm lost mode if timer times out
-		}
-		break;
-		
-		case MAVLINK_MSG_ID_COMMAND_LONG:
-		{
-			// EXECUTE ACTION
-		}
-		break;
-		
-		default:
-		{
-			//Do nothing
-		}
-		break;
-	}
-	}
+
+    EventListener elRadio;
+    chEvtRegister(chIOGetEventSource(&SD2), &elRadio, 1);
+    while (TRUE) 
+			{
+        ioflags_t flags;
+        chEvtWaitOneTimeout(EVENT_MASK(1), TIME_INFINITE);
+        flags = chIOGetAndClearFlags(&SD2);
+        if (flags & IO_INPUT_AVAILABLE) 
+				{
+          char c;
+          c = chIOGetTimeout(&SD2, TIME_IMMEDIATE);
+					if(mavlink_parse_char(MAVLINK_COMM_0, c, &msg, &status))
+					{
+						switch(msg.msgid)
+						{
+							case MAVLINK_MSG_ID_HEARTBEAT:
+							{
+								//Heartbeat
+							}
+							
+							case MAVLINK_MSG_ID_COMMAND_LONG:
+							{
+								// Preflight Calibration
+								if (mavlink_msg_command_long_get_command(&msg) == MAV_CMD_PREFLIGHT_CALIBRATION)
+								{
+										if (mavlink_msg_command_long_get_param4(&msg) == 1)
+										{
+											//start RC Calibration
+										}
+										else if (mavlink_msg_command_long_get_param4(&msg) == 0)
+										{
+											//end RC Calibration
+										}
+								}
+							}
+							
+							default:
+							{
+								//Do nothing
+							}
+						}
+					}
+					////////////////////////////ECHO//////////////////////////////
+					//uint8_t buf[1];
+					//buf[0] = c;
+					//uint16_t len = 1;
+					//sdWrite(&SD2, buf, len);
+					/////////////////////////////////////////////////////////////////
+        }
+    }
 }
 
-/*
- * UART driver configuration structure.
- */
-static UARTConfig uart_cfg_1 = {
-  NULL,
-  NULL,
-  NULL,
-  rxchar,
-  NULL,
-  57600, //oder 115200 bin nicht sicher
-  0,
-  0,
-  0
-};
 
-
-void setup_Mavlink()
+void setup_Mavlink(void)
 {
-    /*
-     * Activates the serial driver 2 using the driver default configuration.
-     * PA2(TX) and PA3(RX) are routed to USART2.
-     */
-	//sdStart(&SD2, NULL);
-	uartStart(&UARTD2, &uart_cfg_1);
-	palSetPadMode(GPIOD, 5, PAL_MODE_ALTERNATE(7));
-	palSetPadMode(GPIOD, 6, PAL_MODE_ALTERNATE(7));
-    
-    mavlink_system.sysid = 1;                   ///< ID 1 for this airplane
-	mavlink_system.compid = MAV_COMP_ID_ALL;     ///< The component sending the message is the IMU, it could be also a Linux process
-    
-	chThdCreateStatic(MavlinkHeartbeatThreadWorkingArea, sizeof(MavlinkHeartbeatThreadWorkingArea), NORMALPRIO, MavlinkHeartbeatThread, NULL);
-    chThdSleepMilliseconds(20);
-	chThdCreateStatic(MavlinkAttitudeThreadWorkingArea, sizeof(MavlinkAttitudeThreadWorkingArea), NORMALPRIO, MavlinkAttitudeThread, NULL);
-    chThdSleepMilliseconds(20);
-    chThdCreateStatic(MavlinkRCChannelsScaledThreadWorkingArea, sizeof(MavlinkRCChannelsScaledThreadWorkingArea), NORMALPRIO, MavlinkRCChannelsScaledThread, NULL);
-    chThdSleepMilliseconds(20);
-    chThdCreateStatic(MavlinkServoOutputThreadWorkingArea, sizeof(MavlinkServoOutputThreadWorkingArea), NORMALPRIO, MavlinkServoOutputThread, NULL);
-    
+		/*
+		* Activates the serial driver 2 using the driver default configuration.
+		* PA2(TX) and PA3(RX) are routed to USART2.
+		*/
+		sdStart(&SD2, NULL);
+		//uartStart(&UARTD2, &uart_cfg_1);
+		palSetPadMode(GPIOD, 5, PAL_MODE_ALTERNATE(7));
+		palSetPadMode(GPIOD, 6, PAL_MODE_ALTERNATE(7));
+
+		mavlink_system.sysid = 1;                   ///< ID 1 for this airplane
+		mavlink_system.compid = MAV_COMP_ID_ALL;     ///< The component sending the message is the IMU, it could be also a Linux process
+
+		chThdCreateStatic(waThreadRadio, sizeof(waThreadRadio), HIGHPRIO, ThreadRadio, NULL);
+		chThdSleepMilliseconds(20);
+		chThdCreateStatic(MavlinkHeartbeatThreadWorkingArea, sizeof(MavlinkHeartbeatThreadWorkingArea), NORMALPRIO, MavlinkHeartbeatThread, NULL);
+		chThdSleepMilliseconds(20);
+		chThdCreateStatic(MavlinkAttitudeThreadWorkingArea, sizeof(MavlinkAttitudeThreadWorkingArea), NORMALPRIO, MavlinkAttitudeThread, NULL);
+		chThdSleepMilliseconds(20);
+		chThdCreateStatic(MavlinkRCChannelsScaledThreadWorkingArea, sizeof(MavlinkRCChannelsScaledThreadWorkingArea), NORMALPRIO, MavlinkRCChannelsScaledThread, NULL);
+		chThdSleepMilliseconds(20);
+		chThdCreateStatic(MavlinkServoOutputThreadWorkingArea, sizeof(MavlinkServoOutputThreadWorkingArea), NORMALPRIO, MavlinkServoOutputThread, NULL); 
 }
 
 

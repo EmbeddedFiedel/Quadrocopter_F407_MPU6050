@@ -334,7 +334,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>0</Optim>
+            <Optim>4</Optim>
             <oTime>1</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>0</OneElfS>
@@ -585,16 +585,6 @@
               <FileName>tm.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\os\hal\src\tm.c</FilePath>
-            </File>
-            <File>
-              <FileName>uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\os\hal\src\uart.c</FilePath>
-            </File>
-            <File>
-              <FileName>uart_lld.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\os\hal\platforms\STM32\uart_lld.c</FilePath>
             </File>
           </Files>
         </Group>

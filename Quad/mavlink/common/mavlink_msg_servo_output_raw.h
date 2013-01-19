@@ -90,7 +90,7 @@ static inline uint16_t mavlink_msg_servo_output_raw_pack(uint8_t system_id, uint
 #endif
 
 	msg->msgid = MAVLINK_MSG_ID_SERVO_OUTPUT_RAW;
-	return mavlink_finalize_message(msg, system_id, component_id, 21, 222);
+	return mavlink_finalize_message(msg, system_id, component_id, 21, 242);
 }
 
 /**
