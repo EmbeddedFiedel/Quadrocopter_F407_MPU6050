@@ -253,11 +253,11 @@ static msg_t ThreadRadio(void *arg) {
 								{
 										if (mavlink_msg_command_long_get_param4(&msg) == 1)
 										{
-											//start RC Calibration
+											palSetPad(GPIOD, GPIOD_LED4);       /* Green.  */
 										}
 										else if (mavlink_msg_command_long_get_param4(&msg) == 0)
 										{
-											//end RC Calibration
+											palClearPad(GPIOD, GPIOD_LED4);       /* Green.  */
 										}
 								}
 							}
