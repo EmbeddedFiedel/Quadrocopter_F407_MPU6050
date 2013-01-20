@@ -766,6 +766,11 @@
               <FileType>8</FileType>
               <FilePath>..\..\..\Quad\ExternalInterrupt.cpp</FilePath>
             </File>
+            <File>
+              <FileName>GCS.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\..\Quad\GCS.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
