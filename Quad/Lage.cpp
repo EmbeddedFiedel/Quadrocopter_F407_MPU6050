@@ -29,6 +29,7 @@ THE SOFTWARE.
 #include "Datalogger.h"
 #include "tm.h"
 #include "ff.h"
+#include "GCS.h"
 
 MPU6050 mpu;
 
@@ -174,6 +175,7 @@ void setup_IMU()
 		mpuIntStatus = mpu.getIntStatus();
 		dmpReady = true;
 		packetSize = mpu.dmpGetFIFOPacketSize();
+		send_statustext(MAV_SEVERITY_ALERT, "IMU initialized");
 	} 
 }
 

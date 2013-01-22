@@ -53,16 +53,16 @@ int main(void)
 	*/
 	halInit();	   
 	chSysInit();
-	
 	setup_IMU();
+	setup_Mavlink();
 	setup_ExternalInterrupt();
 	setup_Fernsteuerung();
 	setup_Motoren();
 	setup_Regelung();
 	setup_Datalogger(); 
-	setup_Mavlink();
 
 	palSetPad(GPIOD, GPIOD_LED3);       /* Orange.  */
+	send_statustext(MAV_SEVERITY_ALERT, "Initialization finished");
 	
 	while (TRUE) 
 	{

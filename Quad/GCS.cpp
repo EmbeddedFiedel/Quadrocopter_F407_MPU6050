@@ -1,13 +1,11 @@
 #include "GCS.h"
-#include "mavlink.h"
-
 #include "Lage.h"
 #include "Fernsteuerung.h"
 #include "Motoren.h"
 
 
 #define ONBOARD_PARAM_COUNT 5
-#define ONBOARD_PARAM_NAME_LENGTH 3
+#define ONBOARD_PARAM_NAME_LENGTH 10
  
 mavlink_system_t mavlink_system;
 
@@ -361,9 +359,25 @@ static msg_t ThreadRadio(void *arg)
 }
 
 
+
+void send_statustext(uint8_t severity, const char *text)
+{
+	mavlink_message_t msg;
+	uint8_t buf[MAVLINK_MAX_PACKET_LEN];
+	mavlink_msg_statustext_pack(mavlink_system.sysid, mavlink_system.compid, &msg, severity, text);
+	// Copy the message to the send buffer
+	uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
+    
+	// Send the message with the standard UART send function
+	sdWrite(&SD2, buf, len);
+	//uartStartSend(&UARTD2, len, buf);
+}
+
+
 void setup_Mavlink(void)
 {
 		global_data_reset_param_defaults();
+	
 		/*
 		* Activates the serial driver 2 using the driver default configuration.
 		* PA2(TX) and PA3(RX) are routed to USART2.
@@ -372,21 +386,22 @@ void setup_Mavlink(void)
 		//uartStart(&UARTD2, &uart_cfg_1);
 		palSetPadMode(GPIOD, 5, PAL_MODE_ALTERNATE(7));
 		palSetPadMode(GPIOD, 6, PAL_MODE_ALTERNATE(7));
-
+	
 		mavlink_system.sysid = 1;                   ///< ID 1 for this airplane
 		mavlink_system.compid = MAV_COMP_ID_ALL;     ///< The component sending the message is the IMU, it could be also a Linux process
 
 		chThdCreateStatic(waThreadRadio, sizeof(waThreadRadio), ABSPRIO, ThreadRadio, NULL);
+
 		chThdSleepMilliseconds(20);
 		chThdCreateStatic(MavlinkHeartbeatThreadWorkingArea, sizeof(MavlinkHeartbeatThreadWorkingArea), NORMALPRIO, MavlinkHeartbeatThread, NULL);
-		chThdSleepMilliseconds(20);
+		
 		chThdCreateStatic(MavlinkAttitudeThreadWorkingArea, sizeof(MavlinkAttitudeThreadWorkingArea), NORMALPRIO, MavlinkAttitudeThread, NULL);
 		chThdSleepMilliseconds(20);
 		chThdCreateStatic(MavlinkRCChannelsScaledThreadWorkingArea, sizeof(MavlinkRCChannelsScaledThreadWorkingArea), NORMALPRIO, MavlinkRCChannelsScaledThread, NULL);
 		chThdSleepMilliseconds(20);
 		chThdCreateStatic(MavlinkServoOutputThreadWorkingArea, sizeof(MavlinkServoOutputThreadWorkingArea), NORMALPRIO, MavlinkServoOutputThread, NULL); 
 		chThdSleepMilliseconds(20);
-		chThdCreateStatic(MavlinkParamlistThreadWorkingArea, sizeof(MavlinkParamlistThreadWorkingArea), NORMALPRIO, MavlinkParamlistThread, NULL); 
+		chThdCreateStatic(MavlinkParamlistThreadWorkingArea, sizeof(MavlinkParamlistThreadWorkingArea), NORMALPRIO, MavlinkParamlistThread, NULL);
 }
 
 

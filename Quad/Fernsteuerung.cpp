@@ -17,6 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "Fernsteuerung.h"
 #include "chprintf.h"
+#include "GCS.h"
+
 #define RC_IN_RANGE(x) (((x)>900 && (x)<2300))
 short RC_INPUT_CHANNELS_Offset[4] = {-1500,-1500,-1100,-1500};
 volatile unsigned short RC_INPUT_CHANNELS[4], RC_INPUT_LAST_TCNT,tmp=0;
@@ -117,6 +119,8 @@ void setup_Fernsteuerung()
 	if(EXTD1.state == EXT_ACTIVE)
 	{
     //chprintf((BaseChannel *) &SD2, "Fernsteuerung Init erfolgreich\r\n");
+		
+	send_statustext(MAV_SEVERITY_ALERT, "Fernsteuerung Initialization finished");
 		Fernsteuerung_ready_flag = TRUE;
 	}
 	else
