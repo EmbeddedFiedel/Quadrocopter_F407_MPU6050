@@ -284,7 +284,26 @@ float get_euler_yaw_soll()
 ***									Kalibrationsroutine													***
 ***					-setzt und löscht Kalibrationsmodus-								***
 ******************************************************************/
-
+void start_calib()
+{
+					palSetPad(GPIOD, GPIOD_LED4);
+					palSetPad(GPIOD, GPIOD_LED5);
+					palSetPad(GPIOD, GPIOD_LED6);
+					calibration_active = 1;
+					calibration_ready_flag = 0;
+					first_visit_roll=1;
+					first_visit_nick=1;
+					first_visit_yaw=1;
+					first_visit_schub=1;	
+}
+void stop_calib()
+{
+					palClearPad(GPIOD, GPIOD_LED4);
+					palClearPad(GPIOD, GPIOD_LED5);
+					palClearPad(GPIOD, GPIOD_LED6);
+					calibration_active = 0;
+					calibration_ready_flag = 1;	
+}
 
 void calib_interrupt(EXTDriver *extp, expchannel_t channel)
 {
