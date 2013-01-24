@@ -81,7 +81,7 @@ COMPILER_TOOL_CHAIN = vcx64
 #                            and do not build an executable
 
 MODEL                   = Regelglied
-MODULES                 = rtGetInf.cpp rtGetNaN.cpp rt_nonfinite.cpp 
+MODULES                 = rtGetInf.cpp rtGetNaN.cpp rt_nonfinite.cpp rt_zcfcn.cpp 
 MAKEFILE                = Regelglied.mk
 MATLAB_ROOT             = C:\Program Files\MATLAB\R2012a
 ALT_MATLAB_ROOT         = C:\PROGRA~1\MATLAB\R2012a

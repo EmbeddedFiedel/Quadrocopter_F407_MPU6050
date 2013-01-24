@@ -806,6 +806,11 @@
               <FileType>8</FileType>
               <FilePath>..\..\..\Quad\Input_Kennlinie_ert_rtw\Input_Kennlinie.cpp</FilePath>
             </File>
+            <File>
+              <FileName>rt_zcfcn.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\..\Quad\Regelglied_ert_rtw\rt_zcfcn.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

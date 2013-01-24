@@ -3,13 +3,13 @@
  *
  * Code generated for Simulink model 'Schubverteilung0'.
  *
- * Model version                  : 1.418
+ * Model version                  : 1.467
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Wed Jan 02 18:06:25 2013
+ * C/C++ source code generated on : Thu Jan 24 17:57:57 2013
  *
  * Target selection: ert.tlc
- * Embedded hardware selection: 32-bit Generic
+ * Embedded hardware selection: ARM Compatible->ARM Cortex
  * Code generation objectives:
  *    1. Execution efficiency
  *    2. RAM efficiency
@@ -57,13 +57,24 @@ void Schubverteilung0_step(void)
   real_T rtb_Add5;
   real_T rtb_Add6;
   real_T rtb_Add7;
+  real_T rtb_Saturation;
   real_T rtb_Gain4;
 
-  /* Gain: '<S1>/Gain4' incorporates:
+  /* Saturate: '<S1>/Saturation' incorporates:
    *  Inport: '<Root>/In_Throttle'
    */
-  rtb_Gain4 = faktor * 9.81 / 1000.0 * 418.5561064490916 *
-    Schubverteilung0_U.In_Throttle;
+  if (Schubverteilung0_U.In_Throttle >= 1.0) {
+    rtb_Saturation = 1.0;
+  } else if (Schubverteilung0_U.In_Throttle <= 0.0) {
+    rtb_Saturation = 0.0;
+  } else {
+    rtb_Saturation = Schubverteilung0_U.In_Throttle;
+  }
+
+  /* End of Saturate: '<S1>/Saturation' */
+
+  /* Gain: '<S1>/Gain4' */
+  rtb_Gain4 = faktor * 9.81 / 1000.0 * 418.5561064490916 * rtb_Saturation;
 
   /* Sum: '<S1>/Add4' incorporates:
    *  Gain: '<S1>/Gain'
@@ -78,7 +89,7 @@ void Schubverteilung0_step(void)
   /* If: '<S6>/If' incorporates:
    *  Constant: '<S19>/Constant'
    */
-  if (rtb_Gain4 >= 0.2) {
+  if (rtb_Saturation >= 0.025) {
     /* Outputs for IfAction SubSystem: '<S6>/If Action Subsystem' incorporates:
      *  ActionPort: '<S18>/Action Port'
      */
@@ -134,7 +145,7 @@ void Schubverteilung0_step(void)
   /* If: '<S7>/If' incorporates:
    *  Constant: '<S21>/Constant'
    */
-  if (rtb_Gain4 >= 0.2) {
+  if (rtb_Saturation >= 0.025) {
     /* Outputs for IfAction SubSystem: '<S7>/If Action Subsystem' incorporates:
      *  ActionPort: '<S20>/Action Port'
      */
@@ -190,7 +201,7 @@ void Schubverteilung0_step(void)
   /* If: '<S8>/If' incorporates:
    *  Constant: '<S23>/Constant'
    */
-  if (rtb_Gain4 >= 0.2) {
+  if (rtb_Saturation >= 0.025) {
     /* Outputs for IfAction SubSystem: '<S8>/If Action Subsystem' incorporates:
      *  ActionPort: '<S22>/Action Port'
      */
@@ -246,7 +257,7 @@ void Schubverteilung0_step(void)
   /* If: '<S9>/If' incorporates:
    *  Constant: '<S25>/Constant'
    */
-  if (rtb_Gain4 >= 0.2) {
+  if (rtb_Saturation >= 0.025) {
     /* Outputs for IfAction SubSystem: '<S9>/If Action Subsystem' incorporates:
      *  ActionPort: '<S24>/Action Port'
      */

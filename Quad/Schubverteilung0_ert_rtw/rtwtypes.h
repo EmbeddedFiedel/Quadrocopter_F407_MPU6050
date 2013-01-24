@@ -3,13 +3,13 @@
  *
  * Code generated for Simulink model 'Schubverteilung0'.
  *
- * Model version                  : 1.418
+ * Model version                  : 1.467
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Wed Jan 02 18:06:25 2013
+ * C/C++ source code generated on : Thu Jan 24 17:57:57 2013
  *
  * Target selection: ert.tlc
- * Embedded hardware selection: 32-bit Generic
+ * Embedded hardware selection: ARM Compatible->ARM Cortex
  * Code generation objectives:
  *    1. Execution efficiency
  *    2. RAM efficiency
@@ -32,10 +32,10 @@
 
 /*=======================================================================*
  * Target hardware information
- *   Device type: 32-bit Generic
+ *   Device type: ARM Compatible->ARM Cortex
  *   Number of bits:     char:   8    short:   16    int:  32
  *                       long:  32      native word size:  32
- *   Byte ordering: Unspecified
+ *   Byte ordering: LittleEndian
  *   Signed integer division rounds to: Undefined
  *   Shift right on a signed integer as arithmetic shift: on
  *=======================================================================*/

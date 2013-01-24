@@ -3,13 +3,13 @@
  *
  * Code generated for Simulink model 'Inverse_Propeller'.
  *
- * Model version                  : 1.418
+ * Model version                  : 1.467
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Wed Jan 02 18:07:04 2013
+ * C/C++ source code generated on : Thu Jan 24 17:48:25 2013
  *
  * Target selection: ert.tlc
- * Embedded hardware selection: 32-bit Generic
+ * Embedded hardware selection: ARM Compatible->ARM Cortex
  * Code generation objectives:
  *    1. Execution efficiency
  *    2. RAM efficiency

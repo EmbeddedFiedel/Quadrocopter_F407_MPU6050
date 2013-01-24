@@ -12,7 +12,7 @@
 //Init Models
 void init_regler_X(){
 	//Zur Parametrierung
-	Input_Kennlinie_initialize();
+	//Input_Kennlinie_initialize();
 	//normale Inits
 	Regelglied_initialize();
 	Schubverteilung0_initialize();
@@ -24,6 +24,11 @@ void step_regler_X(){
 	static boolean_T OverrunFlag = FALSE;
 	  /* Check for overrun */
 	if (OverrunFlag) {
+		
+		setMotor_1(0.0);
+		setMotor_2(0.0);
+		setMotor_3(0.0);
+		setMotor_4(0.0);
 		return;
 	}
 
@@ -46,6 +51,10 @@ void step_regler_X(){
 	Regelglied_U.In_Ist_V_Roll=get_rate_roll_ist();
 	Regelglied_U.In_Ist_V_Nick=get_rate_nick_ist();
 
+	//Gas setzen für Regler und Schubkraftverteilung
+  Regelglied_U.Throttle=get_schub_soll()/0.68;
+	Schubverteilung0_U.In_Throttle=get_schub_soll()/0.68;
+	
 	//Step Regler
 	Regelglied_step();
 
@@ -53,7 +62,7 @@ void step_regler_X(){
 	Schubverteilung0_U.In_M_Roll=Regelglied_Y.Out_M_Roll;
 	Schubverteilung0_U.In_M_Nick=Regelglied_Y.Out_M_Nick;
 	Schubverteilung0_U.In_M_Gier=Regelglied_Y.Out_M_Gier;	
-	Schubverteilung0_U.In_Throttle=get_schub_soll()/0.68;
+	
 
 	//Step Schubkraftverteilung
 	Schubverteilung0_step();
