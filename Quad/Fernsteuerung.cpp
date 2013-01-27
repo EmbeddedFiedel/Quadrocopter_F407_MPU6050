@@ -48,10 +48,7 @@ uint16_t first_visit_roll = 1,  first_visit_nick=1, first_visit_yaw=1,first_visi
 uint16_t calibration_active=0, calibration_ready_flag=0;
 uint16_t timer_finish=1;
 
-static const GPTConfig gpt2cfg = {
-  10000,    /* 10kHz timer clock.*/
-  gpt2cb    /* Timer callback.*/
-};
+static struct VirtualTimer vt;
 /*
  *  _____       _                             _
  * |_   _|     | |                           | |
@@ -224,9 +221,8 @@ void setup_Fernsteuerung()
     chprintf((BaseChannel *) &SD2, "Fernsteuerung Init failed, ExtInt nicht konfiguriert\r\n");
 	}
 	/*
-	* Einstellungen für Kalibration
+	* Einstellungen fuer Kalibration
 	*/
-	gptStart(&GPTD2, &gpt2cfg);
 }
 
 float get_euler_nick_soll() 
@@ -261,7 +257,7 @@ float get_euler_yaw_soll()
 /******************************************************************
 ***																															***
 ***									Kalibrationsroutine													***
-***					-setzt und löscht Kalibrationsmodus-								***
+***					-setzt und loescht Kalibrationsmodus-								***
 ******************************************************************/
 
 
@@ -292,7 +288,7 @@ void calib_interrupt(EXTDriver *extp, expchannel_t channel)
 				}
 				on_off = on_off== 1 ? 0 : 1 ;	
 				timer_finish=0;
-				gptStartOneShot(&GPTD2,7000);
+				chVTSetI(&vt,MS2ST(700),timer_handler,0);
 	}
 }
 
@@ -302,7 +298,9 @@ void calib_interrupt(EXTDriver *extp, expchannel_t channel)
 ***									Timerroutine																***
 ***					-setzt Variable timer_finish-												***
 ******************************************************************/
-static void gpt2cb(GPTDriver *gptp) 
+
+void timer_handler(void *arg)
 {
 	timer_finish=1;
 }
+

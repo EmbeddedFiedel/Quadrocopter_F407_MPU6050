@@ -17,3 +17,4 @@ void calib_interrupt(EXTDriver *extp, expchannel_t channel);
 
 
 static void gpt2cb(GPTDriver *gptp);
+void timer_handler(void *arg);
