@@ -209,8 +209,13 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
+<<<<<<< HEAD
       <TopLine>71</TopLine>
       <CurrentLine>78</CurrentLine>
+=======
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
+>>>>>>> 066c5d9... Virtueller Timer für Entprellung implementiert
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\ports\RVCT\ARMCMx\cstartup.s</PathWithFileName>
       <FilenameWithoutPath>cstartup.s</FilenameWithoutPath>
@@ -583,10 +588,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>51</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>75</TopLine>
+      <CurrentLine>77</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\kernel\src\chvt.c</PathWithFileName>
       <FilenameWithoutPath>chvt.c</FilenameWithoutPath>
@@ -783,10 +788,17 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
+<<<<<<< HEAD
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
+=======
+      <ColumnNumber>43</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>89</TopLine>
+      <CurrentLine>94</CurrentLine>
+>>>>>>> 066c5d9... Virtueller Timer für Entprellung implementiert
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\hal\src\gpt.c</PathWithFileName>
       <FilenameWithoutPath>gpt.c</FilenameWithoutPath>
@@ -921,8 +933,13 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
+<<<<<<< HEAD
       <TopLine>889</TopLine>
       <CurrentLine>896</CurrentLine>
+=======
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
+>>>>>>> 066c5d9... Virtueller Timer für Entprellung implementiert
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\hal\platforms\STM32\i2c_lld.c</PathWithFileName>
       <FilenameWithoutPath>i2c_lld.c</FilenameWithoutPath>
@@ -935,10 +952,15 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>40</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
+<<<<<<< HEAD
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
+=======
+      <TopLine>9</TopLine>
+      <CurrentLine>10</CurrentLine>
+>>>>>>> 066c5d9... Virtueller Timer für Entprellung implementiert
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\hal\platforms\STM32F4xx\gpt_lld.c</PathWithFileName>
       <FilenameWithoutPath>gpt_lld.c</FilenameWithoutPath>
@@ -1161,8 +1183,13 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
+<<<<<<< HEAD
       <TopLine>47</TopLine>
       <CurrentLine>69</CurrentLine>
+=======
+      <TopLine>74</TopLine>
+      <CurrentLine>92</CurrentLine>
+>>>>>>> 066c5d9... Virtueller Timer für Entprellung implementiert
       <bDave2>0</bDave2>
       <PathWithFileName>..\main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
@@ -1269,12 +1296,17 @@
       <GroupNumber>9</GroupNumber>
       <FileNumber>65</FileNumber>
       <FileType>8</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>49</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
+<<<<<<< HEAD
       <TopLine>288</TopLine>
       <CurrentLine>289</CurrentLine>
+=======
+      <TopLine>63</TopLine>
+      <CurrentLine>291</CurrentLine>
+>>>>>>> 066c5d9... Virtueller Timer für Entprellung implementiert
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\Quad\Fernsteuerung.cpp</PathWithFileName>
       <FilenameWithoutPath>Fernsteuerung.cpp</FilenameWithoutPath>
@@ -1337,8 +1369,13 @@
       <Focus>0</Focus>
       <ColumnNumber>70</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
+<<<<<<< HEAD
       <TopLine>6</TopLine>
       <CurrentLine>10</CurrentLine>
+=======
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
+>>>>>>> 066c5d9... Virtueller Timer für Entprellung implementiert
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\Quad\ExternalInterrupt.cpp</PathWithFileName>
       <FilenameWithoutPath>ExternalInterrupt.cpp</FilenameWithoutPath>

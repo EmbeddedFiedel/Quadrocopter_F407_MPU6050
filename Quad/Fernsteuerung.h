@@ -24,3 +24,4 @@ void stop_calib();
 
 
 static void gpt2cb(GPTDriver *gptp);
+void timer_handler(void *arg);
