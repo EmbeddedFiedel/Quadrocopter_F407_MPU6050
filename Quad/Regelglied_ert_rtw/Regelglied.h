@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'Regelglied'.
  *
- * Model version                  : 1.467
+ * Model version                  : 1.487
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Thu Jan 24 17:57:01 2013
+ * C/C++ source code generated on : Tue Jan 29 15:39:01 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -24,7 +24,6 @@
 #include "rtwtypes.h"
 #include "rtw_continuous.h"
 #include "rtw_solver.h"
-#include "rt_nonfinite.h"
 #include "rt_zcfcn.h"
 #endif                                 /* Regelglied_COMMON_INCLUDES_ */
 
@@ -57,78 +56,58 @@
 
 /* Block signals (auto storage) */
 typedef struct {
+  real_T Gain;                         /* '<S1>/Gain' */
+  real_T Gain2;                        /* '<S1>/Gain2' */
+  real_T Gain1;                        /* '<S1>/Gain1' */
+  real_T Gain3;                        /* '<S1>/Gain3' */
   real_T Merge;                        /* '<S8>/Merge' */
-  real_T Gain1;                        /* '<S6>/Gain1' */
+  real_T Gain1_d;                      /* '<S6>/Gain1' */
   real_T Gain1_m;                      /* '<S7>/Gain1' */
 } BlockIO_Regelglied;
 
 /* Block states (auto storage) for system '<Root>' */
 typedef struct {
-  struct {
-    real_T TimeStampA;
-    real_T LastUAtTimeA;
-    real_T TimeStampB;
-    real_T LastUAtTimeB;
-  } Derivative2_RWORK;                 /* '<S1>/Derivative2' */
-
-  struct {
-    real_T TimeStampA;
-    real_T LastUAtTimeA;
-    real_T TimeStampB;
-    real_T LastUAtTimeB;
-  } Derivative_RWORK;                  /* '<S1>/Derivative' */
-
-  struct {
-    real_T TimeStampA;
-    real_T LastUAtTimeA;
-    real_T TimeStampB;
-    real_T LastUAtTimeB;
-  } Derivative1_RWORK;                 /* '<S1>/Derivative1' */
-
-  struct {
-    real_T TimeStampA;
-    real_T LastUAtTimeA;
-    real_T TimeStampB;
-    real_T LastUAtTimeB;
-  } Derivative3_RWORK;                 /* '<S1>/Derivative3' */
-
-  struct {
-    real_T TimeStampA;
-    real_T LastUAtTimeA;
-    real_T TimeStampB;
-    real_T LastUAtTimeB;
-  } Derivative5_RWORK;                 /* '<S1>/Derivative5' */
-
-  struct {
-    real_T TimeStampA;
-    real_T LastUAtTimeA;
-    real_T TimeStampB;
-    real_T LastUAtTimeB;
-  } Derivative4_RWORK;                 /* '<S1>/Derivative4' */
-
   int8_T If_ActiveSubsystem;           /* '<S8>/If' */
 } D_Work_Regelglied;
 
 /* Continuous states (auto storage) */
 typedef struct {
+  real_T DAnteil_CSTATE;               /* '<S1>/D-Anteil' */
+  real_T DAnteil2_CSTATE;              /* '<S1>/D-Anteil2' */
+  real_T DAnteil4_CSTATE;              /* '<S1>/D-Anteil4' */
+  real_T DAnteil1_CSTATE;              /* '<S1>/D-Anteil1' */
+  real_T DAnteil3_CSTATE;              /* '<S1>/D-Anteil3' */
+  real_T DAnteil5_CSTATE;              /* '<S1>/D-Anteil5' */
   real_T Integrator_CSTATE;            /* '<S6>/Integrator' */
-  real_T DAnteil_CSTATE;               /* '<S6>/D-Anteil' */
+  real_T DAnteil_CSTATE_p;             /* '<S6>/D-Anteil' */
   real_T Integrator_CSTATE_p;          /* '<S7>/Integrator' */
   real_T DAnteil_CSTATE_n;             /* '<S7>/D-Anteil' */
 } ContinuousStates_Regelglied;
 
 /* State derivatives (auto storage) */
 typedef struct {
+  real_T DAnteil_CSTATE;               /* '<S1>/D-Anteil' */
+  real_T DAnteil2_CSTATE;              /* '<S1>/D-Anteil2' */
+  real_T DAnteil4_CSTATE;              /* '<S1>/D-Anteil4' */
+  real_T DAnteil1_CSTATE;              /* '<S1>/D-Anteil1' */
+  real_T DAnteil3_CSTATE;              /* '<S1>/D-Anteil3' */
+  real_T DAnteil5_CSTATE;              /* '<S1>/D-Anteil5' */
   real_T Integrator_CSTATE;            /* '<S6>/Integrator' */
-  real_T DAnteil_CSTATE;               /* '<S6>/D-Anteil' */
+  real_T DAnteil_CSTATE_p;             /* '<S6>/D-Anteil' */
   real_T Integrator_CSTATE_p;          /* '<S7>/Integrator' */
   real_T DAnteil_CSTATE_n;             /* '<S7>/D-Anteil' */
 } StateDerivatives_Regelglied;
 
 /* State disabled  */
 typedef struct {
+  boolean_T DAnteil_CSTATE;            /* '<S1>/D-Anteil' */
+  boolean_T DAnteil2_CSTATE;           /* '<S1>/D-Anteil2' */
+  boolean_T DAnteil4_CSTATE;           /* '<S1>/D-Anteil4' */
+  boolean_T DAnteil1_CSTATE;           /* '<S1>/D-Anteil1' */
+  boolean_T DAnteil3_CSTATE;           /* '<S1>/D-Anteil3' */
+  boolean_T DAnteil5_CSTATE;           /* '<S1>/D-Anteil5' */
   boolean_T Integrator_CSTATE;         /* '<S6>/Integrator' */
-  boolean_T DAnteil_CSTATE;            /* '<S6>/D-Anteil' */
+  boolean_T DAnteil_CSTATE_p;          /* '<S6>/D-Anteil' */
   boolean_T Integrator_CSTATE_p;       /* '<S7>/Integrator' */
   boolean_T DAnteil_CSTATE_n;          /* '<S7>/D-Anteil' */
 } StateDisabled_Regelglied;
@@ -187,8 +166,8 @@ struct RT_MODEL_Regelglied {
     boolean_T zCCacheNeedsReset;
     boolean_T derivCacheNeedsReset;
     boolean_T blkStateChange;
-    real_T odeY[4];
-    real_T odeF[3][4];
+    real_T odeY[10];
+    real_T odeF[3][10];
     ODE3_IntgData intgData;
   } ModelData;
 
@@ -265,22 +244,22 @@ extern "C" {
  * these signals and export their symbols.
  *
  */
+extern real_T Soll_V_Roll;             /* '<S1>/D-Anteil' */
+extern real_T Soll_a_Roll;             /* '<S1>/D-Anteil2' */
+extern real_T Xd_V_Roll;               /* '<S1>/Add1' */
+extern real_T Ist_a_Roll;              /* '<S1>/D-Anteil4' */
+extern real_T Xd_a_Roll;               /* '<S1>/Add2' */
+extern real_T Soll_V_Nick;             /* '<S1>/D-Anteil1' */
+extern real_T Soll_a_Nick;             /* '<S1>/D-Anteil3' */
+extern real_T Ist_a_Nick;              /* '<S1>/D-Anteil5' */
+extern real_T Xd_a_Nick;               /* '<S1>/Add5' */
 extern real_T Xd_Roll;                 /* '<S1>/Add' */
+extern real_T Xd_Nick;                 /* '<S1>/Add3' */
 extern real_T p_anteil;                /* '<S6>/Gain' */
 extern real_T i_anteil;                /* '<S6>/Integrator' */
 extern real_T d_anteil;                /* '<S6>/D-Anteil' */
 extern real_T Y_roll;                  /* '<S6>/Add' */
-extern real_T Xd_V_Roll;               /* '<S1>/Add1' */
-extern real_T Xd_a_Roll;               /* '<S1>/Add2' */
-extern real_T Soll_V_Nick;             /* '<S1>/Derivative2' */
-extern real_T Xd_Nick;                 /* '<S1>/Add3' */
 extern real_T Y_Nick;                  /* '<S7>/Add' */
-extern real_T Xd_a_Nick;               /* '<S1>/Add5' */
-extern real_T Soll_V_Roll;             /* '<S1>/Derivative' */
-extern real_T Soll_a_Roll;             /* '<S1>/Derivative1' */
-extern real_T Soll_a_Nick;             /* '<S1>/Derivative3' */
-extern real_T Ist_a_Nick;              /* '<S1>/Derivative5' */
-extern real_T Ist_a_Roll;              /* '<S1>/Derivative4' */
 
 /*
  * Exported Global Parameters
@@ -290,6 +269,16 @@ extern real_T Ist_a_Roll;              /* '<S1>/Derivative4' */
  * these parameters and exports their symbols.
  *
  */
+extern real_T gain_d_soll_a;           /* Variable: gain_d_soll_a
+                                        * Referenced by:
+                                        *   '<S1>/Gain2'
+                                        *   '<S1>/Gain3'
+                                        */
+extern real_T gain_d_soll_v;           /* Variable: gain_d_soll_v
+                                        * Referenced by:
+                                        *   '<S1>/Gain'
+                                        *   '<S1>/Gain1'
+                                        */
 extern real_T kp_a_nick;               /* Variable: kp_a_nick
                                         * Referenced by: '<S2>/Gain'
                                         */

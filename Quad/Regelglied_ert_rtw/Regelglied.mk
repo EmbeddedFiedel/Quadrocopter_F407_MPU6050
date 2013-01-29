@@ -81,7 +81,7 @@ COMPILER_TOOL_CHAIN = vcx64
 #                            and do not build an executable
 
 MODEL                   = Regelglied
-MODULES                 = rtGetInf.cpp rtGetNaN.cpp rt_nonfinite.cpp rt_zcfcn.cpp 
+MODULES                 = rt_zcfcn.cpp 
 MAKEFILE                = Regelglied.mk
 MATLAB_ROOT             = C:\Program Files\MATLAB\R2012a
 ALT_MATLAB_ROOT         = C:\PROGRA~1\MATLAB\R2012a
@@ -92,7 +92,7 @@ START_DIR               = D:\Dokumente\Studium\studienarbeit_1\regelung
 S_FUNCTIONS             = 
 S_FUNCTIONS_LIB         = 
 NUMST                   = 2
-NCSTATES                = 4
+NCSTATES                = 10
 BUILDARGS               =  GENERATE_REPORT=0 GENERATE_ASAP2=0 OPTS="-DTID01EQ=1"
 MULTITASKING            = 0
 INTEGER_CODE            = 0
