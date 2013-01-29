@@ -52,6 +52,9 @@ float ei_Roll_alt = 0;
 float ea_Roll = 0;
 float Soll_v_Roll = 0;
 float aRoll; 
+float Roll_counter = 0; 
+float Roll_v_min = 0; 
+float Roll_v_max = 0; 
 
 float v_Yaw_tp1 = 0;   	
 float v_Yaw_tp1_alt = 0;
@@ -106,7 +109,7 @@ static msg_t RegelungSyncthread(void *arg)
 				}
 				else if(rc_datalog != FR_OK)
 				{
-					//chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: f_open() failed %d\r\n", rc_datalog);
+					chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: f_open() failed %d\r\n", rc_datalog);
 					chThdSleepMilliseconds(10);
 				}
 				else
@@ -115,12 +118,12 @@ static msg_t RegelungSyncthread(void *arg)
 					rc_datalog = f_sync(&Fil_regelung);	
 					if(rc_datalog != FR_OK)
 					{
-						//chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: initial f_sync() failed %d\r\n", rc_datalog);
+						chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: initial f_sync() failed %d\r\n", rc_datalog);
 						chThdSleepMilliseconds(10);
 					}	
 					else
 					{
-						//chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: opened successfull\r\n");
+						chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: opened successfull\r\n");
 						chThdSleepMilliseconds(10);
 						datalog_regelung_opened = TRUE;	
 					}
@@ -133,11 +136,11 @@ static msg_t RegelungSyncthread(void *arg)
 			rc_datalog = f_sync(&Fil_regelung);
 			if(rc_datalog != FR_OK)
 			{
-				//chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: datalog f_sync() failed %d\r\n", rc_datalog);
+				chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: datalog f_sync() failed %d\r\n", rc_datalog);
 			}	
 			else
 			{
-				//chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: datalog f_sync() succeeded\r\n");
+				chprintf((BaseChannel *) &SD2, "SD Quadregelung.TXT: datalog f_sync() succeeded\r\n");
 			}
 			datalog_regelung_syncing = 0;
 			chThdSleepMilliseconds(1000);
@@ -163,7 +166,7 @@ static msg_t RegelungPrintthread(void *arg)
 		if(readcounter!=writecounter && Datalogger_ready() && datalog_regelung_opened && datalog_regelung_syncing==0)
 		{
 			systime_t time = chTimeNow();     // Tnow
-			//chprintf((BaseChannel *) &SD2, "Printing:%d\r\n",time);
+			chprintf((BaseChannel *) &SD2, "Printing:%d\r\n",time);
 			f_printf(&Fil_regelung, "%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d\r\n",
 							regelung_timebuffer[readcounter],
 							regelung_databuffer[readcounter][0],
@@ -269,9 +272,11 @@ void Regelung(void)
 	inRollSollLage = get_euler_roll_soll();
 	inYawSollLage  = 0;
 	
-	inYawIstLage = get_euler_yaw_ist();
-	inNickIstLage = get_euler_nick_ist();
-	inRollIstLage = get_euler_roll_ist();
+	v_Roll_tp1 = ((get_ypr_roll_ist() - inRollIstLage)*100)*0.05+v_Roll_tp1*0.95; 
+
+	inYawIstLage = get_ypr_yaw_ist();
+	inNickIstLage = get_ypr_nick_ist();
+	inRollIstLage = get_ypr_roll_ist();
 		 
 	inRollIstV = get_rate_roll_ist();
 	inNickIstV = get_rate_nick_ist();
@@ -293,7 +298,7 @@ void Regelung(void)
    if(inSchub > 0.1 && inSchub <=1 /*&& inNickIstLage < 0.5 && inNickIstLage > -0.5*/)
    	ii_Nick = 0.08 * ei_Nick + ii_Nick;	//I-Anteil nur nahe der Nulllage ver�ndern 
 
-   di_Nick = (ei_Nick - ei_Nick_alt)*10; //d-Anteil  
+   di_Nick = ((ei_Nick - ei_Nick_alt)*10*0.1)+di_Nick*0.9; //d-Anteil  
    if (di_Nick > 1.5)
 	   di_Nick = 1.5;
    else if(di_Nick < -1.5)
@@ -303,50 +308,26 @@ void Regelung(void)
 
 	/////////////////////////// Roll-Regler berechnen ////////////////////////////////////////// 
 
-   /*ea_Roll = (inRollSollLage) - (inRollIstLage+0.08*inRollIstV);  // Eingang in den �u�eren Regler
-   if(inSchub > 0.1 && inSchub <=1 && inRollIstLage < 0.2 && inRollIstLage > -0.2)
-   	ia_Roll = 0.01 * ea_Roll + ia_Roll;	//I-Anteil nur nahe der Nulllage ver�ndern  
-   Soll_v_Roll = ea_Roll*2 + ia_Roll*0.02; //Sollgeschwindigkeit des �u�eren Reglers
-   //Soll_v_Roll = inRollSollLage;
 
-   //innerer Regler
-   v_Roll_tp1 = 0.95*v_Roll_tp1 + 0.05*inRollIstV; // Tiefpass-gefilterter Gyrowert
-   ei_Roll= Soll_v_Roll - v_Roll_tp1;	//Eingang in die innere Regelung
-   pi_Roll = ei_Roll * 0.5;	//p-Anteil
-   if(inSchub > 0.1 && inSchub <=1 && inRollIstLage < 0.2 && inRollIstLage > -0.2)
-   	ii_Roll = 0.1 * ei_Roll + ii_Roll;	//I-Anteil nur nahe der Nulllage ver�ndern 
+   ea_Roll = (inRollSollLage) - (inRollIstLage); //Reglereingang
+   ei_Roll = ea_Roll;
 
-   di_Roll = (ei_Roll - ei_Roll_alt)*20; //d-Anteil  
-   if (di_Roll > 1.5)
-	   di_Roll = 1.5;
-   else if(di_Roll < -1.5)
-	   di_Roll = -1.5;	  //Saturierung des D-Anteils
+   pi_Roll = ei_Roll * 0.7;					//P-Regler
+   di_Roll = (ei_Roll - ei_Roll_alt)*40;	//D-Regler	
+   if(inSchub > 0.1)
+   	ii_Roll = 0.05 * ei_Roll + ii_Roll;		//I-Regler
 
-   aRoll = (pi_Roll + (ii_Roll+37)*0.02 + di_Roll)*567; //Ausgang des inneren Reglers		 
+   if (di_Roll > 2)							//Saturierung D
+	   di_Roll = 2;
+   else if(di_Roll < -2)
+	   di_Roll = -2;		  
 
-	ea_Roll = (inRollSollLage) - (inRollIstLage+0.08*inRollIstV);  // Eingang in den �u�eren Regler
-   if(inSchub > 0.1 && inSchub <=1 && inRollIstLage < 0.2 && inRollIstLage > -0.2)
-   	ia_Roll = 0.01 * ea_Roll + ia_Roll;	//I-Anteil nur nahe der Nulllage ver�ndern  
-   Soll_v_Roll = ea_Roll*2 + ia_Roll*0.02; //Sollgeschwindigkeit des �u�eren Reglers
-   Soll_v_Roll = inRollSollLage;
+   if (ii_Roll > 2)							//Saturierung I
+	   ii_Roll = 2;
+   else if(ii_Roll < -2)
+	   ii_Roll = -2;
 
-   //innerer Regler
-   v_Roll_tp1 = 0.95*v_Roll_tp1 + 0.05*inRollIstV; // Tiefpass-gefilterter Gyrowert
-   ei_Roll= Soll_v_Roll - v_Roll_tp1;	//Eingang in die innere Regelung
-   pi_Roll = ei_Roll * 0.1;	//p-Anteil
-   if(inSchub > 0.1 && inSchub <=1 /*&& inRollIstLage < 0.2 && inRollIstLage > -0.2)
-   	ii_Roll = 0.01 * ei_Roll + ii_Roll;	//I-Anteil nur nahe der Nulllage ver�ndern 
-
-
-   di_Roll = (ei_Roll - ei_Roll_alt)*10; //d-Anteil  
-   if (di_Roll > 1.5)
-	   di_Roll = 1.5;
-   else if(di_Roll < -1.5)
-	   di_Roll = -1.5;	  //Saturierung des D-Anteils
-
-   aRoll = (pi_Roll + (ii_Roll)*0.005 + di_Roll)*567; //Ausgang des inneren Reglers	 */
-
-   aRoll = ((inRollSollLage) - (inRollIstLage))*567*-0.5;
+   aRoll = 	(pi_Roll + (ii_Roll)*0.1 + di_Roll)*567;
 
 	/////////////////////////// Yaw-Regler berechnen ////////////////////////////////////////// 
 
