@@ -74,6 +74,16 @@ volatile unsigned short tmp111;
 #include "chprintf.h"
 #include "Datalogger.h"
 #include "ff.h"
+#include "GCS.h"
+
+float param_roll_p;	 
+float param_roll_d;
+float param_roll_i_dyn;
+float param_roll_i_gain;
+
+
+
+extern struct global_struct global_data;
 
 	uint32_t regelung_timebuffer[50];
 	int regelung_databuffer[50][38];
@@ -309,25 +319,29 @@ void Regelung(void)
 	/////////////////////////// Roll-Regler berechnen ////////////////////////////////////////// 
 
 
+      param_roll_p = global_data.param[0];	 
+   param_roll_d = global_data.param[1];
+   param_roll_i_dyn = global_data.param[2];
+   param_roll_i_gain = global_data.param[3];
    ea_Roll = (inRollSollLage) - (inRollIstLage); //Reglereingang
    ei_Roll = ea_Roll;
 
-   pi_Roll = ei_Roll * 0.7;					//P-Regler
-   di_Roll = (ei_Roll - ei_Roll_alt)*40;	//D-Regler	
+   pi_Roll = ei_Roll * 0.7;			param_roll_p;					//P-Regler
+   di_Roll = (ei_Roll - ei_Roll_alt)*param_roll_d;	//D-Regler	
    if(inSchub > 0.1)
-   	ii_Roll = 0.05 * ei_Roll + ii_Roll;		//I-Regler
+   	ii_Roll = param_roll_i_dyn * ei_Roll + ii_Roll;		//I-Regler
 
-   if (di_Roll > 2)							//Saturierung D
-	   di_Roll = 2;
-   else if(di_Roll < -2)
-	   di_Roll = -2;		  
+  if (di_Roll > 5)							//Saturierung D
+	   di_Roll = 5;
+   else if(di_Roll < -5)
+	   di_Roll = -5;		  
 
-   if (ii_Roll > 2)							//Saturierung I
-	   ii_Roll = 2;
-   else if(ii_Roll < -2)
-	   ii_Roll = -2;
+   if (ii_Roll > 4)							//Saturierung I
+	   ii_Roll = 4;
+   else if(ii_Roll < -4)
+	   ii_Roll = -4;
 
-   aRoll = 	(pi_Roll + (ii_Roll)*0.1 + di_Roll)*567;
+   aRoll = (pi_Roll + (ii_Roll)*param_roll_i_gain;
 
 	/////////////////////////// Yaw-Regler berechnen ////////////////////////////////////////// 
 

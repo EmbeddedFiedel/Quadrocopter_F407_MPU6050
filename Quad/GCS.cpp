@@ -4,17 +4,9 @@
 #include "Motoren.h"
 
 
-#define ONBOARD_PARAM_COUNT 5
-#define ONBOARD_PARAM_NAME_LENGTH 10
  
 mavlink_system_t mavlink_system;
 
-struct global_struct
-{
-	float param[ONBOARD_PARAM_COUNT];
-	char param_name[ONBOARD_PARAM_COUNT][MAVLINK_MSG_PARAM_SET_FIELD_PARAM_ID_LEN];
-};
- 
 struct global_struct global_data;
  
 /**
@@ -23,13 +15,13 @@ struct global_struct global_data;
  */
 static inline void global_data_reset_param_defaults(void)
 {
-	global_data.param[0] = 0;
+	global_data.param[0] = 0.7;
 	strcpy(global_data.param_name[0], "KB0");
-		global_data.param[1] = 1;
+		global_data.param[1] = 40;
 	strcpy(global_data.param_name[1], "KB1");
-		global_data.param[2] = 2;
+		global_data.param[2] = 0.05;
 	strcpy(global_data.param_name[2], "KB2");
-		global_data.param[3] = 3;
+		global_data.param[3] = 0.1;
 	strcpy(global_data.param_name[3], "KB3");
 		global_data.param[4] = 4;
 	strcpy(global_data.param_name[4], "KB4");

@@ -7,7 +7,7 @@
  */
 static PWMConfig pwmcfg_esc = {
   1000000,                                    /* 10kHz PWM clock frequency.   */
-  20000,                                    /* PWM period 20ms (in ticks).    */
+  5000,                                    /* PWM period 20ms (in ticks).    */
   NULL,
   {
     {PWM_OUTPUT_ACTIVE_HIGH, NULL},

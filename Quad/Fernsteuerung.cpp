@@ -255,15 +255,18 @@ float get_euler_nick_soll()
 }
 float get_euler_roll_soll() 
 {
-	if(Fernsteuerung_ready_flag && calibration_ready_flag && !calibration_active) 
-		return RC_INPUT_CHANNELS[0] > rc_roll_null ? max_roll/(rc_roll_max-rc_roll_null)*(RC_INPUT_CHANNELS[0]-rc_roll_null) :  \
-		max_roll/(rc_roll_null-rc_roll_min)*(RC_INPUT_CHANNELS[0]-rc_roll_null) ;
+	if(Fernsteuerung_ready_flag) return((float(RC_INPUT_CHANNELS[0]) + RC_INPUT_CHANNELS_Offset[0])/1000);
 	else return 0;
 }
-float get_schub_soll() 
+/*float get_schub_soll() 
 {
 	if(Fernsteuerung_ready_flag && calibration_ready_flag && !calibration_active) 
 		return  max_schub/(rc_schub_max-rc_schub_null)*(RC_INPUT_CHANNELS[2]-rc_schub_null);
+	else return 0;
+} */
+float get_schub_soll() 
+{
+	if(Fernsteuerung_ready_flag) return((float(RC_INPUT_CHANNELS[2]) + RC_INPUT_CHANNELS_Offset[2])/1000);
 	else return 0;
 }
 float get_euler_yaw_soll() 
