@@ -86,9 +86,9 @@ void step_regler_X(){
 // 	setMotor_1(0.0);
 // 	setMotor_2(0.2);
 // 	setMotor_2(0.0);
-// 	setMotor_3(0.2);
+// 	setMotor_3(0.22);
 // 	setMotor_3(0.0);
-// 	setMotor_4(0.2);
+// 	setMotor_4(0.22);
 // 	setMotor_4(0.0);
 
 	/* Indicate task complete */

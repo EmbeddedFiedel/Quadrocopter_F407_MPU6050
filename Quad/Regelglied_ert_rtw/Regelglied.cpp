@@ -38,16 +38,16 @@ real_T Ist_a_Nick;                     /* '<S1>/Derivative5' */
 real_T Ist_a_Roll;                     /* '<S1>/Derivative4' */
 
 /* Exported block parameters */
-real_T kp_a_nick = 1.0;                /* Variable: kp_a_nick
+real_T kp_a_nick = 0;                /* Variable: kp_a_nick
                                         * Referenced by: '<S2>/Gain'
                                         */
 real_T kp_a_roll = 1.0;                /* Variable: kp_a_roll
                                         * Referenced by: '<S4>/Gain'
                                         */
-real_T kp_nick = 5.5;                  /* Variable: kp_nick
+real_T kp_nick = 4.5;                  /* Variable: kp_nick
                                         * Referenced by: '<S7>/Gain'
                                         */
-real_T kp_roll = 5.5;                  /* Variable: kp_roll
+real_T kp_roll = 4.5;                  /* Variable: kp_roll
                                         * Referenced by: '<S6>/Gain'
                                         */
 real_T kp_v_nick = 0.2;                /* Variable: kp_v_nick
@@ -56,10 +56,10 @@ real_T kp_v_nick = 0.2;                /* Variable: kp_v_nick
 real_T kp_v_roll = 0.2;                /* Variable: kp_v_roll
                                         * Referenced by: '<S5>/Gain'
                                         */
-real_T tn_nick = 7.5;                  /* Variable: tn_nick
+real_T tn_nick = 4.0;                  /* Variable: tn_nick
                                         * Referenced by: '<S7>/Gain1'
                                         */
-real_T tn_roll = 7.5;                  /* Variable: tn_roll
+real_T tn_roll = 4.0;                  /* Variable: tn_roll
                                         * Referenced by: '<S6>/Gain1'
                                         */
 

@@ -105,6 +105,20 @@ static msg_t RegelungSyncthread(void *arg)
 				if(rc_datalog == FR_EXIST)
 				{
 					fileName[7]++;
+// 					if((int)fileName[9]<9){
+// 					fileName[9]++;
+// 					}
+// 					else{
+// 						fileName[9]=0;
+// 						if((int)fileName[8]<9){
+// 						fileName[8]++;
+// 						}
+// 						else{
+// 						fileName[8]=0;
+// 						fileName[7]++;
+// 						}
+// 					}
+					
 				}
 				else if(rc_datalog != FR_OK)
 				{
@@ -113,7 +127,7 @@ static msg_t RegelungSyncthread(void *arg)
 				}
 				else
 				{
-					f_printf(&Fil_regelung, "Time_regelung;In_Throttle;In_Soll_Nick;In_Soll_Roll;In_Soll_Gier;In_Ist_Nick;In_Ist_Roll;In_Ist_Gier;In_Ist_V_Nick;In_Ist_V_Roll;Out_M_Roll;Out_M_Nick;Out_M_Gier;Out_F_A;Out_F_B;Out_F_C;Out_F_D;Out_n_A;Out_n_B;Out_n_C;Out_n_D;Soll_V_Roll;Xd_Roll;p_anteil;i_anteil;d_anteil;Y_roll;Xd_V_Roll;Ist_a_Roll;Xd_a_Roll;Soll_V_Nick;Soll_a_Nick;Xd_Nick;Y_Nick;Ist_a_Nick;Xd_a_Nick;get_ypr_nick_ist;get_ypr_roll_ist;get_ypr_yaw_ist;Soll_a_Roll\r\n");	
+					f_printf(&Fil_regelung, "Parameter: kp_a_nick = %d, kp_a_roll = %d, kp_nick = %d, kp_roll = %d, kp_v_nick = %d, kp_v_roll = %d, tn_nick = %d, tn_roll = %d \r\nTime_regelung;In_Throttle;In_Soll_Nick;In_Soll_Roll;In_Soll_Gier;In_Ist_Nick;In_Ist_Roll;In_Ist_Gier;In_Ist_V_Nick;In_Ist_V_Roll;Out_M_Roll;Out_M_Nick;Out_M_Gier;Out_F_A;Out_F_B;Out_F_C;Out_F_D;Out_n_A;Out_n_B;Out_n_C;Out_n_D;Soll_V_Roll;Xd_Roll;p_anteil;i_anteil;d_anteil;Y_roll;Xd_V_Roll;Ist_a_Roll;Xd_a_Roll;Soll_V_Nick;Soll_a_Nick;Xd_Nick;Y_Nick;Ist_a_Nick;Xd_a_Nick;get_ypr_nick_ist;get_ypr_roll_ist;get_ypr_yaw_ist;Soll_a_Roll\r\n", (long int)(kp_a_nick*10000) , (long int)(kp_a_roll*10000), (long int)(kp_nick*10000), (long int)(kp_roll*10000), (long int)(kp_v_nick*10000), (long int)(kp_v_roll*10000), (long int)(tn_nick*10000), (long int)(tn_roll*10000));	
 					rc_datalog = f_sync(&Fil_regelung);	
 					if(rc_datalog != FR_OK)
 					{
