@@ -42,10 +42,10 @@ static bool_t Fernsteuerung_ready_flag = FALSE;
 ***	Variablen für Kalibrierung	***
 ***															***
 **********************************/
-uint16_t rc_roll_max, rc_roll_min, rc_roll_null;
-uint16_t rc_nick_max, rc_nick_min, rc_nick_null;
-uint16_t rc_yaw_max, rc_yaw_min, rc_yaw_null;
-uint16_t rc_schub_max, rc_schub_null;
+uint16_t rc_roll_max=2000, rc_roll_min=1000, rc_roll_null=1500;
+uint16_t rc_nick_max=2000, rc_nick_min=1000, rc_nick_null=1500;
+uint16_t rc_yaw_max=2000, rc_yaw_min=1000, rc_yaw_null=1500;
+uint16_t rc_schub_max=2000, rc_schub_null=1000;
 uint16_t first_visit_roll = 1,  first_visit_nick=1, first_visit_yaw=1,first_visit_schub=1;
 uint16_t calibration_active=0, calibration_ready_flag=0;
 uint16_t timer_finish=1;
@@ -255,18 +255,15 @@ float get_euler_nick_soll()
 }
 float get_euler_roll_soll() 
 {
-	if(Fernsteuerung_ready_flag) return((float(RC_INPUT_CHANNELS[0]) + RC_INPUT_CHANNELS_Offset[0])/1000);
+	if(Fernsteuerung_ready_flag && calibration_ready_flag && !calibration_active) 
+		return RC_INPUT_CHANNELS[0] > rc_roll_null ? max_roll/(rc_roll_max-rc_roll_null)*(RC_INPUT_CHANNELS[0]-rc_roll_null) :  \
+		max_roll/(rc_roll_null-rc_roll_min)*(RC_INPUT_CHANNELS[0]-rc_roll_null) ;
 	else return 0;
 }
-/*float get_schub_soll() 
+float get_schub_soll() 
 {
 	if(Fernsteuerung_ready_flag && calibration_ready_flag && !calibration_active) 
 		return  max_schub/(rc_schub_max-rc_schub_null)*(RC_INPUT_CHANNELS[2]-rc_schub_null);
-	else return 0;
-} */
-float get_schub_soll() 
-{
-	if(Fernsteuerung_ready_flag) return((float(RC_INPUT_CHANNELS[2]) + RC_INPUT_CHANNELS_Offset[2])/1000);
 	else return 0;
 }
 float get_euler_yaw_soll() 

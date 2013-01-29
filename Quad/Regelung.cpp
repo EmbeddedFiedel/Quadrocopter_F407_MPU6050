@@ -341,7 +341,7 @@ void Regelung(void)
    else if(ii_Roll < -4)
 	   ii_Roll = -4;
 
-   aRoll = (pi_Roll + (ii_Roll)*param_roll_i_gain;
+   aRoll = (pi_Roll + (ii_Roll)*param_roll_i_gain);
 
 	/////////////////////////// Yaw-Regler berechnen ////////////////////////////////////////// 
 
