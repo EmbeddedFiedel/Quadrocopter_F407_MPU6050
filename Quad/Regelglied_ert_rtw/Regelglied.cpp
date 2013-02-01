@@ -63,7 +63,7 @@ real_T kp_roll = 5.5;                  /* Variable: kp_roll
 real_T kp_v_nick = 0.0;               /* Variable: kp_v_nick
                                         * Referenced by: '<S3>/Gain'
                                         */
-real_T kp_v_roll = 0.587;               /* Variable: kp_v_roll= 0.675
+real_T kp_v_roll = 0.4;               /* Variable: kp_v_roll= 0.675
                                         * Referenced by: '<S5>/Gain'
                                         */
 real_T tn_nick = 7.5;                  /* Variable: tn_nick
