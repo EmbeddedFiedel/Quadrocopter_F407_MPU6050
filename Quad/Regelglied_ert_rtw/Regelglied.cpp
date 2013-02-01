@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'Regelglied'.
  *
- * Model version                  : 1.487
+ * Model version                  : 1.491
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Tue Jan 29 15:39:01 2013
+ * C/C++ source code generated on : Wed Jan 30 16:40:27 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -51,7 +51,7 @@ real_T gain_d_soll_v = 1.0;            /* Variable: gain_d_soll_v
 real_T kp_a_nick = 0.00;            /* Variable: kp_a_nick
                                         * Referenced by: '<S2>/Gain'
                                         */
-real_T kp_a_roll = 0.1;            /* Variable: kp_a_roll
+real_T kp_a_roll = 0.07;            /* Variable: kp_a_roll
                                         * Referenced by: '<S4>/Gain'
                                         */
 real_T kp_nick = 5.5;                  /* Variable: kp_nick
@@ -63,7 +63,7 @@ real_T kp_roll = 5.5;                  /* Variable: kp_roll
 real_T kp_v_nick = 0.0;               /* Variable: kp_v_nick
                                         * Referenced by: '<S3>/Gain'
                                         */
-real_T kp_v_roll = 0.0;               /* Variable: kp_v_roll
+real_T kp_v_roll = 0.587;               /* Variable: kp_v_roll= 0.675
                                         * Referenced by: '<S5>/Gain'
                                         */
 real_T tn_nick = 7.5;                  /* Variable: tn_nick
@@ -72,7 +72,6 @@ real_T tn_nick = 7.5;                  /* Variable: tn_nick
 real_T tn_roll = 7.5;                  /* Variable: tn_roll
                                         * Referenced by: '<S6>/Gain1'
                                         */
-
 /* Block signals (auto storage) */
 BlockIO_Regelglied Regelglied_B;
 
@@ -202,12 +201,12 @@ void Regelglied_step(void)
   Regelglied_B.Gain = gain_d_soll_v * Regelglied_U.In_Soll_Roll;
 
   /* TransferFcn: '<S1>/D-Anteil' */
-  Soll_V_Roll = 2.5*Regelglied_B.Gain;
-  Soll_V_Roll += (-6.25)*Regelglied_X.DAnteil_CSTATE;
+  Soll_V_Roll = 2.6315789473684212*Regelglied_B.Gain;
+  Soll_V_Roll += (-6.9252077562326884)*Regelglied_X.DAnteil_CSTATE;
 
   /* TransferFcn: '<S1>/D-Anteil2' */
-  Soll_a_Roll = 2.5*Soll_V_Roll;
-  Soll_a_Roll += (-6.25)*Regelglied_X.DAnteil2_CSTATE;
+  Soll_a_Roll = 2.3809523809523809*Soll_V_Roll;
+  Soll_a_Roll += (-5.6689342403628116)*Regelglied_X.DAnteil2_CSTATE;
 
   /* Sum: '<S1>/Add1' incorporates:
    *  Inport: '<Root>/In_Ist_V_Roll'
@@ -224,8 +223,8 @@ void Regelglied_step(void)
   }
 
   /* TransferFcn: '<S1>/D-Anteil4' */
-  Ist_a_Roll = 2.5*Regelglied_B.Gain2;
-  Ist_a_Roll += (-6.25)*Regelglied_X.DAnteil4_CSTATE;
+  Ist_a_Roll = 1.6666666666666667*Regelglied_B.Gain2;
+  Ist_a_Roll += (-2.7777777777777781)*Regelglied_X.DAnteil4_CSTATE;
 
   /* Sum: '<S1>/Add2' */
   Xd_a_Roll = (Soll_a_Roll + rtb_Gain) - Ist_a_Roll;
@@ -241,12 +240,12 @@ void Regelglied_step(void)
   Regelglied_B.Gain1 = gain_d_soll_v * Regelglied_U.In_Soll_Nick;
 
   /* TransferFcn: '<S1>/D-Anteil1' */
-  Soll_V_Nick = 2.5*Regelglied_B.Gain1;
-  Soll_V_Nick += (-6.25)*Regelglied_X.DAnteil1_CSTATE;
+  Soll_V_Nick = 2.3809523809523809*Regelglied_B.Gain1;
+  Soll_V_Nick += (-5.6689342403628116)*Regelglied_X.DAnteil1_CSTATE;
 
   /* TransferFcn: '<S1>/D-Anteil3' */
-  Soll_a_Nick = 2.5*Soll_V_Nick;
-  Soll_a_Nick += (-6.25)*Regelglied_X.DAnteil3_CSTATE;
+  Soll_a_Nick = 2.3809523809523809*Soll_V_Nick;
+  Soll_a_Nick += (-5.6689342403628116)*Regelglied_X.DAnteil3_CSTATE;
 
   /* Gain: '<S3>/Gain' incorporates:
    *  Inport: '<Root>/In_Ist_V_Nick'
@@ -261,8 +260,8 @@ void Regelglied_step(void)
   }
 
   /* TransferFcn: '<S1>/D-Anteil5' */
-  Ist_a_Nick = 2.5*Regelglied_B.Gain3;
-  Ist_a_Nick += (-6.25)*Regelglied_X.DAnteil5_CSTATE;
+  Ist_a_Nick = 1.6666666666666667*Regelglied_B.Gain3;
+  Ist_a_Nick += (-2.7777777777777781)*Regelglied_X.DAnteil5_CSTATE;
 
   /* Sum: '<S1>/Add5' */
   Xd_a_Nick = (Soll_a_Nick + rtb_Gain) - Ist_a_Nick;
@@ -426,7 +425,7 @@ void Regelglied_derivatives(void)
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
       ->DAnteil_CSTATE = Regelglied_B.Gain;
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
-      ->DAnteil_CSTATE += (-2.5)*Regelglied_X.DAnteil_CSTATE;
+      ->DAnteil_CSTATE += (-2.6315789473684212)*Regelglied_X.DAnteil_CSTATE;
   }
 
   /* Derivatives for TransferFcn: '<S1>/D-Anteil2' */
@@ -434,7 +433,7 @@ void Regelglied_derivatives(void)
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
       ->DAnteil2_CSTATE = Soll_V_Roll;
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
-      ->DAnteil2_CSTATE += (-2.5)*Regelglied_X.DAnteil2_CSTATE;
+      ->DAnteil2_CSTATE += (-2.3809523809523809)*Regelglied_X.DAnteil2_CSTATE;
   }
 
   /* Derivatives for TransferFcn: '<S1>/D-Anteil4' */
@@ -442,7 +441,7 @@ void Regelglied_derivatives(void)
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
       ->DAnteil4_CSTATE = Regelglied_B.Gain2;
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
-      ->DAnteil4_CSTATE += (-2.5)*Regelglied_X.DAnteil4_CSTATE;
+      ->DAnteil4_CSTATE += (-1.6666666666666667)*Regelglied_X.DAnteil4_CSTATE;
   }
 
   /* Derivatives for TransferFcn: '<S1>/D-Anteil1' */
@@ -450,7 +449,7 @@ void Regelglied_derivatives(void)
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
       ->DAnteil1_CSTATE = Regelglied_B.Gain1;
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
-      ->DAnteil1_CSTATE += (-2.5)*Regelglied_X.DAnteil1_CSTATE;
+      ->DAnteil1_CSTATE += (-2.3809523809523809)*Regelglied_X.DAnteil1_CSTATE;
   }
 
   /* Derivatives for TransferFcn: '<S1>/D-Anteil3' */
@@ -458,7 +457,7 @@ void Regelglied_derivatives(void)
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
       ->DAnteil3_CSTATE = Soll_V_Nick;
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
-      ->DAnteil3_CSTATE += (-2.5)*Regelglied_X.DAnteil3_CSTATE;
+      ->DAnteil3_CSTATE += (-2.3809523809523809)*Regelglied_X.DAnteil3_CSTATE;
   }
 
   /* Derivatives for TransferFcn: '<S1>/D-Anteil5' */
@@ -466,7 +465,7 @@ void Regelglied_derivatives(void)
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
       ->DAnteil5_CSTATE = Regelglied_B.Gain3;
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
-      ->DAnteil5_CSTATE += (-2.5)*Regelglied_X.DAnteil5_CSTATE;
+      ->DAnteil5_CSTATE += (-1.6666666666666667)*Regelglied_X.DAnteil5_CSTATE;
   }
 
   /* Derivatives for Integrator: '<S6>/Integrator' */
