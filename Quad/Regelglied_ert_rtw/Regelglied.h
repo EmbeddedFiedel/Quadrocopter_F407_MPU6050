@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'Regelglied'.
  *
- * Model version                  : 1.491
+ * Model version                  : 1.494
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Wed Jan 30 16:40:27 2013
+ * C/C++ source code generated on : Fri Feb 01 12:38:33 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -57,10 +57,10 @@
 /* Block signals (auto storage) */
 typedef struct {
   real_T Gain;                         /* '<S1>/Gain' */
+  real_T Merge;                        /* '<S8>/Merge' */
   real_T Gain2;                        /* '<S1>/Gain2' */
   real_T Gain1;                        /* '<S1>/Gain1' */
   real_T Gain3;                        /* '<S1>/Gain3' */
-  real_T Merge;                        /* '<S8>/Merge' */
   real_T Gain1_d;                      /* '<S6>/Gain1' */
   real_T Gain1_m;                      /* '<S7>/Gain1' */
 } BlockIO_Regelglied;
@@ -74,42 +74,42 @@ typedef struct {
 typedef struct {
   real_T DAnteil_CSTATE;               /* '<S1>/D-Anteil' */
   real_T DAnteil2_CSTATE;              /* '<S1>/D-Anteil2' */
+  real_T Integrator_CSTATE;            /* '<S6>/Integrator' */
+  real_T DAnteil_CSTATE_p;             /* '<S6>/D-Anteil' */
   real_T DAnteil4_CSTATE;              /* '<S1>/D-Anteil4' */
   real_T DAnteil1_CSTATE;              /* '<S1>/D-Anteil1' */
   real_T DAnteil3_CSTATE;              /* '<S1>/D-Anteil3' */
-  real_T DAnteil5_CSTATE;              /* '<S1>/D-Anteil5' */
-  real_T Integrator_CSTATE;            /* '<S6>/Integrator' */
-  real_T DAnteil_CSTATE_p;             /* '<S6>/D-Anteil' */
   real_T Integrator_CSTATE_p;          /* '<S7>/Integrator' */
   real_T DAnteil_CSTATE_n;             /* '<S7>/D-Anteil' */
+  real_T DAnteil5_CSTATE;              /* '<S1>/D-Anteil5' */
 } ContinuousStates_Regelglied;
 
 /* State derivatives (auto storage) */
 typedef struct {
   real_T DAnteil_CSTATE;               /* '<S1>/D-Anteil' */
   real_T DAnteil2_CSTATE;              /* '<S1>/D-Anteil2' */
+  real_T Integrator_CSTATE;            /* '<S6>/Integrator' */
+  real_T DAnteil_CSTATE_p;             /* '<S6>/D-Anteil' */
   real_T DAnteil4_CSTATE;              /* '<S1>/D-Anteil4' */
   real_T DAnteil1_CSTATE;              /* '<S1>/D-Anteil1' */
   real_T DAnteil3_CSTATE;              /* '<S1>/D-Anteil3' */
-  real_T DAnteil5_CSTATE;              /* '<S1>/D-Anteil5' */
-  real_T Integrator_CSTATE;            /* '<S6>/Integrator' */
-  real_T DAnteil_CSTATE_p;             /* '<S6>/D-Anteil' */
   real_T Integrator_CSTATE_p;          /* '<S7>/Integrator' */
   real_T DAnteil_CSTATE_n;             /* '<S7>/D-Anteil' */
+  real_T DAnteil5_CSTATE;              /* '<S1>/D-Anteil5' */
 } StateDerivatives_Regelglied;
 
 /* State disabled  */
 typedef struct {
   boolean_T DAnteil_CSTATE;            /* '<S1>/D-Anteil' */
   boolean_T DAnteil2_CSTATE;           /* '<S1>/D-Anteil2' */
+  boolean_T Integrator_CSTATE;         /* '<S6>/Integrator' */
+  boolean_T DAnteil_CSTATE_p;          /* '<S6>/D-Anteil' */
   boolean_T DAnteil4_CSTATE;           /* '<S1>/D-Anteil4' */
   boolean_T DAnteil1_CSTATE;           /* '<S1>/D-Anteil1' */
   boolean_T DAnteil3_CSTATE;           /* '<S1>/D-Anteil3' */
-  boolean_T DAnteil5_CSTATE;           /* '<S1>/D-Anteil5' */
-  boolean_T Integrator_CSTATE;         /* '<S6>/Integrator' */
-  boolean_T DAnteil_CSTATE_p;          /* '<S6>/D-Anteil' */
   boolean_T Integrator_CSTATE_p;       /* '<S7>/Integrator' */
   boolean_T DAnteil_CSTATE_n;          /* '<S7>/D-Anteil' */
+  boolean_T DAnteil5_CSTATE;           /* '<S1>/D-Anteil5' */
 } StateDisabled_Regelglied;
 
 /* Zero-crossing (trigger) state */
@@ -246,20 +246,20 @@ extern "C" {
  */
 extern real_T Soll_V_Roll;             /* '<S1>/D-Anteil' */
 extern real_T Soll_a_Roll;             /* '<S1>/D-Anteil2' */
+extern real_T Xd_Roll;                 /* '<S1>/Add' */
+extern real_T p_anteil;                /* '<S6>/Gain' */
+extern real_T i_anteil;                /* '<S6>/Integrator' */
+extern real_T d_anteil;                /* '<S6>/D-Anteil' */
+extern real_T Y_roll;                  /* '<S6>/Add' */
 extern real_T Xd_V_Roll;               /* '<S1>/Add1' */
 extern real_T Ist_a_Roll;              /* '<S1>/D-Anteil4' */
 extern real_T Xd_a_Roll;               /* '<S1>/Add2' */
 extern real_T Soll_V_Nick;             /* '<S1>/D-Anteil1' */
 extern real_T Soll_a_Nick;             /* '<S1>/D-Anteil3' */
+extern real_T Xd_Nick;                 /* '<S1>/Add3' */
+extern real_T Y_Nick;                  /* '<S7>/Add' */
 extern real_T Ist_a_Nick;              /* '<S1>/D-Anteil5' */
 extern real_T Xd_a_Nick;               /* '<S1>/Add5' */
-extern real_T Xd_Roll;                 /* '<S1>/Add' */
-extern real_T Xd_Nick;                 /* '<S1>/Add3' */
-extern real_T p_anteil;                /* '<S6>/Gain' */
-extern real_T i_anteil;                /* '<S6>/Integrator' */
-extern real_T d_anteil;                /* '<S6>/D-Anteil' */
-extern real_T Y_roll;                  /* '<S6>/Add' */
-extern real_T Y_Nick;                  /* '<S7>/Add' */
 
 /*
  * Exported Global Parameters
@@ -269,6 +269,9 @@ extern real_T Y_Nick;                  /* '<S7>/Add' */
  * these parameters and exports their symbols.
  *
  */
+extern real_T ena_pid;                 /* Variable: ena_pid
+                                        * Referenced by: '<S1>/Constant'
+                                        */
 extern real_T gain_d_soll_a;           /* Variable: gain_d_soll_a
                                         * Referenced by:
                                         *   '<S1>/Gain2'
