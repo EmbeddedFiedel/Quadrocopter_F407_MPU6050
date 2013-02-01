@@ -75,6 +75,7 @@ CONTROL_USE_PSP             EQU     2
                 IMPORT  __main
                 EXPORT  Reset_Handler
 Reset_Handler   PROC
+
                 cpsid   i
                 ldr     r0, =__initial_sp
                 msr     PSP, r0
