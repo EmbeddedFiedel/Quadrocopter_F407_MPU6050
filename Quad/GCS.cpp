@@ -16,14 +16,18 @@ struct global_struct global_data;
 static inline void global_data_reset_param_defaults(void)
 {
 	global_data.param[0] = 0.7;
-	strcpy(global_data.param_name[0], "KB0");
-		global_data.param[1] = 40;
-	strcpy(global_data.param_name[1], "KB1");
-		global_data.param[2] = 0.05;
-	strcpy(global_data.param_name[2], "KB2");
-		global_data.param[3] = 0.1;
-	strcpy(global_data.param_name[3], "KB3");
-		global_data.param[4] = 4;
+	strcpy(global_data.param_name[0], "R_P");
+	
+	global_data.param[1] = 40;
+	strcpy(global_data.param_name[1], "R_D");
+	
+	global_data.param[2] = 0.05;
+	strcpy(global_data.param_name[2], "R_Idyn");
+	
+	global_data.param[3] = 0.1;
+	strcpy(global_data.param_name[3], "R_Igain");
+	
+	global_data.param[4] = 4;
 	strcpy(global_data.param_name[4], "KB4");
 } 
 

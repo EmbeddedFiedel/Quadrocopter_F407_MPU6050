@@ -319,10 +319,11 @@ void Regelung(void)
 	/////////////////////////// Roll-Regler berechnen ////////////////////////////////////////// 
 
 
-      param_roll_p = global_data.param[0];	 
+   param_roll_p = global_data.param[0];	 
    param_roll_d = global_data.param[1];
    param_roll_i_dyn = global_data.param[2];
    param_roll_i_gain = global_data.param[3];
+
    ea_Roll = (inRollSollLage) - (inRollIstLage); //Reglereingang
    ei_Roll = ea_Roll;
 
@@ -331,17 +332,17 @@ void Regelung(void)
    if(inSchub > 0.1)
    	ii_Roll = param_roll_i_dyn * ei_Roll + ii_Roll;		//I-Regler
 
-  if (di_Roll > 5)							//Saturierung D
-	   di_Roll = 5;
-   else if(di_Roll < -5)
-	   di_Roll = -5;		  
+   //if (di_Roll > 5)							//Saturierung D
+   //	   di_Roll = 5;
+   //else if(di_Roll < -5)
+   //	   di_Roll = -5;		  
 
-   if (ii_Roll > 4)							//Saturierung I
-	   ii_Roll = 4;
-   else if(ii_Roll < -4)
-	   ii_Roll = -4;
+   if (ii_Roll > 5)							//Saturierung I
+	   ii_Roll = 5;
+   else if(ii_Roll < -5)
+	   ii_Roll = -5;
 
-   aRoll = (pi_Roll + (ii_Roll)*param_roll_i_gain);
+   aRoll = (pi_Roll + ii_Roll*param_roll_i_gain + di_Roll)*567;
 
 	/////////////////////////// Yaw-Regler berechnen ////////////////////////////////////////// 
 
