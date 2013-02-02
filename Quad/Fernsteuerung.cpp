@@ -47,7 +47,7 @@ uint16_t rc_nick_max=2000, rc_nick_min=1000, rc_nick_null=1500;
 uint16_t rc_yaw_max=2000, rc_yaw_min=1000, rc_yaw_null=1500;
 uint16_t rc_schub_max=2000, rc_schub_null=1000;
 uint16_t first_visit_roll = 1,  first_visit_nick=1, first_visit_yaw=1,first_visit_schub=1;
-uint16_t calibration_active=0, calibration_ready_flag=0;
+uint16_t calibration_active=0, calibration_ready_flag=1;
 uint16_t timer_finish=1;
 
 static struct VirtualTimer vt;
