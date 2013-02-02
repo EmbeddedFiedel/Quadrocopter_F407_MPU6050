@@ -47,7 +47,7 @@ uint16_t rc_nick_max=2000, rc_nick_min=1000, rc_nick_null=1500;
 uint16_t rc_yaw_max=2000, rc_yaw_min=1000, rc_yaw_null=1500;
 uint16_t rc_schub_max=2000, rc_schub_null=1000;
 uint16_t first_visit_roll = 1,  first_visit_nick=1, first_visit_yaw=1,first_visit_schub=1;
-uint16_t calibration_active=0, calibration_ready_flag=1;
+uint16_t calibration_active=0;
 uint16_t timer_finish=1;
 
 static struct VirtualTimer vt;
@@ -248,27 +248,27 @@ int16_t get_chan4_scaled()
 
 float get_euler_nick_soll() 
 {
-	if(Fernsteuerung_ready_flag && calibration_ready_flag && !calibration_active) 
+	if(Fernsteuerung_ready_flag && !calibration_active) 
 		return RC_INPUT_CHANNELS[1] > rc_nick_null ? max_nick/(rc_nick_max-rc_nick_null)*(RC_INPUT_CHANNELS[1]-rc_nick_null) :  \
 		max_nick/(rc_nick_null-rc_nick_min)*(RC_INPUT_CHANNELS[1]-rc_nick_null) ;
 	else return 0;
 }
 float get_euler_roll_soll() 
 {
-	if(Fernsteuerung_ready_flag && calibration_ready_flag && !calibration_active) 
+	if(Fernsteuerung_ready_flag && !calibration_active) 
 		return RC_INPUT_CHANNELS[0] > rc_roll_null ? max_roll/(rc_roll_max-rc_roll_null)*(RC_INPUT_CHANNELS[0]-rc_roll_null) :  \
 		max_roll/(rc_roll_null-rc_roll_min)*(RC_INPUT_CHANNELS[0]-rc_roll_null) ;
 	else return 0;
 }
 float get_schub_soll() 
 {
-	if(Fernsteuerung_ready_flag && calibration_ready_flag && !calibration_active) 
+	if(Fernsteuerung_ready_flag && !calibration_active) 
 		return  max_schub/(rc_schub_max-rc_schub_null)*(RC_INPUT_CHANNELS[2]-rc_schub_null);
 	else return 0;
 }
 float get_euler_yaw_soll() 
 {
-	if(Fernsteuerung_ready_flag && calibration_ready_flag && !calibration_active) 
+	if(Fernsteuerung_ready_flag && !calibration_active) 
 		return RC_INPUT_CHANNELS[3] > rc_yaw_null ? max_yaw/(rc_yaw_max-rc_yaw_null)*(RC_INPUT_CHANNELS[3]-rc_yaw_null) :  \
 		max_yaw/(rc_yaw_null-rc_yaw_min)*(RC_INPUT_CHANNELS[3]-rc_yaw_null) ;
 	else return 0;
@@ -286,7 +286,6 @@ void start_calib()
 					palSetPad(GPIOD, GPIOD_LED5);
 					palSetPad(GPIOD, GPIOD_LED6);
 					calibration_active = 1;
-					calibration_ready_flag = 0;
 					first_visit_roll=1;
 					first_visit_nick=1;
 					first_visit_yaw=1;
@@ -298,7 +297,6 @@ void stop_calib()
 					palClearPad(GPIOD, GPIOD_LED5);
 					palClearPad(GPIOD, GPIOD_LED6);
 					calibration_active = 0;
-					calibration_ready_flag = 1;	
 }
 
 void calib_interrupt(EXTDriver *extp, expchannel_t channel)
@@ -312,7 +310,6 @@ void calib_interrupt(EXTDriver *extp, expchannel_t channel)
 					palClearPad(GPIOD, GPIOD_LED5);
 					palClearPad(GPIOD, GPIOD_LED6);
 					calibration_active = 0;
-					calibration_ready_flag = 1;
 				}
 				else 						//Kalibration ein
 				{
@@ -320,7 +317,6 @@ void calib_interrupt(EXTDriver *extp, expchannel_t channel)
 					palSetPad(GPIOD, GPIOD_LED5);
 					palSetPad(GPIOD, GPIOD_LED6);
 					calibration_active = 1;
-					calibration_ready_flag = 0;
 					first_visit_roll=1;
 					first_visit_nick=1;
 					first_visit_yaw=1;
