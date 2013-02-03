@@ -51,28 +51,28 @@ real_T gain_d_soll_v = 1.0;            /* Variable: gain_d_soll_v
                                         *   '<S1>/Gain'
                                         *   '<S1>/Gain1'
                                         */
-real_T kp_a_nick = 0.00;            /* Variable: kp_a_nick
+real_T kp_a_nick = 0.07;            /* Variable: kp_a_nick
                                         * Referenced by: '<S2>/Gain'
                                         */
 real_T kp_a_roll = 0.07;            /* Variable: kp_a_roll
                                         * Referenced by: '<S4>/Gain'
                                         */
-real_T kp_nick = 5.5;                  /* Variable: kp_nick
+real_T kp_nick = 4.5;                  /* Variable: kp_nick
                                         * Referenced by: '<S7>/Gain'
                                         */
-real_T kp_roll = 15.0;                  /* Variable: kp_roll
+real_T kp_roll = 6.5;                  /* Variable: kp_roll
                                         * Referenced by: '<S6>/Gain'
                                         */
-real_T kp_v_nick = 0.0;               /* Variable: kp_v_nick
+real_T kp_v_nick = 0.38;               /* Variable: kp_v_nick
                                         * Referenced by: '<S3>/Gain'
                                         */
-real_T kp_v_roll = 0.4;               /* Variable: kp_v_roll= 0.675
+real_T kp_v_roll = 0.38;               /* Variable: kp_v_roll= 0.675
                                         * Referenced by: '<S5>/Gain'
                                         */
-real_T tn_nick = 7.5;                  /* Variable: tn_nick
+real_T tn_nick =  0.2;                  /* Variable: tn_nick
                                         * Referenced by: '<S7>/Gain1'
                                         */
-real_T tn_roll = 0.15;                  /* Variable: tn_roll
+real_T tn_roll = 0.2;                  /* Variable: tn_roll
                                         * Referenced by: '<S6>/Gain1'
                                         */
 

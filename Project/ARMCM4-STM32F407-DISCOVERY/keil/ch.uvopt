@@ -1465,10 +1465,10 @@
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>19</ColumnNumber>
+      <ColumnNumber>18</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>54</TopLine>
-      <CurrentLine>63</CurrentLine>
+      <TopLine>52</TopLine>
+      <CurrentLine>60</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\Quad\Regelglied_ert_rtw\Regelglied.cpp</PathWithFileName>
       <FilenameWithoutPath>Regelglied.cpp</FilenameWithoutPath>
