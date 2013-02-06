@@ -36,10 +36,16 @@
 #include "Regelung.h"
 #include "Datalogger.h"
 #include "ExternalInterrupt.h"
-
+#include "stm32f4xx_flash.h"
 
 float dummy1,dummy2,dummy3,dummy4;
 
+
+//   Variablen für Flashtest
+uint8_t schreiben=2;
+uint32_t flash_data=0xF00FF00F;
+unsigned int *flash_pointer;
+FLASH_Status status_erase,status_prog=(FLASH_Status)0xFFFF;
 /*
  * Application entry point.
  */
@@ -81,8 +87,27 @@ int main(void)
 	* pressed the test procedure is launched with output on the serial
 	* driver 2.
 	*/
+	
+	FLASH_SetLatency(FLASH_Latency_5); // 168 MHZ und 3V
+	FLASH_Unlock();
+	flash_pointer=(unsigned int*)0x80FFF00;
+	//FLASH_EraseSector(FLASH_Sector_0,VoltageRange_3);
+	//FLASH_ProgramWord(0x80000000,0xAFFEAFFE);
+	
 	while (TRUE) 
 	{
+		if (1==schreiben)
+		{
+			//status_erase=FLASH_EraseSector(FLASH_Sector_11,VoltageRange_3);
+			status_prog=FLASH_ProgramWord(0x80FFF00,0xFFFFFFFF);
+			schreiben=2;
+		}
+		if (0==schreiben)
+		{
+			flash_data= *flash_pointer;
+			schreiben=2;
+		} 
+		
 		dummy1=get_euler_roll_soll();
 		dummy2=get_euler_nick_soll();
 		dummy3=get_euler_yaw_soll();
