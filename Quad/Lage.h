@@ -1,5 +1,6 @@
 #include "ch.h"
 #include "hal.h"
+
 void dmpDataReady();
 void setup_IMU(); 
 
@@ -14,3 +15,4 @@ float get_rate_yaw_ist();
 float get_ypr_nick_ist();
 float get_ypr_roll_ist();
 float get_ypr_yaw_ist();
+uint16_t get_fifo_count();
