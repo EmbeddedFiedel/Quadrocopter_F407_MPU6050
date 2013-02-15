@@ -76,7 +76,7 @@ volatile unsigned short tmp111;
 #include "ff.h"
 
 	uint32_t regelung_timebuffer[50];
-	int regelung_databuffer[50][38];
+	int regelung_databuffer[50][39];
 	uint8_t readcounter = 0;
 	uint8_t writecounter = 0;
 	static FIL Fil_regelung;			/* File object */
@@ -114,7 +114,7 @@ static msg_t RegelungSyncthread(void *arg)
 				}
 				else
 				{
-					f_printf(&Fil_regelung, "Time_regelung;inSchub;inNickSollLage;inRollSollLage;inYawSollLage;inNickIstLage;inRollIstLage;inYawIstLage;inNickIstV;inRollIstV;inYawIstV;ea_Nick;ea_Roll;ea_Yaw;ia_Nick;ia_Roll;ia_Yaw;Soll_v_Nick;Soll_v_Roll;Soll_v_Yaw;ii_Nick;ii_Roll;ii_Yaw;pi_Nick;pi_Roll;pi_Yaw;di_Nick;di_Roll;di_Yaw;v_Nick_tp1;v_Roll_tp1;v_Yaw_tp1;aNick;aRoll;aYaw;outMotor1;outMotor2;outMotor3;outMotor4\r\n");	
+					f_printf(&Fil_regelung, "Time_regelung;inSchub;inNickSollLage;inRollSollLage;inYawSollLage;inNickIstLage;inRollIstLage;inYawIstLage;inNickIstV;inRollIstV;inYawIstV;ea_Nick;ea_Roll;ea_Yaw;ia_Nick;ia_Roll;ia_Yaw;Soll_v_Nick;Soll_v_Roll;Soll_v_Yaw;ii_Nick;ii_Roll;ii_Yaw;pi_Nick;pi_Roll;pi_Yaw;di_Nick;di_Roll;di_Yaw;v_Nick_tp1;v_Roll_tp1;v_Yaw_tp1;aNick;aRoll;aYaw;outMotor1;outMotor2;outMotor3;outMotor4;fifoCount\r\n");	
 					rc_datalog = f_sync(&Fil_regelung);	
 					if(rc_datalog != FR_OK)
 					{
@@ -167,7 +167,7 @@ static msg_t RegelungPrintthread(void *arg)
 		{
 			systime_t time = chTimeNow();     // Tnow
 			chprintf((BaseChannel *) &SD2, "Printing:%d\r\n",time);
-			f_printf(&Fil_regelung, "%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d\r\n",
+			f_printf(&Fil_regelung, "%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d\r\n",
 							regelung_timebuffer[readcounter],
 							regelung_databuffer[readcounter][0],
 							regelung_databuffer[readcounter][1],
@@ -179,7 +179,7 @@ static msg_t RegelungPrintthread(void *arg)
 							regelung_databuffer[readcounter][7],
 							regelung_databuffer[readcounter][8],
 							regelung_databuffer[readcounter][9],
-                            regelung_databuffer[readcounter][10],
+              regelung_databuffer[readcounter][10],
 							regelung_databuffer[readcounter][11],
 							regelung_databuffer[readcounter][12],
 							regelung_databuffer[readcounter][13],
@@ -206,7 +206,8 @@ static msg_t RegelungPrintthread(void *arg)
 							regelung_databuffer[readcounter][34],
 							regelung_databuffer[readcounter][35],
 							regelung_databuffer[readcounter][36],
-							regelung_databuffer[readcounter][37]);
+							regelung_databuffer[readcounter][37],
+							regelung_databuffer[readcounter][38]);
 							readcounter++;
 							if(readcounter >=50)readcounter=0;
 		}
@@ -256,6 +257,7 @@ void datalog_regelung(void)
 	regelung_databuffer[writecounter][35]=(int)(outMotor2);
 	regelung_databuffer[writecounter][36]=(int)(outMotor3);
 	regelung_databuffer[writecounter][37]=(int)(outMotor4);
+	regelung_databuffer[writecounter][38]=get_fifo_count();
 	
 	writecounter++;
 	
