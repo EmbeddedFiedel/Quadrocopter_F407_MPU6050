@@ -32,20 +32,20 @@ static msg_t SDMountThread(void *arg)
 		FRESULT err;
   if(mmcConnect(&MMCD1))
   {
-    send_statustext(MAV_SEVERITY_INFO, "SD: Failed to connect to card\r\n");
+    //send_statustext(MAV_SEVERITY_INFO, "SD: Failed to connect to card\r\n");
   }
   else
   {
-    send_statustext(MAV_SEVERITY_INFO, "SD: Connected to card\r\n");
+    //send_statustext(MAV_SEVERITY_INFO, "SD: Connected to card\r\n");
 		err = f_mount(0, &MMC_FS);
 		if(err != FR_OK)
 		{	
-			send_statustext(MAV_SEVERITY_INFO, "SD: f_mount() failed %d\r\n");
+			//send_statustext(MAV_SEVERITY_INFO, "SD: f_mount() failed %d\r\n");
 			mmcDisconnect(&MMCD1);
 		}
 		else
 		{
-			send_statustext(MAV_SEVERITY_INFO, "SD: File system mounted\r\n");
+			//send_statustext(MAV_SEVERITY_INFO, "SD: File system mounted\r\n");
 			Datalogger_ready_flag = TRUE;
 		}
   }

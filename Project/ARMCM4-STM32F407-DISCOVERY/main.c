@@ -1,4 +1,4 @@
-﻿/*
+/*
     ChibiOS/RT - Copyright (C) 2006,2007,2008,2009,2010,
                  2011,2012 Giovanni Di Sirio.
 
@@ -57,17 +57,17 @@ int main(void)
 	halInit();	   
 	chSysInit();
 	setup_IMU();
-	setup_Mavlink();
 	setup_ExternalInterrupt();
+	setup_Mavlink();
 	setup_Fernsteuerung();
 	setup_Motoren();
 	setup_Regelung();
 	setup_Datalogger(); 
 	palSetPad(GPIOD, GPIOD_LED3);       /* Orange.  */
-	send_statustext(MAV_SEVERITY_ALERT, "Initialization finished");
+	//send_statustext(MAV_SEVERITY_ALERT, "Initialization finished");
 	while (TRUE) 
 	{
-		update_IMU();
+		//update_IMU();
 		dummy1=get_euler_roll_soll();
 		dummy2=get_euler_nick_soll();
 		dummy3=get_euler_yaw_soll();

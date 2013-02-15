@@ -216,8 +216,7 @@ void setup_Fernsteuerung()
 	if(EXTD1.state == EXT_ACTIVE)
 	{
     //chprintf((BaseChannel *) &SD2, "Fernsteuerung Init erfolgreich\r\n");
-		
-	send_statustext(MAV_SEVERITY_ALERT, "Fernsteuerung Initialization finished");
+		//send_statustext(MAV_SEVERITY_ALERT, "Fernsteuerung Initialization finished");
 		Fernsteuerung_ready_flag = TRUE;
 	}
 	else

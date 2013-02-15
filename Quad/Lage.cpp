@@ -162,23 +162,6 @@ void I2CInitialize()
 	chThdSleepMilliseconds(100);
 }
 
-void setup_IMU() 
-{
-	tmObjectInit(&lagedatalogsync_tmup);
-	I2CInitialize();
-	mpu.initialize();
-	devStatus = mpu.dmpInitialize();
-	if (devStatus == 0) 
-	{
-		//chThdCreateStatic(LageSyncThreadWorkingArea, sizeof(LageSyncThreadWorkingArea), NORMALPRIO, LageSyncthread, NULL);
-		mpu.setDMPEnabled(true);
-		mpuIntStatus = mpu.getIntStatus();
-		dmpReady = true;
-		packetSize = mpu.dmpGetFIFOPacketSize();
-		send_statustext(MAV_SEVERITY_ALERT, "IMU initialized");
-	} 
-}
-
 void mpu_6050_interrupt(EXTDriver *extp, expchannel_t channel) 
 {
 		(void)extp;
@@ -233,13 +216,89 @@ void update_IMU()
 	}
 }
 
-float get_euler_nick_ist() {return euler[1];}
-float get_euler_roll_ist() {return euler[2];}
-float get_euler_yaw_ist() {return euler[0];}
-float get_rate_nick_ist() {return gyro_rate_float[1];}
-float get_rate_roll_ist() {return gyro_rate_float[0];}
-float get_rate_yaw_ist() {return gyro_rate_float[2];}
-float get_ypr_nick_ist() {return ypr[1];}
-float get_ypr_roll_ist() {return ypr[2];}
-float get_ypr_yaw_ist() {return ypr[0];}
-uint16_t get_fifo_count() {return fifoCount;}
+/*
+ * Working area for LageSync
+ */
+static WORKING_AREA(LageReadThreadWorkingArea, 1024);
+/*
+ * LageSync
+ */
+static msg_t LageReadThread(void *arg) 
+{
+	while(TRUE)
+	{
+	update_IMU();
+	chThdSleepMilliseconds(1);
+	}
+}
+ 
+
+float get_euler_nick_ist() 
+{
+	if(dmpReady)return euler[1];
+	else return 0;
+}
+float get_euler_roll_ist() 
+{
+	if(dmpReady)return euler[2];
+	else return 0;
+}
+float get_euler_yaw_ist() 
+{
+	if(dmpReady)return euler[0];
+	else return 0;
+}
+float get_rate_nick_ist() 
+{
+	if(dmpReady)return gyro_rate_float[1];
+	else return 0;
+}
+float get_rate_roll_ist() 
+{
+	if(dmpReady)return gyro_rate_float[0];
+	else return 0;
+}
+float get_rate_yaw_ist() 
+{
+	if(dmpReady)return gyro_rate_float[2];
+	else return 0;
+}
+float get_ypr_nick_ist() 
+{
+	if(dmpReady)return ypr[1];
+	else return 0;
+}
+float get_ypr_roll_ist() 
+{
+	if(dmpReady)return ypr[2];
+	else return 0;
+}
+float get_ypr_yaw_ist() 
+{
+	if(dmpReady)return ypr[0];
+	else return 0;
+}
+uint16_t get_fifo_count() 
+{
+	if(dmpReady)return fifoCount;
+	else return 0;
+}
+
+void setup_IMU() 
+{
+	tmObjectInit(&lagedatalogsync_tmup);
+	I2CInitialize();
+	mpu.initialize();
+	devStatus = mpu.dmpInitialize();
+	if (devStatus == 0) 
+	{
+		//chThdCreateStatic(LageSyncThreadWorkingArea, sizeof(LageSyncThreadWorkingArea), NORMALPRIO, LageSyncthread, NULL);
+		mpu.setDMPEnabled(true);
+		mpuIntStatus = mpu.getIntStatus();
+		dmpReady = true;
+		packetSize = mpu.dmpGetFIFOPacketSize();
+		chThdCreateStatic(LageReadThreadWorkingArea, sizeof(LageReadThreadWorkingArea), HIGHPRIO, LageReadThread, NULL);
+		//send_statustext(MAV_SEVERITY_ALERT, "IMU initialized");
+	} 
+}
+
