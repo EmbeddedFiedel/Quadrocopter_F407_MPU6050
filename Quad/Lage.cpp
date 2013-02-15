@@ -280,8 +280,7 @@ float get_ypr_yaw_ist()
 }
 uint16_t get_fifo_count() 
 {
-	if(dmpReady)return fifoCount;
-	else return 0;
+	return fifoCount;
 }
 
 void setup_IMU() 
