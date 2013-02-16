@@ -27,8 +27,8 @@ static inline void global_data_reset_param_defaults(void)
 	global_data.param[3] = 0.1;
 	strcpy(global_data.param_name[3], "R_Igain");
 	
-	global_data.param[4] = 4;
-	strcpy(global_data.param_name[4], "KB4");
+	global_data.param[4] = 567;
+	strcpy(global_data.param_name[4], "R_gain");
 } 
 
 uint16_t m_parameter_i = 0;

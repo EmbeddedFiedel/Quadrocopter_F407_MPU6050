@@ -80,6 +80,7 @@ float param_roll_p;
 float param_roll_d;
 float param_roll_i_dyn;
 float param_roll_i_gain;
+float param_roll_gain;
 
 
 
@@ -325,13 +326,13 @@ void Regelung(void)
    param_roll_d = global_data.param[1];
    param_roll_i_dyn = global_data.param[2];
    param_roll_i_gain = global_data.param[3];
-
+	 param_roll_gain = global_data.param[4];
    ea_Roll = (inRollSollLage) - (inRollIstLage); //Reglereingang
    ei_Roll = ea_Roll;
 
-   pi_Roll = ei_Roll * 0.7;			param_roll_p;					//P-Regler
+   pi_Roll = ei_Roll * param_roll_p;					//P-Regler
    di_Roll = (ei_Roll - ei_Roll_alt)*param_roll_d;	//D-Regler	
-   if(inSchub > 0.1)
+   if(inSchub > 0.2)
    	ii_Roll = param_roll_i_dyn * ei_Roll + ii_Roll;		//I-Regler
 
    //if (di_Roll > 5)							//Saturierung D
@@ -344,7 +345,7 @@ void Regelung(void)
    else if(ii_Roll < -5)
 	   ii_Roll = -5;
 
-   aRoll = (pi_Roll + ii_Roll*param_roll_i_gain + di_Roll)*567;
+   aRoll = (pi_Roll + ii_Roll*param_roll_i_gain + di_Roll)*param_roll_gain;
 
 	/////////////////////////// Yaw-Regler berechnen ////////////////////////////////////////// 
 
@@ -397,19 +398,19 @@ void Regelung(void)
    }
 
 	/////////////////////////// Motorwerte saturieren und �bergeben //////////////////////// 
-   if (outMotor1 > 6800.F) 	setMotor_1(6800.F);
+   if (outMotor1 > 6800.F) 	setMotor_1(1.F);
    else if(outMotor1 < 0.F) setMotor_1(0.F);
    else setMotor_1(outMotor1/6800);
 
-   if (outMotor2 > 6800.F)  setMotor_2(6800.F);
+   if (outMotor2 > 6800.F)  setMotor_2(1.F);
    else if(outMotor2 < 0.F) setMotor_2(0.F);
    else setMotor_2(outMotor2/6800);
 	 
-   if (outMotor3 > 6800.F)  setMotor_3(6800.F);
+   if (outMotor3 > 6800.F)  setMotor_3(1.F);
    else if(outMotor3 < 0.F) setMotor_3(0.F);
    else setMotor_3(outMotor3/6800);
 	 
-   if (outMotor4 > 6800.F)  setMotor_4(6800.F);
+   if (outMotor4 > 6800.F)  setMotor_4(1.F);
    else if(outMotor4 < 0.F) setMotor_4(0.F);	
    else setMotor_4(outMotor4/6800);	
 

@@ -48,101 +48,8 @@ int32_t gyroRate[3];
 float gyro_rate_float[3];
 VectorFloat gravity; // [x, y, z] gravity vector
 float ypr[3]; // [yaw, pitch, roll] yaw/pitch/roll container and gravity vector
-
-static FIL Fil_Lage;			/* File object */
-FRESULT rc_lage;				/* Result code */
-
-
-bool_t datalog_lage_opened = 0;
-bool_t datalog_lage_syncing = 0;
-/*
- * Working area for LageSync
- */
-static WORKING_AREA(LageSyncThreadWorkingArea, 2048);
-/*
- * LageSync
- */
-static msg_t LageSyncthread(void *arg) {
- 
-  systime_t time = chTimeNow();     // Tnow
-  while (TRUE) 
-	{
-		if(Datalogger_ready() && !datalog_lage_opened)
-		{
-				//rc_lage = f_mkfs(0,0,0);
-				rc_lage = f_open(&Fil_Lage, ("QuadLage.TXT"), FA_WRITE | FA_CREATE_ALWAYS);
-				if(rc_lage != FR_OK)
-				{
-					//chprintf((BaseChannel *) &SD2, "SD QuadLage.TXT: f_open() failed %d\r\n", rc_lage);
-				}	
-				//rc = f_printf(&Fil, "moin\r\n");	 
-				rc_lage = f_sync(&Fil_Lage);
-				if(rc_lage != FR_OK)
-				{
-					//chprintf((BaseChannel *) &SD2, "SD QuadLage.TXT: f_sync() failed %d\r\n", rc_lage);
-				}	
-				f_printf(&Fil_Lage, "Time_Lage; Nick_Lage; Roll_Lage; Yaw_Lage\r\n");
-				rc_lage = f_sync(&Fil_Lage);
-				if(rc_lage != FR_OK)
-				{
-					//chprintf((BaseChannel *) &SD2, "SD QuadLage.TXT: f_sync() failed %d\r\n", rc_lage);
-				}	
-				else
-				{
-				datalog_lage_opened = TRUE;
-				//chprintf((BaseChannel *) &SD2, "SD QuadLage.TXT: opened successfull\r\n");
-				}
-				chThdSleepMilliseconds(10);
-
-		}
-		else if(Datalogger_ready() && datalog_lage_opened)
-		{
-		datalog_lage_syncing = 1;
-		rc_lage = f_sync(&Fil_Lage);
-		datalog_lage_syncing = 0;
-		chThdSleepMilliseconds(700);
-		}
-  }
-}
-
-
-
-
-
-static TimeMeasurement lagedatalogsync_tmup;
-void datalog_lage(void)
-{
-	uint32_t system_time;
-	
-		if(Datalogger_ready() && datalog_lage_opened && datalog_lage_syncing == 0)
-		{
-			//int worst, last, best;
-			system_time = chTimeNow();
-			f_printf(&Fil_Lage, "%d;%d;%d;%d\r\n",system_time,(int)(euler[1]*100),(int)(euler[2]*100),(int)(euler[0]*100));
-			//tmStartMeasurement(&lagedatalogsync_tmup);
-			//rc_lage = f_sync(&Fil_Lage);
-			//tmStopMeasurement(&lagedatalogsync_tmup);
-			//best = RTT2MS(lagedatalogsync_tmup.best);
-			//last = RTT2MS(lagedatalogsync_tmup.last);
-			//worst = RTT2MS(lagedatalogsync_tmup.worst);
-			//chprintf((BaseChannel *) &SD2, "Lage SD Sync Best:%d Worst:%d Last:%d \r\n",best ,worst , last);
-		}
-}
-
-// ================================================================
-// ===               INTERRUPT DETECTION ROUTINE                ===
-// ================================================================
-
 volatile bool mpuInterrupt = false;     // indicates whether MPU interrupt pin has gone high
-void dmpDataReady() 
-{
-	mpuInterrupt = true;
-}
 
-
-// ================================================================
-// ===                      INITIAL SETUP                       ===
-// ================================================================
 
 static const I2CConfig i2cfg1 = {
     OPMODE_I2C,
@@ -160,19 +67,6 @@ void I2CInitialize()
 
 	// startups. Pauses added just to be safe
 	chThdSleepMilliseconds(100);
-}
-
-void mpu_6050_interrupt(EXTDriver *extp, expchannel_t channel) 
-{
-		(void)extp;
-		(void)channel;
-	
-		chSysLockFromIsr();
-		if (palReadPad(GPIOD, 7) == PAL_HIGH) 
-		{
-			mpuInterrupt = true;
-		}
-		chSysUnlockFromIsr();
 }
 
 int zaehler = 0;
@@ -236,7 +130,36 @@ static msg_t LageReadThread(void *arg)
 	chThdSleepMilliseconds(1);
 	}
 }
+
+void setup_IMU() 
+{
+	I2CInitialize();
+	mpu.initialize();
+	devStatus = mpu.dmpInitialize();
+	if (devStatus == 0) 
+	{
+		//chThdCreateStatic(LageSyncThreadWorkingArea, sizeof(LageSyncThreadWorkingArea), NORMALPRIO, LageSyncthread, NULL);
+		mpu.setDMPEnabled(true);
+		mpuIntStatus = mpu.getIntStatus();
+		dmpReady = true;
+		packetSize = mpu.dmpGetFIFOPacketSize();
+		chThdCreateStatic(LageReadThreadWorkingArea, sizeof(LageReadThreadWorkingArea), HIGHPRIO, LageReadThread, NULL);
+		//send_statustext(MAV_SEVERITY_ALERT, "IMU initialized");
+	} 
+}
  
+void mpu_6050_interrupt(EXTDriver *extp, expchannel_t channel) 
+{
+		(void)extp;
+		(void)channel;
+	
+		chSysLockFromIsr();
+		if (palReadPad(GPIOD, 7) == PAL_HIGH) 
+		{
+			mpuInterrupt = true;
+		}
+		chSysUnlockFromIsr();
+}
 
 float get_euler_nick_ist() 
 {
@@ -286,23 +209,5 @@ float get_ypr_yaw_ist()
 uint16_t get_fifo_count() 
 {
 	return fifoCount;
-}
-
-void setup_IMU() 
-{
-	tmObjectInit(&lagedatalogsync_tmup);
-	I2CInitialize();
-	mpu.initialize();
-	devStatus = mpu.dmpInitialize();
-	if (devStatus == 0) 
-	{
-		//chThdCreateStatic(LageSyncThreadWorkingArea, sizeof(LageSyncThreadWorkingArea), NORMALPRIO, LageSyncthread, NULL);
-		mpu.setDMPEnabled(true);
-		mpuIntStatus = mpu.getIntStatus();
-		dmpReady = true;
-		packetSize = mpu.dmpGetFIFOPacketSize();
-		chThdCreateStatic(LageReadThreadWorkingArea, sizeof(LageReadThreadWorkingArea), HIGHPRIO, LageReadThread, NULL);
-		//send_statustext(MAV_SEVERITY_ALERT, "IMU initialized");
-	} 
 }
 
