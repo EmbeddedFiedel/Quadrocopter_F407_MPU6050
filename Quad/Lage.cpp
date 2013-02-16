@@ -211,24 +211,23 @@ void update_IMU()
 			// wait for correct available data length, should be a VERY short wait
 			while (fifoCount < packetSize) fifoCount = mpu.getFIFOCount();
 			// read a packet from FIFO
-			mpu.getFIFOBytes(fifoBuffer, packetSize);
-			// track FIFO count here in case there is > 1 packet available
-			// (this lets us immediately read more without waiting for an interrupt)
-			fifoCount -= packetSize;
-			mpu.dmpGetQuaternion(&q, fifoBuffer);
-			mpu.dmpGetGravity(&gravity, &q);
-			mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
-			mpu.dmpGetEuler(euler, &q);
-			//für Beleunigungsmessung
-			//mpu.dmpGetLinearAccelInWorld(VectorInt16 *v, VectorInt16 *vReal, Quaternion *q)
-			mpu.dmpGetGyro(gyroRate,fifoBuffer);
-			gyro_rate_float[0] = (float)gyroRate[0]/2147483648*2000*0.41;
-			gyro_rate_float[1] = (float)gyroRate[1]/2147483648*2000*0.41;
-			gyro_rate_float[2] = (float)gyroRate[2]/2147483648*2000*0.41;
-			
-			
-			
-			
+			for(int i = 0; i<(fifoCount/packetSize); i++)
+			{
+				mpu.getFIFOBytes(fifoBuffer, packetSize);
+				chThdSleepMilliseconds(1);
+			}
+				// track FIFO count here in case there is > 1 packet available
+				// (this lets us immediately read more without waiting for an interrupt)
+				//fifoCount -= packetSize;
+				mpu.dmpGetQuaternion(&q, fifoBuffer);
+				mpu.dmpGetGravity(&gravity, &q);
+				mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
+				mpu.dmpGetEuler(euler, &q);
+				mpu.dmpGetGyro(gyroRate,fifoBuffer);
+				gyro_rate_float[0] = (float)gyroRate[0]/2147483648*2000*0.41;
+				gyro_rate_float[1] = (float)gyroRate[1]/2147483648*2000*0.41;
+				gyro_rate_float[2] = (float)gyroRate[2]/2147483648*2000*0.41;
+				fifoCount = mpu.getFIFOCount();
 		}
 		else
 		{
