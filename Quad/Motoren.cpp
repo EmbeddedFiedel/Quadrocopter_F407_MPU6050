@@ -7,6 +7,9 @@
  * Cyclic callback enabled, channels 1 and 4 enabled without callbacks,
  * the active state is a logic one.
  */
+ 
+ static struct VirtualTimer timer;
+ 
 static PWMConfig pwmcfg_esc = {
   1000000,                                    /* 10kHz PWM clock frequency.   */
   20000,                                    /* PWM period 20ms (in ticks).    */
@@ -53,13 +56,20 @@ void setup_Motoren()
   pwmEnableChannel(&PWMD5, 1, width2);
   pwmEnableChannel(&PWMD5, 2, width3);
   pwmEnableChannel(&PWMD5, 3, width4);
+	
+	//Fuer Motor-Stop
+	chVTSetI(&timer,MS2ST(1000),timer_motor,0);
+	
 }
 
 
 void setMotor_1(float value)
 {
+
 	width1 = value*1000+1000;
 	pwmEnableChannel(&PWMD5, 0, width1);
+	chVTResetI(&timer);
+	chVTSetI(&timer,MS2ST(20),timer_motor,0);
 }
 void setMotor_2(float value)
 {
@@ -75,4 +85,12 @@ void setMotor_4(float value)
 {
 	width4 = value*1000+1000;
   pwmEnableChannel(&PWMD5, 3, width4);
+}
+
+void timer_motor(void *arg)
+{
+	setMotor_4(0);
+	setMotor_3(0);
+	setMotor_2(0);
+	setMotor_1(0);
 }

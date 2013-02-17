@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'Regelglied'.
  *
- * Model version                  : 1.494
+ * Model version                  : 1.497
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Fri Feb 01 12:38:33 2013
+ * C/C++ source code generated on : Thu Feb 07 16:43:52 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -21,60 +21,72 @@
 
 /* Exported block signals */
 real_T Soll_V_Roll;                    /* '<S1>/D-Anteil' */
-real_T Soll_a_Roll;                    /* '<S1>/D-Anteil2' */
 real_T Xd_Roll;                        /* '<S1>/Add' */
 real_T p_anteil;                       /* '<S6>/Gain' */
 real_T i_anteil;                       /* '<S6>/Integrator' */
 real_T d_anteil;                       /* '<S6>/D-Anteil' */
 real_T Y_roll;                         /* '<S6>/Add' */
 real_T Xd_V_Roll;                      /* '<S1>/Add1' */
+real_T Soll_a_Roll;                    /* '<S1>/D-Anteil2' */
 real_T Ist_a_Roll;                     /* '<S1>/D-Anteil4' */
 real_T Xd_a_Roll;                      /* '<S1>/Add2' */
 real_T Soll_V_Nick;                    /* '<S1>/D-Anteil1' */
-real_T Soll_a_Nick;                    /* '<S1>/D-Anteil3' */
 real_T Xd_Nick;                        /* '<S1>/Add3' */
+real_T p_anteil_nick;                  /* '<S7>/Gain' */
+real_T i_anteil_nick;                  /* '<S7>/Integrator' */
+real_T d_anteil_nick;                  /* '<S7>/D-Anteil' */
 real_T Y_Nick;                         /* '<S7>/Add' */
+real_T Soll_a_Nick;                    /* '<S1>/D-Anteil3' */
 real_T Ist_a_Nick;                     /* '<S1>/D-Anteil5' */
 real_T Xd_a_Nick;                      /* '<S1>/Add5' */
 
 /* Exported block parameters */
-real_T ena_pid = 1.0;                  /* Variable: ena_pid
-                                        * Referenced by: '<S1>/Constant'
+real_T ena_byp_a = 1.0;                /* Variable: ena_byp_a
+                                        * Referenced by: '<S1>/Constant2'
                                         */
-real_T gain_d_soll_a = 1.0;            /* Variable: gain_d_soll_a
-                                        * Referenced by:
-                                        *   '<S1>/Gain2'
-                                        *   '<S1>/Gain3'
-                                        */
-real_T gain_d_soll_v = 1.0;            /* Variable: gain_d_soll_v
-                                        * Referenced by:
-                                        *   '<S1>/Gain'
-                                        *   '<S1>/Gain1'
-                                        */
-real_T kp_a_nick = 0.00;            /* Variable: kp_a_nick
-                                        * Referenced by: '<S2>/Gain'
-                                        */
-real_T kp_a_roll = 0.07;            /* Variable: kp_a_roll
-                                        * Referenced by: '<S4>/Gain'
-                                        */
-real_T kp_nick = 4.5;                  /* Variable: kp_nick
-                                        * Referenced by: '<S7>/Gain'
-                                        */
-real_T kp_roll = 8.725;                  /* Variable: kp_roll
-                                        * Referenced by: '<S6>/Gain'
-                                        */
-real_T kp_v_nick = 0.38;               /* Variable: kp_v_nick
-                                        * Referenced by: '<S3>/Gain'
-                                        */
-real_T kp_v_roll = 0.7125;               /* Variable: kp_v_roll= 0.675
-                                        * Referenced by: '<S5>/Gain'
-                                        */
-real_T tn_nick =  0.1;                  /* Variable: tn_nick
-                                        * Referenced by: '<S7>/Gain1'
-                                        */
-real_T tn_roll = 0.2;                  /* Variable: tn_roll
-                                        * Referenced by: '<S6>/Gain1'
-                                        */
+real_T ena_pid = 1.0; /* Variable: ena_pid
+* Referenced by: '<S1>/Constant'
+*/
+real_T gain_d_soll_a = 1.0; /* Variable: gain_d_soll_a
+* Referenced by:
+* '<S1>/Gain2'
+* '<S1>/Gain3'
+*/
+real_T gain_d_soll_v = 1.0; /* Variable: gain_d_soll_v
+* Referenced by:
+* '<S1>/Gain'
+* '<S1>/Gain1'
+*/
+real_T kp_a_nick = 0.07;	/* Variable: kp_a_nick
+* Referenced by: '<S2>/Gain'
+*/
+real_T kp_a_roll = 0.07; /* Variable: kp_a_roll
+* Referenced by: '<S4>/Gain'
+*/
+real_T kp_nick = 18.95; /* Variable: kp_nick
+* Referenced by: '<S7>/Gain'
+*/
+real_T kp_roll = 14.3; /* Variable: kp_roll
+* Referenced by: '<S6>/Gain'
+*/
+real_T kp_v_nick = 0.775; /* Variable: kp_v_nick
+* Referenced by: '<S3>/Gain'
+*/
+real_T kp_v_roll = 0.7125; /* Variable: kp_v_roll= 0.675
+* Referenced by: '<S5>/Gain'
+*/
+real_T tn_nick = 0.5; /* Variable: tn_nick
+* Referenced by: '<S7>/Gain1'
+*/
+real_T tn_roll = 0.055; /* Variable: tn_roll
+* Referenced by: '<S6>/Gain1'
+*/
+real_T tv_nick = 1.9; /* Variable: tv_nick
+* Referenced by: '<S7>/Gain2'
+*/
+real_T tv_roll = 2.5; /* Variable: tv_roll
+* Referenced by: '<S6>/Gain2'
+*/
 
 /* Block signals (auto storage) */
 BlockIO_Regelglied Regelglied_B;
@@ -182,9 +194,6 @@ static void rt_ertODEUpdateContinuousStates(RTWSolverInfo *si )
 /* Model step function */
 void Regelglied_step(void)
 {
-  /* local block i/o variables */
-  real_T rtb_i_anteil_nick;
-  real_T rtb_Switch;
   real_T rtb_Saturation;
   int8_T rtAction;
   if (rtmIsMajorTimeStep(Regelglied_M)) {
@@ -207,10 +216,6 @@ void Regelglied_step(void)
   /* TransferFcn: '<S1>/D-Anteil' */
   Soll_V_Roll = 2.6315789473684212*Regelglied_B.Gain;
   Soll_V_Roll += (-6.9252077562326884)*Regelglied_X.DAnteil_CSTATE;
-
-  /* TransferFcn: '<S1>/D-Anteil2' */
-  Soll_a_Roll = 2.5*Soll_V_Roll;
-  Soll_a_Roll += (-6.25)*Regelglied_X.DAnteil2_CSTATE;
 
   /* Sum: '<S1>/Add' incorporates:
    *  Inport: '<Root>/In_Ist_Roll'
@@ -291,9 +296,12 @@ void Regelglied_step(void)
 
   i_anteil = Regelglied_X.Integrator_CSTATE;
 
+  /* Gain: '<S6>/Gain2' */
+  Regelglied_B.Gain2 = tv_roll * Xd_Roll;
+
   /* TransferFcn: '<S6>/D-Anteil' */
-  d_anteil = 1.4*Xd_Roll;
-  d_anteil += (-140.0)*Regelglied_X.DAnteil_CSTATE_p;
+  d_anteil = 100.0*Regelglied_B.Gain2;
+  d_anteil += (-10000.0)*Regelglied_X.DAnteil_CSTATE_p;
 
   /* Sum: '<S6>/Add' */
   Y_roll = (p_anteil + i_anteil) + d_anteil;
@@ -303,9 +311,9 @@ void Regelglied_step(void)
    *  Constant: '<S1>/Constant1'
    */
   if (ena_pid >= 0.0) {
-    rtb_i_anteil_nick = Y_roll;
+    rtb_Saturation = Y_roll;
   } else {
-    rtb_i_anteil_nick = 0.0;
+    rtb_Saturation = 0.0;
   }
 
   /* End of Switch: '<S1>/Switch1' */
@@ -313,28 +321,44 @@ void Regelglied_step(void)
   /* Sum: '<S1>/Add1' incorporates:
    *  Inport: '<Root>/In_Ist_V_Roll'
    */
-  Xd_V_Roll = (Soll_V_Roll + rtb_i_anteil_nick) - Regelglied_U.In_Ist_V_Roll;
+  Xd_V_Roll = (Soll_V_Roll + rtb_Saturation) - Regelglied_U.In_Ist_V_Roll;
 
   /* Gain: '<S5>/Gain' */
   rtb_Saturation = kp_v_roll * Xd_V_Roll;
+
+  /* TransferFcn: '<S1>/D-Anteil2' */
+  Soll_a_Roll = 2.5*Soll_V_Roll;
+  Soll_a_Roll += (-6.25)*Regelglied_X.DAnteil2_CSTATE;
   if (rtmIsMajorTimeStep(Regelglied_M)) {
     /* Gain: '<S1>/Gain2' incorporates:
      *  Inport: '<Root>/In_Ist_V_Roll'
      */
-    Regelglied_B.Gain2 = gain_d_soll_a * Regelglied_U.In_Ist_V_Roll;
+    Regelglied_B.Gain2_p = gain_d_soll_a * Regelglied_U.In_Ist_V_Roll;
   }
 
   /* TransferFcn: '<S1>/D-Anteil4' */
-  Ist_a_Roll = 1.6666666666666667*Regelglied_B.Gain2;
+  Ist_a_Roll = 1.6666666666666667*Regelglied_B.Gain2_p;
   Ist_a_Roll += (-2.7777777777777781)*Regelglied_X.DAnteil4_CSTATE;
 
   /* Sum: '<S1>/Add2' */
   Xd_a_Roll = (Soll_a_Roll + rtb_Saturation) - Ist_a_Roll;
 
-  /* Outport: '<Root>/Out_M_Roll' incorporates:
-   *  Gain: '<S4>/Gain'
+  /* Switch: '<S1>/Switch2' incorporates:
+   *  Constant: '<S1>/Constant2'
    */
-  Regelglied_Y.Out_M_Roll = kp_a_roll * Xd_a_Roll;
+  if (ena_byp_a >= 0.0) {
+    /* Outport: '<Root>/Out_M_Roll' incorporates:
+     *  Gain: '<S1>/Gain5'
+     */
+    Regelglied_Y.Out_M_Roll = kp_a_roll * rtb_Saturation;
+  } else {
+    /* Outport: '<Root>/Out_M_Roll' incorporates:
+     *  Gain: '<S4>/Gain'
+     */
+    Regelglied_Y.Out_M_Roll = kp_a_roll * Xd_a_Roll;
+  }
+
+  /* End of Switch: '<S1>/Switch2' */
 
   /* Gain: '<S1>/Gain1' incorporates:
    *  Inport: '<Root>/In_Soll_Nick'
@@ -342,12 +366,8 @@ void Regelglied_step(void)
   Regelglied_B.Gain1 = gain_d_soll_v * Regelglied_U.In_Soll_Nick;
 
   /* TransferFcn: '<S1>/D-Anteil1' */
-  Soll_V_Nick = 2.5*Regelglied_B.Gain1;
-  Soll_V_Nick += (-6.25)*Regelglied_X.DAnteil1_CSTATE;
-
-  /* TransferFcn: '<S1>/D-Anteil3' */
-  Soll_a_Nick = 2.5*Soll_V_Nick;
-  Soll_a_Nick += (-6.25)*Regelglied_X.DAnteil3_CSTATE;
+  Soll_V_Nick = 2.6315789473684212*Regelglied_B.Gain1;
+  Soll_V_Nick += (-6.9252077562326884)*Regelglied_X.DAnteil1_CSTATE;
 
   /* Sum: '<S1>/Add3' incorporates:
    *  Inport: '<Root>/In_Ist_Nick'
@@ -356,7 +376,7 @@ void Regelglied_step(void)
   Xd_Nick = Regelglied_U.In_Soll_Nick - Regelglied_U.In_Ist_Nick;
 
   /* Gain: '<S7>/Gain' */
-  rtb_Saturation = kp_nick * Xd_Nick;
+  p_anteil_nick = kp_nick * Xd_Nick;
 
   /* Integrator: '<S7>/Integrator' */
   if (rtmIsMajorTimeStep(Regelglied_M)) {
@@ -371,23 +391,26 @@ void Regelglied_step(void)
     }
   }
 
-  rtb_i_anteil_nick = Regelglied_X.Integrator_CSTATE_p;
+  i_anteil_nick = Regelglied_X.Integrator_CSTATE_p;
+
+  /* Gain: '<S7>/Gain2' */
+  Regelglied_B.Gain2_a = tv_nick * Xd_Nick;
 
   /* TransferFcn: '<S7>/D-Anteil' */
-  rtb_Switch = 150.0*Xd_Nick;
-  rtb_Switch += (-15000.0)*Regelglied_X.DAnteil_CSTATE_n;
+  d_anteil_nick = 100.0*Regelglied_B.Gain2_a;
+  d_anteil_nick += (-10000.0)*Regelglied_X.DAnteil_CSTATE_n;
 
   /* Sum: '<S7>/Add' */
-  Y_Nick = (rtb_Saturation + rtb_i_anteil_nick) + rtb_Switch;
+  Y_Nick = (p_anteil_nick + i_anteil_nick) + d_anteil_nick;
 
   /* Switch: '<S1>/Switch' incorporates:
    *  Constant: '<S1>/Constant'
    *  Constant: '<S1>/Constant1'
    */
   if (ena_pid >= 0.0) {
-    rtb_Switch = Y_Nick;
+    rtb_Saturation = Y_Nick;
   } else {
-    rtb_Switch = 0.0;
+    rtb_Saturation = 0.0;
   }
 
   /* End of Switch: '<S1>/Switch' */
@@ -396,8 +419,12 @@ void Regelglied_step(void)
    *  Inport: '<Root>/In_Ist_V_Nick'
    *  Sum: '<S1>/Add4'
    */
-  rtb_Saturation = ((Soll_V_Nick + rtb_Switch) - Regelglied_U.In_Ist_V_Nick) *
-    kp_v_nick;
+  rtb_Saturation = ((Soll_V_Nick + rtb_Saturation) - Regelglied_U.In_Ist_V_Nick)
+    * kp_v_nick;
+
+  /* TransferFcn: '<S1>/D-Anteil3' */
+  Soll_a_Nick = 2.5*Soll_V_Nick;
+  Soll_a_Nick += (-6.25)*Regelglied_X.DAnteil3_CSTATE;
   if (rtmIsMajorTimeStep(Regelglied_M)) {
     /* Gain: '<S1>/Gain3' incorporates:
      *  Inport: '<Root>/In_Ist_V_Nick'
@@ -412,10 +439,22 @@ void Regelglied_step(void)
   /* Sum: '<S1>/Add5' */
   Xd_a_Nick = (Soll_a_Nick + rtb_Saturation) - Ist_a_Nick;
 
-  /* Outport: '<Root>/Out_M_Nick' incorporates:
-   *  Gain: '<S2>/Gain'
+  /* Switch: '<S1>/Switch3' incorporates:
+   *  Constant: '<S1>/Constant2'
    */
-  Regelglied_Y.Out_M_Nick = kp_a_nick * Xd_a_Nick;
+  if (ena_byp_a >= 0.0) {
+    /* Outport: '<Root>/Out_M_Nick' incorporates:
+     *  Gain: '<S1>/Gain4'
+     */
+    Regelglied_Y.Out_M_Nick = kp_a_nick * rtb_Saturation;
+  } else {
+    /* Outport: '<Root>/Out_M_Nick' incorporates:
+     *  Gain: '<S2>/Gain'
+     */
+    Regelglied_Y.Out_M_Nick = kp_a_nick * Xd_a_Nick;
+  }
+
+  /* End of Switch: '<S1>/Switch3' */
 
   /* Gain: '<S6>/Gain1' */
   Regelglied_B.Gain1_d = 1.0 / tn_roll * Xd_Roll;
@@ -457,14 +496,6 @@ void Regelglied_derivatives(void)
       ->DAnteil_CSTATE += (-2.6315789473684212)*Regelglied_X.DAnteil_CSTATE;
   }
 
-  /* Derivatives for TransferFcn: '<S1>/D-Anteil2' */
-  {
-    ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
-      ->DAnteil2_CSTATE = Soll_V_Roll;
-    ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
-      ->DAnteil2_CSTATE += (-2.5)*Regelglied_X.DAnteil2_CSTATE;
-  }
-
   /* Derivatives for Integrator: '<S6>/Integrator' */
   {
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
@@ -474,15 +505,23 @@ void Regelglied_derivatives(void)
   /* Derivatives for TransferFcn: '<S6>/D-Anteil' */
   {
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
-      ->DAnteil_CSTATE_p = Xd_Roll;
+      ->DAnteil_CSTATE_p = Regelglied_B.Gain2;
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
       ->DAnteil_CSTATE_p += (-100.0)*Regelglied_X.DAnteil_CSTATE_p;
+  }
+
+  /* Derivatives for TransferFcn: '<S1>/D-Anteil2' */
+  {
+    ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
+      ->DAnteil2_CSTATE = Soll_V_Roll;
+    ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
+      ->DAnteil2_CSTATE += (-2.5)*Regelglied_X.DAnteil2_CSTATE;
   }
 
   /* Derivatives for TransferFcn: '<S1>/D-Anteil4' */
   {
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
-      ->DAnteil4_CSTATE = Regelglied_B.Gain2;
+      ->DAnteil4_CSTATE = Regelglied_B.Gain2_p;
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
       ->DAnteil4_CSTATE += (-1.6666666666666667)*Regelglied_X.DAnteil4_CSTATE;
   }
@@ -492,15 +531,7 @@ void Regelglied_derivatives(void)
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
       ->DAnteil1_CSTATE = Regelglied_B.Gain1;
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
-      ->DAnteil1_CSTATE += (-2.5)*Regelglied_X.DAnteil1_CSTATE;
-  }
-
-  /* Derivatives for TransferFcn: '<S1>/D-Anteil3' */
-  {
-    ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
-      ->DAnteil3_CSTATE = Soll_V_Nick;
-    ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
-      ->DAnteil3_CSTATE += (-2.5)*Regelglied_X.DAnteil3_CSTATE;
+      ->DAnteil1_CSTATE += (-2.6315789473684212)*Regelglied_X.DAnteil1_CSTATE;
   }
 
   /* Derivatives for Integrator: '<S7>/Integrator' */
@@ -512,9 +543,17 @@ void Regelglied_derivatives(void)
   /* Derivatives for TransferFcn: '<S7>/D-Anteil' */
   {
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
-      ->DAnteil_CSTATE_n = Xd_Nick;
+      ->DAnteil_CSTATE_n = Regelglied_B.Gain2_a;
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
       ->DAnteil_CSTATE_n += (-100.0)*Regelglied_X.DAnteil_CSTATE_n;
+  }
+
+  /* Derivatives for TransferFcn: '<S1>/D-Anteil3' */
+  {
+    ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
+      ->DAnteil3_CSTATE = Soll_V_Nick;
+    ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
+      ->DAnteil3_CSTATE += (-2.5)*Regelglied_X.DAnteil3_CSTATE;
   }
 
   /* Derivatives for TransferFcn: '<S1>/D-Anteil5' */
@@ -571,19 +610,22 @@ void Regelglied_initialize(void)
 
   /* exported global signals */
   Soll_V_Roll = 0.0;
-  Soll_a_Roll = 0.0;
   Xd_Roll = 0.0;
   p_anteil = 0.0;
   i_anteil = 0.0;
   d_anteil = 0.0;
   Y_roll = 0.0;
   Xd_V_Roll = 0.0;
+  Soll_a_Roll = 0.0;
   Ist_a_Roll = 0.0;
   Xd_a_Roll = 0.0;
   Soll_V_Nick = 0.0;
-  Soll_a_Nick = 0.0;
   Xd_Nick = 0.0;
+  p_anteil_nick = 0.0;
+  i_anteil_nick = 0.0;
+  d_anteil_nick = 0.0;
   Y_Nick = 0.0;
+  Soll_a_Nick = 0.0;
   Ist_a_Nick = 0.0;
   Xd_a_Nick = 0.0;
 
@@ -616,9 +658,6 @@ void Regelglied_initialize(void)
   /* InitializeConditions for TransferFcn: '<S1>/D-Anteil' */
   Regelglied_X.DAnteil_CSTATE = 0.0;
 
-  /* InitializeConditions for TransferFcn: '<S1>/D-Anteil2' */
-  Regelglied_X.DAnteil2_CSTATE = 0.0;
-
   /* InitializeConditions for Merge: '<S8>/Merge' */
   if (rtmIsFirstInitCond(Regelglied_M)) {
     Regelglied_B.Merge = 0.0;
@@ -631,20 +670,23 @@ void Regelglied_initialize(void)
   /* InitializeConditions for TransferFcn: '<S6>/D-Anteil' */
   Regelglied_X.DAnteil_CSTATE_p = 0.0;
 
+  /* InitializeConditions for TransferFcn: '<S1>/D-Anteil2' */
+  Regelglied_X.DAnteil2_CSTATE = 0.0;
+
   /* InitializeConditions for TransferFcn: '<S1>/D-Anteil4' */
   Regelglied_X.DAnteil4_CSTATE = 0.0;
 
   /* InitializeConditions for TransferFcn: '<S1>/D-Anteil1' */
   Regelglied_X.DAnteil1_CSTATE = 0.0;
 
-  /* InitializeConditions for TransferFcn: '<S1>/D-Anteil3' */
-  Regelglied_X.DAnteil3_CSTATE = 0.0;
-
   /* InitializeConditions for Integrator: '<S7>/Integrator' */
   Regelglied_X.Integrator_CSTATE_p = 0.0;
 
   /* InitializeConditions for TransferFcn: '<S7>/D-Anteil' */
   Regelglied_X.DAnteil_CSTATE_n = 0.0;
+
+  /* InitializeConditions for TransferFcn: '<S1>/D-Anteil3' */
+  Regelglied_X.DAnteil3_CSTATE = 0.0;
 
   /* InitializeConditions for TransferFcn: '<S1>/D-Anteil5' */
   Regelglied_X.DAnteil5_CSTATE = 0.0;

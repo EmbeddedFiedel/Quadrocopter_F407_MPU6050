@@ -75,7 +75,7 @@ volatile unsigned short tmp111;
 #include "ff.h"
 
 	uint32_t regelung_timebuffer[50];
-	int regelung_databuffer[50][39];
+	int regelung_databuffer[50][42];
 	uint8_t readcounter = 0;
 	uint8_t writecounter = 0;
 	static FIL Fil_regelung;			/* File object */
@@ -127,7 +127,7 @@ static msg_t RegelungSyncthread(void *arg)
 				}
 				else
 				{
-					f_printf(&Fil_regelung, "Parameter: kp_a_nick = %d, kp_a_roll = %d, kp_nick = %d, kp_roll = %d, kp_v_nick = %d, kp_v_roll = %d, tn_nick = %d, tn_roll = %d \r\nTime_regelung;In_Throttle;In_Soll_Nick;In_Soll_Roll;In_Soll_Gier;In_Ist_Nick;In_Ist_Roll;In_Ist_Gier;In_Ist_V_Nick;In_Ist_V_Roll;Out_M_Roll;Out_M_Nick;Out_M_Gier;Out_F_A;Out_F_B;Out_F_C;Out_F_D;Out_n_A;Out_n_B;Out_n_C;Out_n_D;Soll_V_Roll;Xd_Roll;p_anteil;i_anteil;d_anteil;Y_roll;Xd_V_Roll;Ist_a_Roll;Xd_a_Roll;Soll_V_Nick;Soll_a_Nick;Xd_Nick;Y_Nick;Ist_a_Nick;Xd_a_Nick;get_ypr_nick_ist;get_ypr_roll_ist;get_ypr_yaw_ist;Soll_a_Roll\r\n", (long int)(kp_a_nick*10000) , (long int)(kp_a_roll*10000), (long int)(kp_nick*10000), (long int)(kp_roll*10000), (long int)(kp_v_nick*10000), (long int)(kp_v_roll*10000), (long int)(tn_nick*10000), (long int)(tn_roll*10000));	
+					f_printf(&Fil_regelung, "Parameter: kp_a_nick = %d, kp_a_roll = %d, kp_nick = %d, kp_roll = %d, kp_v_nick = %d, kp_v_roll = %d, tn_nick = %d, tn_roll = %d, tv_nick = %d, tv_roll = %d \r\nTime_regelung;In_Throttle;In_Soll_Nick;In_Soll_Roll;In_Soll_Gier;In_Ist_Nick;In_Ist_Roll;In_Ist_Gier;In_Ist_V_Nick;In_Ist_V_Roll;Out_M_Roll;Out_M_Nick;Out_M_Gier;Out_F_A;Out_F_B;Out_F_C;Out_F_D;Out_n_A;Out_n_B;Out_n_C;Out_n_D;Soll_V_Roll;Xd_Roll;p_anteil;i_anteil;d_anteil;Y_roll;Xd_V_Roll;Ist_a_Roll;Xd_a_Roll;Soll_V_Nick;Soll_a_Nick;Xd_Nick;Y_Nick;Ist_a_Nick;Xd_a_Nick;get_ypr_nick_ist;get_ypr_roll_ist;get_ypr_yaw_ist;Soll_a_Roll;p_anteil_nick;i_anteil_nick;d_anteil_nick\r\n", (long int)(kp_a_nick*10000) , (long int)(kp_a_roll*10000), (long int)(kp_nick*10000), (long int)(kp_roll*10000), (long int)(kp_v_nick*10000), (long int)(kp_v_roll*10000), (long int)(tn_nick*10000), (long int)(tn_roll*10000),(long int)(tv_nick*10000),(long int)(tv_roll*10000));
 					rc_datalog = f_sync(&Fil_regelung);	
 					if(rc_datalog != FR_OK)
 					{
@@ -180,7 +180,7 @@ static msg_t RegelungPrintthread(void *arg)
 		{
 			systime_t time = chTimeNow();     // Tnow
 			chprintf((BaseChannel *) &SD2, "Printing:%d\r\n",time);
-			f_printf(&Fil_regelung, "%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d\r\n",
+			f_printf(&Fil_regelung, "%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d\r\n",
 							regelung_timebuffer[readcounter],
 							regelung_databuffer[readcounter][0],
 							regelung_databuffer[readcounter][1],
@@ -220,7 +220,10 @@ static msg_t RegelungPrintthread(void *arg)
 							regelung_databuffer[readcounter][35],
 							regelung_databuffer[readcounter][36],
 							regelung_databuffer[readcounter][37],
-							regelung_databuffer[readcounter][38]);
+							regelung_databuffer[readcounter][38],
+							regelung_databuffer[readcounter][39],
+							regelung_databuffer[readcounter][40],
+							regelung_databuffer[readcounter][41]);
 							readcounter++;
 							if(readcounter >=50)readcounter=0;
 		}
@@ -271,6 +274,9 @@ void datalog_regelung(void)
 	regelung_databuffer[writecounter][36]=(long int)(get_ypr_roll_ist()*10000);
 	regelung_databuffer[writecounter][37]=(long int)(get_ypr_yaw_ist()*10000);
 	regelung_databuffer[writecounter][38]=(long int)(Soll_a_Roll*10000);
+	regelung_databuffer[writecounter][39]=(long int)(p_anteil_nick*10000);
+	regelung_databuffer[writecounter][40]=(long int)(i_anteil_nick*10000);
+	regelung_databuffer[writecounter][41]=(long int)(d_anteil_nick*10000);
 	
 	writecounter++;
 	
