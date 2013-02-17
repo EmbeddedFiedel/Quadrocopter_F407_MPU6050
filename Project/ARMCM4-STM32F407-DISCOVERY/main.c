@@ -65,7 +65,10 @@ int main(void)
 	setup_Fernsteuerung();
 	setup_Motoren();
 	setup_Regelung();
-	setup_Datalogger(); 
+	setup_Datalogger();
+    
+    palSetPad(GPIOD, GPIOD_LED3);       /* Orange.  */
+    
 	/*
 	* Normal main() thread activity, in this demo it does nothing except
 	* sleeping in a loop and check the button state, when the button is

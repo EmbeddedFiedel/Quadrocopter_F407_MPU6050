@@ -245,3 +245,4 @@ float get_rate_yaw_ist() {return gyro_rate_float[2];}
 float get_ypr_nick_ist() {return ypr[1];}
 float get_ypr_roll_ist() {return ypr[2];}
 float get_ypr_yaw_ist() {return ypr[0];}
+uint16_t get_fifo_count() {return fifoCount;}

@@ -292,10 +292,10 @@
                              PIN_MODE_INPUT(9) |                            \
                              PIN_MODE_INPUT(10) |                           \
                              PIN_MODE_INPUT(11) |                           \
-                             PIN_MODE_INPUT(12) |                  \
-                             PIN_MODE_INPUT(13) |                  \
-                             PIN_MODE_INPUT(14) |                  \
-                             PIN_MODE_INPUT(15))
+                             PIN_MODE_OUTPUT(GPIOD_LED4) |                  \
+                             PIN_MODE_OUTPUT(GPIOD_LED3) |                  \
+                             PIN_MODE_OUTPUT(GPIOD_LED5) |                  \
+                             PIN_MODE_OUTPUT(GPIOD_LED6))
 #define VAL_GPIOD_OTYPER    0x00000000
 #define VAL_GPIOD_OSPEEDR   0xFFFFFFFF
 #define VAL_GPIOD_PUPDR     (PIN_PUDR_PULLUP(0) |                           \
@@ -310,10 +310,10 @@
                              PIN_PUDR_PULLUP(9) |                           \
                              PIN_PUDR_PULLUP(10) |                          \
                              PIN_PUDR_PULLUP(11) |                          \
-                             PIN_PUDR_PULLDOWN(12) |                \
-                             PIN_PUDR_PULLDOWN(13) |                \
-                             PIN_PUDR_PULLDOWN(14) |                \
-                             PIN_PUDR_PULLDOWN(15))
+                             PIN_PUDR_FLOATING(GPIOD_LED4) |                \
+                             PIN_PUDR_FLOATING(GPIOD_LED3) |                \
+                             PIN_PUDR_FLOATING(GPIOD_LED5) |                \
+                             PIN_PUDR_FLOATING(GPIOD_LED6))
 #define VAL_GPIOD_ODR       0x00000FCF
 #define VAL_GPIOD_AFRL      0x00000000
 #define VAL_GPIOD_AFRH      0x00000000
