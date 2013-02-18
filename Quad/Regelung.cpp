@@ -96,7 +96,7 @@ extern struct global_struct global_data;
 bool_t datalog_regelung_opened = 0;
 bool_t datalog_regelung_syncing = 0;
 static TimeMeasurement regelungdatalogsync_tmup;
-char fileName[20] = "QuadReg0.TXT";
+char fileName[20] = "Reg00.TXT";
 /*
  * Working area for RegelungSyncThread
  */
@@ -116,7 +116,16 @@ static msg_t RegelungSyncthread(void *arg)
 				rc_datalog = f_open(&Fil_regelung, fileName, FA_WRITE | FA_CREATE_NEW/* | FA_CREATE_ALWAYS*/);
 				if(rc_datalog == FR_EXIST)
 				{
-					fileName[7]++;
+					if(fileName[4] < 57)
+					{
+						fileName[4]++;
+					}
+					else
+					{
+						fileName[3]++;
+						fileName[4] = 48;
+						
+					}
 				}
 				else if(rc_datalog != FR_OK)
 				{
