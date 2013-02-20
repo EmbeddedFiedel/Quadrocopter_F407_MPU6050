@@ -60,10 +60,24 @@ int main(void)
 	setup_Motoren();
 	setup_Regelung();
 	setup_Datalogger(); 
-	palSetPad(GPIOD, GPIOD_LED3);       /* Orange.  */
+
 	//send_statustext(MAV_SEVERITY_ALERT, "Initialization finished");
 	while (TRUE) 
 	{
 		//update_IMU();
+		
+		palSetPad(GPIOD, GPIOD_LED3);
+		palClearPad(GPIOD, GPIOD_LED5);
+		chThdSleepMilliseconds(200);
+		palSetPad(GPIOD, GPIOD_LED4);
+		palClearPad(GPIOD, GPIOD_LED3);       /* Orange.  */
+		chThdSleepMilliseconds(200);
+		palSetPad(GPIOD, GPIOD_LED6);
+		palClearPad(GPIOD, GPIOD_LED4);
+		chThdSleepMilliseconds(200);
+		palSetPad(GPIOD, GPIOD_LED5);
+		palClearPad(GPIOD, GPIOD_LED6);
+		chThdSleepMilliseconds(200);
+		
   }
 }
