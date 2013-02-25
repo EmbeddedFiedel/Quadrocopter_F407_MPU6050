@@ -63,7 +63,7 @@ real_T kp_a_nick = 0.07;	/* Variable: kp_a_nick
 real_T kp_a_roll = 0.07; /* Variable: kp_a_roll
 * Referenced by: '<S4>/Gain'
 */
-real_T kp_nick = 18.95; /* Variable: kp_nick
+real_T kp_nick = 23.95; /* Variable: kp_nick
 * Referenced by: '<S7>/Gain'
 */
 real_T kp_roll = 14.3; /* Variable: kp_roll
@@ -75,16 +75,16 @@ real_T kp_v_nick = 0.775; /* Variable: kp_v_nick
 real_T kp_v_roll = 0.7125; /* Variable: kp_v_roll= 0.675
 * Referenced by: '<S5>/Gain'
 */
-real_T tn_nick = 0.5; /* Variable: tn_nick
+real_T tn_nick = 0.08; /* Variable: tn_nick
 * Referenced by: '<S7>/Gain1'
 */
 real_T tn_roll = 0.055; /* Variable: tn_roll
 * Referenced by: '<S6>/Gain1'
 */
-real_T tv_nick = 1.9; /* Variable: tv_nick
+real_T tv_nick = 2.6; /* Variable: tv_nick
 * Referenced by: '<S7>/Gain2'
 */
-real_T tv_roll = 2.5; /* Variable: tv_roll
+real_T tv_roll = 2.6; /* Variable: tv_roll
 * Referenced by: '<S6>/Gain2'
 */
 
