@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "Fernsteuerung.h"
 #include "chprintf.h"
+#include "Flash.h"
 #define RC_IN_RANGE(x) (((x)>900 && (x)<2300))
 
 /**********************************
@@ -194,6 +195,7 @@ void rx_channel4_interrupt(EXTDriver *extp, expchannel_t channel) {
 
 void setup_Fernsteuerung() 
 {
+	uint16_t tmp_calib_flag;
 	/*
 	* Enable Timer 4
 	*/
@@ -221,8 +223,34 @@ void setup_Fernsteuerung()
     chprintf((BaseChannel *) &SD2, "Fernsteuerung Init failed, ExtInt nicht konfiguriert\r\n");
 	}
 	/*
-	* Einstellungen fuer Kalibration
+	* Werte der Kalibration aus Flash lesen
 	*/
+	FLASH_Read_2Bytes(FLASH_calibration_ready_flag, &tmp_calib_flag);		//calibration_ready_flag lesen
+// 	if (!((tmp_calib_flag & 0x0001) || (~tmp_calib_flag | ~0xFFFE))) //calib_flag nicht auf 0 oder 1?
+// 	{
+// 		tmp_calib_flag&=0xFFFE;	//calib_flag auf 0 setzen
+// 		FLASH_Write_2Bytes(0x1A, tmp_calib_flag);
+// 	}
+	if (!(tmp_calib_flag==0x0000 || tmp_calib_flag==0x0001))
+	{
+		FLASH_Write_2Bytes(FLASH_calibration_ready_flag, 0x0000);
+		tmp_calib_flag=0x0000;
+	}
+	calibration_ready_flag=tmp_calib_flag;// calibration_ready_flag richtig setzen
+	if (tmp_calib_flag == 0x0001)		//Kalibrationswerte gespeichert? Dann alle Parameter lesen
+	{
+		FLASH_Read_2Bytes(FLASH_roll_max,&rc_roll_max);
+		FLASH_Read_2Bytes(FLASH_roll_min,&rc_roll_min);
+		FLASH_Read_2Bytes(FLASH_roll_null,&rc_roll_null);
+		FLASH_Read_2Bytes(FLASH_nick_max,&rc_nick_max);
+		FLASH_Read_2Bytes(FLASH_nick_min,&rc_nick_min);
+		FLASH_Read_2Bytes(FLASH_nick_null,&rc_nick_null);
+		FLASH_Read_2Bytes(FLASH_yaw_max,&rc_yaw_max);
+		FLASH_Read_2Bytes(FLASH_yaw_min,&rc_yaw_min);
+		FLASH_Read_2Bytes(FLASH_yaw_null,&rc_yaw_null);
+		FLASH_Read_2Bytes(FLASH_schub_max,&rc_schub_max);
+		FLASH_Read_2Bytes(FLASH_schub_null,&rc_schub_null);
+	}
 }
 
 float get_euler_nick_soll() 
@@ -260,10 +288,10 @@ float get_euler_yaw_soll()
 ***					-setzt und loescht Kalibrationsmodus-								***
 ******************************************************************/
 
-
+uint16_t dummy_calib_flag=0xFFFF;
 void calib_interrupt(EXTDriver *extp, expchannel_t channel)
 {
-	static uint16_t on_off = 0;
+	static uint16_t on_off = 0, tmp=0;
 	if (timer_finish)
 	{
 				if (on_off)			//Kalibration aus
@@ -273,6 +301,48 @@ void calib_interrupt(EXTDriver *extp, expchannel_t channel)
 					palClearPad(GPIOD, GPIOD_LED6);
 					calibration_active = 0;
 					calibration_ready_flag = 1;
+					/*
+							alle Kalibrationsparameter in Flash schreiben, sofern sie sich geändert haben
+					*/
+					FLASH_Read_2Bytes(FLASH_roll_max, &tmp);
+					if (tmp !=rc_roll_max)
+						FLASH_Write_2Bytes(FLASH_roll_max,rc_roll_max);
+					FLASH_Read_2Bytes(FLASH_roll_min, &tmp);
+					if (tmp !=rc_roll_min)
+						FLASH_Write_2Bytes(FLASH_roll_min,rc_roll_min);
+					FLASH_Read_2Bytes(FLASH_roll_null, &tmp);
+					if (tmp !=rc_roll_null)
+						FLASH_Write_2Bytes(FLASH_roll_null,rc_roll_null);
+					FLASH_Read_2Bytes(FLASH_nick_max, &tmp);
+					if (tmp !=rc_nick_max)
+						FLASH_Write_2Bytes(FLASH_nick_max,rc_nick_max);
+					FLASH_Read_2Bytes(FLASH_nick_min, &tmp);
+					if (tmp !=rc_nick_min)
+						FLASH_Write_2Bytes(FLASH_nick_min,rc_nick_min);
+					FLASH_Read_2Bytes(FLASH_nick_null, &tmp);
+					if (tmp !=rc_nick_null)
+						FLASH_Write_2Bytes(FLASH_nick_null,rc_nick_null);
+					FLASH_Read_2Bytes(FLASH_yaw_max, &tmp);
+					if (tmp !=rc_yaw_max)
+						FLASH_Write_2Bytes(FLASH_yaw_max,rc_yaw_max);
+					FLASH_Read_2Bytes(FLASH_yaw_min, &tmp);
+					if (tmp !=rc_yaw_min)
+						FLASH_Write_2Bytes(FLASH_yaw_min,rc_yaw_min);
+					FLASH_Read_2Bytes(FLASH_yaw_null, &tmp);
+					if (tmp !=rc_yaw_null)
+						FLASH_Write_2Bytes(FLASH_yaw_null,rc_yaw_null);
+					FLASH_Read_2Bytes(FLASH_schub_max, &tmp);
+					if (tmp !=rc_schub_max)
+						FLASH_Write_2Bytes(FLASH_schub_max,rc_schub_max);
+					FLASH_Read_2Bytes(FLASH_schub_null, &tmp);
+					if (tmp !=rc_schub_null)
+						FLASH_Write_2Bytes(FLASH_schub_null,rc_schub_null);
+					FLASH_Read_2Bytes(FLASH_calibration_ready_flag, &tmp);
+					if (tmp!=calibration_ready_flag)	//calib_flag nur setzen falls noch nicht gesetzt
+						dummy_calib_flag=FLASH_Write_2Bytes(FLASH_calibration_ready_flag, calibration_ready_flag);
+					/*
+							alle Kalibrationsparameter geschrieben
+					*/
 				}
 				else 						//Kalibration ein
 				{

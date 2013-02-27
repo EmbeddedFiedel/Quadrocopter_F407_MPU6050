@@ -37,6 +37,7 @@
 #include "Datalogger.h"
 #include "ExternalInterrupt.h"
 #include "stm32f4xx_flash.h"
+#include "Flash.h"
 
 float dummy1,dummy2,dummy3,dummy4;
 
@@ -69,6 +70,8 @@ int main(void)
 	palSetPadMode(GPIOD, 5, PAL_MODE_ALTERNATE(7));
 	palSetPadMode(GPIOD, 6, PAL_MODE_ALTERNATE(7));
 	
+	
+	setup_FLASH();				//auf alle Fälle VOR setup_Fernsteuerung() aufrufen
 	//setup_IMU();
 	setup_ExternalInterrupt();
 	setup_Fernsteuerung();
@@ -77,7 +80,7 @@ int main(void)
 	//setup_Regelung();
 	setup_Datalogger(); 
     palSetPad(GPIOD, GPIOD_LED3);       /* Orange.  */
-
+	
 	
 
 
@@ -88,25 +91,23 @@ int main(void)
 	* driver 2.
 	*/
 	
-	FLASH_SetLatency(FLASH_Latency_5); // 168 MHZ und 3V
-	FLASH_Unlock();
-	flash_pointer=(unsigned int*)0x80FFF00;
+	
 	//FLASH_EraseSector(FLASH_Sector_0,VoltageRange_3);
 	//FLASH_ProgramWord(0x80000000,0xAFFEAFFE);
 	
 	while (TRUE) 
 	{
-		if (1==schreiben)
-		{
-			//status_erase=FLASH_EraseSector(FLASH_Sector_11,VoltageRange_3);
-			status_prog=FLASH_ProgramWord(0x80FFF00,0xFFFFFFFF);
-			schreiben=2;
-		}
-		if (0==schreiben)
-		{
-			flash_data= *flash_pointer;
-			schreiben=2;
-		} 
+// 		if (1==schreiben)
+// 		{
+// 			//status_erase=FLASH_EraseSector(FLASH_Sector_11,VoltageRange_3);
+// 			status_prog=FLASH_ProgramWord(0x80FFF00,0xFFFFFFFF);
+// 			schreiben=2;
+// 		}
+// 		if (0==schreiben)
+// 		{
+// 			flash_data= *flash_pointer;
+// 			schreiben=2;
+// 		} 
 		
 		dummy1=get_euler_roll_soll();
 		dummy2=get_euler_nick_soll();
