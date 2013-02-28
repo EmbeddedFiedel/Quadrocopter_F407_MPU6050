@@ -36,12 +36,17 @@
 #include "Regelung.h"
 #include "Datalogger.h"
 #include "ExternalInterrupt.h"
+#include "barometer.h"
+
+
+
 
 /*
  * Application entry point.
  */
 int main(void) 
 {
+	
 	/*
 	* System initializations.
 	* - HAL initialization, this also initializes the configured device drivers
@@ -61,14 +66,19 @@ int main(void)
 	palSetPadMode(GPIOD, 6, PAL_MODE_ALTERNATE(7));
 	
 	setup_IMU();
+	setup_barometer();
 	setup_ExternalInterrupt();
 	setup_Fernsteuerung();
 	setup_Motoren();
 	setup_Regelung();
 	setup_Datalogger();
-    
+	
+	//calibrate barometer
+	//chThdSleepMilliseconds(200);
+	baro_para_altitude(310);
+  
     palSetPad(GPIOD, GPIOD_LED3);       /* Orange.  */
-    
+  
 	/*
 	* Normal main() thread activity, in this demo it does nothing except
 	* sleeping in a loop and check the button state, when the button is
@@ -77,8 +87,8 @@ int main(void)
 	*/
 	while (TRUE) 
 	{
-
 		update_IMU();
+		baro_read_all();
 		//datalog();
 		//chThdSleepMilliseconds(10);
   }

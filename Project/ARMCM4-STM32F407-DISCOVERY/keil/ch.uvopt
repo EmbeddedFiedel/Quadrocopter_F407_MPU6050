@@ -136,7 +136,40 @@
           <Name>-S</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint/>
+      <Breakpoint>
+        <Bp>
+          <Number>0</Number>
+          <Type>0</Type>
+          <LineNumber>155</LineNumber>
+          <EnabledFlag>0</EnabledFlag>
+          <Address>0</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>0</BreakIfRCount>
+          <Filename>C:\Users\Flo\Documents\GitHub\Quadrocopter_F407_MPU6050\Quad\Lage.cpp</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression></Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
+          <LineNumber>156</LineNumber>
+          <EnabledFlag>0</EnabledFlag>
+          <Address>0</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>0</BreakIfRCount>
+          <Filename>C:\Users\Flo\Documents\GitHub\Quadrocopter_F407_MPU6050\Quad\Lage.cpp</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression></Expression>
+        </Bp>
+      </Breakpoint>
       <WatchWindow1>
         <Ww>
           <count>0</count>
@@ -176,47 +209,37 @@
         <Ww>
           <count>7</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Soll_a_Roll</ItemText>
+          <ItemText>barometer</ItemText>
         </Ww>
         <Ww>
           <count>8</count>
           <WinNumber>1</WinNumber>
-          <ItemText>p_anteil</ItemText>
+          <ItemText>temperatur_</ItemText>
         </Ww>
         <Ww>
           <count>9</count>
           <WinNumber>1</WinNumber>
-          <ItemText>i_anteil</ItemText>
+          <ItemText>altitude_</ItemText>
         </Ww>
         <Ww>
           <count>10</count>
           <WinNumber>1</WinNumber>
-          <ItemText>d_anteil</ItemText>
+          <ItemText>pressure_</ItemText>
         </Ww>
         <Ww>
           <count>11</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Soll_V_Nick</ItemText>
+          <ItemText>norm_pressure_</ItemText>
         </Ww>
         <Ww>
           <count>12</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Ist_a_Nick</ItemText>
+          <ItemText>pressure</ItemText>
         </Ww>
         <Ww>
           <count>13</count>
           <WinNumber>1</WinNumber>
-          <ItemText>Soll_a_Nick</ItemText>
-        </Ww>
-        <Ww>
-          <count>14</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>Soll_a_Roll</ItemText>
-        </Ww>
-        <Ww>
-          <count>15</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>Ist_a_Roll</ItemText>
+          <ItemText>temperatur</ItemText>
         </Ww>
       </WatchWindow1>
       <DebugFlag>
@@ -291,7 +314,7 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>74</TopLine>
+      <TopLine>69</TopLine>
       <CurrentLine>78</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\ports\RVCT\ARMCMx\cstartup.s</PathWithFileName>
@@ -307,8 +330,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>92</TopLine>
+      <CurrentLine>110</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\ports\RVCT\ARMCMx\chcoreasm_v7m.s</PathWithFileName>
       <FilenameWithoutPath>chcoreasm_v7m.s</FilenameWithoutPath>
@@ -339,8 +362,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>48</TopLine>
+      <CurrentLine>51</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\ports\RVCT\ARMCMx\chcore_v7m.c</PathWithFileName>
       <FilenameWithoutPath>chcore_v7m.c</FilenameWithoutPath>
@@ -603,8 +626,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>119</TopLine>
+      <CurrentLine>125</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\kernel\src\chschd.c</PathWithFileName>
       <FilenameWithoutPath>chschd.c</FilenameWithoutPath>
@@ -635,7 +658,7 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>62</TopLine>
+      <TopLine>60</TopLine>
       <CurrentLine>63</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\kernel\src\chsys.c</PathWithFileName>
@@ -651,8 +674,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>286</TopLine>
+      <CurrentLine>293</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\kernel\src\chthreads.c</PathWithFileName>
       <FilenameWithoutPath>chthreads.c</FilenameWithoutPath>
@@ -787,8 +810,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>202</TopLine>
-      <CurrentLine>203</CurrentLine>
+      <TopLine>200</TopLine>
+      <CurrentLine>204</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\hal\src\i2c.c</PathWithFileName>
       <FilenameWithoutPath>i2c.c</FilenameWithoutPath>
@@ -987,8 +1010,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>895</TopLine>
-      <CurrentLine>896</CurrentLine>
+      <TopLine>880</TopLine>
+      <CurrentLine>892</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\os\hal\platforms\STM32\i2c_lld.c</PathWithFileName>
       <FilenameWithoutPath>i2c_lld.c</FilenameWithoutPath>
@@ -1211,8 +1234,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>59</TopLine>
-      <CurrentLine>75</CurrentLine>
+      <TopLine>53</TopLine>
+      <CurrentLine>91</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
@@ -1235,8 +1258,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>209</TopLine>
+      <CurrentLine>210</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\Quad\I2Cdev\I2Cdev.cpp</PathWithFileName>
       <FilenameWithoutPath>I2Cdev.cpp</FilenameWithoutPath>
@@ -1291,8 +1314,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>191</TopLine>
-      <CurrentLine>196</CurrentLine>
+      <TopLine>166</TopLine>
+      <CurrentLine>169</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\Quad\Lage.cpp</PathWithFileName>
       <FilenameWithoutPath>Lage.cpp</FilenameWithoutPath>
@@ -1307,8 +1330,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>2391</TopLine>
+      <CurrentLine>2393</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\Quad\MPU6050\MPU6050.cpp</PathWithFileName>
       <FilenameWithoutPath>MPU6050.cpp</FilenameWithoutPath>
@@ -1351,12 +1374,12 @@
       <GroupNumber>9</GroupNumber>
       <FileNumber>65</FileNumber>
       <FileType>8</FileType>
-      <tvExp>1</tvExp>
+      <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>65</ColumnNumber>
+      <ColumnNumber>12</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>259</TopLine>
-      <CurrentLine>265</CurrentLine>
+      <TopLine>441</TopLine>
+      <CurrentLine>481</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\Quad\Regelung.cpp</PathWithFileName>
       <FilenameWithoutPath>Regelung.cpp</FilenameWithoutPath>
@@ -1403,8 +1426,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>178</TopLine>
-      <CurrentLine>183</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\Quad\Inverse_Propeller_ert_rtw\Inverse_Propeller.cpp</PathWithFileName>
       <FilenameWithoutPath>Inverse_Propeller.cpp</FilenameWithoutPath>
@@ -1465,10 +1488,10 @@
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>22</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>43</TopLine>
-      <CurrentLine>63</CurrentLine>
+      <TopLine>522</TopLine>
+      <CurrentLine>531</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\Quad\Regelglied_ert_rtw\Regelglied.cpp</PathWithFileName>
       <FilenameWithoutPath>Regelglied.cpp</FilenameWithoutPath>
@@ -1497,10 +1520,10 @@
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>32</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>47</TopLine>
-      <CurrentLine>51</CurrentLine>
+      <TopLine>45</TopLine>
+      <CurrentLine>46</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\..\Quad\regelung_x.cpp</PathWithFileName>
       <FilenameWithoutPath>regelung_x.cpp</FilenameWithoutPath>
@@ -1539,6 +1562,38 @@
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
+    <File>
+      <GroupNumber>9</GroupNumber>
+      <FileNumber>77</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <ColumnNumber>21</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>218</TopLine>
+      <CurrentLine>258</CurrentLine>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\Quad\BMP085\BMP085.cpp</PathWithFileName>
+      <FilenameWithoutPath>BMP085.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>9</GroupNumber>
+      <FileNumber>78</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>1</tvExp>
+      <Focus>0</Focus>
+      <ColumnNumber>17</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>1</TopLine>
+      <CurrentLine>15</CurrentLine>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\..\..\Quad\barometer.cpp</PathWithFileName>
+      <FilenameWithoutPath>barometer.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
   </Group>
 
   <Group>
@@ -1549,7 +1604,7 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>10</GroupNumber>
-      <FileNumber>77</FileNumber>
+      <FileNumber>79</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
@@ -1565,7 +1620,7 @@
     </File>
     <File>
       <GroupNumber>10</GroupNumber>
-      <FileNumber>78</FileNumber>
+      <FileNumber>80</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>

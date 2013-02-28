@@ -6,7 +6,12 @@
 #include "Lage.h"
 #include "Fernsteuerung.h"
 #include "Motoren.h"
+#include "barometer.h"
 
+float temperatur_;
+float altitude_;
+float pressure_;
+float norm_pressure_;
 
 
 //Init Models
@@ -22,6 +27,7 @@ void init_regler_X(){
 
 void step_regler_X(){
 	static boolean_T OverrunFlag = FALSE;
+	
 	  /* Check for overrun */
 	if (OverrunFlag) {
 		
@@ -32,13 +38,18 @@ void step_regler_X(){
 		return;
 	}
 
+	
 	OverrunFlag = TRUE;
 	//Kennlinie erzeugen
   //Input_Kennlinie_step();
+	//barometer
+	temperatur_=baro_get_temperatur();
+	altitude_=baro_get_altitude();
+	pressure_=baro_get_pressure();
+	norm_pressure_=baro_get_standardized_pressure();
 	
 	//Sollwerte
 
-	
 	Regelglied_U.In_Soll_Roll=get_euler_roll_soll();
 	Regelglied_U.In_Soll_Nick=get_euler_nick_soll();
 	Regelglied_U.In_Soll_Gier=get_euler_yaw_soll();
