@@ -43,11 +43,14 @@ uint8_t fifoBuffer[64]; // FIFO storage buffer
 // orientation/motion vars
 Quaternion q;           // [w, x, y, z]         quaternion container
 float euler[3];         // [psi, theta, phi]    Euler angle container
-float accel[3];					//Beschleunigungsvektor
+VectorInt16 accel;					//3D acceleration vector
+VectorInt16 accel_world;		//3D acceleration vector rotated into world
+VectorInt16 accel_world_1;
 int32_t gyroRate[3];
 float gyro_rate_float[3];
 VectorFloat gravity; // [x, y, z] gravity vector
 float ypr[3]; // [yaw, pitch, roll] yaw/pitch/roll container and gravity vector
+
 
 static FIL Fil_Lage;			/* File object */
 FRESULT rc_lage;				/* Result code */
@@ -223,7 +226,11 @@ void update_IMU()
 				mpu.dmpGetGravity(&gravity, &q);
 				mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
 				mpu.dmpGetEuler(euler, &q);
+				mpu.dmpGetAccel(&accel, fifoBuffer);
+				mpu.dmpGetLinearAccel(&accel_world, &accel, &gravity);
+				mpu.dmpGetLinearAccelInWorld(&accel_world_1, &accel, &q);
 				mpu.dmpGetGyro(gyroRate,fifoBuffer);
+			//warum machen wir das so?
 				gyro_rate_float[0] = (float)gyroRate[0]/2147483648*2000*0.41;
 				gyro_rate_float[1] = (float)gyroRate[1]/2147483648*2000*0.41;
 				gyro_rate_float[2] = (float)gyroRate[2]/2147483648*2000*0.41;
