@@ -37,16 +37,25 @@
 #include "Datalogger.h"
 #include "ExternalInterrupt.h"
 #include "stm32f4xx_flash.h"
-#include "Flash.h"
+#include "flash.h"
+
+
 
 float dummy1,dummy2,dummy3,dummy4;
 
 
 //   Variablen für Flashtest
 uint8_t schreiben=2;
-uint32_t flash_data=0xF00FF00F;
+uint16_t flash_data=0xF00F;
 unsigned int *flash_pointer;
-FLASH_Status status_erase,status_prog=(FLASH_Status)0xFFFF;
+uint16_t status_read=0xFFFF,status_prog=0xFFFF;
+
+
+/* Hier muss die Anzahl der verwendeten Variablen inkl. virtueller Adressen angepasst werden */
+
+
+
+
 /*
  * Application entry point.
  */
@@ -66,12 +75,13 @@ int main(void)
 	* Activates the serial driver 2 using the driver default configuration.
 	* PA2(TX) and PA3(RX) are routed to USART2.
 	*/
+	setup_FLASH();
 	sdStart(&SD2, NULL);
 	palSetPadMode(GPIOD, 5, PAL_MODE_ALTERNATE(7));
 	palSetPadMode(GPIOD, 6, PAL_MODE_ALTERNATE(7));
 	
 	
-	setup_FLASH();				//auf alle Fälle VOR setup_Fernsteuerung() aufrufen
+
 	//setup_IMU();
 	setup_ExternalInterrupt();
 	setup_Fernsteuerung();
@@ -92,20 +102,17 @@ int main(void)
 	*/
 	
 	
-	//FLASH_EraseSector(FLASH_Sector_0,VoltageRange_3);
-	//FLASH_ProgramWord(0x80000000,0xAFFEAFFE);
 	
 	while (TRUE) 
 	{
 // 		if (1==schreiben)
 // 		{
-// 			//status_erase=FLASH_EraseSector(FLASH_Sector_11,VoltageRange_3);
-// 			status_prog=FLASH_ProgramWord(0x80FFF00,0xFFFFFFFF);
+// 			status_prog=EE_WriteVariable(VirtAddVarTab[0],(uint16_t)0xAFFF);
 // 			schreiben=2;
 // 		}
 // 		if (0==schreiben)
 // 		{
-// 			flash_data= *flash_pointer;
+// 			status_read=EE_ReadVariable(VirtAddVarTab[0],&flash_data);
 // 			schreiben=2;
 // 		} 
 		

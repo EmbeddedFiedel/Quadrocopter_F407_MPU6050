@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "Fernsteuerung.h"
 #include "chprintf.h"
-#include "Flash.h"
+
 #define RC_IN_RANGE(x) (((x)>900 && (x)<2300))
 
 /**********************************
@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define max_yaw 	0.5
 #define max_schub 1.0
 
-
+extern uint16_t VirtAddVarTab[number_flash_val];
 short RC_INPUT_CHANNELS_Offset[4] = {-1500,-1500,-1100,-1500};
 volatile unsigned short RC_INPUT_CHANNELS[4], RC_INPUT_LAST_TCNT,tmp=0;
 char PPM_FRAME_GOOD = 1;
@@ -41,13 +41,16 @@ static bool_t Fernsteuerung_ready_flag = FALSE;
 ***	Variablen für Kalibrierung	***
 ***															***
 **********************************/
-uint16_t rc_roll_max, rc_roll_min, rc_roll_null;
-uint16_t rc_nick_max, rc_nick_min, rc_nick_null;
-uint16_t rc_yaw_max, rc_yaw_min, rc_yaw_null;
-uint16_t rc_schub_max, rc_schub_null;
+uint16_t cal_val[12]={0}; //Belegung siehe Flash.h 
+// uint16_t rc_roll_max, rc_roll_min, rc_roll_null;
+// uint16_t rc_nick_max, rc_nick_min, rc_nick_null;
+// uint16_t rc_yaw_max, rc_yaw_min, rc_yaw_null;
+// uint16_t rc_schub_max, rc_schub_null;
 uint16_t first_visit_roll = 1,  first_visit_nick=1, first_visit_yaw=1,first_visit_schub=1;
-uint16_t calibration_active=0, calibration_ready_flag=0;
+uint16_t calibration_active=0;//calibration_ready_flag=0
 uint16_t timer_finish=1;
+
+
 
 static struct VirtualTimer vt;
 /*
@@ -79,15 +82,15 @@ void rx_channel1_interrupt(EXTDriver *extp, expchannel_t channel) {
 				{
 					if (first_visit_roll)
 					{
-						rc_roll_null=RC_INPUT_CHANNELS[0];
-						rc_roll_min=RC_INPUT_CHANNELS[0];
-						rc_roll_max=RC_INPUT_CHANNELS[0];
+						cal_val[rc_roll_null]=RC_INPUT_CHANNELS[0];
+						cal_val[rc_roll_min]=RC_INPUT_CHANNELS[0];
+						cal_val[rc_roll_max]=RC_INPUT_CHANNELS[0];
 						first_visit_roll=0;
 					}
 					else
 					{
-						rc_roll_min = RC_INPUT_CHANNELS[0] < rc_roll_min ? RC_INPUT_CHANNELS[0] : rc_roll_min;
-						rc_roll_max = RC_INPUT_CHANNELS[0] > rc_roll_max ? RC_INPUT_CHANNELS[0] : rc_roll_max;
+						cal_val[rc_roll_min] = RC_INPUT_CHANNELS[0] < cal_val[rc_roll_min] ? RC_INPUT_CHANNELS[0] : cal_val[rc_roll_min];
+						cal_val[rc_roll_max] = RC_INPUT_CHANNELS[0] > cal_val[rc_roll_max] ? RC_INPUT_CHANNELS[0] : cal_val[rc_roll_max];
 					}
 					
 				}
@@ -111,15 +114,15 @@ void rx_channel2_interrupt(EXTDriver *extp, expchannel_t channel) {
 				{
 					if (first_visit_nick)
 					{
-						rc_nick_null=RC_INPUT_CHANNELS[1];
-						rc_nick_min=RC_INPUT_CHANNELS[1];
-						rc_nick_max=RC_INPUT_CHANNELS[1];
+						cal_val[rc_nick_null]=RC_INPUT_CHANNELS[1];
+						cal_val[rc_nick_min]=RC_INPUT_CHANNELS[1];
+						cal_val[rc_nick_max]=RC_INPUT_CHANNELS[1];
 						first_visit_nick=0;
 					}
 					else
 					{
-						rc_nick_min = RC_INPUT_CHANNELS[1] < rc_nick_min ? RC_INPUT_CHANNELS[1] : rc_nick_min;
-						rc_nick_max = RC_INPUT_CHANNELS[1] > rc_nick_max ? RC_INPUT_CHANNELS[1] : rc_nick_max;
+						cal_val[rc_nick_min] = RC_INPUT_CHANNELS[1] < cal_val[rc_nick_min] ? RC_INPUT_CHANNELS[1] : cal_val[rc_nick_min];
+						cal_val[rc_nick_max] = RC_INPUT_CHANNELS[1] > cal_val[rc_nick_max] ? RC_INPUT_CHANNELS[1] : cal_val[rc_nick_max];
 					}
 					
 				}
@@ -142,14 +145,14 @@ void rx_channel3_interrupt(EXTDriver *extp, expchannel_t channel) {
 				{
 					if (first_visit_schub)
 					{
-						rc_schub_null=RC_INPUT_CHANNELS[2];
-						rc_schub_max=RC_INPUT_CHANNELS[2];
+						cal_val[rc_schub_null]=RC_INPUT_CHANNELS[2];
+						cal_val[rc_schub_max]=RC_INPUT_CHANNELS[2];
 						first_visit_schub=0;
 					}
 					else
 					{
-						rc_schub_null = RC_INPUT_CHANNELS[2] < rc_schub_null ? RC_INPUT_CHANNELS[2] : rc_schub_null;
-						rc_schub_max = RC_INPUT_CHANNELS[2] > rc_schub_max ? RC_INPUT_CHANNELS[2] : rc_schub_max;
+						cal_val[rc_schub_null] = RC_INPUT_CHANNELS[2] < cal_val[rc_schub_null] ? RC_INPUT_CHANNELS[2] : cal_val[rc_schub_null];
+						cal_val[rc_schub_max] = RC_INPUT_CHANNELS[2] > cal_val[rc_schub_max] ? RC_INPUT_CHANNELS[2] : cal_val[rc_schub_max];
 					}
 				}
 			}
@@ -171,15 +174,15 @@ void rx_channel4_interrupt(EXTDriver *extp, expchannel_t channel) {
 				{
 					if (first_visit_yaw)
 					{
-						rc_yaw_null=RC_INPUT_CHANNELS[3];
-						rc_yaw_min=RC_INPUT_CHANNELS[3];
-						rc_yaw_max=RC_INPUT_CHANNELS[3];
+						cal_val[rc_yaw_null]=RC_INPUT_CHANNELS[3];
+						cal_val[rc_yaw_min]=RC_INPUT_CHANNELS[3];
+						cal_val[rc_yaw_max]=RC_INPUT_CHANNELS[3];
 						first_visit_yaw=0;
 					}
 					else
 					{
-						rc_yaw_min = RC_INPUT_CHANNELS[3] < rc_yaw_min ? RC_INPUT_CHANNELS[3] : rc_yaw_min;
-						rc_yaw_max = RC_INPUT_CHANNELS[3] > rc_yaw_max ? RC_INPUT_CHANNELS[3] : rc_yaw_max;
+						cal_val[rc_yaw_min] = RC_INPUT_CHANNELS[3] < cal_val[rc_yaw_min] ? RC_INPUT_CHANNELS[3] : cal_val[rc_yaw_min];
+						cal_val[rc_yaw_max] = RC_INPUT_CHANNELS[3] > cal_val[rc_yaw_max] ? RC_INPUT_CHANNELS[3] : cal_val[rc_yaw_max];
 					}
 					
 				}
@@ -195,7 +198,7 @@ void rx_channel4_interrupt(EXTDriver *extp, expchannel_t channel) {
 
 void setup_Fernsteuerung() 
 {
-	uint16_t tmp_calib_flag;
+	uint16_t tmp_calib_flag,i;
 	/*
 	* Enable Timer 4
 	*/
@@ -222,62 +225,42 @@ void setup_Fernsteuerung()
 	{
     chprintf((BaseChannel *) &SD2, "Fernsteuerung Init failed, ExtInt nicht konfiguriert\r\n");
 	}
-	/*
-	* Werte der Kalibration aus Flash lesen
-	*/
-	FLASH_Read_2Bytes(FLASH_calibration_ready_flag, &tmp_calib_flag);		//calibration_ready_flag lesen
-// 	if (!((tmp_calib_flag & 0x0001) || (~tmp_calib_flag | ~0xFFFE))) //calib_flag nicht auf 0 oder 1?
-// 	{
-// 		tmp_calib_flag&=0xFFFE;	//calib_flag auf 0 setzen
-// 		FLASH_Write_2Bytes(0x1A, tmp_calib_flag);
-// 	}
-	if (!(tmp_calib_flag==0x0000 || tmp_calib_flag==0x0001))
-	{
-		FLASH_Write_2Bytes(FLASH_calibration_ready_flag, 0x0000);
-		tmp_calib_flag=0x0000;
-	}
-	calibration_ready_flag=tmp_calib_flag;// calibration_ready_flag richtig setzen
-	if (tmp_calib_flag == 0x0001)		//Kalibrationswerte gespeichert? Dann alle Parameter lesen
-	{
-		FLASH_Read_2Bytes(FLASH_roll_max,&rc_roll_max);
-		FLASH_Read_2Bytes(FLASH_roll_min,&rc_roll_min);
-		FLASH_Read_2Bytes(FLASH_roll_null,&rc_roll_null);
-		FLASH_Read_2Bytes(FLASH_nick_max,&rc_nick_max);
-		FLASH_Read_2Bytes(FLASH_nick_min,&rc_nick_min);
-		FLASH_Read_2Bytes(FLASH_nick_null,&rc_nick_null);
-		FLASH_Read_2Bytes(FLASH_yaw_max,&rc_yaw_max);
-		FLASH_Read_2Bytes(FLASH_yaw_min,&rc_yaw_min);
-		FLASH_Read_2Bytes(FLASH_yaw_null,&rc_yaw_null);
-		FLASH_Read_2Bytes(FLASH_schub_max,&rc_schub_max);
-		FLASH_Read_2Bytes(FLASH_schub_null,&rc_schub_null);
-	}
+	
+	
+	/*	Kaibrationswerte aus Flash lesen	*/
+	
+	EE_ReadVariable(VirtAddVarTab[calibration_ready_flag],&tmp_calib_flag);	//calibration_ready_flag lesen
+	
+	if (tmp_calib_flag==1)	//falls Kalibration bereits durchgeführt
+		for (i=0;i<number_flash_val;i++)	// dann alle Kalibrationswerte lesen
+			EE_ReadVariable(VirtAddVarTab[i],&cal_val[i]);	
 }
 
 float get_euler_nick_soll() 
 {
-	if(Fernsteuerung_ready_flag && calibration_ready_flag && !calibration_active) 
-		return RC_INPUT_CHANNELS[1] > rc_nick_null ? max_nick/(rc_nick_max-rc_nick_null)*(RC_INPUT_CHANNELS[1]-rc_nick_null) :  \
-		max_nick/(rc_nick_null-rc_nick_min)*(RC_INPUT_CHANNELS[1]-rc_nick_null) ;
+	if(Fernsteuerung_ready_flag && cal_val[calibration_ready_flag] && !calibration_active) 
+		return RC_INPUT_CHANNELS[1] > cal_val[rc_nick_null] ? max_nick/(cal_val[rc_nick_max]-cal_val[rc_nick_null])*(RC_INPUT_CHANNELS[1]-cal_val[rc_nick_null]) :  \
+		max_nick/(cal_val[rc_nick_null]-cal_val[rc_nick_min])*(RC_INPUT_CHANNELS[1]-cal_val[rc_nick_null]) ;
 	else return 0;
 }
 float get_euler_roll_soll() 
 {
-	if(Fernsteuerung_ready_flag && calibration_ready_flag && !calibration_active) 
-		return RC_INPUT_CHANNELS[0] > rc_roll_null ? max_roll/(rc_roll_max-rc_roll_null)*(RC_INPUT_CHANNELS[0]-rc_roll_null) :  \
-		max_roll/(rc_roll_null-rc_roll_min)*(RC_INPUT_CHANNELS[0]-rc_roll_null) ;
+	if(Fernsteuerung_ready_flag && cal_val[calibration_ready_flag] && !calibration_active) 
+		return RC_INPUT_CHANNELS[0] > cal_val[rc_roll_null] ? max_roll/(cal_val[rc_roll_max]-cal_val[rc_roll_null])*(RC_INPUT_CHANNELS[0]-cal_val[rc_roll_null]) :  \
+		max_roll/(cal_val[rc_roll_null]-cal_val[rc_roll_min])*(RC_INPUT_CHANNELS[0]-cal_val[rc_roll_null]) ;
 	else return 0;
 }
 float get_schub_soll() 
 {
-	if(Fernsteuerung_ready_flag && calibration_ready_flag && !calibration_active) 
-		return  max_schub/(rc_schub_max-rc_schub_null)*(RC_INPUT_CHANNELS[2]-rc_schub_null);
+	if(Fernsteuerung_ready_flag && cal_val[calibration_ready_flag] && !calibration_active) 
+		return  max_schub/(cal_val[rc_schub_max]-cal_val[rc_schub_null])*(RC_INPUT_CHANNELS[2]-cal_val[rc_schub_null]);
 	else return 0;
 }
 float get_euler_yaw_soll() 
 {
-	if(Fernsteuerung_ready_flag && calibration_ready_flag && !calibration_active) 
-		return RC_INPUT_CHANNELS[3] > rc_yaw_null ? max_yaw/(rc_yaw_max-rc_yaw_null)*(RC_INPUT_CHANNELS[3]-rc_yaw_null) :  \
-		max_yaw/(rc_yaw_null-rc_yaw_min)*(RC_INPUT_CHANNELS[3]-rc_yaw_null) ;
+	if(Fernsteuerung_ready_flag && cal_val[calibration_ready_flag] && !calibration_active) 
+		return RC_INPUT_CHANNELS[3] > cal_val[rc_yaw_null] ? max_yaw/(cal_val[rc_yaw_max]-cal_val[rc_yaw_null])*(RC_INPUT_CHANNELS[3]-cal_val[rc_yaw_null]) :  \
+		max_yaw/(cal_val[rc_yaw_null]-cal_val[rc_yaw_min])*(RC_INPUT_CHANNELS[3]-cal_val[rc_yaw_null]) ;
 	else return 0;
 }
 
@@ -292,6 +275,7 @@ uint16_t dummy_calib_flag=0xFFFF;
 void calib_interrupt(EXTDriver *extp, expchannel_t channel)
 {
 	static uint16_t on_off = 0, tmp=0;
+	uint16_t i;
 	if (timer_finish)
 	{
 				if (on_off)			//Kalibration aus
@@ -300,49 +284,13 @@ void calib_interrupt(EXTDriver *extp, expchannel_t channel)
 					palClearPad(GPIOD, GPIOD_LED5);
 					palClearPad(GPIOD, GPIOD_LED6);
 					calibration_active = 0;
-					calibration_ready_flag = 1;
-					/*
-							alle Kalibrationsparameter in Flash schreiben, sofern sie sich geändert haben
-					*/
-					FLASH_Read_2Bytes(FLASH_roll_max, &tmp);
-					if (tmp !=rc_roll_max)
-						FLASH_Write_2Bytes(FLASH_roll_max,rc_roll_max);
-					FLASH_Read_2Bytes(FLASH_roll_min, &tmp);
-					if (tmp !=rc_roll_min)
-						FLASH_Write_2Bytes(FLASH_roll_min,rc_roll_min);
-					FLASH_Read_2Bytes(FLASH_roll_null, &tmp);
-					if (tmp !=rc_roll_null)
-						FLASH_Write_2Bytes(FLASH_roll_null,rc_roll_null);
-					FLASH_Read_2Bytes(FLASH_nick_max, &tmp);
-					if (tmp !=rc_nick_max)
-						FLASH_Write_2Bytes(FLASH_nick_max,rc_nick_max);
-					FLASH_Read_2Bytes(FLASH_nick_min, &tmp);
-					if (tmp !=rc_nick_min)
-						FLASH_Write_2Bytes(FLASH_nick_min,rc_nick_min);
-					FLASH_Read_2Bytes(FLASH_nick_null, &tmp);
-					if (tmp !=rc_nick_null)
-						FLASH_Write_2Bytes(FLASH_nick_null,rc_nick_null);
-					FLASH_Read_2Bytes(FLASH_yaw_max, &tmp);
-					if (tmp !=rc_yaw_max)
-						FLASH_Write_2Bytes(FLASH_yaw_max,rc_yaw_max);
-					FLASH_Read_2Bytes(FLASH_yaw_min, &tmp);
-					if (tmp !=rc_yaw_min)
-						FLASH_Write_2Bytes(FLASH_yaw_min,rc_yaw_min);
-					FLASH_Read_2Bytes(FLASH_yaw_null, &tmp);
-					if (tmp !=rc_yaw_null)
-						FLASH_Write_2Bytes(FLASH_yaw_null,rc_yaw_null);
-					FLASH_Read_2Bytes(FLASH_schub_max, &tmp);
-					if (tmp !=rc_schub_max)
-						FLASH_Write_2Bytes(FLASH_schub_max,rc_schub_max);
-					FLASH_Read_2Bytes(FLASH_schub_null, &tmp);
-					if (tmp !=rc_schub_null)
-						FLASH_Write_2Bytes(FLASH_schub_null,rc_schub_null);
-					FLASH_Read_2Bytes(FLASH_calibration_ready_flag, &tmp);
-					if (tmp!=calibration_ready_flag)	//calib_flag nur setzen falls noch nicht gesetzt
-						dummy_calib_flag=FLASH_Write_2Bytes(FLASH_calibration_ready_flag, calibration_ready_flag);
-					/*
-							alle Kalibrationsparameter geschrieben
-					*/
+					cal_val[calibration_ready_flag] = 1;
+					
+					/*	Kalibrationswerte ändern, falls unterschiedlich*/
+					
+					for (i=0;i<number_flash_val;i++)	
+						if (VirtAddVarTab[i]!=cal_val[i])	//unterschiedlich?
+							EE_WriteVariable(VirtAddVarTab[i],cal_val[i]);		//dann schreiben
 				}
 				else 						//Kalibration ein
 				{
@@ -350,7 +298,7 @@ void calib_interrupt(EXTDriver *extp, expchannel_t channel)
 					palSetPad(GPIOD, GPIOD_LED5);
 					palSetPad(GPIOD, GPIOD_LED6);
 					calibration_active = 1;
-					calibration_ready_flag = 0;
+					cal_val[calibration_ready_flag] = 0;
 					first_visit_roll=1;
 					first_visit_nick=1;
 					first_visit_yaw=1;

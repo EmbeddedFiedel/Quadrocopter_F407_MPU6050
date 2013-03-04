@@ -1,34 +1,27 @@
 #include "stm32f4xx_flash.h"
+#include "eeprom.h"
 
 
 
-/*
-**		!!!!!!		Achtung			!!!!!!
-**				
-**		Bei Änderung der Größe des Daten-Flashspeichers (Flash_size) muss
-**		der ROM-Bereich in den Projekteinstellungen entsprechend 
-**		verkleinert werden
-*/
-#define Flash_size	256
 
-#define Flash_Offset 0x8100000- Flash_size
 
-/*	Adressen der Fernsteuerungswerte als Offset von Flash_Offset	*/
+/*	Array-Indexnummer der Fernsteuerungswerte	*/
 
-#define	FLASH_nick_max		0x0A
-#define	FLASH_nick_min		0x0C
-#define	FLASH_nick_null		0x0E
-#define	FLASH_yaw_max			0x10
-#define	FLASH_yaw_min			0x12
-#define	FLASH_yaw_null		0x14
-#define	FLASH_schub_max		0x16
-#define	FLASH_schub_null	0x18
+#define	rc_roll_max			0
+#define	rc_roll_min 		1
+#define	rc_roll_null		2
+#define	rc_nick_max			3
+#define	rc_nick_min			4
+#define	rc_nick_null		5
+#define	rc_yaw_max			6
+#define	rc_yaw_min			7
+#define	rc_yaw_null			8
+#define	rc_schub_max		9
+#define	rc_schub_null		10
 	
-#define	FLASH_calibration_ready_flag 0x1C //Bit 0 (LSB)
+#define	calibration_ready_flag 11 //Bit 0 (LSB)
 
-#define	FLASH_roll_max		0x20
-#define	FLASH_roll_min 		0x22
-#define	FLASH_roll_null		0x24
+#define number_flash_val 12		//Anzahl der gespeicherten Werte
 
 
 

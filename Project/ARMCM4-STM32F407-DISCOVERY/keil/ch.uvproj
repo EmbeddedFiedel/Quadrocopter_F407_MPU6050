@@ -297,7 +297,7 @@
               <OCR_RVCT4>
                 <Type>1</Type>
                 <StartAddress>0x8000000</StartAddress>
-                <Size>0xfff00</Size>
+                <Size>0xf7fff</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -376,9 +376,9 @@
             <noStLib>0</noStLib>
             <RepFail>1</RepFail>
             <useFile>0</useFile>
-            <TextAddressRange>0x08000000</TextAddressRange>
+            <TextAddressRange>0x8000000</TextAddressRange>
             <DataAddressRange>0x20000000</DataAddressRange>
-            <ScatterFile></ScatterFile>
+            <ScatterFile>.\obj\ch.sct</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
             <Misc></Misc>
@@ -825,6 +825,11 @@
               <FileName>Flash.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\..\..\Quad\Flash_driver\Flash.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>eeprom.c</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\..\Quad\Flash_driver\eeprom.c</FilePath>
             </File>
           </Files>
         </Group>
