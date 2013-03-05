@@ -43,14 +43,20 @@ uint8_t fifoBuffer[64]; // FIFO storage buffer
 // orientation/motion vars
 Quaternion q;           // [w, x, y, z]         quaternion container
 float euler[3];         // [psi, theta, phi]    Euler angle container
-VectorInt16 accel;					//3D acceleration vector
-VectorInt16 accel_world;		//3D acceleration vector rotated into world
-VectorInt16 accel_world_1;
+// VectorInt16 accel;					//3D acceleration vector
+// VectorInt16 accel_world;		//3D acceleration vector rotated into world
+// VectorInt16 accel_linear;		//acceleration without world acceleration
+VectorInt16 aa; // [x, y, z] accel sensor measurements
+VectorInt16 aaReal; // [x, y, z] gravity-free accel sensor measurements
+VectorInt16 aaWorld; // [x, y, z] world-frame accel sensor measurements
 int32_t gyroRate[3];
 float gyro_rate_float[3];
 VectorFloat gravity; // [x, y, z] gravity vector
 float ypr[3]; // [yaw, pitch, roll] yaw/pitch/roll container and gravity vector
-
+float range=0;
+float offset_z=0;
+float offset_x=0;
+float offset_y=0;
 
 static FIL Fil_Lage;			/* File object */
 FRESULT rc_lage;				/* Result code */
@@ -178,6 +184,7 @@ void setup_IMU()
 		mpuIntStatus = mpu.getIntStatus();
 		dmpReady = true;
 		packetSize = mpu.dmpGetFIFOPacketSize();
+		mpu.setFullScaleAccelRange(MPU6050_ACCEL_FS_4);
 	} 
 }
 
@@ -226,10 +233,17 @@ void update_IMU()
 				mpu.dmpGetGravity(&gravity, &q);
 				mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
 				mpu.dmpGetEuler(euler, &q);
-				mpu.dmpGetAccel(&accel, fifoBuffer);
-				mpu.dmpGetLinearAccel(&accel_world, &accel, &gravity);
-				mpu.dmpGetLinearAccelInWorld(&accel_world_1, &accel, &q);
+			  mpu.dmpGetAccel(&aa, fifoBuffer);
+				//accelertion manual offset
+				aa.z=aa.z+519;
+        mpu.dmpGetLinearAccel(&aaReal, &aa, &gravity);
+        mpu.dmpGetLinearAccelInWorld(&aaWorld, &aaReal, &q);
 				mpu.dmpGetGyro(gyroRate,fifoBuffer);
+				offset_z=mpu.getZAccelOffset();
+				offset_x=mpu.getXAccelOffset();
+				offset_y=mpu.getYAccelOffset();
+			//test range
+				range=mpu.getFullScaleAccelRange();
 			//warum machen wir das so?
 				gyro_rate_float[0] = (float)gyroRate[0]/2147483648*2000*0.41;
 				gyro_rate_float[1] = (float)gyroRate[1]/2147483648*2000*0.41;
@@ -252,4 +266,13 @@ float get_rate_yaw_ist() {return gyro_rate_float[2];}
 float get_ypr_nick_ist() {return ypr[1];}
 float get_ypr_roll_ist() {return ypr[2];}
 float get_ypr_yaw_ist() {return ypr[0];}
+float get_accel_x(){return (aa.x/4096.0)*9.80665;}
+float get_accel_y(){return (aa.y/4096.0)*9.80665;}
+float get_accel_z(){return (aa.z/4096.0)*9.80665;}
+float get_accel_real_x(){return (aaReal.x/4096.0)*9.80665;}
+float get_accel_real_y(){return (aaReal.y/4096.0)*9.80665;}
+float get_accel_real_z(){return (aaReal.z/4096.0)*9.80665;}
+float get_accel_world_x(){return (aaWorld.x/4096.0)*9.80665;}
+float get_accel_world_y(){return (aaWorld.y/4096.0)*9.80665;}
+float get_accel_world_z(){return (aaWorld.z/4096.0)*9.80665;}
 uint16_t get_fifo_count() {return fifoCount;}

@@ -12,7 +12,15 @@ float temperatur_;
 float altitude_;
 float pressure_;
 float norm_pressure_;
-
+float accelw_x;
+float accelw_y;
+float accelw_z;
+float accel_z;
+float accel_y;
+float accel_x;
+float accelr_z;
+float accelr_y;
+float accelr_x;
 
 //Init Models
 void init_regler_X(){
@@ -47,6 +55,16 @@ void step_regler_X(){
 	altitude_=baro_get_altitude();
 	pressure_=baro_get_pressure();
 	norm_pressure_=baro_get_standardized_pressure();
+	accel_z=get_accel_z();
+	accel_x=get_accel_x();
+	accel_y=get_accel_y();
+	accelw_x=get_accel_world_x();
+	accelw_y=get_accel_world_y();
+	accelw_z=get_accel_world_z();
+	accelr_x=get_accel_real_x();
+	accelr_y=get_accel_real_y();
+	accelr_z=get_accel_real_z();
+	
 	
 	//Sollwerte
 
