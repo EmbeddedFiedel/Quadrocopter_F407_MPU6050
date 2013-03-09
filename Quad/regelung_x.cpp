@@ -8,19 +8,7 @@
 #include "Motoren.h"
 #include "barometer.h"
 
-float temperatur_;
-float altitude_;
-float pressure_;
-float norm_pressure_;
-float accelw_x;
-float accelw_y;
-float accelw_z;
-float accel_z;
-float accel_y;
-float accel_x;
-float accelr_z;
-float accelr_y;
-float accelr_x;
+float offset_a=0;
 
 //Init Models
 void init_regler_X(){
@@ -30,8 +18,19 @@ void init_regler_X(){
 	Regelglied_initialize();
 	Schubverteilung0_initialize();
 	Inverse_Propeller_initialize();
+	Hoehenregelung_initialize();
 }
 
+
+void cali_accel_offset(){
+	int i;
+	int n=10;
+	//Offset in der Beschleunigung kompensieren
+	for (i=0;i<n;i++){
+	offset_a=offset_a+get_accel_world_z();
+	}
+	offset_a=offset_a/n;
+}
 
 void step_regler_X(){
 	static boolean_T OverrunFlag = FALSE;
@@ -50,21 +49,6 @@ void step_regler_X(){
 	OverrunFlag = TRUE;
 	//Kennlinie erzeugen
   //Input_Kennlinie_step();
-	//barometer
-	temperatur_=baro_get_temperatur();
-	altitude_=baro_get_altitude();
-	pressure_=baro_get_pressure();
-	norm_pressure_=baro_get_standardized_pressure();
-	accel_z=get_accel_z();
-	accel_x=get_accel_x();
-	accel_y=get_accel_y();
-	accelw_x=get_accel_world_x();
-	accelw_y=get_accel_world_y();
-	accelw_z=get_accel_world_z();
-	accelr_x=get_accel_real_x();
-	accelr_y=get_accel_real_y();
-	accelr_z=get_accel_real_z();
-	
 	
 	//Sollwerte
 
@@ -79,13 +63,22 @@ void step_regler_X(){
 	Regelglied_U.In_Ist_Gier=get_ypr_roll_ist();
 	Regelglied_U.In_Ist_V_Roll=get_rate_roll_ist();
 	Regelglied_U.In_Ist_V_Nick=get_rate_nick_ist();
-
+	
 	//Gas setzen für Regler und Schubkraftverteilung
   Regelglied_U.Throttle=get_schub_soll()/0.68;
 	Schubverteilung0_U.In_Throttle=get_schub_soll()/0.68;
 	
 	//Step Regler
 	Regelglied_step();
+
+	//Set Outputs into Hoehenregelung
+
+	Hoehenregelung_U.Throttle=get_schub_soll()/0.68;
+	Hoehenregelung_U.Hoehe=baro_get_altitude();
+	Hoehenregelung_U.Beschleunigung_Z=get_accel_world_z()+offset_a;
+	
+	//Hoehenregelung
+	Hoehenregelung_step();
 
 	//Set Outputs into Schubkraftverteilung
 	Schubverteilung0_U.In_M_Roll=Regelglied_Y.Out_M_Roll;

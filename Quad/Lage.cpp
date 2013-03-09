@@ -47,16 +47,14 @@ float euler[3];         // [psi, theta, phi]    Euler angle container
 // VectorInt16 accel_world;		//3D acceleration vector rotated into world
 // VectorInt16 accel_linear;		//acceleration without world acceleration
 VectorInt16 aa; // [x, y, z] accel sensor measurements
+VectorInt16 aa_offset_sum; //[x, y, z] accel sensor offeset sum
 VectorInt16 aaReal; // [x, y, z] gravity-free accel sensor measurements
 VectorInt16 aaWorld; // [x, y, z] world-frame accel sensor measurements
 int32_t gyroRate[3];
 float gyro_rate_float[3];
 VectorFloat gravity; // [x, y, z] gravity vector
 float ypr[3]; // [yaw, pitch, roll] yaw/pitch/roll container and gravity vector
-float range=0;
-float offset_z=0;
-float offset_x=0;
-float offset_y=0;
+float offset_test=0;
 
 static FIL Fil_Lage;			/* File object */
 FRESULT rc_lage;				/* Result code */
@@ -204,6 +202,7 @@ void mpu_6050_interrupt(EXTDriver *extp, expchannel_t channel)
 int zaehler = 0;
 void update_IMU()
 {
+	static int cali_accel=0;
 	if(mpuInterrupt)
 	{
 		mpuInterrupt = FALSE;
@@ -234,17 +233,20 @@ void update_IMU()
 				mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
 				mpu.dmpGetEuler(euler, &q);
 			  mpu.dmpGetAccel(&aa, fifoBuffer);
-				//accelertion manual offset
-				aa.z=aa.z+519;
+				//calibration of the accerleration only the first 10 steps please hold the device in horizontal position 
+				if((cali_accel<50)&&((aa.x!=0)||(aa.y!=0)||(aa.z!=0))){
+					cali_accel++; // je nach dem noch verbesserungwürde bzgl. laufzeit
+					aa_offset_sum.x=aa_offset_sum.x+0-aa.x;//0 because of the horizontal position 
+					aa_offset_sum.y=aa_offset_sum.y+0-aa.y;//0 because of the horizontal position
+					aa_offset_sum.z=aa_offset_sum.z+4096-aa.z;//4096 because of the horizontal position
+					//könnte noch über den mpu offset gelöst werden.
+				}
+				aa.x=aa.x+(aa_offset_sum.x/cali_accel);
+				aa.y=aa.y+(aa_offset_sum.y/cali_accel);
+				aa.z=aa.z+(aa_offset_sum.z/cali_accel);
         mpu.dmpGetLinearAccel(&aaReal, &aa, &gravity);
         mpu.dmpGetLinearAccelInWorld(&aaWorld, &aaReal, &q);
 				mpu.dmpGetGyro(gyroRate,fifoBuffer);
-				offset_z=mpu.getZAccelOffset();
-				offset_x=mpu.getXAccelOffset();
-				offset_y=mpu.getYAccelOffset();
-			//test range
-				range=mpu.getFullScaleAccelRange();
-			//warum machen wir das so?
 				gyro_rate_float[0] = (float)gyroRate[0]/2147483648*2000*0.41;
 				gyro_rate_float[1] = (float)gyroRate[1]/2147483648*2000*0.41;
 				gyro_rate_float[2] = (float)gyroRate[2]/2147483648*2000*0.41;
