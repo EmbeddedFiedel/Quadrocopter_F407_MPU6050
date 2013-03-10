@@ -3,25 +3,38 @@
  *
  * Code generated for Simulink model 'Hoehenregelung'.
  *
- * Model version                  : 1.505
+ * Model version                  : 1.512
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Wed Mar 06 15:59:46 2013
+ * C/C++ source code generated on : Sun Mar 10 11:02:24 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
  * Code generation objectives:
  *    1. Execution efficiency
  *    2. RAM efficiency
- * Validation result: Passed (7), Warnings (5), Error (0)
+ * Validation result: Passed (6), Warnings (6), Error (0)
  */
 
 #include "Hoehenregelung.h"
 #include "Hoehenregelung_private.h"
 
 /* Exported block signals */
+real_T th_dt;                          /* '<S1>/d//dt' */
 real_T v_z;                            /* '<S1>/Integrator' */
 real_T h_z;                            /* '<S1>/Integrator Limited' */
+boolean_T h_rest_integrator;           /* '<S1>/Logical Operator' */
+
+/* Exported block parameters */
+real_T a_dead = 0.1;                   /* Variable: a_dead
+                                        * Referenced by: '<S1>/Dead Zone'
+                                        */
+real_T mges = 0.5;                     /* Variable: mges
+                                        * Referenced by: '<S3>/Gain'
+                                        */
+real_T throttle_d_dt = 0.3;            /* Variable: throttle_d_dt
+                                        * Referenced by: '<S2>/Constant'
+                                        */
 
 /* Block signals (auto storage) */
 BlockIO_Hoehenregelung Hoehenregelung_B;
@@ -31,6 +44,9 @@ ContinuousStates_Hoehenregelung Hoehenregelung_X;
 
 /* Block states (auto storage) */
 D_Work_Hoehenregelung Hoehenregelung_DWork;
+
+/* Previous zero-crossings (trigger) states */
+PrevZCSigStates_Hoehenregelung Hoehenregelung_PrevZCSigState;
 
 /* External inputs (root inport signals with auto storage) */
 ExternalInputs_Hoehenregelung Hoehenregelung_U;
@@ -72,7 +88,7 @@ static void rt_ertODEUpdateContinuousStates(RTWSolverInfo *si )
   real_T *f2 = id->f[2];
   real_T hB[3];
   int_T i;
-  int_T nXc = 2;
+  int_T nXc = 3;
   rtsiSetSimTimeStep(si,MINOR_TIME_STEP);
 
   /* Save the state values at time t in y, we'll use x as ynew. */
@@ -126,6 +142,8 @@ static void rt_ertODEUpdateContinuousStates(RTWSolverInfo *si )
 /* Model step function */
 void Hoehenregelung_step(void)
 {
+  uint8_T rtb_Compare;
+  int8_T rtAction;
   if (rtmIsMajorTimeStep(Hoehenregelung_M)) {
     /* set solver stop time */
     rtsiSetSolverStopTime(&Hoehenregelung_M->solverInfo,
@@ -138,27 +156,105 @@ void Hoehenregelung_step(void)
     Hoehenregelung_M->Timing.t[0] = rtsiGetT(&Hoehenregelung_M->solverInfo);
   }
 
+  /* TransferFcn: '<S1>/d//dt' */
+  th_dt = 4.0*Hoehenregelung_U.Throttle;
+  th_dt += (-16.0)*Hoehenregelung_X.ddt_CSTATE;
+
+  /* RelationalOperator: '<S2>/Compare' incorporates:
+   *  Abs: '<S1>/Abs'
+   *  Constant: '<S2>/Constant'
+   */
+  rtb_Compare = (uint8_T)(fabs(th_dt) <= throttle_d_dt);
+
+  /* If: '<S1>/If' incorporates:
+   *  Inport: '<Root>/Throttle'
+   *  Inport: '<S4>/In1'
+   */
+  if (rtmIsMajorTimeStep(Hoehenregelung_M)) {
+    rtAction = 0;
+    Hoehenregelung_DWork.If_ActiveSubsystem = 0;
+  } else {
+    rtAction = Hoehenregelung_DWork.If_ActiveSubsystem;
+  }
+
+  switch (rtAction) {
+   case 0:
+    /* Outputs for IfAction SubSystem: '<S1>/If Action Subsystem' incorporates:
+     *  ActionPort: '<S3>/Action Port'
+     */
+    /* Gain: '<S3>/Gain' incorporates:
+     *  Inport: '<Root>/Throttle'
+     */
+    Hoehenregelung_B.Merge = -mges * Hoehenregelung_U.Throttle;
+
+    /* End of Outputs for SubSystem: '<S1>/If Action Subsystem' */
+    break;
+
+   case 1:
+    /* Outputs for IfAction SubSystem: '<S1>/If Action Subsystem1' incorporates:
+     *  ActionPort: '<S4>/Action Port'
+     */
+    Hoehenregelung_B.Merge = Hoehenregelung_U.Throttle;
+
+    /* End of Outputs for SubSystem: '<S1>/If Action Subsystem1' */
+    break;
+  }
+
+  /* End of If: '<S1>/If' */
+
+  /* Outport: '<Root>/Schubkraft' */
+  Hoehenregelung_Y.Schubkraft = Hoehenregelung_B.Merge;
+
   /* DeadZone: '<S1>/Dead Zone' incorporates:
    *  Inport: '<Root>/Beschleunigung_Z'
    */
-  if (Hoehenregelung_U.Beschleunigung_Z > 0.06) {
-    Hoehenregelung_B.DeadZone = Hoehenregelung_U.Beschleunigung_Z - 0.06;
-  } else if (Hoehenregelung_U.Beschleunigung_Z >= -0.06) {
+  if (Hoehenregelung_U.Beschleunigung_Z > a_dead) {
+    Hoehenregelung_B.DeadZone = Hoehenregelung_U.Beschleunigung_Z - a_dead;
+  } else if (Hoehenregelung_U.Beschleunigung_Z >= -a_dead) {
     Hoehenregelung_B.DeadZone = 0.0;
   } else {
-    Hoehenregelung_B.DeadZone = Hoehenregelung_U.Beschleunigung_Z - -0.06;
+    Hoehenregelung_B.DeadZone = Hoehenregelung_U.Beschleunigung_Z - (-a_dead);
   }
 
   /* End of DeadZone: '<S1>/Dead Zone' */
 
+  /* Logic: '<S1>/Logical Operator' */
+  h_rest_integrator = !(rtb_Compare != 0);
+
   /* Integrator: '<S1>/Integrator' */
+  if (rtmIsMajorTimeStep(Hoehenregelung_M)) {
+    ZCEventType zcEvent;
+    zcEvent = ((ZCEventType) (!h_rest_integrator &&
+                (Hoehenregelung_PrevZCSigState.Integrator_Reset_ZCE !=
+                 ZERO_ZCSIG)));
+
+    /* evaluate zero-crossings */
+    Hoehenregelung_PrevZCSigState.Integrator_Reset_ZCE = (ZCSigState)
+      h_rest_integrator;
+    if (zcEvent) {
+      Hoehenregelung_X.Integrator_CSTATE = 0.0;
+    }
+  }
+
   v_z = Hoehenregelung_X.Integrator_CSTATE;
 
   /* Integrator: '<S1>/Integrator Limited' incorporates:
    *  Inport: '<Root>/Hoehe'
    */
-  if (Hoehenregelung_DWork.IntegratorLimited_IWORK.IcNeedsLoading) {
-    Hoehenregelung_X.IntegratorLimited_CSTATE = Hoehenregelung_U.Hoehe;
+  if (rtmIsMajorTimeStep(Hoehenregelung_M)) {
+    ZCEventType zcEvent;
+    zcEvent = ((ZCEventType) (!h_rest_integrator &&
+                (Hoehenregelung_PrevZCSigState.IntegratorLimited_Reset_ZCE !=
+                 ZERO_ZCSIG)));
+
+    /* evaluate zero-crossings */
+    Hoehenregelung_PrevZCSigState.IntegratorLimited_Reset_ZCE = (ZCSigState)
+      h_rest_integrator;
+    if (zcEvent || Hoehenregelung_DWork.IntegratorLimited_IWORK.IcNeedsLoading)
+    {
+      Hoehenregelung_X.IntegratorLimited_CSTATE = Hoehenregelung_U.Hoehe;
+    }
+
     Hoehenregelung_DWork.IntegratorLimited_IWORK.IcNeedsLoading = 0;
   }
 
@@ -191,9 +287,19 @@ void Hoehenregelung_step(void)
 /* Derivatives for root system: '<Root>' */
 void Hoehenregelung_derivatives(void)
 {
+  /* Derivatives for TransferFcn: '<S1>/d//dt' */
+  {
+    ((StateDerivatives_Hoehenregelung *) Hoehenregelung_M->ModelData.derivs)
+      ->ddt_CSTATE = Hoehenregelung_U.Throttle;
+    ((StateDerivatives_Hoehenregelung *) Hoehenregelung_M->ModelData.derivs)
+      ->ddt_CSTATE += (-4.0)*Hoehenregelung_X.ddt_CSTATE;
+  }
+
   /* Derivatives for Integrator: '<S1>/Integrator' */
-  ((StateDerivatives_Hoehenregelung *) Hoehenregelung_M->ModelData.derivs)
-    ->Integrator_CSTATE = Hoehenregelung_B.DeadZone;
+  {
+    ((StateDerivatives_Hoehenregelung *) Hoehenregelung_M->ModelData.derivs)
+      ->Integrator_CSTATE = Hoehenregelung_B.DeadZone;
+  }
 
   /* Derivatives for Integrator: '<S1>/Integrator Limited' */
   {
@@ -247,8 +353,10 @@ void Hoehenregelung_initialize(void)
                 sizeof(BlockIO_Hoehenregelung));
 
   /* exported global signals */
+  th_dt = 0.0;
   v_z = 0.0;
   h_z = 0.0;
+  h_rest_integrator = FALSE;
 
   /* states (continuous) */
   {
@@ -267,9 +375,21 @@ void Hoehenregelung_initialize(void)
   /* external outputs */
   Hoehenregelung_Y.Schubkraft = 0.0;
 
-  /* ConstCode for Outport: '<Root>/Schubkraft' */
-  Hoehenregelung_Y.Schubkraft = 0.0;
+  /* Start for If: '<S1>/If' */
+  Hoehenregelung_DWork.If_ActiveSubsystem = -1;
+  Hoehenregelung_PrevZCSigState.Integrator_Reset_ZCE = UNINITIALIZED_ZCSIG;
+  Hoehenregelung_PrevZCSigState.IntegratorLimited_Reset_ZCE =
+    UNINITIALIZED_ZCSIG;
 
+  /* InitializeConditions for TransferFcn: '<S1>/d//dt' */
+  Hoehenregelung_X.ddt_CSTATE = 0.0;
+
+  /* InitializeConditions for Merge: '<S1>/Merge' */
+  if (rtmIsFirstInitCond(Hoehenregelung_M)) {
+    Hoehenregelung_B.Merge = 0.0;
+  }
+
+  /* End of InitializeConditions for Merge: '<S1>/Merge' */
   /* InitializeConditions for Integrator: '<S1>/Integrator' */
   Hoehenregelung_X.Integrator_CSTATE = 0.0;
 

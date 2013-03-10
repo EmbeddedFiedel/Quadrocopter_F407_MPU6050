@@ -3,23 +3,24 @@
  *
  * Code generated for Simulink model 'Hoehenregelung'.
  *
- * Model version                  : 1.505
+ * Model version                  : 1.512
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Wed Mar 06 15:59:46 2013
+ * C/C++ source code generated on : Sun Mar 10 11:02:24 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
  * Code generation objectives:
  *    1. Execution efficiency
  *    2. RAM efficiency
- * Validation result: Passed (7), Warnings (5), Error (0)
+ * Validation result: Passed (6), Warnings (6), Error (0)
  */
 
 #ifndef RTW_HEADER_Hoehenregelung_h_
 #define RTW_HEADER_Hoehenregelung_h_
 #ifndef Hoehenregelung_COMMON_INCLUDES_
 # define Hoehenregelung_COMMON_INCLUDES_
+#include <math.h>
 #include <string.h>
 #include "rtwtypes.h"
 #include "rtw_continuous.h"
@@ -55,6 +56,7 @@
 
 /* Block signals (auto storage) */
 typedef struct {
+  real_T Merge;                        /* '<S1>/Merge' */
   real_T DeadZone;                     /* '<S1>/Dead Zone' */
 } BlockIO_Hoehenregelung;
 
@@ -63,25 +65,36 @@ typedef struct {
   struct {
     int_T IcNeedsLoading;
   } IntegratorLimited_IWORK;           /* '<S1>/Integrator Limited' */
+
+  int8_T If_ActiveSubsystem;           /* '<S1>/If' */
 } D_Work_Hoehenregelung;
 
 /* Continuous states (auto storage) */
 typedef struct {
+  real_T ddt_CSTATE;                   /* '<S1>/d//dt' */
   real_T Integrator_CSTATE;            /* '<S1>/Integrator' */
   real_T IntegratorLimited_CSTATE;     /* '<S1>/Integrator Limited' */
 } ContinuousStates_Hoehenregelung;
 
 /* State derivatives (auto storage) */
 typedef struct {
+  real_T ddt_CSTATE;                   /* '<S1>/d//dt' */
   real_T Integrator_CSTATE;            /* '<S1>/Integrator' */
   real_T IntegratorLimited_CSTATE;     /* '<S1>/Integrator Limited' */
 } StateDerivatives_Hoehenregelung;
 
 /* State disabled  */
 typedef struct {
+  boolean_T ddt_CSTATE;                /* '<S1>/d//dt' */
   boolean_T Integrator_CSTATE;         /* '<S1>/Integrator' */
   boolean_T IntegratorLimited_CSTATE;  /* '<S1>/Integrator Limited' */
 } StateDisabled_Hoehenregelung;
+
+/* Zero-crossing (trigger) state */
+typedef struct {
+  ZCSigState Integrator_Reset_ZCE;     /* '<S1>/Integrator' */
+  ZCSigState IntegratorLimited_Reset_ZCE;/* '<S1>/Integrator Limited' */
+} PrevZCSigStates_Hoehenregelung;
 
 #ifndef ODE3_INTG
 #define ODE3_INTG
@@ -123,8 +136,8 @@ struct RT_MODEL_Hoehenregelung {
     boolean_T zCCacheNeedsReset;
     boolean_T derivCacheNeedsReset;
     boolean_T blkStateChange;
-    real_T odeY[2];
-    real_T odeF[3][2];
+    real_T odeY[3];
+    real_T odeF[3][3];
     ODE3_IntgData intgData;
   } ModelData;
 
@@ -201,8 +214,28 @@ extern "C" {
  * these signals and export their symbols.
  *
  */
+extern real_T th_dt;                   /* '<S1>/d//dt' */
 extern real_T v_z;                     /* '<S1>/Integrator' */
 extern real_T h_z;                     /* '<S1>/Integrator Limited' */
+extern boolean_T h_rest_integrator;    /* '<S1>/Logical Operator' */
+
+/*
+ * Exported Global Parameters
+ *
+ * Note: Exported global parameters are tunable parameters with an exported
+ * global storage class designation.  Code generation will declare the memory for
+ * these parameters and exports their symbols.
+ *
+ */
+extern real_T a_dead;                  /* Variable: a_dead
+                                        * Referenced by: '<S1>/Dead Zone'
+                                        */
+extern real_T mges;                    /* Variable: mges
+                                        * Referenced by: '<S3>/Gain'
+                                        */
+extern real_T throttle_d_dt;           /* Variable: throttle_d_dt
+                                        * Referenced by: '<S2>/Constant'
+                                        */
 
 #ifdef __cplusplus
 
@@ -253,6 +286,9 @@ extern "C" {
  *
  * '<Root>' : 'regler/Regelkreis'
  * '<S1>'   : 'regler/Regelkreis/Hoehenregelung'
+ * '<S2>'   : 'regler/Regelkreis/Hoehenregelung/Compare To Constant'
+ * '<S3>'   : 'regler/Regelkreis/Hoehenregelung/If Action Subsystem'
+ * '<S4>'   : 'regler/Regelkreis/Hoehenregelung/If Action Subsystem1'
  */
 #endif                                 /* RTW_HEADER_Hoehenregelung_h_ */
 

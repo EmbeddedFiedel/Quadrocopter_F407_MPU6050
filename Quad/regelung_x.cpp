@@ -8,7 +8,6 @@
 #include "Motoren.h"
 #include "barometer.h"
 
-float offset_a=0;
 
 //Init Models
 void init_regler_X(){
@@ -22,15 +21,6 @@ void init_regler_X(){
 }
 
 
-void cali_accel_offset(){
-	int i;
-	int n=10;
-	//Offset in der Beschleunigung kompensieren
-	for (i=0;i<n;i++){
-	offset_a=offset_a+get_accel_world_z();
-	}
-	offset_a=offset_a/n;
-}
 
 void step_regler_X(){
 	static boolean_T OverrunFlag = FALSE;
@@ -75,7 +65,7 @@ void step_regler_X(){
 
 	Hoehenregelung_U.Throttle=get_schub_soll()/0.68;
 	Hoehenregelung_U.Hoehe=baro_get_altitude();
-	Hoehenregelung_U.Beschleunigung_Z=get_accel_world_z()+offset_a;
+	Hoehenregelung_U.Beschleunigung_Z=get_accel_world_z();
 	
 	//Hoehenregelung
 	Hoehenregelung_step();
