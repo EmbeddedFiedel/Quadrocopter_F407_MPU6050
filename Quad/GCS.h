@@ -3,8 +3,8 @@
 #include "mavlink.h"
 					  
 
-#define ONBOARD_PARAM_COUNT 5
-#define ONBOARD_PARAM_NAME_LENGTH 10
+#define ONBOARD_PARAM_COUNT 42
+#define ONBOARD_PARAM_NAME_LENGTH 15
 					  
 struct global_struct
 {

@@ -15,20 +15,142 @@ struct global_struct global_data;
  */
 static inline void global_data_reset_param_defaults(void)
 {
+	int offset_Param = 0;
+
 	global_data.param[0] = 1;
-	strcpy(global_data.param_name[0], "R_P");
+	strcpy(global_data.param_name[0+offset_Param], "N_pid_pa");
 	
-	global_data.param[1] = 20;
-	strcpy(global_data.param_name[1], "R_D");
+	global_data.param[1+offset_Param] = 20;
+	strcpy(global_data.param_name[1+offset_Param], "N_pid_da");
 	
-	global_data.param[2] = 0.2;
-	strcpy(global_data.param_name[2], "R_Idyn");
+	global_data.param[2+offset_Param] = 0.2;
+	strcpy(global_data.param_name[2+offset_Param], "N_pid_ia_dyn");
 	
-	global_data.param[3] = 0.1;
-	strcpy(global_data.param_name[3], "R_Igain");
+	global_data.param[3+offset_Param] = 0.1;
+	strcpy(global_data.param_name[3+offset_Param], "N_pid_ia_gain");
 	
-	global_data.param[4] = 300;
-	strcpy(global_data.param_name[4], "R_gain");
+	global_data.param[4+offset_Param] = 300;
+	strcpy(global_data.param_name[4+offset_Param], "N_pid_gain");
+	
+	 
+	global_data.param[5+offset_Param] = 1;
+	strcpy(global_data.param_name[5+offset_Param], "N_kas_pa");
+	
+	global_data.param[6+offset_Param] = 20;
+	strcpy(global_data.param_name[6+offset_Param], "N_kas_da");
+	
+	global_data.param[7+offset_Param] = 0.2;
+	strcpy(global_data.param_name[7+offset_Param], "N_kas_ia_dyn");
+	
+	global_data.param[8+offset_Param] = 0.1;
+	strcpy(global_data.param_name[8+offset_Param], "N_kas_ia_gain");
+	
+	global_data.param[9+offset_Param] = 300;
+	strcpy(global_data.param_name[9+offset_Param], "N_kas_pi");  
+
+	global_data.param[10+offset_Param] = 1;
+	strcpy(global_data.param_name[10+offset_Param], "N_kas_ii_dyn");	
+	
+	global_data.param[11+offset_Param] = 0.2;
+	strcpy(global_data.param_name[11+offset_Param], "N_kas_ii_gain");
+	
+	global_data.param[12+offset_Param] = 0;
+	strcpy(global_data.param_name[12+offset_Param], "N_kas_gain");
+	
+	global_data.param[13+offset_Param] = 0;
+	strcpy(global_data.param_name[13+offset_Param], "N_sw_kas");
+
+
+	offset_Param = 14;
+
+	global_data.param[0+offset_Param] = 1;
+	strcpy(global_data.param_name[0+offset_Param], "R_pid_pa");
+	
+	global_data.param[1+offset_Param] = 20;
+	strcpy(global_data.param_name[1+offset_Param], "R_pid_da");
+	
+	global_data.param[2+offset_Param] = 0.2;
+	strcpy(global_data.param_name[2+offset_Param], "R_pid_ia_dyn");
+	
+	global_data.param[3+offset_Param] = 0.1;
+	strcpy(global_data.param_name[3+offset_Param], "R_pid_ia_gain");
+	
+	global_data.param[4+offset_Param] = 300;
+	strcpy(global_data.param_name[4+offset_Param], "R_pid_gain");
+	
+	 
+	global_data.param[5+offset_Param] = 1;
+	strcpy(global_data.param_name[5+offset_Param], "R_kas_pa");
+	
+	global_data.param[6+offset_Param] = 20;
+	strcpy(global_data.param_name[6+offset_Param], "R_kas_da");
+	
+	global_data.param[7+offset_Param] = 0.2;
+	strcpy(global_data.param_name[7+offset_Param], "R_kas_ia_dyn");
+	
+	global_data.param[8+offset_Param] = 0.1;
+	strcpy(global_data.param_name[8+offset_Param], "R_kas_ia_gain");
+	
+	global_data.param[9+offset_Param] = 300;
+	strcpy(global_data.param_name[9+offset_Param], "R_kas_pi");  
+
+	global_data.param[10+offset_Param] = 1;
+	strcpy(global_data.param_name[10+offset_Param], "R_kas_ii_dyn");	
+	
+	global_data.param[11+offset_Param] = 0.2;
+	strcpy(global_data.param_name[11+offset_Param], "R_kas_ii_gain");
+	
+	global_data.param[12+offset_Param] = 0;
+	strcpy(global_data.param_name[12+offset_Param], "R_kas_gain");
+	
+	global_data.param[13+offset_Param] = 0;
+	strcpy(global_data.param_name[13+offset_Param], "R_sw_kas");
+
+
+	offset_Param = 28;
+
+	global_data.param[0+offset_Param] = 1;
+	strcpy(global_data.param_name[0+offset_Param], "Y_pid_pa");
+	
+	global_data.param[1+offset_Param] = 20;
+	strcpy(global_data.param_name[1+offset_Param], "Y_pid_da");
+	
+	global_data.param[2+offset_Param] = 0.2;
+	strcpy(global_data.param_name[2+offset_Param], "Y_pid_ia_dyn");
+	
+	global_data.param[3+offset_Param] = 0.1;
+	strcpy(global_data.param_name[3+offset_Param], "Y_pid_ia_gain");
+	
+	global_data.param[4+offset_Param] = 300;
+	strcpy(global_data.param_name[4+offset_Param], "Y_pid_gain");
+	
+	 
+	global_data.param[5+offset_Param] = 1;
+	strcpy(global_data.param_name[5+offset_Param], "Y_kas_pa");
+	
+	global_data.param[6+offset_Param] = 20;
+	strcpy(global_data.param_name[6+offset_Param], "Y_kas_da");
+	
+	global_data.param[7+offset_Param] = 0.2;
+	strcpy(global_data.param_name[7+offset_Param], "Y_kas_ia_dyn");
+	
+	global_data.param[8+offset_Param] = 0.1;
+	strcpy(global_data.param_name[8+offset_Param], "Y_kas_ia_gain");
+	
+	global_data.param[9+offset_Param] = 300;
+	strcpy(global_data.param_name[9+offset_Param], "Y_kas_pi");  
+
+	global_data.param[10+offset_Param] = 1;
+	strcpy(global_data.param_name[10+offset_Param], "Y_kas_ii_dyn");	
+	
+	global_data.param[11+offset_Param] = 0.2;
+	strcpy(global_data.param_name[11+offset_Param], "Y_kas_ii_gain");
+	
+	global_data.param[12+offset_Param] = 0;
+	strcpy(global_data.param_name[12+offset_Param], "Y_kas_gain");
+	
+	global_data.param[13+offset_Param] = 0;
+	strcpy(global_data.param_name[13+offset_Param], "Y_sw_kas");
 } 
 
 uint16_t m_parameter_i = 0;
