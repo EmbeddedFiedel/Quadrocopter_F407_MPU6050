@@ -3,17 +3,17 @@
  *
  * Code generated for Simulink model 'Regelglied'.
  *
- * Model version                  : 1.497
+ * Model version                  : 1.518
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Thu Feb 07 16:43:52 2013
+ * C/C++ source code generated on : Sun Mar 10 12:19:45 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
  * Code generation objectives:
  *    1. Execution efficiency
  *    2. RAM efficiency
- * Validation result: Passed (7), Warnings (5), Error (0)
+ * Validation result: Passed (6), Warnings (6), Error (0)
  */
 
 #include "Regelglied.h"
@@ -25,6 +25,7 @@ real_T Xd_Roll;                        /* '<S1>/Add' */
 real_T p_anteil;                       /* '<S6>/Gain' */
 real_T i_anteil;                       /* '<S6>/Integrator' */
 real_T d_anteil;                       /* '<S6>/D-Anteil' */
+real_T I_offset;                       /* '<S6>/Integrator1' */
 real_T Y_roll;                         /* '<S6>/Add' */
 real_T Xd_V_Roll;                      /* '<S1>/Add1' */
 real_T Soll_a_Roll;                    /* '<S1>/D-Anteil2' */
@@ -39,11 +40,12 @@ real_T Y_Nick;                         /* '<S7>/Add' */
 real_T Soll_a_Nick;                    /* '<S1>/D-Anteil3' */
 real_T Ist_a_Nick;                     /* '<S1>/D-Anteil5' */
 real_T Xd_a_Nick;                      /* '<S1>/Add5' */
+uint8_T Inti_rdy;                      /* '<S9>/Compare' */
 
 /* Exported block parameters */
-real_T ena_byp_a = 1.0;                /* Variable: ena_byp_a
-                                        * Referenced by: '<S1>/Constant2'
-                                        */
+real_T ena_byp_a = 1.0; /* Variable: ena_byp_a
+* Referenced by: '<S1>/Constant2'
+*/
 real_T ena_pid = 1.0; /* Variable: ena_pid
 * Referenced by: '<S1>/Constant'
 */
@@ -78,15 +80,23 @@ real_T kp_v_roll = 0.7125; /* Variable: kp_v_roll= 0.675
 real_T tn_nick = 0.08; /* Variable: tn_nick
 * Referenced by: '<S7>/Gain1'
 */
-real_T tn_roll = 0.055; /* Variable: tn_roll
+real_T tn_roll = 0.13; /* Variable: tn_roll
 * Referenced by: '<S6>/Gain1'
 */
 real_T tv_nick = 2.6; /* Variable: tv_nick
 * Referenced by: '<S7>/Gain2'
 */
-real_T tv_roll = 2.6; /* Variable: tv_roll
-* Referenced by: '<S6>/Gain2'
-*/
+real_T tv_roll = 2.7;                /* Variable: tv_roll
+                                        * Referenced by: '<S6>/Gain2'
+                                        */
+
+real_T tn_roll_init = 0.045;            /* Variable: tn_roll_init
+                                        * Referenced by: '<S6>/Gain3'
+                                        */
+real_T t_init_i = 15000;                /* Variable: t_init_i
+                                        * Referenced by: '<S9>/Constant'
+                                        */
+
 
 /* Block signals (auto storage) */
 BlockIO_Regelglied Regelglied_B;
@@ -140,7 +150,7 @@ static void rt_ertODEUpdateContinuousStates(RTWSolverInfo *si )
   real_T *f2 = id->f[2];
   real_T hB[3];
   int_T i;
-  int_T nXc = 10;
+  int_T nXc = 11;
   rtsiSetSimTimeStep(si,MINOR_TIME_STEP);
 
   /* Save the state values at time t in y, we'll use x as ynew. */
@@ -241,7 +251,7 @@ void Regelglied_step(void)
 
   /* If: '<S8>/If' incorporates:
    *  Constant: '<S10>/Constant'
-   *  Constant: '<S9>/Constant'
+   *  Constant: '<S11>/Constant'
    */
   if (rtmIsMajorTimeStep(Regelglied_M)) {
     if (rtb_Saturation >= 0.01) {
@@ -258,7 +268,7 @@ void Regelglied_step(void)
   switch (rtAction) {
    case 0:
     /* Outputs for IfAction SubSystem: '<S8>/If Action Subsystem' incorporates:
-     *  ActionPort: '<S9>/Action Port'
+     *  ActionPort: '<S10>/Action Port'
      */
     if (rtmIsMajorTimeStep(Regelglied_M)) {
       Regelglied_B.Merge = 1.0;
@@ -269,7 +279,7 @@ void Regelglied_step(void)
 
    case 1:
     /* Outputs for IfAction SubSystem: '<S8>/If Action Subsystem1' incorporates:
-     *  ActionPort: '<S10>/Action Port'
+     *  ActionPort: '<S11>/Action Port'
      */
     if (rtmIsMajorTimeStep(Regelglied_M)) {
       Regelglied_B.Merge = 0.0;
@@ -303,8 +313,42 @@ void Regelglied_step(void)
   d_anteil = 100.0*Regelglied_B.Gain2;
   d_anteil += (-10000.0)*Regelglied_X.DAnteil_CSTATE_p;
 
+  /* RelationalOperator: '<S9>/Compare' incorporates:
+   *  Constant: '<S9>/Constant'
+   *  Inport: '<Root>/t_init'
+   *  Inport: '<Root>/t_sys'
+   *  Sum: '<S6>/Add1'
+   */
+  Inti_rdy = (uint8_T)(Regelglied_U.t_sys - Regelglied_U.t_init <= t_init_i);
+
+  /* Switch: '<S6>/Switch2' incorporates:
+   *  Constant: '<S6>/Constant'
+   */
+  if (Inti_rdy > 0) {
+    Regelglied_B.Switch2 = Regelglied_B.Merge;
+  } else {
+    Regelglied_B.Switch2 = 0.0;
+  }
+
+  /* End of Switch: '<S6>/Switch2' */
+
+  /* Integrator: '<S6>/Integrator1' */
+  if (rtmIsMajorTimeStep(Regelglied_M)) {
+    ZCEventType zcEvent;
+    zcEvent = rt_ZCFcn(RISING_ZERO_CROSSING,
+                       &Regelglied_PrevZCSigState.Integrator1_Reset_ZCE,
+                       Regelglied_B.Switch2);
+
+    /* evaluate zero-crossings */
+    if (zcEvent) {
+      Regelglied_X.Integrator1_CSTATE = 0.0;
+    }
+  }
+
+  I_offset = Regelglied_X.Integrator1_CSTATE;
+
   /* Sum: '<S6>/Add' */
-  Y_roll = (p_anteil + i_anteil) + d_anteil;
+  Y_roll = ((p_anteil + i_anteil) + d_anteil) + I_offset;
 
   /* Switch: '<S1>/Switch1' incorporates:
    *  Constant: '<S1>/Constant'
@@ -456,8 +500,33 @@ void Regelglied_step(void)
 
   /* End of Switch: '<S1>/Switch3' */
 
+  /* Switch: '<S6>/Switch1' incorporates:
+   *  Constant: '<S6>/Constant'
+   */
+  if (Inti_rdy > 0) {
+    rtb_Saturation = 0.0;
+  } else {
+    rtb_Saturation = Xd_Roll;
+  }
+
+  /* End of Switch: '<S6>/Switch1' */
+
   /* Gain: '<S6>/Gain1' */
-  Regelglied_B.Gain1_d = 1.0 / tn_roll * Xd_Roll;
+  Regelglied_B.Gain1_d = 1.0 / tn_roll * rtb_Saturation;
+
+  /* Switch: '<S6>/Switch' incorporates:
+   *  Constant: '<S6>/Constant'
+   */
+  if (Inti_rdy > 0) {
+    rtb_Saturation = Xd_Roll;
+  } else {
+    rtb_Saturation = 0.0;
+  }
+
+  /* End of Switch: '<S6>/Switch' */
+
+  /* Gain: '<S6>/Gain3' */
+  Regelglied_B.Gain3_j = 1.0 / tn_roll_init * rtb_Saturation;
 
   /* Gain: '<S7>/Gain1' */
   Regelglied_B.Gain1_m = 1.0 / tn_nick * Xd_Nick;
@@ -508,6 +577,12 @@ void Regelglied_derivatives(void)
       ->DAnteil_CSTATE_p = Regelglied_B.Gain2;
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
       ->DAnteil_CSTATE_p += (-100.0)*Regelglied_X.DAnteil_CSTATE_p;
+  }
+
+  /* Derivatives for Integrator: '<S6>/Integrator1' */
+  {
+    ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
+      ->Integrator1_CSTATE = Regelglied_B.Gain3_j;
   }
 
   /* Derivatives for TransferFcn: '<S1>/D-Anteil2' */
@@ -614,6 +689,7 @@ void Regelglied_initialize(void)
   p_anteil = 0.0;
   i_anteil = 0.0;
   d_anteil = 0.0;
+  I_offset = 0.0;
   Y_roll = 0.0;
   Xd_V_Roll = 0.0;
   Soll_a_Roll = 0.0;
@@ -628,6 +704,7 @@ void Regelglied_initialize(void)
   Soll_a_Nick = 0.0;
   Ist_a_Nick = 0.0;
   Xd_a_Nick = 0.0;
+  Inti_rdy = 0U;
 
   /* states (continuous) */
   {
@@ -653,6 +730,7 @@ void Regelglied_initialize(void)
   /* ConstCode for Outport: '<Root>/Out_M_Gier' */
   Regelglied_Y.Out_M_Gier = 0.0;
   Regelglied_PrevZCSigState.Integrator_Reset_ZCE = UNINITIALIZED_ZCSIG;
+  Regelglied_PrevZCSigState.Integrator1_Reset_ZCE = UNINITIALIZED_ZCSIG;
   Regelglied_PrevZCSigState.Integrator_Reset_ZCE_h = UNINITIALIZED_ZCSIG;
 
   /* InitializeConditions for TransferFcn: '<S1>/D-Anteil' */
@@ -669,6 +747,9 @@ void Regelglied_initialize(void)
 
   /* InitializeConditions for TransferFcn: '<S6>/D-Anteil' */
   Regelglied_X.DAnteil_CSTATE_p = 0.0;
+
+  /* InitializeConditions for Integrator: '<S6>/Integrator1' */
+  Regelglied_X.Integrator1_CSTATE = 0.0;
 
   /* InitializeConditions for TransferFcn: '<S1>/D-Anteil2' */
   Regelglied_X.DAnteil2_CSTATE = 0.0;

@@ -3,17 +3,17 @@
  *
  * Code generated for Simulink model 'Regelglied'.
  *
- * Model version                  : 1.497
+ * Model version                  : 1.518
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Thu Feb 07 16:43:52 2013
+ * C/C++ source code generated on : Sun Mar 10 12:19:45 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
  * Code generation objectives:
  *    1. Execution efficiency
  *    2. RAM efficiency
- * Validation result: Passed (7), Warnings (5), Error (0)
+ * Validation result: Passed (6), Warnings (6), Error (0)
  */
 
 #ifndef RTW_HEADER_Regelglied_h_
@@ -59,11 +59,13 @@ typedef struct {
   real_T Gain;                         /* '<S1>/Gain' */
   real_T Merge;                        /* '<S8>/Merge' */
   real_T Gain2;                        /* '<S6>/Gain2' */
+  real_T Switch2;                      /* '<S6>/Switch2' */
   real_T Gain2_p;                      /* '<S1>/Gain2' */
   real_T Gain1;                        /* '<S1>/Gain1' */
   real_T Gain2_a;                      /* '<S7>/Gain2' */
   real_T Gain3;                        /* '<S1>/Gain3' */
   real_T Gain1_d;                      /* '<S6>/Gain1' */
+  real_T Gain3_j;                      /* '<S6>/Gain3' */
   real_T Gain1_m;                      /* '<S7>/Gain1' */
 } BlockIO_Regelglied;
 
@@ -77,6 +79,7 @@ typedef struct {
   real_T DAnteil_CSTATE;               /* '<S1>/D-Anteil' */
   real_T Integrator_CSTATE;            /* '<S6>/Integrator' */
   real_T DAnteil_CSTATE_p;             /* '<S6>/D-Anteil' */
+  real_T Integrator1_CSTATE;           /* '<S6>/Integrator1' */
   real_T DAnteil2_CSTATE;              /* '<S1>/D-Anteil2' */
   real_T DAnteil4_CSTATE;              /* '<S1>/D-Anteil4' */
   real_T DAnteil1_CSTATE;              /* '<S1>/D-Anteil1' */
@@ -91,6 +94,7 @@ typedef struct {
   real_T DAnteil_CSTATE;               /* '<S1>/D-Anteil' */
   real_T Integrator_CSTATE;            /* '<S6>/Integrator' */
   real_T DAnteil_CSTATE_p;             /* '<S6>/D-Anteil' */
+  real_T Integrator1_CSTATE;           /* '<S6>/Integrator1' */
   real_T DAnteil2_CSTATE;              /* '<S1>/D-Anteil2' */
   real_T DAnteil4_CSTATE;              /* '<S1>/D-Anteil4' */
   real_T DAnteil1_CSTATE;              /* '<S1>/D-Anteil1' */
@@ -105,6 +109,7 @@ typedef struct {
   boolean_T DAnteil_CSTATE;            /* '<S1>/D-Anteil' */
   boolean_T Integrator_CSTATE;         /* '<S6>/Integrator' */
   boolean_T DAnteil_CSTATE_p;          /* '<S6>/D-Anteil' */
+  boolean_T Integrator1_CSTATE;        /* '<S6>/Integrator1' */
   boolean_T DAnteil2_CSTATE;           /* '<S1>/D-Anteil2' */
   boolean_T DAnteil4_CSTATE;           /* '<S1>/D-Anteil4' */
   boolean_T DAnteil1_CSTATE;           /* '<S1>/D-Anteil1' */
@@ -117,6 +122,7 @@ typedef struct {
 /* Zero-crossing (trigger) state */
 typedef struct {
   ZCSigState Integrator_Reset_ZCE;     /* '<S6>/Integrator' */
+  ZCSigState Integrator1_Reset_ZCE;    /* '<S6>/Integrator1' */
   ZCSigState Integrator_Reset_ZCE_h;   /* '<S7>/Integrator' */
 } PrevZCSigStates_Regelglied;
 
@@ -142,6 +148,8 @@ typedef struct {
   real_T In_Ist_V_Roll;                /* '<Root>/In_Ist_V_Roll' */
   real_T In_Ist_V_Nick;                /* '<Root>/In_Ist_V_Nick' */
   real_T Throttle;                     /* '<Root>/Throttle' */
+  real_T t_init;                       /* '<Root>/t_init' */
+  real_T t_sys;                        /* '<Root>/t_sys' */
 } ExternalInputs_Regelglied;
 
 /* External outputs (root outports fed by signals with auto storage) */
@@ -168,8 +176,8 @@ struct RT_MODEL_Regelglied {
     boolean_T zCCacheNeedsReset;
     boolean_T derivCacheNeedsReset;
     boolean_T blkStateChange;
-    real_T odeY[10];
-    real_T odeF[3][10];
+    real_T odeY[11];
+    real_T odeF[3][11];
     ODE3_IntgData intgData;
   } ModelData;
 
@@ -251,6 +259,7 @@ extern real_T Xd_Roll;                 /* '<S1>/Add' */
 extern real_T p_anteil;                /* '<S6>/Gain' */
 extern real_T i_anteil;                /* '<S6>/Integrator' */
 extern real_T d_anteil;                /* '<S6>/D-Anteil' */
+extern real_T I_offset;                /* '<S6>/Integrator1' */
 extern real_T Y_roll;                  /* '<S6>/Add' */
 extern real_T Xd_V_Roll;               /* '<S1>/Add1' */
 extern real_T Soll_a_Roll;             /* '<S1>/D-Anteil2' */
@@ -265,6 +274,7 @@ extern real_T Y_Nick;                  /* '<S7>/Add' */
 extern real_T Soll_a_Nick;             /* '<S1>/D-Anteil3' */
 extern real_T Ist_a_Nick;              /* '<S1>/D-Anteil5' */
 extern real_T Xd_a_Nick;               /* '<S1>/Add5' */
+extern uint8_T Inti_rdy;               /* '<S9>/Compare' */
 
 /*
  * Exported Global Parameters
@@ -312,11 +322,17 @@ extern real_T kp_v_nick;               /* Variable: kp_v_nick
 extern real_T kp_v_roll;               /* Variable: kp_v_roll
                                         * Referenced by: '<S5>/Gain'
                                         */
+extern real_T t_init_i;                /* Variable: t_init_i
+                                        * Referenced by: '<S9>/Constant'
+                                        */
 extern real_T tn_nick;                 /* Variable: tn_nick
                                         * Referenced by: '<S7>/Gain1'
                                         */
 extern real_T tn_roll;                 /* Variable: tn_roll
                                         * Referenced by: '<S6>/Gain1'
+                                        */
+extern real_T tn_roll_init;            /* Variable: tn_roll_init
+                                        * Referenced by: '<S6>/Gain3'
                                         */
 extern real_T tv_nick;                 /* Variable: tv_nick
                                         * Referenced by: '<S7>/Gain2'
@@ -381,8 +397,9 @@ extern "C" {
  * '<S6>'   : 'regler/Regelkreis/Regelglied/PID Regler Roll'
  * '<S7>'   : 'regler/Regelkreis/Regelglied/PID Regler Roll1'
  * '<S8>'   : 'regler/Regelkreis/Regelglied/Throttlecutoff'
- * '<S9>'   : 'regler/Regelkreis/Regelglied/Throttlecutoff/If Action Subsystem'
- * '<S10>'  : 'regler/Regelkreis/Regelglied/Throttlecutoff/If Action Subsystem1'
+ * '<S9>'   : 'regler/Regelkreis/Regelglied/PID Regler Roll/Compare To Constant'
+ * '<S10>'  : 'regler/Regelkreis/Regelglied/Throttlecutoff/If Action Subsystem'
+ * '<S11>'  : 'regler/Regelkreis/Regelglied/Throttlecutoff/If Action Subsystem1'
  */
 #endif                                 /* RTW_HEADER_Regelglied_h_ */
 
