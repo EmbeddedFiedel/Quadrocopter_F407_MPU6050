@@ -456,7 +456,7 @@ static msg_t Regelungsthread(void *arg) {
 		delta_t = MS2ST(10);
 		time += delta_t;            // Next deadline
 		Regelung();
-		chThdSleepUntil(time);
+		if(chTimeNow() < time) chThdSleepUntil(time);
   }
 }
 
