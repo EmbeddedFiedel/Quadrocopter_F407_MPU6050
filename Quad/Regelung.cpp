@@ -294,8 +294,7 @@ float KaskadierterRegler(float in, float &gyro, float &pa, float &da, float &ia_
 			ia_Nick = ia_dyn * ea_Nick + ia_Nick;		//I-Regler außen
 	   
 		Soll_v_Nick = (pa_Nick + ia_Nick*ia_gain + da_Nick); //Ausgang äußerer Regler
-	   //ei_Nick = Soll_v_Nick - gyro;
-		ei_Nick = inNickSollLage - gyro; //Eingang innerer Regler
+		ei_Nick = Soll_v_Nick-gyro; //Eingang innerer Regler
 
 		pi_Nick = ei_Nick * pi;	//P-Regler innen 
 		if(inSchub > 0.2)
@@ -391,11 +390,9 @@ void Regelung(void)
 
 	inSchub = get_schub_soll();
 	
-	inNickSollLage = get_euler_nick_soll();
-	inRollSollLage = get_euler_roll_soll();
+	inNickSollLage = (2*get_euler_nick_soll())*0.05+0.95*inNickSollLage;
+	inRollSollLage = (2*get_euler_roll_soll())*0.05+0.95*inRollSollLage;
 	inYawSollLage  = 0;
-	
-	v_Roll_tp1 = ((get_ypr_roll_ist() - inRollIstLage)*100)*0.05+v_Roll_tp1*0.95; 
 
 	inYawIstLage = get_ypr_yaw_ist();
 	inNickIstLage = get_ypr_nick_ist();

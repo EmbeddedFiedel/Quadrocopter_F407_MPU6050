@@ -23,13 +23,13 @@ static inline void global_data_reset_param_defaults(void)
 	global_data.param[1+offset_Param] = 20;
 	strcpy(global_data.param_name[1+offset_Param], "N_pid_da");
 	
-	global_data.param[2+offset_Param] = 0.2;
+	global_data.param[2+offset_Param] = 0.01;
 	strcpy(global_data.param_name[2+offset_Param], "N_pid_ia_dyn");
 	
 	global_data.param[3+offset_Param] = 0.1;
 	strcpy(global_data.param_name[3+offset_Param], "N_pid_ia_gain");
 	
-	global_data.param[4+offset_Param] = 300;
+	global_data.param[4+offset_Param] = 301;
 	strcpy(global_data.param_name[4+offset_Param], "N_pid_gain");
 	
 	 
