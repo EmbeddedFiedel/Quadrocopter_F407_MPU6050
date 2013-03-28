@@ -232,7 +232,7 @@ void setup_Fernsteuerung()
 	EE_ReadVariable(VirtAddVarTab[calibration_ready_flag],&tmp_calib_flag);	//calibration_ready_flag lesen
 	
 	if (tmp_calib_flag==1)	//falls Kalibration bereits durchgeführt
-		for (i=0;i<number_flash_val;i++)	// dann alle Kalibrationswerte lesen
+		for (i=0;i<number_flash_cal;i++)	// dann alle Kalibrationswerte lesen
 			EE_ReadVariable(VirtAddVarTab[i],&cal_val[i]);	
 }
 
@@ -288,7 +288,7 @@ void calib_interrupt(EXTDriver *extp, expchannel_t channel)
 					
 					/*	Kalibrationswerte ändern, falls unterschiedlich*/
 					
-					for (i=0;i<number_flash_val;i++)	
+					for (i=0;i<number_flash_cal;i++)	
 						if (VirtAddVarTab[i]!=cal_val[i])	//unterschiedlich?
 							EE_WriteVariable(VirtAddVarTab[i],cal_val[i]);		//dann schreiben
 				}

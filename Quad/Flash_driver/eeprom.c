@@ -614,3 +614,29 @@ static uint16_t EE_PageTransfer(uint16_t VirtAddress, uint16_t Data)
   */ 
 
 /******************* (C) COPYRIGHT 2011 STMicroelectronics *****END OF FILE****/
+
+
+
+uint16_t EE_write_Float (uint16_t VirtAddress1, uint16_t VirtAddress2, float Data)
+{
+	uint16_t res1,res2;
+	uint32_t *floating;
+	floating=(uint32_t *) &Data;
+	res1=EE_WriteVariable(VirtAddress1, *floating);
+	res2=EE_WriteVariable(VirtAddress2, *floating>>16);
+	if (res1==FLASH_COMPLETE && res2==FLASH_COMPLETE)
+		return FLASH_COMPLETE;
+	else return FLASH_ERROR_OPERATION;
+}
+
+float EE_read_Float (uint16_t VirtAddress1, uint16_t VirtAddress2)
+{
+	uint16_t Data_H, Data_L;
+	uint32_t dat;
+	EE_ReadVariable(VirtAddress1,&Data_L);
+	EE_ReadVariable(VirtAddress2,&Data_H);
+	dat=(((uint32_t)Data_H)<<16) | ((uint32_t)Data_L);
+	return *(float*) &dat;
+	
+	
+}

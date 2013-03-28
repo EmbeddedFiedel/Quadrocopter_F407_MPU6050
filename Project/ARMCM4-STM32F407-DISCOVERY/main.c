@@ -38,10 +38,15 @@
 #include "ExternalInterrupt.h"
 #include "stm32f4xx_flash.h"
 #include "flash.h"
+#include "SOC.h"
+#include "eeprom.h"
 
-
+extern uint16_t VirtAddVarTab[number_flash_val];
 
 float dummy1,dummy2,dummy3,dummy4;
+float Speichern=0.0008;
+float Lesen;
+//uint16_t res1,res2;
 
 
 //   Variablen für Flashtest
@@ -51,9 +56,10 @@ unsigned int *flash_pointer;
 uint16_t status_read=0xFFFF,status_prog=0xFFFF;
 
 
-/* Hier muss die Anzahl der verwendeten Variablen inkl. virtueller Adressen angepasst werden */
-
-
+/*uint32_t *floating;
+float Data=0.0004;
+float *Data_out;
+*/
 
 
 /*
@@ -90,9 +96,8 @@ int main(void)
 	//setup_Regelung();
 	setup_Datalogger(); 
     palSetPad(GPIOD, GPIOD_LED3);       /* Orange.  */
+	setup_SOC();
 	
-	
-
 
 	/*
 	* Normal main() thread activity, in this demo it does nothing except
@@ -101,6 +106,12 @@ int main(void)
 	* driver 2.
 	*/
 	
+	/*
+	floating=(uint32_t *) &Data;
+	Data_out= (float*) floating; 
+	*/
+	EE_write_Float(VirtAddVarTab[12],VirtAddVarTab[13],Speichern);
+	Lesen=EE_read_Float(VirtAddVarTab[12],VirtAddVarTab[13]);
 	
 	
 	while (TRUE) 

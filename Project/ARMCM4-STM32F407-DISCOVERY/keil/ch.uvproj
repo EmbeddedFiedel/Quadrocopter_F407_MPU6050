@@ -831,6 +831,11 @@
               <FileType>8</FileType>
               <FilePath>..\..\..\Quad\Flash_driver\eeprom.c</FilePath>
             </File>
+            <File>
+              <FileName>SOC.c</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\..\Quad\SOC.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -21,8 +21,8 @@
 	
 #define	calibration_ready_flag 11 //Bit 0 (LSB)
 
-#define number_flash_val 12		//Anzahl der gespeicherten Werte
-
+#define number_flash_val 14		//Gesamtanzahl der gespeicherten Werte
+#define number_flash_cal 12	//anzahl der Werte für die Kalibration
 
 
 void setup_FLASH();
