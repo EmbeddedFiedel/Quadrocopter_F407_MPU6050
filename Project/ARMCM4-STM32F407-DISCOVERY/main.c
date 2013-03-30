@@ -36,6 +36,8 @@
 #include "Regelung.h"
 #include "Datalogger.h"
 #include "ExternalInterrupt.h"
+#include "GCS.h"
+
 
 /*
  * Application entry point.
@@ -51,34 +53,31 @@ int main(void)
 	*/
 	halInit();	   
 	chSysInit();
-	
-	/*
-	* Activates the serial driver 2 using the driver default configuration.
-	* PA2(TX) and PA3(RX) are routed to USART2.
-	*/
-	sdStart(&SD2, NULL);
-	palSetPadMode(GPIOD, 5, PAL_MODE_ALTERNATE(7));
-	palSetPadMode(GPIOD, 6, PAL_MODE_ALTERNATE(7));
-	
 	setup_IMU();
 	setup_ExternalInterrupt();
+	setup_Mavlink();
 	setup_Fernsteuerung();
 	setup_Motoren();
 	setup_Regelung();
-	setup_Datalogger();
-    
-    palSetPad(GPIOD, GPIOD_LED3);       /* Orange.  */
-    
-	/*
-	* Normal main() thread activity, in this demo it does nothing except
-	* sleeping in a loop and check the button state, when the button is
-	* pressed the test procedure is launched with output on the serial
-	* driver 2.
-	*/
+	setup_Datalogger(); 
+
+	//send_statustext(MAV_SEVERITY_ALERT, "Initialization finished");
 	while (TRUE) 
 	{
-		update_IMU();
-		//datalog();
-		//chThdSleepMilliseconds(10);
+		//update_IMU();
+		
+		palSetPad(GPIOD, GPIOD_LED3);
+		palClearPad(GPIOD, GPIOD_LED5);
+		chThdSleepMilliseconds(200);
+		palSetPad(GPIOD, GPIOD_LED4);
+		palClearPad(GPIOD, GPIOD_LED3);       /* Orange.  */
+		chThdSleepMilliseconds(200);
+		palSetPad(GPIOD, GPIOD_LED6);
+		palClearPad(GPIOD, GPIOD_LED4);
+		chThdSleepMilliseconds(200);
+		palSetPad(GPIOD, GPIOD_LED5);
+		palClearPad(GPIOD, GPIOD_LED6);
+		chThdSleepMilliseconds(200);
+		
   }
 }

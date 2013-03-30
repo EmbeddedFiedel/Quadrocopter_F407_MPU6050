@@ -61,8 +61,6 @@
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
-            <nStopU1X>0</nStopU1X>
-            <nStopU2X>0</nStopU2X>
           </BeforeCompile>
           <BeforeMake>
             <RunUserProg1>0</RunUserProg1>
@@ -136,7 +134,6 @@
             <RestoreMemoryDisplay>1</RestoreMemoryDisplay>
             <RestoreFunctions>0</RestoreFunctions>
             <RestoreToolbox>1</RestoreToolbox>
-            <RestoreTracepoints>0</RestoreTracepoints>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
           <TargetSelection>8</TargetSelection>
@@ -163,7 +160,7 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>4100</DriverSelection>
+            <DriverSelection>4099</DriverSelection>
           </Flash1>
           <Flash2>STLink\ST-LINKIII-KEIL.dll</Flash2>
           <Flash3>"" ()</Flash3>
@@ -334,7 +331,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>0</Optim>
+            <Optim>4</Optim>
             <oTime>1</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>0</OneElfS>
@@ -345,12 +342,11 @@
             <Rwpi>0</Rwpi>
             <wLevel>0</wLevel>
             <uThumb>0</uThumb>
-            <uSurpInc>0</uSurpInc>
             <VariousControls>
               <MiscControls></MiscControls>
               <Define>__heap_base__=Image$$RW_IRAM1$$ZI$$Limit __heap_end__=Image$$RW_IRAM2$$Base</Define>
               <Undefine></Undefine>
-              <IncludePath>..\;..\..\..\os\kernel\include;..\..\..\os\ports\common\ARMCMx;..\..\..\os\ports\common\ARMCMx\CMSIS\include;..\..\..\os\ports\RVCT\ARMCMx;..\..\..\os\ports\RVCT\ARMCMx\STM32F4xx;..\..\..\os\hal\include;..\..\..\os\hal\platforms\STM32;..\..\..\os\hal\platforms\STM32\GPIOv2;..\..\..\os\hal\platforms\STM32F4xx;..\..\..\os\various;..\..\..\boards\ST_STM32F4_DISCOVERY;..\..\..\test;..\..\..\Quad\MPU6050\Examples\MPU6050_DMP6;..\..\..\Quad\MPU6050;..\..\..\Quad\I2Cdev;..\..\..\Quad\Regelung;..\..\..\Quad\Regelung;..\..\..\Quad\;..\..\..\ext\fatfs-0.8b-patched\fatfs\src</IncludePath>
+              <IncludePath>..\;..\..\..\os\kernel\include;..\..\..\os\ports\common\ARMCMx;..\..\..\os\ports\common\ARMCMx\CMSIS\include;..\..\..\os\ports\RVCT\ARMCMx;..\..\..\os\ports\RVCT\ARMCMx\STM32F4xx;..\..\..\os\hal\include;..\..\..\os\hal\platforms\STM32;..\..\..\os\hal\platforms\STM32\GPIOv2;..\..\..\os\hal\platforms\STM32F4xx;..\..\..\os\various;..\..\..\boards\ST_STM32F4_DISCOVERY;..\..\..\test;..\..\..\Quad\MPU6050\Examples\MPU6050_DMP6;..\..\..\Quad\MPU6050;..\..\..\Quad\I2Cdev;..\..\..\Quad\Regelung;..\..\..\Quad\Regelung;..\..\..\Quad\;..\..\..\ext\fatfs-0.8b-patched\fatfs\src;..\..\..\Quad\mavlink\common;..\..\..\Quad\mavlink</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -361,7 +357,6 @@
             <SplitLS>0</SplitLS>
             <SwStkChk>0</SwStkChk>
             <NoWarn>0</NoWarn>
-            <uSurpInc>0</uSurpInc>
             <VariousControls>
               <MiscControls>--cpreproc</MiscControls>
               <Define></Define>
@@ -586,6 +581,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\..\os\hal\src\tm.c</FilePath>
             </File>
+            <File>
+              <FileName>gpt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\os\hal\src\gpt.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -630,6 +630,11 @@
               <FileName>i2c_lld.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\..\os\hal\platforms\STM32\i2c_lld.c</FilePath>
+            </File>
+            <File>
+              <FileName>gpt_lld.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\..\os\hal\platforms\STM32F4xx\gpt_lld.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -765,6 +770,11 @@
               <FileName>ExternalInterrupt.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\..\..\Quad\ExternalInterrupt.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>GCS.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\..\Quad\GCS.cpp</FilePath>
             </File>
           </Files>
         </Group>

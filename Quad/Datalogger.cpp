@@ -4,6 +4,7 @@
 #include "test.h"
 #include "chprintf.h"
 #include "ff.h"
+#include "GCS.h"
 
 	FATFS MMC_FS;		/* File system object */
 	DIR dir;				/* Directory object */
@@ -16,6 +17,46 @@
 static bool_t Datalogger_ready_flag = FALSE;
 static SPIConfig hs_spicfg = { NULL, GPIOC, 4, 0 };
 static SPIConfig ls_spicfg = { NULL, GPIOC, 4, SPI_CR1_BR_2 | SPI_CR1_BR_1 };
+
+
+/*
+ * Working area for MavlinkHeartbeatThread
+ */
+static WORKING_AREA(SDMountThreadWorkingArea, 2048);
+/*
+ * MavlinkHeartbeatThread
+ */
+
+static msg_t SDMountThread(void *arg)
+{
+		FRESULT err;
+  if(mmcConnect(&MMCD1))
+  {
+    //send_statustext(MAV_SEVERITY_INFO, "SD: Failed to connect to card\r\n");
+  }
+  else
+  {
+    //send_statustext(MAV_SEVERITY_INFO, "SD: Connected to card\r\n");
+		err = f_mount(0, &MMC_FS);
+		if(err != FR_OK)
+		{	
+			//send_statustext(MAV_SEVERITY_INFO, "SD: f_mount() failed %d\r\n");
+			mmcDisconnect(&MMCD1);
+		}
+		else
+		{
+			//send_statustext(MAV_SEVERITY_INFO, "SD: File system mounted\r\n");
+			Datalogger_ready_flag = TRUE;
+		}
+  }
+
+
+}
+
+
+
+
+
 /* Card insertion verification.*/
 bool_t mmc_is_inserted(void)
 {
@@ -32,34 +73,7 @@ bool_t mmc_is_protected(void)
 // MMC card insertion event
 static void InsertHandler(eventid_t id)
 {
-
-  FRESULT err;
-  (void) id;
-	
-  if(mmcConnect(&MMCD1))
-  {
-    chprintf((BaseChannel *) &SD2, "SD: Failed to connect to card\r\n");
-    return;
-  }
-  else
-  {
-    chprintf((BaseChannel *) &SD2, "SD: Connected to card\r\n");
-		
-  }
-
-  err = f_mount(0, &MMC_FS);
-  if(err != FR_OK)
-  {
-    chprintf((BaseChannel *) &SD2, "SD: f_mount() failed %d\r\n", err);
-    mmcDisconnect(&MMCD1);
-    return;
-  }
-  else
-  {
-    chprintf((BaseChannel *) &SD2, "SD: File system mounted\r\n");
-  }
-	Datalogger_ready_flag = TRUE;
-	return;
+	chThdCreateStatic(SDMountThreadWorkingArea, sizeof(SDMountThreadWorkingArea), NORMALPRIO, SDMountThread, NULL);
 }
 
 // MMC card removal event
