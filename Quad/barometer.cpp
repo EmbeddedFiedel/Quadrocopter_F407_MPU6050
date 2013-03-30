@@ -1,6 +1,8 @@
 #include "I2Cdev.h"
 #include "BMP085.h"
 #include "barometer.h"
+#include "Lage.h"
+
 #include <math.h>
 
 BMP085 barometer;
@@ -8,13 +10,11 @@ BMP085 barometer;
 float temperatur=0;
 float pressure=0;
 float pressure_0=101325.0; //Pa sea level pressure standart
-int time_=0;
+systime_t delta_t_baro;
 
-//init barometer. returns true if barometer was successful initialized.
-bool setup_barometer(){	
-	 barometer.initialize();
-	 return test_connect();
-}
+
+
+
 
 //test the conncetion. returns true if barometer was successful initalized.
 bool test_connect(){
@@ -34,7 +34,6 @@ void baro_read_temperatur(){
 void baro_read_pressure(){
     // request pressure (3x oversampling mode, high detail, 26ms delay)
     barometer.setControl(BMP085_MODE_PRESSURE_3);
-		barometer.getMeasureDelayMilliseconds();
 		chThdSleepMilliseconds(barometer.getMeasureDelayMilliseconds());
 	   // read pressure value in Pascals (Pa)
     pressure = barometer.getPressure();
@@ -73,4 +72,32 @@ float baro_get_standardized_pressure(){
 //returns the calculated altitude. don't forget to calibrate the altitude!
 float baro_get_altitude(){
     return barometer.getAltitude(pressure,pressure_0);
+}
+
+static WORKING_AREA(BarometerReadThreadWorkingArea, 2048);
+
+static msg_t BarometerReadThread(void *arg) {
+		static systime_t delta_t_baro;
+		systime_t time;
+    // request pressure (3x oversampling mode, high detail, 26ms delay)
+    barometer.setControl(BMP085_MODE_PRESSURE_3);
+		chThdSleepMilliseconds(barometer.getMeasureDelayMilliseconds());
+		time = chTimeNow();     // Tnow
+		while(true){
+				delta_t_baro = MS2ST(31);
+				time += delta_t_baro;            // Next deadline
+				if(get_updateing_imu()==0){
+				pressure = barometer.getPressure();
+				}
+				if(chTimeNow() < time) chThdSleepUntil(time);
+			}
+}
+//init barometer. returns true if barometer was successful initialized.
+bool setup_barometer(){	
+	 barometer.initialize();
+	 baro_para_altitude(310);
+	 baro_read_all();
+	 chThdCreateStatic(BarometerReadThreadWorkingArea, sizeof(BarometerReadThreadWorkingArea), HIGHPRIO, BarometerReadThread, NULL);
+	
+	 return test_connect();
 }

@@ -60,6 +60,7 @@ static FIL Fil_Lage;			/* File object */
 FRESULT rc_lage;				/* Result code */
 
 
+bool_t updating_imu=0;
 bool_t datalog_lage_opened = 0;
 bool_t datalog_lage_syncing = 0;
 /*
@@ -202,9 +203,11 @@ void mpu_6050_interrupt(EXTDriver *extp, expchannel_t channel)
 int zaehler = 0;
 void update_IMU()
 {
+	
 	static int cali_accel=0;
 	if(mpuInterrupt)
 	{
+		updating_imu=1;
 		mpuInterrupt = FALSE;
 		mpuIntStatus = mpu.getIntStatus();
 		// get current FIFO count
@@ -251,6 +254,7 @@ void update_IMU()
 				gyro_rate_float[1] = (float)gyroRate[1]/2147483648*2000*0.41;
 				gyro_rate_float[2] = (float)gyroRate[2]/2147483648*2000*0.41;
 				fifoCount = mpu.getFIFOCount();
+				updating_imu=0;
 		}
 		else
 		{
@@ -259,6 +263,7 @@ void update_IMU()
 	}
 }
 
+bool_t get_updateing_imu(){return updating_imu;}
 float get_euler_nick_ist() {return euler[1];}
 float get_euler_roll_ist() {return euler[2];}
 float get_euler_yaw_ist() {return euler[0];}

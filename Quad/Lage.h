@@ -26,3 +26,4 @@ float get_accel_real_x();
 float get_accel_real_y();
 float get_accel_real_z();
 uint16_t get_fifo_count();
+bool_t get_updateing_imu();

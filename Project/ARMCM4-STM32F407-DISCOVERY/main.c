@@ -73,9 +73,8 @@ int main(void)
 	setup_Regelung();
 	setup_Datalogger();
 	
-	//calibrate barometer
 	//chThdSleepMilliseconds(200);
-	baro_para_altitude(310);
+
   
     palSetPad(GPIOD, GPIOD_LED3);       /* Orange.  */
   
@@ -88,7 +87,6 @@ int main(void)
 	while (TRUE) 
 	{
 		update_IMU();
-		//baro_read_all();
 		//datalog();
 		//chThdSleepMilliseconds(10);
   }
