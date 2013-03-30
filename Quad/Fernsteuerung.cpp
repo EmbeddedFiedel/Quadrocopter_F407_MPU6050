@@ -42,12 +42,8 @@ static bool_t Fernsteuerung_ready_flag = FALSE;
 ***															***
 **********************************/
 uint16_t cal_val[12]={0}; //Belegung siehe Flash.h 
-// uint16_t rc_roll_max, rc_roll_min, rc_roll_null;
-// uint16_t rc_nick_max, rc_nick_min, rc_nick_null;
-// uint16_t rc_yaw_max, rc_yaw_min, rc_yaw_null;
-// uint16_t rc_schub_max, rc_schub_null;
 uint16_t first_visit_roll = 1,  first_visit_nick=1, first_visit_yaw=1,first_visit_schub=1;
-uint16_t calibration_active=0;//calibration_ready_flag=0
+uint16_t calibration_active=0;
 uint16_t timer_finish=1;
 
 
@@ -65,8 +61,7 @@ static struct VirtualTimer vt;
  */
 
 
-//DEBUGGING
-unsigned short tmp_dbg;
+
 
 void rx_channel1_interrupt(EXTDriver *extp, expchannel_t channel) {
 		(void)extp;
@@ -74,10 +69,10 @@ void rx_channel1_interrupt(EXTDriver *extp, expchannel_t channel) {
 
 		chSysLockFromIsr();
 		if (palReadPad(GPIOE, 10) == PAL_LOW) {
-			tmp_dbg = TIM4->CNT - RC_INPUT_LAST_TCNT;
-			if (RC_IN_RANGE(tmp_dbg)) 
+			unsigned short tmp = TIM4->CNT - RC_INPUT_LAST_TCNT;
+			if (RC_IN_RANGE(tmp)) 
 			{	
-				RC_INPUT_CHANNELS[0] = tmp_dbg;
+				RC_INPUT_CHANNELS[0] = tmp;
 				if (calibration_active)
 				{
 					if (first_visit_roll)

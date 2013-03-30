@@ -3,3 +3,4 @@
 #include "hal.h"
 
 void setup_SOC();
+void check_SOC();
