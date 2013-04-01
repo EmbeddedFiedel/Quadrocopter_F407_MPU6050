@@ -1151,9 +1151,9 @@ RMCMx\\chcoreasm_v7m.s"
   114 00000024                 END
 Command Line: --debug --xref --cpreproc --cpu=Cortex-M4.fp --apcs=interwork --d
 epend=.\obj\chcoreasm_v7m.d -o.\obj\chcoreasm_v7m.o -I..\ -I..\..\..\boards\ST_
-STM32F4_DISCOVERY -I..\..\..\os\ports\RVCT\ARMCMx\STM32F4xx -IC:\Keil\ARM\CMSIS
-\Include -IC:\Keil\ARM\INC\ST\STM32F4xx --list=.\lst\chcoreasm_v7m.lst ..\..\..
-\os\ports\RVCT\ARMCMx\chcoreasm_v7m.s
+STM32F4_DISCOVERY -I..\..\..\os\ports\RVCT\ARMCMx\STM32F4xx -ID:\Keil\ARM\RV31\
+INC -ID:\Keil\ARM\CMSIS\Include -ID:\Keil\ARM\Inc\ST\STM32F4xx --list=.\lst\chc
+oreasm_v7m.lst ..\..\..\os\ports\RVCT\ARMCMx\chcoreasm_v7m.s
 
 
 
@@ -1256,4 +1256,4 @@ Symbol: chThdExit
       At line 84 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\chcoreasm_v7m.s
 Comment: chThdExit used once
 2 symbols
-334 symbols in table
+341 symbols in table

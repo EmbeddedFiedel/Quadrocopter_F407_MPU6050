@@ -174,9 +174,9 @@ ck_size)
               00000000 
 Command Line: --debug --xref --cpreproc --cpu=Cortex-M4.fp --apcs=interwork --d
 epend=.\obj\cstartup.d -o.\obj\cstartup.o -I..\ -I..\..\..\boards\ST_STM32F4_DI
-SCOVERY -I..\..\..\os\ports\RVCT\ARMCMx\STM32F4xx -IC:\Keil\ARM\CMSIS\Include -
-IC:\Keil\ARM\INC\ST\STM32F4xx --list=.\lst\cstartup.lst ..\..\..\os\ports\RVCT\
-ARMCMx\cstartup.s
+SCOVERY -I..\..\..\os\ports\RVCT\ARMCMx\STM32F4xx -ID:\Keil\ARM\RV31\INC -ID:\K
+eil\ARM\CMSIS\Include -ID:\Keil\ARM\Inc\ST\STM32F4xx --list=.\lst\cstartup.lst 
+..\..\..\os\ports\RVCT\ARMCMx\cstartup.s
 
 
 
@@ -417,4 +417,4 @@ Symbol: __use_two_region_memory
       None
 Comment: __use_two_region_memory unused
 2 symbols
-352 symbols in table
+359 symbols in table

@@ -509,10 +509,9 @@ void setup_Mavlink(void)
 		mavlink_system.compid = MAV_COMP_ID_ALL;     ///< The component sending the message is the IMU, it could be also a Linux process
 
 		chThdCreateStatic(waThreadRadio, sizeof(waThreadRadio), ABSPRIO, ThreadRadio, NULL);
-
 		chThdSleepMilliseconds(20);
 		chThdCreateStatic(MavlinkHeartbeatThreadWorkingArea, sizeof(MavlinkHeartbeatThreadWorkingArea), NORMALPRIO, MavlinkHeartbeatThread, NULL);
-		
+		chThdSleepMilliseconds(20);
 		chThdCreateStatic(MavlinkAttitudeThreadWorkingArea, sizeof(MavlinkAttitudeThreadWorkingArea), NORMALPRIO, MavlinkAttitudeThread, NULL);
 		chThdSleepMilliseconds(20);
 		chThdCreateStatic(MavlinkRCChannelsScaledThreadWorkingArea, sizeof(MavlinkRCChannelsScaledThreadWorkingArea), NORMALPRIO, MavlinkRCChannelsScaledThread, NULL);
