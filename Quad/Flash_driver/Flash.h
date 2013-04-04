@@ -2,7 +2,7 @@
 #include "eeprom.h"
 
 
-#define eeprom_data_structure_version 2
+#define eeprom_data_structure_version 3
 #define index_eeprom_data_structure_version 0
 
 /*	Array-Indexnummer der Fernsteuerungswerte	*/

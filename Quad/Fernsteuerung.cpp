@@ -77,15 +77,15 @@ void rx_channel1_interrupt(EXTDriver *extp, expchannel_t channel) {
 				{
 					if (first_visit_roll)
 					{
-						cal_val[index_rc_roll_null]=RC_INPUT_CHANNELS[0];
-						cal_val[index_rc_roll_min]=RC_INPUT_CHANNELS[0];
-						cal_val[index_rc_roll_max]=RC_INPUT_CHANNELS[0];
+						cal_val[index_rc_roll_null-offset_flash_cal]=RC_INPUT_CHANNELS[0];
+						cal_val[index_rc_roll_min-offset_flash_cal]=RC_INPUT_CHANNELS[0];
+						cal_val[index_rc_roll_max-offset_flash_cal]=RC_INPUT_CHANNELS[0];
 						first_visit_roll=0;
 					}
 					else
 					{
-						cal_val[index_rc_roll_min] = RC_INPUT_CHANNELS[0] < cal_val[index_rc_roll_min] ? RC_INPUT_CHANNELS[0] : cal_val[index_rc_roll_min];
-						cal_val[index_rc_roll_max] = RC_INPUT_CHANNELS[0] > cal_val[index_rc_roll_max] ? RC_INPUT_CHANNELS[0] : cal_val[index_rc_roll_max];
+						cal_val[index_rc_roll_min-offset_flash_cal] = RC_INPUT_CHANNELS[0] < cal_val[index_rc_roll_min-offset_flash_cal] ? RC_INPUT_CHANNELS[0] : cal_val[index_rc_roll_min-offset_flash_cal];
+						cal_val[index_rc_roll_max-offset_flash_cal] = RC_INPUT_CHANNELS[0] > cal_val[index_rc_roll_max-offset_flash_cal] ? RC_INPUT_CHANNELS[0] : cal_val[index_rc_roll_max-offset_flash_cal];
 					}
 				}
 			}
@@ -108,15 +108,15 @@ void rx_channel2_interrupt(EXTDriver *extp, expchannel_t channel) {
 				{
 					if (first_visit_nick)
 					{
-						cal_val[index_rc_nick_null]=RC_INPUT_CHANNELS[1];
-						cal_val[index_rc_nick_min]=RC_INPUT_CHANNELS[1];
-						cal_val[index_rc_nick_max]=RC_INPUT_CHANNELS[1];
+						cal_val[index_rc_nick_null-offset_flash_cal]=RC_INPUT_CHANNELS[1];
+						cal_val[index_rc_nick_min-offset_flash_cal]=RC_INPUT_CHANNELS[1];
+						cal_val[index_rc_nick_max-offset_flash_cal]=RC_INPUT_CHANNELS[1];
 						first_visit_nick=0;
 					}
 					else
 					{
-						cal_val[index_rc_nick_min] = RC_INPUT_CHANNELS[1] < cal_val[index_rc_nick_min] ? RC_INPUT_CHANNELS[1] : cal_val[index_rc_nick_min];
-						cal_val[index_rc_nick_max] = RC_INPUT_CHANNELS[1] > cal_val[index_rc_nick_max] ? RC_INPUT_CHANNELS[1] : cal_val[index_rc_nick_max];
+						cal_val[index_rc_nick_min-offset_flash_cal] = RC_INPUT_CHANNELS[1] < cal_val[index_rc_nick_min-offset_flash_cal] ? RC_INPUT_CHANNELS[1] : cal_val[index_rc_nick_min-offset_flash_cal];
+						cal_val[index_rc_nick_max-offset_flash_cal] = RC_INPUT_CHANNELS[1] > cal_val[index_rc_nick_max-offset_flash_cal] ? RC_INPUT_CHANNELS[1] : cal_val[index_rc_nick_max-offset_flash_cal];
 					}
 				}
 			}
@@ -138,14 +138,14 @@ void rx_channel3_interrupt(EXTDriver *extp, expchannel_t channel) {
 				{
 					if (first_visit_schub)
 					{
-						cal_val[index_rc_schub_null]=RC_INPUT_CHANNELS[2];
-						cal_val[index_rc_schub_max]=RC_INPUT_CHANNELS[2];
+						cal_val[index_rc_schub_null-offset_flash_cal]=RC_INPUT_CHANNELS[2];
+						cal_val[index_rc_schub_max-offset_flash_cal]=RC_INPUT_CHANNELS[2];
 						first_visit_schub=0;
 					}
 					else
 					{
-						cal_val[index_rc_schub_null] = RC_INPUT_CHANNELS[2] < cal_val[index_rc_schub_null] ? RC_INPUT_CHANNELS[2] : cal_val[index_rc_schub_null];
-						cal_val[index_rc_schub_max] = RC_INPUT_CHANNELS[2] > cal_val[index_rc_schub_max] ? RC_INPUT_CHANNELS[2] : cal_val[index_rc_schub_max];
+						cal_val[index_rc_schub_null-offset_flash_cal] = RC_INPUT_CHANNELS[2] < cal_val[index_rc_schub_null-offset_flash_cal] ? RC_INPUT_CHANNELS[2] : cal_val[index_rc_schub_null-offset_flash_cal];
+						cal_val[index_rc_schub_max-offset_flash_cal] = RC_INPUT_CHANNELS[2] > cal_val[index_rc_schub_max-offset_flash_cal] ? RC_INPUT_CHANNELS[2] : cal_val[index_rc_schub_max-offset_flash_cal];
 					}
 				}
 			}
@@ -167,15 +167,15 @@ void rx_channel4_interrupt(EXTDriver *extp, expchannel_t channel) {
 				{
 					if (first_visit_yaw)
 					{
-						cal_val[index_rc_yaw_null]=RC_INPUT_CHANNELS[3];
-						cal_val[index_rc_yaw_min]=RC_INPUT_CHANNELS[3];
-						cal_val[index_rc_yaw_max]=RC_INPUT_CHANNELS[3];
+						cal_val[index_rc_yaw_null-offset_flash_cal]=RC_INPUT_CHANNELS[3];
+						cal_val[index_rc_yaw_min-offset_flash_cal]=RC_INPUT_CHANNELS[3];
+						cal_val[index_rc_yaw_max-offset_flash_cal]=RC_INPUT_CHANNELS[3];
 						first_visit_yaw=0;
 					}
 					else
 					{
-						cal_val[index_rc_yaw_min] = RC_INPUT_CHANNELS[3] < cal_val[index_rc_yaw_min] ? RC_INPUT_CHANNELS[3] : cal_val[index_rc_yaw_min];
-						cal_val[index_rc_yaw_max] = RC_INPUT_CHANNELS[3] > cal_val[index_rc_yaw_max] ? RC_INPUT_CHANNELS[3] : cal_val[index_rc_yaw_max];
+						cal_val[index_rc_yaw_min-offset_flash_cal] = RC_INPUT_CHANNELS[3] < cal_val[index_rc_yaw_min-offset_flash_cal] ? RC_INPUT_CHANNELS[3] : cal_val[index_rc_yaw_min-offset_flash_cal];
+						cal_val[index_rc_yaw_max-offset_flash_cal] = RC_INPUT_CHANNELS[3] > cal_val[index_rc_yaw_max-offset_flash_cal] ? RC_INPUT_CHANNELS[3] : cal_val[index_rc_yaw_max-offset_flash_cal];
 					}
 				}
 			}
@@ -236,29 +236,29 @@ void setup_Fernsteuerung()
 
 float get_euler_nick_soll() 
 {
-	if(Fernsteuerung_ready_flag && cal_val[index_calibration_ready_flag] && !calibration_active) 
-		return RC_INPUT_CHANNELS[1] > cal_val[index_rc_nick_null] ? max_nick/(cal_val[index_rc_nick_max]-cal_val[index_rc_nick_null])*(RC_INPUT_CHANNELS[1]-cal_val[index_rc_nick_null]) :  \
-		max_nick/(cal_val[index_rc_nick_null]-cal_val[index_rc_nick_min])*(RC_INPUT_CHANNELS[1]-cal_val[index_rc_nick_null]) ;
+	if(Fernsteuerung_ready_flag && cal_val[index_calibration_ready_flag-offset_flash_cal] && !calibration_active) 
+		return RC_INPUT_CHANNELS[1] > cal_val[index_rc_nick_null-offset_flash_cal] ? max_nick/(cal_val[index_rc_nick_max-offset_flash_cal]-cal_val[index_rc_nick_null-offset_flash_cal])*(RC_INPUT_CHANNELS[1]-cal_val[index_rc_nick_null-offset_flash_cal]) :  \
+		max_nick/(cal_val[index_rc_nick_null-offset_flash_cal]-cal_val[index_rc_nick_min-offset_flash_cal])*(RC_INPUT_CHANNELS[1]-cal_val[index_rc_nick_null-offset_flash_cal]) ;
 	else return 0;
 }
 float get_euler_roll_soll() 
 {
-	if(Fernsteuerung_ready_flag && cal_val[index_calibration_ready_flag] && !calibration_active) 
-		return RC_INPUT_CHANNELS[0] > cal_val[index_rc_roll_null] ? max_roll/(cal_val[index_rc_roll_max]-cal_val[index_rc_roll_null])*(RC_INPUT_CHANNELS[0]-cal_val[index_rc_roll_null]) :  \
-		max_roll/(cal_val[index_rc_roll_null]-cal_val[index_rc_roll_min])*(RC_INPUT_CHANNELS[0]-cal_val[index_rc_roll_null]) ;
+	if(Fernsteuerung_ready_flag && cal_val[index_calibration_ready_flag-offset_flash_cal] && !calibration_active) 
+		return RC_INPUT_CHANNELS[0] > cal_val[index_rc_roll_null-offset_flash_cal] ? max_roll/(cal_val[index_rc_roll_max-offset_flash_cal]-cal_val[index_rc_roll_null-offset_flash_cal])*(RC_INPUT_CHANNELS[0]-cal_val[index_rc_roll_null-offset_flash_cal]) :  \
+		max_roll/(cal_val[index_rc_roll_null-offset_flash_cal]-cal_val[index_rc_roll_min-offset_flash_cal])*(RC_INPUT_CHANNELS[0]-cal_val[index_rc_roll_null-offset_flash_cal]) ;
 	else return 0;
 }
 float get_schub_soll() 
 {
-	if(Fernsteuerung_ready_flag && cal_val[index_calibration_ready_flag] && !calibration_active) 
-		return  max_schub/(cal_val[index_rc_schub_max]-cal_val[index_rc_schub_null])*(RC_INPUT_CHANNELS[2]-cal_val[index_rc_schub_null]);
+	if(Fernsteuerung_ready_flag && cal_val[index_calibration_ready_flag-offset_flash_cal] && !calibration_active) 
+		return  max_schub/(cal_val[index_rc_schub_max-offset_flash_cal]-cal_val[index_rc_schub_null-offset_flash_cal])*(RC_INPUT_CHANNELS[2]-cal_val[index_rc_schub_null-offset_flash_cal]);
 	else return 0;
 }
 float get_euler_yaw_soll() 
 {
-	if(Fernsteuerung_ready_flag && cal_val[index_calibration_ready_flag] && !calibration_active) 
-		return RC_INPUT_CHANNELS[3] > cal_val[index_rc_yaw_null] ? max_yaw/(cal_val[index_rc_yaw_max]-cal_val[index_rc_yaw_null])*(RC_INPUT_CHANNELS[3]-cal_val[index_rc_yaw_null]) :  \
-		max_yaw/(cal_val[index_rc_yaw_null]-cal_val[index_rc_yaw_min])*(RC_INPUT_CHANNELS[3]-cal_val[index_rc_yaw_null]) ;
+	if(Fernsteuerung_ready_flag && cal_val[index_calibration_ready_flag-offset_flash_cal] && !calibration_active) 
+		return RC_INPUT_CHANNELS[3] > cal_val[index_rc_yaw_null-offset_flash_cal] ? max_yaw/(cal_val[index_rc_yaw_max-offset_flash_cal]-cal_val[index_rc_yaw_null-offset_flash_cal])*(RC_INPUT_CHANNELS[3]-cal_val[index_rc_yaw_null-offset_flash_cal]) :  \
+		max_yaw/(cal_val[index_rc_yaw_null-offset_flash_cal]-cal_val[index_rc_yaw_min-offset_flash_cal])*(RC_INPUT_CHANNELS[3]-cal_val[index_rc_yaw_null-offset_flash_cal]) ;
 	else return 0;
 }
 
@@ -292,7 +292,7 @@ void start_calib()
 	palSetPad(GPIOD, GPIOD_LED5);
 	palSetPad(GPIOD, GPIOD_LED6);
 	calibration_active = 1;
-	//cal_val[index_calibration_ready_flag] = 0; //Sinn?!
+	//cal_val[index_calibration_ready_flag-offset_flash_cal] = 0; //Sinn?!
 	first_visit_roll=1;
 	first_visit_nick=1;
 	first_visit_yaw=1;
@@ -300,19 +300,16 @@ void start_calib()
 }
 void stop_calib()
 {
-	uint16_t i;
-	palClearPad(GPIOD, GPIOD_LED4);
-	palClearPad(GPIOD, GPIOD_LED5);
-	palClearPad(GPIOD, GPIOD_LED6);
-	calibration_active = 0;
-	cal_val[index_calibration_ready_flag] = 1;
-
-	/*	Kalibrationswerte ändern, falls unterschiedlich*/
-
-	for (i=0;i<number_flash_cal;i++)
-	{	
-		if (VirtAddVarTab[i+offset_flash_cal]!=cal_val[i])	//unterschiedlich?
-		{
+	if(calibration_active == 1)
+	{
+		uint16_t i;
+		palClearPad(GPIOD, GPIOD_LED4);
+		palClearPad(GPIOD, GPIOD_LED5);
+		palClearPad(GPIOD, GPIOD_LED6);
+		calibration_active = 0;
+		cal_val[index_calibration_ready_flag-offset_flash_cal] = 1;
+		for (i=0;i<number_flash_cal;i++)
+		{	
 			EE_WriteVariable(VirtAddVarTab[i+offset_flash_cal],cal_val[i]);
 		}
 	}
@@ -331,13 +328,11 @@ void calib_interrupt(EXTDriver *extp, expchannel_t channel)
 					palClearPad(GPIOD, GPIOD_LED5);
 					palClearPad(GPIOD, GPIOD_LED6);
 					calibration_active = 0;
-					cal_val[index_calibration_ready_flag] = 1;
-
-					/*	Kalibrationswerte ändern, falls unterschiedlich*/
-
-					for (i=0;i<number_flash_cal;i++)	
-						if (VirtAddVarTab[i+offset_flash_cal]!=cal_val[i])	//unterschiedlich?
-							EE_WriteVariable(VirtAddVarTab[i+offset_flash_cal],cal_val[i]);		//dann schreiben
+					cal_val[index_calibration_ready_flag-offset_flash_cal] = 1;
+					for (i=0;i<number_flash_cal;i++)
+					{					
+						EE_WriteVariable(VirtAddVarTab[i+offset_flash_cal],cal_val[i]);		//dann schreiben
+					}
 				}
 				else 						//Kalibration ein
 				{

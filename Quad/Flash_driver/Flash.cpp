@@ -11,6 +11,6 @@ void setup_FLASH()
 	if (tmp_eeprom_data_structure_version != eeprom_data_structure_version)
 	{
 		EE_Format();
-		EE_WriteVariable(VirtAddVarTab[index_eeprom_data_structure_version],tmp_eeprom_data_structure_version);
+		EE_WriteVariable(VirtAddVarTab[index_eeprom_data_structure_version],eeprom_data_structure_version);
 	}
 }
