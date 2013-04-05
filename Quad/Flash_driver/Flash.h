@@ -24,6 +24,7 @@
 #define number_flash_val 14		//Gesamtanzahl der gespeicherten Werte
 #define number_flash_cal 12	//anzahl der Werte für die Kalibration
 
+extern uint16_t VirtAddVarTab[number_flash_val];
 
 void setup_FLASH();
 
