@@ -2,13 +2,32 @@
 #include "Lage.h"
 #include "Fernsteuerung.h"
 #include "Motoren.h"
+#include "flash.h"
 
 
  
 mavlink_system_t mavlink_system;
-
+extern uint16_t VirtAddVarTab[number_flash_val];
 struct global_struct global_data;
- 
+
+void read_param_from_eeprom()
+{
+	uint16_t i;
+	for (i=0;i<number_flash_parameter;i++)	// dann alle Kalibrationswerte lesen
+	{
+		global_data.param[i]=EE_read_Float(VirtAddVarTab[i+offset_flash_parameter],VirtAddVarTab[i+offset_flash_parameter]+1);
+	}
+}
+void write_param_to_eeprom()
+{
+	uint16_t i;
+	for (i=0;i<number_flash_parameter;i++)	// dann alle Kalibrationswerte lesen
+	{
+		EE_write_Float(VirtAddVarTab[i+offset_flash_parameter],VirtAddVarTab[i+offset_flash_parameter]+1,global_data.param[i]);
+	}
+}
+
+
 /**
  * @brief reset all parameters to default
  * @warning DO NOT USE THIS IN FLIGHT!
@@ -373,6 +392,8 @@ static msg_t MavlinkServoOutputThread(void *arg)
 }
 
 uint16_t c_global;
+uint16_t debug_param;
+uint16_t debug_cmd;
 static WORKING_AREA(waThreadRadio, 4096);
 static msg_t ThreadRadio(void *arg) 
 {
@@ -404,6 +425,7 @@ static msg_t ThreadRadio(void *arg)
 							else if (msg.msgid == MAVLINK_MSG_ID_COMMAND_LONG)
 							{
 								// Preflight Calibration
+								debug_cmd = mavlink_msg_command_long_get_command(&msg);
 								if (mavlink_msg_command_long_get_command(&msg) == MAV_CMD_PREFLIGHT_CALIBRATION)
 								{
 										if (mavlink_msg_command_long_get_param4(&msg) == 1)
@@ -413,6 +435,18 @@ static msg_t ThreadRadio(void *arg)
 										else if (mavlink_msg_command_long_get_param4(&msg) == 0)
 										{
 											stop_calib();
+										}
+								}
+								if (mavlink_msg_command_long_get_command(&msg) == MAV_CMD_PREFLIGHT_STORAGE)
+								{
+									debug_param = mavlink_msg_command_long_get_param1(&msg);
+									if (mavlink_msg_command_long_get_param1(&msg) == 0)
+										{
+											read_param_from_eeprom();
+										}
+										else if (mavlink_msg_command_long_get_param1(&msg) == 1)
+										{
+											write_param_to_eeprom();
 										}
 								}
 							}
