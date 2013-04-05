@@ -97,7 +97,7 @@ bool setup_barometer(){
 	 barometer.initialize();
 	 baro_para_altitude(310);
 	 baro_read_all();
-	 chThdCreateStatic(BarometerReadThreadWorkingArea, sizeof(BarometerReadThreadWorkingArea), HIGHPRIO, BarometerReadThread, NULL);
+	 //chThdCreateStatic(BarometerReadThreadWorkingArea, sizeof(BarometerReadThreadWorkingArea), HIGHPRIO, BarometerReadThread, NULL);
 	
 	 return test_connect();
 }
