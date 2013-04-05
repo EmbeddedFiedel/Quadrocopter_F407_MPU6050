@@ -82,7 +82,7 @@ uint16_t EE_WriteVariable(uint16_t VirtAddress, uint16_t Data);
 //JR eingefügt 28.3.13
 uint16_t EE_write_Float (uint16_t VirtAddress1, uint16_t VirtAddress2, float Data);
 float EE_read_Float (uint16_t VirtAddress1, uint16_t VirtAddress2);
-
+//FLASH_Status EE_Format();   //ACHTUNG: Funktionsprototyp in eeprom.c auskommentieren!
 
 
 

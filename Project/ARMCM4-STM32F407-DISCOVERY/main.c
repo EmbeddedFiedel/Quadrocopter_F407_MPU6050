@@ -86,7 +86,7 @@ int main(void)
 	setup_Datalogger(); 
     palSetPad(GPIOD, GPIOD_LED3);       /* Orange.  */
 	
-	
+	//EE_Format();
 
 	/*
 	* Normal main() thread activity, in this demo it does nothing except

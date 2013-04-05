@@ -283,9 +283,13 @@ void calib_interrupt(EXTDriver *extp, expchannel_t channel)
 					
 					/*	Kalibrationswerte ändern, falls unterschiedlich*/
 					
-					for (i=0;i<number_flash_cal;i++)	
-						if (VirtAddVarTab[i]!=cal_val[i])	//unterschiedlich?
+					for (i=0;i<number_flash_cal;i++)
+					{
+						uint16_t old_data;
+						EE_ReadVariable(VirtAddVarTab[i],&old_data);
+						if (old_data!=cal_val[i])	//unterschiedlich?
 							EE_WriteVariable(VirtAddVarTab[i],cal_val[i]);		//dann schreiben
+					}
 				}
 				else 						//Kalibration ein
 				{

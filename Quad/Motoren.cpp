@@ -61,29 +61,22 @@ void setup_Motoren()
 
 void setMotor_1(float value)
 {
-	if (!Akku_leer)
-		width1 = value*1000+1000;
-	else width1=1000;
+	width1 = value*1000+1000;
 	pwmEnableChannel(&PWMD5, 0, width1);
 }
 void setMotor_2(float value)
 {
-	if (!Akku_leer)
-		width2 = value*1000+1000;
-	else width2=1000;
+	width2 = value*1000+1000;
   pwmEnableChannel(&PWMD5, 1, width2);
 }
 void setMotor_3(float value)
 {
-	if (!Akku_leer)
-		width3 = value*1000+1000;
-	else width3=1000;
+	
+	width3 = value*1000+1000;
   pwmEnableChannel(&PWMD5, 2, width3);
 }
 void setMotor_4(float value)
 {
-	if (!Akku_leer)
-		width4 = value*1000+1000;
-	else width4=1000;
+	width4 = value*1000+1000;
   pwmEnableChannel(&PWMD5, 3, width4);
 }

@@ -59,6 +59,13 @@ void check_SOC()
 	U3=U_all-U_2S;
 	U2=U_2S-U_1S;
 	if (U_1S<50 || U2<50 || U3<50)
+	{
+		palSetPad(GPIOD, GPIOD_LED5);	//rot
 		Akku_leer=TRUE;
-	else Akku_leer=FALSE;
+	}
+	else 
+	{
+		palClearPad(GPIOD, GPIOD_LED6);
+		Akku_leer=FALSE;
+	}
 }

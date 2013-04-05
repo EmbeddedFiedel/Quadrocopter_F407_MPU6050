@@ -349,7 +349,7 @@ uint16_t EE_WriteVariable(uint16_t VirtAddress, uint16_t Data)
   * @retval Status of the last operation (Flash write or erase) done during
   *         EEPROM formating
   */
-static FLASH_Status EE_Format(void)
+ static FLASH_Status EE_Format()
 {
   FLASH_Status FlashStatus = FLASH_COMPLETE;
 
