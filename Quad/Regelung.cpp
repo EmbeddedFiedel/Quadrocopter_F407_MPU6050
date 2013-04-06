@@ -353,7 +353,7 @@ float PIDRegler(float in, float &pa, float &da, float &ia_dyn, float &ia_gain, f
 		pa_Nick = ea_Nick * pa;					//P-Regler außen
 		da_Nick = (ea_Nick - ea_Nick_alt)*da;	//D-Regler außen	
 		if(inSchub > 0.2)
-			ia_Nick = SatFloat(ia_dyn * ea_Nick + ia_Nick,-5,5);		//I-Regler außen
+			ia_Nick = SatFloat(ia_dyn * ea_Nick + ia_Nick,-10,10);		//I-Regler außen
 
 		return((pa_Nick + ia_Nick*ia_gain + da_Nick)*out_gain); //Reglerausgang
 	}
@@ -364,7 +364,7 @@ float PIDRegler(float in, float &pa, float &da, float &ia_dyn, float &ia_gain, f
 		pa_Roll = ea_Roll * pa;					//P-Regler außen
 		da_Roll = (ea_Roll - ea_Roll_alt)*da;	//D-Regler außen	
 		if(inSchub > 0.2)
-			ia_Roll = SatFloat(ia_dyn * ea_Roll + ia_Roll,-5,5);		//I-Regler außen
+			ia_Roll = SatFloat(ia_dyn * ea_Roll + ia_Roll,-10,10);		//I-Regler außen
 
 		return((pa_Roll + ia_Roll*ia_gain + da_Roll)*out_gain); //Reglerausgang		 
 	}
@@ -375,7 +375,7 @@ float PIDRegler(float in, float &pa, float &da, float &ia_dyn, float &ia_gain, f
 		pa_Yaw = ea_Yaw * pa;					//P-Regler außen
 		da_Yaw = (ea_Yaw - ea_Yaw_alt)*da;	//D-Regler außen	
 		if(inSchub > 0.2)
-			ia_Yaw = SatFloat(ia_dyn * ea_Yaw + ia_Yaw,-5,5);		//I-Regler außen
+			ia_Yaw = SatFloat(ia_dyn * ea_Yaw + ia_Yaw,-10,10);		//I-Regler außen
 
 		return((pa_Yaw + ia_Yaw*ia_gain + da_Yaw)*out_gain); //Reglerausgang		
 	}
@@ -390,8 +390,8 @@ void Regelung(void)
 
 	inSchub = get_schub_soll();
 	
-	inNickSollLage = (2*get_euler_nick_soll())*0.05+0.95*inNickSollLage;
-	inRollSollLage = (2*get_euler_roll_soll())*0.05+0.95*inRollSollLage;
+	inNickSollLage = (get_euler_nick_soll())*0.05+0.95*inNickSollLage;
+	inRollSollLage = -(get_euler_roll_soll())*0.05+0.95*inRollSollLage;
 	inYawSollLage  = 0;
 
 	inYawIstLage = get_ypr_yaw_ist();
@@ -433,31 +433,30 @@ void Regelung(void)
 
 	if(global_data.param[13+offset_Param])
 	{
-		aYaw = KaskadierterRegler((inRollSollLage-inRollIstLage),inYawIstV,global_data.param[5+offset_Param],global_data.param[6+offset_Param],global_data.param[7+offset_Param],global_data.param[8+offset_Param],global_data.param[9+offset_Param],global_data.param[10+offset_Param],global_data.param[11+offset_Param],global_data.param[12+offset_Param],3);
+		aYaw = KaskadierterRegler((inYawSollLage-inYawIstLage),inYawIstV,global_data.param[5+offset_Param],global_data.param[6+offset_Param],global_data.param[7+offset_Param],global_data.param[8+offset_Param],global_data.param[9+offset_Param],global_data.param[10+offset_Param],global_data.param[11+offset_Param],global_data.param[12+offset_Param],3);
 	}
 	else
 	{
-		aYaw = PIDRegler((inRollSollLage-inRollIstLage),global_data.param[0+offset_Param],global_data.param[1+offset_Param],global_data.param[2+offset_Param],global_data.param[3+offset_Param],global_data.param[4+offset_Param],3);
+		aYaw = PIDRegler((inYawSollLage-inYawIstLage),global_data.param[0+offset_Param],global_data.param[1+offset_Param],global_data.param[2+offset_Param],global_data.param[3+offset_Param],global_data.param[4+offset_Param],3);
 	}
   	
 	/////////////////////////// Motorwerte setzen //////////////////////////////////////////  
    if(inSchub > 0.1 && inSchub <=1)
    {
      Schub_Offset = 6000 * inSchub;
-	 aYaw = 0.F;
 
      outMotor1 = Schub_Offset + aNick - aYaw;
      outMotor4 = Schub_Offset - aNick - aYaw; 
 
-     outMotor2 = 0;//Schub_Offset + aRoll + aYaw;	  
-     outMotor3 = 0;//Schub_Offset - aRoll + aYaw;
+     outMotor2 = Schub_Offset + aRoll + aYaw;	  
+     outMotor3 = Schub_Offset - aRoll + aYaw;
    }
    else 
    {					
   		outMotor1 = 0.F;
   		outMotor2 = 0.F;
-		outMotor3 = 0.F;
-		outMotor4 = 0.F;
+			outMotor3 = 0.F;
+			outMotor4 = 0.F;
    }
 
 	/////////////////////////// Motorwerte saturieren und ï¿½bergeben //////////////////////// 
