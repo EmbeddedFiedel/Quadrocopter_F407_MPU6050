@@ -37,6 +37,7 @@
 #include "Datalogger.h"
 #include "ExternalInterrupt.h"
 #include "GCS.h"
+#include "SOC.h"
 
 
 /*
@@ -53,6 +54,7 @@ int main(void)
 	*/
 	halInit();	   
 	chSysInit();
+	setup_SOC();
 	setup_IMU();
 	setup_ExternalInterrupt();
 	setup_Mavlink();
@@ -65,7 +67,7 @@ int main(void)
 	while (TRUE) 
 	{
 		//update_IMU();
-		
+		check_SOC();
 		palSetPad(GPIOD, GPIOD_LED3);
 		palClearPad(GPIOD, GPIOD_LED5);
 		chThdSleepMilliseconds(200);
