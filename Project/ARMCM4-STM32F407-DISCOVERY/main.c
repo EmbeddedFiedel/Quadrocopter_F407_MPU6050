@@ -37,6 +37,7 @@
 #include "Datalogger.h"
 #include "ExternalInterrupt.h"
 #include "GCS.h"
+#include "flash.h"
 
 
 /*
@@ -54,6 +55,7 @@ int main(void)
 	halInit();	   
 	chSysInit();
 	setup_IMU();
+	setup_FLASH();
 	setup_ExternalInterrupt();
 	setup_Mavlink();
 	setup_Fernsteuerung();
