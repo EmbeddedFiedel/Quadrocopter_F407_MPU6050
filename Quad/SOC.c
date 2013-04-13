@@ -65,7 +65,7 @@ void check_SOC()
 	}
 	else 
 	{
-		palClearPad(GPIOD, GPIOD_LED6);
+		palClearPad(GPIOD, GPIOD_LED5);
 		Akku_leer=FALSE;
 	}
 }
