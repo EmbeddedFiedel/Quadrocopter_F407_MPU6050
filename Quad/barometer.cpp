@@ -79,15 +79,12 @@ static WORKING_AREA(BarometerReadThreadWorkingArea, 2048);
 static msg_t BarometerReadThread(void *arg) {
 		static systime_t delta_t_baro;
 		systime_t time;
-    // request pressure (3x oversampling mode, high detail, 26ms delay)
-    barometer.setControl(BMP085_MODE_PRESSURE_3);
-		chThdSleepMilliseconds(barometer.getMeasureDelayMilliseconds());
-		time = chTimeNow();     // Tnow
+    time = chTimeNow();     // Tnow
 		while(true){
 				delta_t_baro = MS2ST(31);
 				time += delta_t_baro;            // Next deadline
 				if(get_updateing_imu()==0){
-				pressure = barometer.getPressure();
+				baro_read_all();
 				}
 				if(chTimeNow() < time) chThdSleepUntil(time);
 			}
@@ -95,8 +92,6 @@ static msg_t BarometerReadThread(void *arg) {
 //init barometer. returns true if barometer was successful initialized.
 bool setup_barometer(){	
 	 barometer.initialize();
-	 baro_para_altitude(310);
-	 baro_read_all();
 	 //chThdCreateStatic(BarometerReadThreadWorkingArea, sizeof(BarometerReadThreadWorkingArea), HIGHPRIO, BarometerReadThread, NULL);
 	
 	 return test_connect();
