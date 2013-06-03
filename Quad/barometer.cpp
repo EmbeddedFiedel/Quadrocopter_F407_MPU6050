@@ -81,18 +81,16 @@ static msg_t BarometerReadThread(void *arg) {
 		systime_t time;
     time = chTimeNow();     // Tnow
 		while(true){
-				delta_t_baro = MS2ST(31);
+				delta_t_baro = MS2ST(75);
 				time += delta_t_baro;            // Next deadline
-				if(get_updateing_imu()==0){
-				baro_read_all();
-				}
 				if(chTimeNow() < time) chThdSleepUntil(time);
+			  baro_read_pressure();
 			}
 }
 //init barometer. returns true if barometer was successful initialized.
 bool setup_barometer(){	
 	 barometer.initialize();
-	 //chThdCreateStatic(BarometerReadThreadWorkingArea, sizeof(BarometerReadThreadWorkingArea), HIGHPRIO, BarometerReadThread, NULL);
+	 chThdCreateStatic(BarometerReadThreadWorkingArea, sizeof(BarometerReadThreadWorkingArea), HIGHPRIO, BarometerReadThread, NULL);
 	
 	 return test_connect();
 }

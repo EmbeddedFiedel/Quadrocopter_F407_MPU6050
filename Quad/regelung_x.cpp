@@ -96,8 +96,8 @@ void step_regler_X(){
 	setMotor_3(Inverse_Propeller_Y.Out_n_C);
 	setMotor_4(Inverse_Propeller_Y.Out_n_D);
 	
-// 	setMotor_1(0.2);
-// 	setMotor_1(0.0);
+//  	setMotor_1(0.2);
+//  	setMotor_1(0.0);
 // 	setMotor_2(0.2);
 // 	setMotor_2(0.0);
 // 	setMotor_3(0.22);
