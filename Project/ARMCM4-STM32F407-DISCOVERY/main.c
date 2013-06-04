@@ -66,7 +66,6 @@ int main(void)
 	palSetPadMode(GPIOD, 6, PAL_MODE_ALTERNATE(7));
 	
 	setup_IMU();
-	setup_barometer();
 	setup_ExternalInterrupt();
 	setup_Fernsteuerung();
 	setup_Motoren();

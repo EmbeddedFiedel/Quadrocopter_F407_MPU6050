@@ -74,23 +74,9 @@ float baro_get_altitude(){
     return barometer.getAltitude(pressure,pressure_0);
 }
 
-static WORKING_AREA(BarometerReadThreadWorkingArea, 2048);
 
-static msg_t BarometerReadThread(void *arg) {
-		static systime_t delta_t_baro;
-		systime_t time;
-    time = chTimeNow();     // Tnow
-		while(true){
-				delta_t_baro = MS2ST(75);
-				time += delta_t_baro;            // Next deadline
-				if(chTimeNow() < time) chThdSleepUntil(time);
-			  baro_read_pressure();
-			}
-}
 //init barometer. returns true if barometer was successful initialized.
 bool setup_barometer(){	
-	 barometer.initialize();
-	 chThdCreateStatic(BarometerReadThreadWorkingArea, sizeof(BarometerReadThreadWorkingArea), HIGHPRIO, BarometerReadThread, NULL);
-	
+	 barometer.initialize();	
 	 return test_connect();
 }

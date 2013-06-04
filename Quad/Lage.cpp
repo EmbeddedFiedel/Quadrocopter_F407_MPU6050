@@ -29,13 +29,14 @@ THE SOFTWARE.
 #include "Datalogger.h"
 #include "tm.h"
 #include "ff.h"
+#include "barometer.h"
 
 MPU6050 mpu;
 
 // MPU control/status vars
 bool dmpReady = false;  // set true if DMP init was successful
 uint8_t mpuIntStatus;   // holds actual interrupt status byte from MPU
-uint8_t devStatus;      // return status after each device operation (0 = success, !0 = error)
+uint8_t devStatus_mpu, devStatus_baro ;      // return status after each device operation (0 = success, !0 = error)
 uint16_t packetSize;    // expected DMP packet size (default is 42 bytes)
 uint16_t fifoCount;     // count of all bytes currently in FIFO
 uint8_t fifoBuffer[64]; // FIFO storage buffer
@@ -63,6 +64,7 @@ FRESULT rc_lage;				/* Result code */
 bool_t updating_imu=0;
 bool_t datalog_lage_opened = 0;
 bool_t datalog_lage_syncing = 0;
+Thread *tp_mpu,*tp_baro;
 /*
  * Working area for LageSync
  */
@@ -170,13 +172,39 @@ void I2CInitialize()
 	chThdSleepMilliseconds(100);
 }
 
+
+static WORKING_AREA(LageReadThreadWorkingArea, 1024);
+/*
+* LageRead
+*/
+static msg_t LageReadThread(void *arg)
+{
+	while(TRUE)
+	{
+	update_IMU();
+	chThdSleepMilliseconds(3);
+	}
+}
+
+static WORKING_AREA(BarometerReadThreadWorkingArea, 2048);
+
+static msg_t BarometerReadThread(void *arg) {
+
+		while(TRUE){
+			  chThdWait (tp_mpu);
+			  baro_read_all();
+			  chThdSleepMilliseconds(100);
+			}
+}
+
 void setup_IMU() 
 {
 	tmObjectInit(&lagedatalogsync_tmup);
 	I2CInitialize();
 	mpu.initialize();
-	devStatus = mpu.dmpInitialize();
-	if (devStatus == 0) 
+	devStatus_mpu = mpu.dmpInitialize();
+	devStatus_baro=setup_barometer();
+	if ((devStatus_mpu||(!devStatus_baro)) == 0) 
 	{
 		//chThdCreateStatic(LageSyncThreadWorkingArea, sizeof(LageSyncThreadWorkingArea), NORMALPRIO, LageSyncthread, NULL);
 		mpu.setDMPEnabled(true);
@@ -184,8 +212,13 @@ void setup_IMU()
 		dmpReady = true;
 		packetSize = mpu.dmpGetFIFOPacketSize();
 		mpu.setFullScaleAccelRange(MPU6050_ACCEL_FS_4);
+		tp_baro=chThdCreateStatic(BarometerReadThreadWorkingArea, sizeof(BarometerReadThreadWorkingArea), HIGHPRIO, BarometerReadThread, NULL);
+		tp_mpu=chThdCreateStatic(LageReadThreadWorkingArea, sizeof(LageReadThreadWorkingArea), HIGHPRIO, LageReadThread, NULL);
+		
 	} 
 }
+
+
 
 void mpu_6050_interrupt(EXTDriver *extp, expchannel_t channel) 
 {
