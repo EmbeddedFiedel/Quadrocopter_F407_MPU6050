@@ -179,10 +179,19 @@ static WORKING_AREA(LageReadThreadWorkingArea, 1024);
 */
 static msg_t LageReadThread(void *arg)
 {
+	static int i=0;
 	while(TRUE)
 	{
-	update_IMU();
-	chThdSleepMilliseconds(3);
+	i++;
+		if ((i==100)||(i==0)){
+		baro_read_all();
+		i=1;
+		}
+		else
+		{
+		update_IMU();
+		}
+		chThdSleepMilliseconds(1);
 	}
 }
 
@@ -191,9 +200,8 @@ static WORKING_AREA(BarometerReadThreadWorkingArea, 2048);
 static msg_t BarometerReadThread(void *arg) {
 
 		while(TRUE){
-			  chThdWait (tp_mpu);
 			  baro_read_all();
-			  chThdSleepMilliseconds(100);
+			  chThdSleepMilliseconds(1);
 			}
 }
 
@@ -212,8 +220,9 @@ void setup_IMU()
 		dmpReady = true;
 		packetSize = mpu.dmpGetFIFOPacketSize();
 		mpu.setFullScaleAccelRange(MPU6050_ACCEL_FS_4);
-		tp_baro=chThdCreateStatic(BarometerReadThreadWorkingArea, sizeof(BarometerReadThreadWorkingArea), HIGHPRIO, BarometerReadThread, NULL);
+		
 		tp_mpu=chThdCreateStatic(LageReadThreadWorkingArea, sizeof(LageReadThreadWorkingArea), HIGHPRIO, LageReadThread, NULL);
+		
 		
 	} 
 }

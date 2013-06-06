@@ -85,9 +85,9 @@ int main(void)
 	*/
 	while (TRUE) 
 	{
-		//update_IMU();
+
 		//baro_read_all();
 		//datalog();
-		//chThdSleepMilliseconds(10);
+
   }
 }
