@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'Regelglied'.
  *
- * Model version                  : 1.549
+ * Model version                  : 1.553
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sat Jun 08 15:04:12 2013
+ * C/C++ source code generated on : Sun Jun 09 11:48:47 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -29,28 +29,28 @@ real_T i_nick_m;                       /* '<S1>/Integrator1' */
 real_T d_nick_m;                       /* '<S1>/Gain5' */
 
 /* Exported block parameters */
-real_T d_nick = 1250;                   /* Variable: d_nick
+real_T d_nick = -2000;                   /* Variable: d_nick
                                         * Referenced by: '<S1>/Gain5'
                                         */
-real_T d_roll = 1250;                   /* Variable: d_roll
+real_T d_roll = 2000;                   /* Variable: d_roll
                                         * Referenced by: '<S1>/Gain2'
                                         */
-real_T gain_nick = 0;                /* Variable: gain_nick
+real_T gain_nick = 1.0;                /* Variable: gain_nick
                                         * Referenced by: '<S1>/Gain7'
                                         */
-real_T gain_roll = 1.0;                /* Variable: gain_roll
+real_T gain_roll = 0;                /* Variable: gain_roll
                                         * Referenced by: '<S1>/Gain6'
                                         */
-real_T i_nick = 1000;                   /* Variable: i_nick
+real_T i_nick = 3500;                   /* Variable: i_nick
                                         * Referenced by: '<S1>/Gain4'
                                         */
-real_T i_roll = 1000;                   /* Variable: i_roll
+real_T i_roll = 1750;                   /* Variable: i_roll
                                         * Referenced by: '<S1>/Gain1'
                                         */
-real_T kp_nick = 5000;                  /* Variable: kp_nick
+real_T kp_nick = 10300;                  /* Variable: kp_nick
                                         * Referenced by: '<S1>/Gain3'
                                         */
-real_T kp_roll = 5000;                  /* Variable: kp_roll
+real_T kp_roll = 8000;                  /* Variable: kp_roll
                                         * Referenced by: '<S1>/Gain'
                                         */
 
@@ -201,7 +201,7 @@ void Regelglied_step(void)
    *  Constant: '<S4>/Constant'
    */
   if (rtmIsMajorTimeStep(Regelglied_M)) {
-    if (rtb_Saturation >= 0.01) {
+    if (rtb_Saturation >= 0.05) {
       rtAction = 0;
     } else {
       rtAction = 1;
@@ -256,7 +256,7 @@ void Regelglied_step(void)
     /* Gain: '<S1>/Gain2' incorporates:
      *  Inport: '<Root>/In_Ist_V_Roll'
      */
-    d_roll_m = d_roll * Regelglied_U.In_Ist_V_Roll;
+    d_roll_m = -d_roll * Regelglied_U.In_Ist_V_Roll;
   }
 
   /* Outport: '<Root>/Out_M_Roll' incorporates:
@@ -292,7 +292,7 @@ void Regelglied_step(void)
     /* Gain: '<S1>/Gain5' incorporates:
      *  Inport: '<Root>/In_Ist_V_Nick'
      */
-    d_nick_m = d_nick * Regelglied_U.In_Ist_V_Nick;
+    d_nick_m = -d_nick * Regelglied_U.In_Ist_V_Nick;
   }
 
   /* Outport: '<Root>/Out_M_Nick' incorporates:
