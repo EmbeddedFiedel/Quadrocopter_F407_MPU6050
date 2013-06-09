@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'Inverse_Propeller'.
  *
- * Model version                  : 1.467
+ * Model version                  : 1.548
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Thu Jan 24 17:48:25 2013
+ * C/C++ source code generated on : Sat Jun 08 13:49:15 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -33,9 +33,19 @@
 #endif                                 /* TMWTYPES_PREVIOUSLY_INCLUDED */
 #endif                                 /* __RTWTYPES_H__ */
 
-extern real_T rt_powd_snf(real_T u0, real_T u1);
+/* Imported (extern) block parameters */
+extern real_T n_max;                   /* Variable: n_max
+                                        * Referenced by:
+                                        *   '<S1>/Gain'
+                                        *   '<S1>/Gain1'
+                                        *   '<S1>/Gain2'
+                                        *   '<S1>/Gain3'
+                                        *   '<S1>/Saturation'
+                                        *   '<S1>/Saturation1'
+                                        *   '<S1>/Saturation2'
+                                        *   '<S1>/Saturation3'
+                                        */
 
-/* Exported functions */
 #endif                                 /* RTW_HEADER_Inverse_Propeller_private_h_ */
 
 /*

@@ -81,7 +81,7 @@ COMPILER_TOOL_CHAIN = vcx64
 #                            and do not build an executable
 
 MODEL                   = Inverse_Propeller
-MODULES                 = rtGetInf.cpp rtGetNaN.cpp rt_nonfinite.cpp 
+MODULES                 = 
 MAKEFILE                = Inverse_Propeller.mk
 MATLAB_ROOT             = C:\Program Files\MATLAB\R2012a
 ALT_MATLAB_ROOT         = C:\PROGRA~1\MATLAB\R2012a

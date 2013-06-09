@@ -3,17 +3,17 @@
  *
  * Code generated for Simulink model 'Regelglied'.
  *
- * Model version                  : 1.524
+ * Model version                  : 1.549
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sun Mar 10 15:02:26 2013
+ * C/C++ source code generated on : Sat Jun 08 15:04:12 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
  * Code generation objectives:
  *    1. Execution efficiency
  *    2. RAM efficiency
- * Validation result: Passed (6), Warnings (6), Error (0)
+ * Validation result: Passed (7), Warnings (5), Error (0)
  */
 
 #ifndef RTW_HEADER_Regelglied_h_
@@ -56,80 +56,38 @@
 
 /* Block signals (auto storage) */
 typedef struct {
-  real_T Gain;                         /* '<S1>/Gain' */
-  real_T Merge;                        /* '<S9>/Merge' */
-  real_T Gain2;                        /* '<S7>/Gain2' */
-  real_T Switch2;                      /* '<S7>/Switch2' */
-  real_T Gain2_p;                      /* '<S1>/Gain2' */
+  real_T Merge;                        /* '<S2>/Merge' */
   real_T Gain1;                        /* '<S1>/Gain1' */
-  real_T Gain2_a;                      /* '<S8>/Gain2' */
-  real_T Switch2_m;                    /* '<S8>/Switch2' */
-  real_T Gain3;                        /* '<S1>/Gain3' */
-  real_T Gain1_d;                      /* '<S7>/Gain1' */
-  real_T Gain3_j;                      /* '<S7>/Gain3' */
-  real_T Gain1_p;                      /* '<S8>/Gain1' */
-  real_T Gain3_e;                      /* '<S8>/Gain3' */
+  real_T Gain4;                        /* '<S1>/Gain4' */
 } BlockIO_Regelglied;
 
 /* Block states (auto storage) for system '<Root>' */
 typedef struct {
-  int8_T If_ActiveSubsystem;           /* '<S9>/If' */
+  int8_T If_ActiveSubsystem;           /* '<S2>/If' */
 } D_Work_Regelglied;
 
 /* Continuous states (auto storage) */
 typedef struct {
-  real_T DAnteil_CSTATE;               /* '<S1>/D-Anteil' */
-  real_T Integrator_CSTATE;            /* '<S7>/Integrator' */
-  real_T DAnteil_CSTATE_p;             /* '<S7>/D-Anteil' */
-  real_T Integrator1_CSTATE;           /* '<S7>/Integrator1' */
-  real_T DAnteil2_CSTATE;              /* '<S1>/D-Anteil2' */
-  real_T DAnteil4_CSTATE;              /* '<S1>/D-Anteil4' */
-  real_T DAnteil1_CSTATE;              /* '<S1>/D-Anteil1' */
-  real_T Integrator_CSTATE_l;          /* '<S8>/Integrator' */
-  real_T DAnteil_CSTATE_pj;            /* '<S8>/D-Anteil' */
-  real_T Integrator1_CSTATE_m;         /* '<S8>/Integrator1' */
-  real_T DAnteil3_CSTATE;              /* '<S1>/D-Anteil3' */
-  real_T DAnteil5_CSTATE;              /* '<S1>/D-Anteil5' */
+  real_T Integrator_CSTATE;            /* '<S1>/Integrator' */
+  real_T Integrator1_CSTATE;           /* '<S1>/Integrator1' */
 } ContinuousStates_Regelglied;
 
 /* State derivatives (auto storage) */
 typedef struct {
-  real_T DAnteil_CSTATE;               /* '<S1>/D-Anteil' */
-  real_T Integrator_CSTATE;            /* '<S7>/Integrator' */
-  real_T DAnteil_CSTATE_p;             /* '<S7>/D-Anteil' */
-  real_T Integrator1_CSTATE;           /* '<S7>/Integrator1' */
-  real_T DAnteil2_CSTATE;              /* '<S1>/D-Anteil2' */
-  real_T DAnteil4_CSTATE;              /* '<S1>/D-Anteil4' */
-  real_T DAnteil1_CSTATE;              /* '<S1>/D-Anteil1' */
-  real_T Integrator_CSTATE_l;          /* '<S8>/Integrator' */
-  real_T DAnteil_CSTATE_pj;            /* '<S8>/D-Anteil' */
-  real_T Integrator1_CSTATE_m;         /* '<S8>/Integrator1' */
-  real_T DAnteil3_CSTATE;              /* '<S1>/D-Anteil3' */
-  real_T DAnteil5_CSTATE;              /* '<S1>/D-Anteil5' */
+  real_T Integrator_CSTATE;            /* '<S1>/Integrator' */
+  real_T Integrator1_CSTATE;           /* '<S1>/Integrator1' */
 } StateDerivatives_Regelglied;
 
 /* State disabled  */
 typedef struct {
-  boolean_T DAnteil_CSTATE;            /* '<S1>/D-Anteil' */
-  boolean_T Integrator_CSTATE;         /* '<S7>/Integrator' */
-  boolean_T DAnteil_CSTATE_p;          /* '<S7>/D-Anteil' */
-  boolean_T Integrator1_CSTATE;        /* '<S7>/Integrator1' */
-  boolean_T DAnteil2_CSTATE;           /* '<S1>/D-Anteil2' */
-  boolean_T DAnteil4_CSTATE;           /* '<S1>/D-Anteil4' */
-  boolean_T DAnteil1_CSTATE;           /* '<S1>/D-Anteil1' */
-  boolean_T Integrator_CSTATE_l;       /* '<S8>/Integrator' */
-  boolean_T DAnteil_CSTATE_pj;         /* '<S8>/D-Anteil' */
-  boolean_T Integrator1_CSTATE_m;      /* '<S8>/Integrator1' */
-  boolean_T DAnteil3_CSTATE;           /* '<S1>/D-Anteil3' */
-  boolean_T DAnteil5_CSTATE;           /* '<S1>/D-Anteil5' */
+  boolean_T Integrator_CSTATE;         /* '<S1>/Integrator' */
+  boolean_T Integrator1_CSTATE;        /* '<S1>/Integrator1' */
 } StateDisabled_Regelglied;
 
 /* Zero-crossing (trigger) state */
 typedef struct {
-  ZCSigState Integrator_Reset_ZCE;     /* '<S7>/Integrator' */
-  ZCSigState Integrator1_Reset_ZCE;    /* '<S7>/Integrator1' */
-  ZCSigState Integrator_Reset_ZCE_m;   /* '<S8>/Integrator' */
-  ZCSigState Integrator1_Reset_ZCE_f;  /* '<S8>/Integrator1' */
+  ZCSigState Integrator_Reset_ZCE;     /* '<S1>/Integrator' */
+  ZCSigState Integrator1_Reset_ZCE;    /* '<S1>/Integrator1' */
 } PrevZCSigStates_Regelglied;
 
 #ifndef ODE3_INTG
@@ -154,8 +112,6 @@ typedef struct {
   real_T In_Ist_V_Roll;                /* '<Root>/In_Ist_V_Roll' */
   real_T In_Ist_V_Nick;                /* '<Root>/In_Ist_V_Nick' */
   real_T Throttle;                     /* '<Root>/Throttle' */
-  real_T t_init;                       /* '<Root>/t_init' */
-  real_T t_sys;                        /* '<Root>/t_sys' */
 } ExternalInputs_Regelglied;
 
 /* External outputs (root outports fed by signals with auto storage) */
@@ -182,8 +138,8 @@ struct RT_MODEL_Regelglied {
     boolean_T zCCacheNeedsReset;
     boolean_T derivCacheNeedsReset;
     boolean_T blkStateChange;
-    real_T odeY[12];
-    real_T odeF[3][12];
+    real_T odeY[2];
+    real_T odeF[3][2];
     ODE3_IntgData intgData;
   } ModelData;
 
@@ -260,28 +216,13 @@ extern "C" {
  * these signals and export their symbols.
  *
  */
-extern real_T Soll_V_Roll;             /* '<S1>/D-Anteil' */
 extern real_T Xd_Roll;                 /* '<S1>/Add' */
-extern real_T p_anteil;                /* '<S7>/Gain' */
-extern real_T i_anteil;                /* '<S7>/Integrator' */
-extern real_T d_anteil;                /* '<S7>/D-Anteil' */
-extern real_T I_offset;                /* '<S7>/Integrator1' */
-extern real_T Y_roll;                  /* '<S7>/Add' */
-extern real_T Xd_V_Roll;               /* '<S1>/Add1' */
-extern real_T Soll_a_Roll;             /* '<S1>/D-Anteil2' */
-extern real_T Ist_a_Roll;              /* '<S1>/D-Anteil4' */
-extern real_T Xd_a_Roll;               /* '<S1>/Add2' */
-extern real_T Soll_V_Nick;             /* '<S1>/D-Anteil1' */
-extern real_T Xd_Nick;                 /* '<S1>/Add3' */
-extern real_T p_anteil_nick;           /* '<S8>/Gain' */
-extern real_T i_anteil_nick;           /* '<S8>/Integrator' */
-extern real_T d_anteil_nick;           /* '<S8>/D-Anteil' */
-extern real_T I_offset_nick;           /* '<S8>/Integrator1' */
-extern real_T Y_Nick;                  /* '<S8>/Add' */
-extern real_T Soll_a_Nick;             /* '<S1>/D-Anteil3' */
-extern real_T Ist_a_Nick;              /* '<S1>/D-Anteil5' */
-extern real_T Xd_a_Nick;               /* '<S1>/Add5' */
-extern uint8_T Inti_rdy;               /* '<S10>/Compare' */
+extern real_T p_roll_m;                /* '<S1>/Gain' */
+extern real_T i_roll_m;                /* '<S1>/Integrator' */
+extern real_T d_roll_m;                /* '<S1>/Gain2' */
+extern real_T p_nick_m;                /* '<S1>/Gain3' */
+extern real_T i_nick_m;                /* '<S1>/Integrator1' */
+extern real_T d_nick_m;                /* '<S1>/Gain5' */
 
 /*
  * Exported Global Parameters
@@ -291,64 +232,29 @@ extern uint8_T Inti_rdy;               /* '<S10>/Compare' */
  * these parameters and exports their symbols.
  *
  */
-extern real_T ena_byp_a;               /* Variable: ena_byp_a
-                                        * Referenced by: '<S1>/Constant2'
+extern real_T d_nick;                  /* Variable: d_nick
+                                        * Referenced by: '<S1>/Gain5'
                                         */
-extern real_T ena_pid;                 /* Variable: ena_pid
-                                        * Referenced by: '<S1>/Constant'
+extern real_T d_roll;                  /* Variable: d_roll
+                                        * Referenced by: '<S1>/Gain2'
                                         */
-extern real_T gain_d_soll_a;           /* Variable: gain_d_soll_a
-                                        * Referenced by:
-                                        *   '<S1>/Gain2'
-                                        *   '<S1>/Gain3'
+extern real_T gain_nick;               /* Variable: gain_nick
+                                        * Referenced by: '<S1>/Gain7'
                                         */
-extern real_T gain_d_soll_v;           /* Variable: gain_d_soll_v
-                                        * Referenced by:
-                                        *   '<S1>/Gain'
-                                        *   '<S1>/Gain1'
+extern real_T gain_roll;               /* Variable: gain_roll
+                                        * Referenced by: '<S1>/Gain6'
                                         */
-extern real_T kp_a_nick;               /* Variable: kp_a_nick
-                                        * Referenced by:
-                                        *   '<S1>/Gain4'
-                                        *   '<S3>/Gain'
+extern real_T i_nick;                  /* Variable: i_nick
+                                        * Referenced by: '<S1>/Gain4'
                                         */
-extern real_T kp_a_roll;               /* Variable: kp_a_roll
-                                        * Referenced by:
-                                        *   '<S1>/Gain5'
-                                        *   '<S5>/Gain'
+extern real_T i_roll;                  /* Variable: i_roll
+                                        * Referenced by: '<S1>/Gain1'
                                         */
 extern real_T kp_nick;                 /* Variable: kp_nick
-                                        * Referenced by: '<S8>/Gain'
+                                        * Referenced by: '<S1>/Gain3'
                                         */
 extern real_T kp_roll;                 /* Variable: kp_roll
-                                        * Referenced by: '<S7>/Gain'
-                                        */
-extern real_T kp_v_nick;               /* Variable: kp_v_nick
-                                        * Referenced by: '<S4>/Gain'
-                                        */
-extern real_T kp_v_roll;               /* Variable: kp_v_roll
-                                        * Referenced by: '<S6>/Gain'
-                                        */
-extern real_T t_init_i;                /* Variable: t_init_i
-                                        * Referenced by: '<S10>/Constant'
-                                        */
-extern real_T tn_nick;                 /* Variable: tn_nick
-                                        * Referenced by: '<S8>/Gain1'
-                                        */
-extern real_T tn_nick_init;            /* Variable: tn_nick_init
-                                        * Referenced by: '<S8>/Gain3'
-                                        */
-extern real_T tn_roll;                 /* Variable: tn_roll
-                                        * Referenced by: '<S7>/Gain1'
-                                        */
-extern real_T tn_roll_init;            /* Variable: tn_roll_init
-                                        * Referenced by: '<S7>/Gain3'
-                                        */
-extern real_T tv_nick;                 /* Variable: tv_nick
-                                        * Referenced by: '<S8>/Gain2'
-                                        */
-extern real_T tv_roll;                 /* Variable: tv_roll
-                                        * Referenced by: '<S7>/Gain2'
+                                        * Referenced by: '<S1>/Gain'
                                         */
 
 #ifdef __cplusplus
@@ -393,24 +299,16 @@ extern "C" {
  * MATLAB hilite_system command to trace the generated code back
  * to the parent model.  For example,
  *
- * hilite_system('regler/Regelkreis/Regelglied')    - opens subsystem regler/Regelkreis/Regelglied
- * hilite_system('regler/Regelkreis/Regelglied/Kp') - opens and selects block Kp
+ * hilite_system('regler_new/Regelkreis/Regelglied')    - opens subsystem regler_new/Regelkreis/Regelglied
+ * hilite_system('regler_new/Regelkreis/Regelglied/Kp') - opens and selects block Kp
  *
  * Here is the system hierarchy for this model
  *
- * '<Root>' : 'regler/Regelkreis'
- * '<S1>'   : 'regler/Regelkreis/Regelglied'
- * '<S2>'   : 'regler/Regelkreis/Regelglied/Init_Time_calc'
- * '<S3>'   : 'regler/Regelkreis/Regelglied/P Regler Nickwinkelbeschleunigung'
- * '<S4>'   : 'regler/Regelkreis/Regelglied/P Regler Nickwinkelgeschwindigkeit'
- * '<S5>'   : 'regler/Regelkreis/Regelglied/P Regler Rollwinkelbeschleunigung'
- * '<S6>'   : 'regler/Regelkreis/Regelglied/P Regler Rollwinkelgeschwindigkeit'
- * '<S7>'   : 'regler/Regelkreis/Regelglied/PID Regler Roll'
- * '<S8>'   : 'regler/Regelkreis/Regelglied/PID Regler Roll1'
- * '<S9>'   : 'regler/Regelkreis/Regelglied/Throttlecutoff'
- * '<S10>'  : 'regler/Regelkreis/Regelglied/Init_Time_calc/Compare To Constant'
- * '<S11>'  : 'regler/Regelkreis/Regelglied/Throttlecutoff/If Action Subsystem'
- * '<S12>'  : 'regler/Regelkreis/Regelglied/Throttlecutoff/If Action Subsystem1'
+ * '<Root>' : 'regler_new/Regelkreis'
+ * '<S1>'   : 'regler_new/Regelkreis/Regelglied'
+ * '<S2>'   : 'regler_new/Regelkreis/Regelglied/Throttlecutoff'
+ * '<S3>'   : 'regler_new/Regelkreis/Regelglied/Throttlecutoff/If Action Subsystem'
+ * '<S4>'   : 'regler_new/Regelkreis/Regelglied/Throttlecutoff/If Action Subsystem1'
  */
 #endif                                 /* RTW_HEADER_Regelglied_h_ */
 

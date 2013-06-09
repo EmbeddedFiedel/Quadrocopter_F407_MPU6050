@@ -3,17 +3,17 @@
  *
  * Code generated for Simulink model 'Regelglied'.
  *
- * Model version                  : 1.524
+ * Model version                  : 1.549
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sun Mar 10 15:02:26 2013
+ * C/C++ source code generated on : Sat Jun 08 15:04:12 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
  * Code generation objectives:
  *    1. Execution efficiency
  *    2. RAM efficiency
- * Validation result: Passed (6), Warnings (6), Error (0)
+ * Validation result: Passed (7), Warnings (5), Error (0)
  */
 
 #ifndef RTW_HEADER_rt_zcfcn_h_

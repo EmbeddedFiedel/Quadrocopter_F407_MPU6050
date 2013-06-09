@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'Inverse_Propeller'.
  *
- * Model version                  : 1.467
+ * Model version                  : 1.548
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Thu Jan 24 17:48:25 2013
+ * C/C++ source code generated on : Sat Jun 08 13:49:15 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -20,15 +20,11 @@
 #define RTW_HEADER_Inverse_Propeller_h_
 #ifndef Inverse_Propeller_COMMON_INCLUDES_
 # define Inverse_Propeller_COMMON_INCLUDES_
-#include <math.h>
 #include <stddef.h>
 #include <string.h>
 #include "rtwtypes.h"
 #include "rtw_continuous.h"
 #include "rtw_solver.h"
-#include "rt_nonfinite.h"
-#include "rtGetInf.h"
-#include "rtGetNaN.h"
 #endif                                 /* Inverse_Propeller_COMMON_INCLUDES_ */
 
 #include "Inverse_Propeller_types.h"
@@ -91,40 +87,6 @@ extern "C" {
 }
 #endif
 
-/*
- * Exported Global Parameters
- *
- * Note: Exported global parameters are tunable parameters with an exported
- * global storage class designation.  Code generation will declare the memory for
- * these parameters and exports their symbols.
- *
- */
-extern real_T exponent;                /* Variable: exponent
-                                        * Referenced by:
-                                        *   '<S2>/Constant3'
-                                        *   '<S3>/Constant3'
-                                        *   '<S4>/Constant3'
-                                        *   '<S5>/Constant3'
-                                        */
-extern real_T faktor;                  /* Variable: faktor
-                                        * Referenced by:
-                                        *   '<S2>/Constant2'
-                                        *   '<S3>/Constant2'
-                                        *   '<S4>/Constant2'
-                                        *   '<S5>/Constant2'
-                                        */
-extern real_T n_max;                   /* Variable: n_max
-                                        * Referenced by:
-                                        *   '<S1>/Gain'
-                                        *   '<S1>/Gain1'
-                                        *   '<S1>/Gain2'
-                                        *   '<S1>/Gain3'
-                                        *   '<S1>/Saturation'
-                                        *   '<S1>/Saturation1'
-                                        *   '<S1>/Saturation2'
-                                        *   '<S1>/Saturation3'
-                                        */
-
 #ifdef __cplusplus
 
 extern "C" {
@@ -167,17 +129,13 @@ extern "C" {
  * MATLAB hilite_system command to trace the generated code back
  * to the parent model.  For example,
  *
- * hilite_system('regler/Regelkreis/Inverse_Propeller')    - opens subsystem regler/Regelkreis/Inverse_Propeller
- * hilite_system('regler/Regelkreis/Inverse_Propeller/Kp') - opens and selects block Kp
+ * hilite_system('regler_new/Regelkreis/Inverse_Propeller')    - opens subsystem regler_new/Regelkreis/Inverse_Propeller
+ * hilite_system('regler_new/Regelkreis/Inverse_Propeller/Kp') - opens and selects block Kp
  *
  * Here is the system hierarchy for this model
  *
- * '<Root>' : 'regler/Regelkreis'
- * '<S1>'   : 'regler/Regelkreis/Inverse_Propeller'
- * '<S2>'   : 'regler/Regelkreis/Inverse_Propeller/ inverse Schubkarft A'
- * '<S3>'   : 'regler/Regelkreis/Inverse_Propeller/ inverse Schubkarft B'
- * '<S4>'   : 'regler/Regelkreis/Inverse_Propeller/ inverse Schubkarft C'
- * '<S5>'   : 'regler/Regelkreis/Inverse_Propeller/ inverse Schubkarft D'
+ * '<Root>' : 'regler_new/Regelkreis'
+ * '<S1>'   : 'regler_new/Regelkreis/Inverse_Propeller'
  */
 #endif                                 /* RTW_HEADER_Inverse_Propeller_h_ */
 

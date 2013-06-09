@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'Schubverteilung0'.
  *
- * Model version                  : 1.467
+ * Model version                  : 1.552
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Thu Jan 24 17:57:57 2013
+ * C/C++ source code generated on : Sat Jun 08 16:55:09 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex

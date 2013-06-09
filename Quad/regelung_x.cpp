@@ -15,7 +15,6 @@ void init_regler_X(){
 	//Input_Kennlinie_initialize();
 	//normale Inits
 	Regelglied_initialize();
-	Regelglied_U.t_init=chTimeNow();
 	Schubverteilung0_initialize();
 	Inverse_Propeller_initialize();
 	Hoehenregelung_initialize();
@@ -49,7 +48,6 @@ void step_regler_X(){
   
 	//Istwerte
 	//getRoll + Gier funktion negiert, da miniquad nach Luftfahrtnorm
-	Regelglied_U.t_sys=chTimeNow();
 	Regelglied_U.In_Ist_Roll=get_ypr_roll_ist();
 	Regelglied_U.In_Ist_Nick=get_ypr_nick_ist(); 
 	Regelglied_U.In_Ist_Gier=get_ypr_roll_ist();
@@ -96,13 +94,13 @@ void step_regler_X(){
 	setMotor_3(Inverse_Propeller_Y.Out_n_C);
 	setMotor_4(Inverse_Propeller_Y.Out_n_D);
 	
-//  	setMotor_1(0.2);
+//  	setMotor_1(0.3);
 //  	setMotor_1(0.0);
-// 	setMotor_2(0.2);
+// 	setMotor_2(0.3);
 // 	setMotor_2(0.0);
-// 	setMotor_3(0.22);
+// 	setMotor_3(0.3);
 // 	setMotor_3(0.0);
-// 	setMotor_4(0.22);
+// 	setMotor_4(0.3);
 // 	setMotor_4(0.0);
 
 	/* Indicate task complete */
