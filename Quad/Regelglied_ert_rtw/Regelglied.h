@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'Regelglied'.
  *
- * Model version                  : 1.553
+ * Model version                  : 1.557
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sun Jun 09 11:48:47 2013
+ * C/C++ source code generated on : Sun Jun 09 14:44:37 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -58,7 +58,9 @@
 typedef struct {
   real_T Merge;                        /* '<S2>/Merge' */
   real_T Gain1;                        /* '<S1>/Gain1' */
+  real_T Gain10;                       /* '<S1>/Gain10' */
   real_T Gain4;                        /* '<S1>/Gain4' */
+  real_T Gain8;                        /* '<S1>/Gain8' */
 } BlockIO_Regelglied;
 
 /* Block states (auto storage) for system '<Root>' */
@@ -69,19 +71,25 @@ typedef struct {
 /* Continuous states (auto storage) */
 typedef struct {
   real_T Integrator_CSTATE;            /* '<S1>/Integrator' */
+  real_T Integrator2_CSTATE;           /* '<S1>/Integrator2' */
   real_T Integrator1_CSTATE;           /* '<S1>/Integrator1' */
+  real_T Integrator3_CSTATE;           /* '<S1>/Integrator3' */
 } ContinuousStates_Regelglied;
 
 /* State derivatives (auto storage) */
 typedef struct {
   real_T Integrator_CSTATE;            /* '<S1>/Integrator' */
+  real_T Integrator2_CSTATE;           /* '<S1>/Integrator2' */
   real_T Integrator1_CSTATE;           /* '<S1>/Integrator1' */
+  real_T Integrator3_CSTATE;           /* '<S1>/Integrator3' */
 } StateDerivatives_Regelglied;
 
 /* State disabled  */
 typedef struct {
   boolean_T Integrator_CSTATE;         /* '<S1>/Integrator' */
+  boolean_T Integrator2_CSTATE;        /* '<S1>/Integrator2' */
   boolean_T Integrator1_CSTATE;        /* '<S1>/Integrator1' */
+  boolean_T Integrator3_CSTATE;        /* '<S1>/Integrator3' */
 } StateDisabled_Regelglied;
 
 /* Zero-crossing (trigger) state */
@@ -138,8 +146,8 @@ struct RT_MODEL_Regelglied {
     boolean_T zCCacheNeedsReset;
     boolean_T derivCacheNeedsReset;
     boolean_T blkStateChange;
-    real_T odeY[2];
-    real_T odeF[3][2];
+    real_T odeY[4];
+    real_T odeF[3][4];
     ODE3_IntgData intgData;
   } ModelData;
 
@@ -220,9 +228,11 @@ extern real_T Xd_Roll;                 /* '<S1>/Add' */
 extern real_T p_roll_m;                /* '<S1>/Gain' */
 extern real_T i_roll_m;                /* '<S1>/Integrator' */
 extern real_T d_roll_m;                /* '<S1>/Gain2' */
+extern real_T I_roll_offset_m;         /* '<S1>/Integrator2' */
 extern real_T p_nick_m;                /* '<S1>/Gain3' */
 extern real_T i_nick_m;                /* '<S1>/Integrator1' */
 extern real_T d_nick_m;                /* '<S1>/Gain5' */
+extern real_T I_nick_offset_m;         /* '<S1>/Integrator3' */
 
 /*
  * Exported Global Parameters
@@ -247,8 +257,14 @@ extern real_T gain_roll;               /* Variable: gain_roll
 extern real_T i_nick;                  /* Variable: i_nick
                                         * Referenced by: '<S1>/Gain4'
                                         */
+extern real_T i_nick_offset;           /* Variable: i_nick_offset
+                                        * Referenced by: '<S1>/Gain10'
+                                        */
 extern real_T i_roll;                  /* Variable: i_roll
                                         * Referenced by: '<S1>/Gain1'
+                                        */
+extern real_T i_roll_offset;           /* Variable: i_roll_offset
+                                        * Referenced by: '<S1>/Gain8'
                                         */
 extern real_T kp_nick;                 /* Variable: kp_nick
                                         * Referenced by: '<S1>/Gain3'

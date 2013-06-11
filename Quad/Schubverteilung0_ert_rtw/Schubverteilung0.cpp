@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'Schubverteilung0'.
  *
- * Model version                  : 1.552
+ * Model version                  : 1.557
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sat Jun 08 16:55:09 2013
+ * C/C++ source code generated on : Sun Jun 09 14:46:51 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -22,6 +22,11 @@
 /* Exported block parameters */
 real_T n_max = 20000.0;                /* Variable: n_max
                                         * Referenced by: '<S1>/Gain4'
+                                        */
+real_T throttle_limit = 0.85;           /* Variable: throttle_limit
+                                        * Referenced by:
+                                        *   '<S1>/Constant2'
+                                        *   '<S1>/Switch2'
                                         */
 
 /* Block signals (auto storage) */
@@ -62,24 +67,23 @@ void Schubverteilung0_step(void)
   real_T rtb_Add5;
   real_T rtb_Add6;
   real_T rtb_Add7;
-  real_T rtb_Saturation;
+  real_T rtb_Switch2;
   real_T rtb_Gain4;
 
-  /* Saturate: '<S1>/Saturation' incorporates:
+  /* Switch: '<S1>/Switch2' incorporates:
+   *  Constant: '<S1>/Constant2'
    *  Inport: '<Root>/In_Throttle'
    */
-  if (Schubverteilung0_U.In_Throttle >= 1.0) {
-    rtb_Saturation = 1.0;
-  } else if (Schubverteilung0_U.In_Throttle <= 0.0) {
-    rtb_Saturation = 0.0;
+  if (Schubverteilung0_U.In_Throttle >= throttle_limit) {
+    rtb_Switch2 = throttle_limit;
   } else {
-    rtb_Saturation = Schubverteilung0_U.In_Throttle;
+    rtb_Switch2 = Schubverteilung0_U.In_Throttle;
   }
 
-  /* End of Saturate: '<S1>/Saturation' */
+  /* End of Switch: '<S1>/Switch2' */
 
   /* Gain: '<S1>/Gain4' */
-  rtb_Gain4 = n_max * rtb_Saturation;
+  rtb_Gain4 = n_max * rtb_Switch2;
 
   /* Sum: '<S1>/Add4' incorporates:
    *  Gain: '<S1>/Gain'
@@ -94,7 +98,7 @@ void Schubverteilung0_step(void)
   /* If: '<S6>/If' incorporates:
    *  Constant: '<S19>/Constant'
    */
-  if (rtb_Saturation >= 0.05) {
+  if (rtb_Switch2 >= 0.05) {
     /* Outputs for IfAction SubSystem: '<S6>/If Action Subsystem' incorporates:
      *  ActionPort: '<S18>/Action Port'
      */
@@ -150,7 +154,7 @@ void Schubverteilung0_step(void)
   /* If: '<S7>/If' incorporates:
    *  Constant: '<S21>/Constant'
    */
-  if (rtb_Saturation >= 0.05) {
+  if (rtb_Switch2 >= 0.05) {
     /* Outputs for IfAction SubSystem: '<S7>/If Action Subsystem' incorporates:
      *  ActionPort: '<S20>/Action Port'
      */
@@ -206,7 +210,7 @@ void Schubverteilung0_step(void)
   /* If: '<S8>/If' incorporates:
    *  Constant: '<S23>/Constant'
    */
-  if (rtb_Saturation >= 0.05) {
+  if (rtb_Switch2 >= 0.05) {
     /* Outputs for IfAction SubSystem: '<S8>/If Action Subsystem' incorporates:
      *  ActionPort: '<S22>/Action Port'
      */
@@ -262,7 +266,7 @@ void Schubverteilung0_step(void)
   /* If: '<S9>/If' incorporates:
    *  Constant: '<S25>/Constant'
    */
-  if (rtb_Saturation >= 0.05) {
+  if (rtb_Switch2 >= 0.05) {
     /* Outputs for IfAction SubSystem: '<S9>/If Action Subsystem' incorporates:
      *  ActionPort: '<S24>/Action Port'
      */

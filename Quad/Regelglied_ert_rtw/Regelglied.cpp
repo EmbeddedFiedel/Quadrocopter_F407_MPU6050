@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'Regelglied'.
  *
- * Model version                  : 1.553
+ * Model version                  : 1.557
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sun Jun 09 11:48:47 2013
+ * C/C++ source code generated on : Sun Jun 09 14:44:37 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -24,33 +24,41 @@ real_T Xd_Roll;                        /* '<S1>/Add' */
 real_T p_roll_m;                       /* '<S1>/Gain' */
 real_T i_roll_m;                       /* '<S1>/Integrator' */
 real_T d_roll_m;                       /* '<S1>/Gain2' */
+real_T I_roll_offset_m;                /* '<S1>/Integrator2' */
 real_T p_nick_m;                       /* '<S1>/Gain3' */
 real_T i_nick_m;                       /* '<S1>/Integrator1' */
 real_T d_nick_m;                       /* '<S1>/Gain5' */
+real_T I_nick_offset_m;                /* '<S1>/Integrator3' */
 
 /* Exported block parameters */
-real_T d_nick = -2000;                   /* Variable: d_nick
+real_T d_nick = -2900.0;               /* Variable: d_nick
                                         * Referenced by: '<S1>/Gain5'
                                         */
-real_T d_roll = 2000;                   /* Variable: d_roll
+real_T d_roll = 2300.0;                /* Variable: d_roll
                                         * Referenced by: '<S1>/Gain2'
                                         */
 real_T gain_nick = 1.0;                /* Variable: gain_nick
                                         * Referenced by: '<S1>/Gain7'
                                         */
-real_T gain_roll = 0;                /* Variable: gain_roll
+real_T gain_roll = 1.0;                /* Variable: gain_roll
                                         * Referenced by: '<S1>/Gain6'
                                         */
-real_T i_nick = 3500;                   /* Variable: i_nick
+real_T i_nick = 3600.0;                /* Variable: i_nick
                                         * Referenced by: '<S1>/Gain4'
                                         */
-real_T i_roll = 1750;                   /* Variable: i_roll
+real_T i_nick_offset = 2000;            /* Variable: i_nick_offset
+                                        * Referenced by: '<S1>/Gain10'
+                                        */
+real_T i_roll = 2000.0;                /* Variable: i_roll
                                         * Referenced by: '<S1>/Gain1'
                                         */
-real_T kp_nick = 10300;                  /* Variable: kp_nick
+real_T i_roll_offset = 1200;            /* Variable: i_roll_offset
+                                        * Referenced by: '<S1>/Gain8'
+                                        */
+real_T kp_nick = 11000.0;              /* Variable: kp_nick
                                         * Referenced by: '<S1>/Gain3'
                                         */
-real_T kp_roll = 8000;                  /* Variable: kp_roll
+real_T kp_roll = 7900.0;               /* Variable: kp_roll
                                         * Referenced by: '<S1>/Gain'
                                         */
 
@@ -106,7 +114,7 @@ static void rt_ertODEUpdateContinuousStates(RTWSolverInfo *si )
   real_T *f2 = id->f[2];
   real_T hB[3];
   int_T i;
-  int_T nXc = 2;
+  int_T nXc = 4;
   rtsiSetSimTimeStep(si,MINOR_TIME_STEP);
 
   /* Save the state values at time t in y, we'll use x as ynew. */
@@ -160,8 +168,9 @@ static void rt_ertODEUpdateContinuousStates(RTWSolverInfo *si )
 /* Model step function */
 void Regelglied_step(void)
 {
-  real_T rtb_Saturation;
   int8_T rtAction;
+  real_T rtb_Xd_Roll;
+  real_T tmp;
   if (rtmIsMajorTimeStep(Regelglied_M)) {
     /* set solver stop time */
     rtsiSetSolverStopTime(&Regelglied_M->solverInfo,
@@ -183,25 +192,13 @@ void Regelglied_step(void)
   /* Gain: '<S1>/Gain' */
   p_roll_m = kp_roll * Xd_Roll;
 
-  /* Saturate: '<S1>/Saturation' incorporates:
-   *  Inport: '<Root>/Throttle'
-   */
-  if (Regelglied_U.Throttle >= 1.0) {
-    rtb_Saturation = 1.0;
-  } else if (Regelglied_U.Throttle <= 0.0) {
-    rtb_Saturation = 0.0;
-  } else {
-    rtb_Saturation = Regelglied_U.Throttle;
-  }
-
-  /* End of Saturate: '<S1>/Saturation' */
-
   /* If: '<S2>/If' incorporates:
    *  Constant: '<S3>/Constant'
    *  Constant: '<S4>/Constant'
+   *  Inport: '<Root>/Throttle'
    */
   if (rtmIsMajorTimeStep(Regelglied_M)) {
-    if (rtb_Saturation >= 0.05) {
+    if (Regelglied_U.Throttle >= 0.05) {
       rtAction = 0;
     } else {
       rtAction = 1;
@@ -259,20 +256,24 @@ void Regelglied_step(void)
     d_roll_m = -d_roll * Regelglied_U.In_Ist_V_Roll;
   }
 
+  /* Integrator: '<S1>/Integrator2' */
+  I_roll_offset_m = Regelglied_X.Integrator2_CSTATE;
+
   /* Outport: '<Root>/Out_M_Roll' incorporates:
    *  Gain: '<S1>/Gain6'
    *  Sum: '<S1>/Add2'
    */
-  Regelglied_Y.Out_M_Roll = ((p_roll_m + i_roll_m) + d_roll_m) * gain_roll;
+  Regelglied_Y.Out_M_Roll = (((p_roll_m + i_roll_m) + d_roll_m) +
+    I_roll_offset_m) * gain_roll;
 
   /* Sum: '<S1>/Add1' incorporates:
    *  Inport: '<Root>/In_Ist_Nick'
    *  Inport: '<Root>/In_Soll_Nick'
    */
-  rtb_Saturation = Regelglied_U.In_Soll_Nick - Regelglied_U.In_Ist_Nick;
+  rtb_Xd_Roll = Regelglied_U.In_Soll_Nick - Regelglied_U.In_Ist_Nick;
 
   /* Gain: '<S1>/Gain3' */
-  p_nick_m = kp_nick * rtb_Saturation;
+  p_nick_m = kp_nick * rtb_Xd_Roll;
 
   /* Integrator: '<S1>/Integrator1' */
   if (rtmIsMajorTimeStep(Regelglied_M)) {
@@ -295,17 +296,49 @@ void Regelglied_step(void)
     d_nick_m = -d_nick * Regelglied_U.In_Ist_V_Nick;
   }
 
+  /* Integrator: '<S1>/Integrator3' */
+  I_nick_offset_m = Regelglied_X.Integrator3_CSTATE;
+
   /* Outport: '<Root>/Out_M_Nick' incorporates:
    *  Gain: '<S1>/Gain7'
    *  Sum: '<S1>/Add3'
    */
-  Regelglied_Y.Out_M_Nick = ((p_nick_m + i_nick_m) + d_nick_m) * gain_nick;
+  Regelglied_Y.Out_M_Nick = (((p_nick_m + i_nick_m) + d_nick_m) +
+    I_nick_offset_m) * gain_nick;
 
   /* Gain: '<S1>/Gain1' */
   Regelglied_B.Gain1 = i_roll * Xd_Roll;
 
+  /* Switch: '<S1>/Switch1' incorporates:
+   *  Constant: '<S1>/Constant1'
+   */
+  if (Regelglied_B.Merge != 0.0) {
+    tmp = rtb_Xd_Roll;
+  } else {
+    tmp = 0.0;
+  }
+
+  /* End of Switch: '<S1>/Switch1' */
+
+  /* Gain: '<S1>/Gain10' */
+  Regelglied_B.Gain10 = i_nick_offset * tmp;
+
   /* Gain: '<S1>/Gain4' */
-  Regelglied_B.Gain4 = i_nick * rtb_Saturation;
+  Regelglied_B.Gain4 = i_nick * rtb_Xd_Roll;
+
+  /* Switch: '<S1>/Switch' incorporates:
+   *  Constant: '<S1>/Constant'
+   */
+  if (Regelglied_B.Merge != 0.0) {
+    tmp = Xd_Roll;
+  } else {
+    tmp = 0.0;
+  }
+
+  /* End of Switch: '<S1>/Switch' */
+
+  /* Gain: '<S1>/Gain8' */
+  Regelglied_B.Gain8 = i_roll_offset * tmp;
   if (rtmIsMajorTimeStep(Regelglied_M)) {
     rt_ertODEUpdateContinuousStates(&Regelglied_M->solverInfo);
 
@@ -333,17 +366,26 @@ void Regelglied_step(void)
 /* Derivatives for root system: '<Root>' */
 void Regelglied_derivatives(void)
 {
+  StateDerivatives_Regelglied *_rtXdot;
+  _rtXdot = ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs);
+
   /* Derivatives for Integrator: '<S1>/Integrator' */
   {
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
       ->Integrator_CSTATE = Regelglied_B.Gain1;
   }
 
+  /* Derivatives for Integrator: '<S1>/Integrator2' */
+  _rtXdot->Integrator2_CSTATE = Regelglied_B.Gain8;
+
   /* Derivatives for Integrator: '<S1>/Integrator1' */
   {
     ((StateDerivatives_Regelglied *) Regelglied_M->ModelData.derivs)
       ->Integrator1_CSTATE = Regelglied_B.Gain4;
   }
+
+  /* Derivatives for Integrator: '<S1>/Integrator3' */
+  _rtXdot->Integrator3_CSTATE = Regelglied_B.Gain10;
 }
 
 /* Model initialize function */
@@ -394,9 +436,11 @@ void Regelglied_initialize(void)
   p_roll_m = 0.0;
   i_roll_m = 0.0;
   d_roll_m = 0.0;
+  I_roll_offset_m = 0.0;
   p_nick_m = 0.0;
   i_nick_m = 0.0;
   d_nick_m = 0.0;
+  I_nick_offset_m = 0.0;
 
   /* states (continuous) */
   {
@@ -433,8 +477,14 @@ void Regelglied_initialize(void)
   /* InitializeConditions for Integrator: '<S1>/Integrator' */
   Regelglied_X.Integrator_CSTATE = 0.0;
 
+  /* InitializeConditions for Integrator: '<S1>/Integrator2' */
+  Regelglied_X.Integrator2_CSTATE = 0.0;
+
   /* InitializeConditions for Integrator: '<S1>/Integrator1' */
   Regelglied_X.Integrator1_CSTATE = 0.0;
+
+  /* InitializeConditions for Integrator: '<S1>/Integrator3' */
+  Regelglied_X.Integrator3_CSTATE = 0.0;
 
   /* set "at time zero" to false */
   if (rtmIsFirstInitCond(Regelglied_M)) {

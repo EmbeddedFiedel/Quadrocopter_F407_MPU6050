@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'Schubverteilung0'.
  *
- * Model version                  : 1.552
+ * Model version                  : 1.557
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sat Jun 08 16:55:09 2013
+ * C/C++ source code generated on : Sun Jun 09 14:46:51 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -120,6 +120,11 @@ extern "C" {
  */
 extern real_T n_max;                   /* Variable: n_max
                                         * Referenced by: '<S1>/Gain4'
+                                        */
+extern real_T throttle_limit;          /* Variable: throttle_limit
+                                        * Referenced by:
+                                        *   '<S1>/Constant2'
+                                        *   '<S1>/Switch2'
                                         */
 
 #ifdef __cplusplus
