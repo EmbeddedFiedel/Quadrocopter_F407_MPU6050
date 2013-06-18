@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'Hoehenregelung'.
  *
- * Model version                  : 1.512
+ * Model version                  : 1.565
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sun Mar 10 11:02:24 2013
+ * C/C++ source code generated on : Tue Jun 11 20:56:58 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -56,44 +56,56 @@
 
 /* Block signals (auto storage) */
 typedef struct {
-  real_T Merge;                        /* '<S1>/Merge' */
-  real_T DeadZone;                     /* '<S1>/Dead Zone' */
+  real_T Gain2;                        /* '<S5>/Gain2' */
+  real_T Merge;                        /* '<S4>/Merge' */
+  real_T Gain1;                        /* '<S5>/Gain1' */
+  boolean_T LogicalOperator;           /* '<S5>/Logical Operator' */
 } BlockIO_Hoehenregelung;
 
 /* Block states (auto storage) for system '<Root>' */
 typedef struct {
   struct {
     int_T IcNeedsLoading;
-  } IntegratorLimited_IWORK;           /* '<S1>/Integrator Limited' */
+  } IntegratorLimited_IWORK;           /* '<S3>/Integrator Limited' */
 
-  int8_T If_ActiveSubsystem;           /* '<S1>/If' */
+  int8_T If_ActiveSubsystem;           /* '<S4>/If' */
 } D_Work_Hoehenregelung;
 
 /* Continuous states (auto storage) */
 typedef struct {
-  real_T ddt_CSTATE;                   /* '<S1>/d//dt' */
-  real_T Integrator_CSTATE;            /* '<S1>/Integrator' */
-  real_T IntegratorLimited_CSTATE;     /* '<S1>/Integrator Limited' */
+  real_T ddt_CSTATE;                   /* '<S2>/d//dt' */
+  real_T ddt_CSTATE_h;                 /* '<S3>/d//dt' */
+  real_T IntegratorLimited_CSTATE;     /* '<S3>/Integrator Limited' */
+  real_T Integrator_CSTATE;            /* '<S5>/Integrator' */
+  real_T DAnteil_CSTATE;               /* '<S5>/D-Anteil' */
+  real_T Integrator_CSTATE_o;          /* '<S3>/Integrator' */
 } ContinuousStates_Hoehenregelung;
 
 /* State derivatives (auto storage) */
 typedef struct {
-  real_T ddt_CSTATE;                   /* '<S1>/d//dt' */
-  real_T Integrator_CSTATE;            /* '<S1>/Integrator' */
-  real_T IntegratorLimited_CSTATE;     /* '<S1>/Integrator Limited' */
+  real_T ddt_CSTATE;                   /* '<S2>/d//dt' */
+  real_T ddt_CSTATE_h;                 /* '<S3>/d//dt' */
+  real_T IntegratorLimited_CSTATE;     /* '<S3>/Integrator Limited' */
+  real_T Integrator_CSTATE;            /* '<S5>/Integrator' */
+  real_T DAnteil_CSTATE;               /* '<S5>/D-Anteil' */
+  real_T Integrator_CSTATE_o;          /* '<S3>/Integrator' */
 } StateDerivatives_Hoehenregelung;
 
 /* State disabled  */
 typedef struct {
-  boolean_T ddt_CSTATE;                /* '<S1>/d//dt' */
-  boolean_T Integrator_CSTATE;         /* '<S1>/Integrator' */
-  boolean_T IntegratorLimited_CSTATE;  /* '<S1>/Integrator Limited' */
+  boolean_T ddt_CSTATE;                /* '<S2>/d//dt' */
+  boolean_T ddt_CSTATE_h;              /* '<S3>/d//dt' */
+  boolean_T IntegratorLimited_CSTATE;  /* '<S3>/Integrator Limited' */
+  boolean_T Integrator_CSTATE;         /* '<S5>/Integrator' */
+  boolean_T DAnteil_CSTATE;            /* '<S5>/D-Anteil' */
+  boolean_T Integrator_CSTATE_o;       /* '<S3>/Integrator' */
 } StateDisabled_Hoehenregelung;
 
 /* Zero-crossing (trigger) state */
 typedef struct {
-  ZCSigState Integrator_Reset_ZCE;     /* '<S1>/Integrator' */
-  ZCSigState IntegratorLimited_Reset_ZCE;/* '<S1>/Integrator Limited' */
+  ZCSigState IntegratorLimited_Reset_ZCE;/* '<S3>/Integrator Limited' */
+  ZCSigState Integrator_Reset_ZCE;     /* '<S5>/Integrator' */
+  ZCSigState Integrator_Reset_ZCE_h;   /* '<S3>/Integrator' */
 } PrevZCSigStates_Hoehenregelung;
 
 #ifndef ODE3_INTG
@@ -136,8 +148,8 @@ struct RT_MODEL_Hoehenregelung {
     boolean_T zCCacheNeedsReset;
     boolean_T derivCacheNeedsReset;
     boolean_T blkStateChange;
-    real_T odeY[3];
-    real_T odeF[3][3];
+    real_T odeY[6];
+    real_T odeF[3][6];
     ODE3_IntgData intgData;
   } ModelData;
 
@@ -214,10 +226,14 @@ extern "C" {
  * these signals and export their symbols.
  *
  */
-extern real_T th_dt;                   /* '<S1>/d//dt' */
-extern real_T v_z;                     /* '<S1>/Integrator' */
-extern real_T h_z;                     /* '<S1>/Integrator Limited' */
-extern boolean_T h_rest_integrator;    /* '<S1>/Logical Operator' */
+extern real_T hoehe_tp;                /* '<S3>/d//dt' */
+extern real_T h_z;                     /* '<S3>/Integrator Limited' */
+extern real_T p_anteil;                /* '<S5>/Gain' */
+extern real_T i_anteil;                /* '<S5>/Integrator' */
+extern real_T d_anteil;                /* '<S5>/D-Anteil' */
+extern real_T v_z;                     /* '<S3>/Integrator' */
+extern boolean_T hoehe_act;            /* '<S2>/Logical Operator' */
+extern boolean_T h_rest_integrator;    /* '<S3>/Logical Operator' */
 
 /*
  * Exported Global Parameters
@@ -227,14 +243,20 @@ extern boolean_T h_rest_integrator;    /* '<S1>/Logical Operator' */
  * these parameters and exports their symbols.
  *
  */
-extern real_T a_dead;                  /* Variable: a_dead
-                                        * Referenced by: '<S1>/Dead Zone'
+extern real_T kp_hoehe;                /* Variable: kp_hoehe
+                                        * Referenced by: '<S5>/Gain'
                                         */
-extern real_T mges;                    /* Variable: mges
-                                        * Referenced by: '<S3>/Gain'
+extern real_T throttel_cut_off;        /* Variable: throttel_cut_off
+                                        * Referenced by: '<S7>/Constant'
                                         */
 extern real_T throttle_d_dt;           /* Variable: throttle_d_dt
-                                        * Referenced by: '<S2>/Constant'
+                                        * Referenced by: '<S6>/Constant'
+                                        */
+extern real_T tn_hoehe;                /* Variable: tn_hoehe
+                                        * Referenced by: '<S5>/Gain1'
+                                        */
+extern real_T tv_hoehe;                /* Variable: tv_hoehe
+                                        * Referenced by: '<S5>/Gain2'
                                         */
 
 #ifdef __cplusplus
@@ -279,16 +301,21 @@ extern "C" {
  * MATLAB hilite_system command to trace the generated code back
  * to the parent model.  For example,
  *
- * hilite_system('regler/Regelkreis/Hoehenregelung')    - opens subsystem regler/Regelkreis/Hoehenregelung
- * hilite_system('regler/Regelkreis/Hoehenregelung/Kp') - opens and selects block Kp
+ * hilite_system('regler_new/Regelkreis/Hoehenregelung')    - opens subsystem regler_new/Regelkreis/Hoehenregelung
+ * hilite_system('regler_new/Regelkreis/Hoehenregelung/Kp') - opens and selects block Kp
  *
  * Here is the system hierarchy for this model
  *
- * '<Root>' : 'regler/Regelkreis'
- * '<S1>'   : 'regler/Regelkreis/Hoehenregelung'
- * '<S2>'   : 'regler/Regelkreis/Hoehenregelung/Compare To Constant'
- * '<S3>'   : 'regler/Regelkreis/Hoehenregelung/If Action Subsystem'
- * '<S4>'   : 'regler/Regelkreis/Hoehenregelung/If Action Subsystem1'
+ * '<Root>' : 'regler_new/Regelkreis'
+ * '<S1>'   : 'regler_new/Regelkreis/Hoehenregelung'
+ * '<S2>'   : 'regler_new/Regelkreis/Hoehenregelung/Aktiverung'
+ * '<S3>'   : 'regler_new/Regelkreis/Hoehenregelung/Höhenberechnung'
+ * '<S4>'   : 'regler_new/Regelkreis/Hoehenregelung/PID-Regler'
+ * '<S5>'   : 'regler_new/Regelkreis/Hoehenregelung/Regler'
+ * '<S6>'   : 'regler_new/Regelkreis/Hoehenregelung/Aktiverung/Schwellwert'
+ * '<S7>'   : 'regler_new/Regelkreis/Hoehenregelung/Aktiverung/Schwellwert1'
+ * '<S8>'   : 'regler_new/Regelkreis/Hoehenregelung/PID-Regler/If Action Subsystem'
+ * '<S9>'   : 'regler_new/Regelkreis/Hoehenregelung/PID-Regler/If Action Subsystem1'
  */
 #endif                                 /* RTW_HEADER_Hoehenregelung_h_ */
 

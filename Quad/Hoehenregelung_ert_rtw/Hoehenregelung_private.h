@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'Hoehenregelung'.
  *
- * Model version                  : 1.512
+ * Model version                  : 1.565
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sun Mar 10 11:02:24 2013
+ * C/C++ source code generated on : Tue Jun 11 20:56:58 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -58,6 +58,8 @@
 #endif                                 /* RTWTYPES_ID_C08S16I32L32N32F1 */
 #endif                                 /* TMWTYPES_PREVIOUSLY_INCLUDED */
 #endif                                 /* __RTWTYPES_H__ */
+
+extern void Hoehenregelun_IfActionSubsystem(real_T rtu_0, real_T *rty_Out1);
 
 /* private model entry point functions */
 extern void Hoehenregelung_derivatives(void);
