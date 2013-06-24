@@ -92,7 +92,7 @@ START_DIR               = D:\Dokumente\Studium\studienarbeit_1\regelung
 S_FUNCTIONS             = 
 S_FUNCTIONS_LIB         = 
 NUMST                   = 2
-NCSTATES                = 4
+NCSTATES                = 6
 BUILDARGS               =  GENERATE_REPORT=0 GENERATE_ASAP2=0 OPTS="-DTID01EQ=1"
 MULTITASKING            = 0
 INTEGER_CODE            = 0

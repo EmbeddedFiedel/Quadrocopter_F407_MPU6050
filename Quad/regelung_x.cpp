@@ -53,6 +53,7 @@ void step_regler_X(){
 	Regelglied_U.In_Ist_Gier=get_ypr_roll_ist();
 	Regelglied_U.In_Ist_V_Roll=get_rate_roll_ist();
 	Regelglied_U.In_Ist_V_Nick=get_rate_nick_ist();
+	Regelglied_U.In_Ist_V_Gier=get_rate_yaw_ist();
 	
 	//Gas setzen für Regler und Schubkraftverteilung
   Regelglied_U.Throttle=get_schub_soll()/0.68;

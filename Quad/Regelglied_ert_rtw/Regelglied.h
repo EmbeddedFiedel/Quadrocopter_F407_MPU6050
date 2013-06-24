@@ -3,10 +3,10 @@
  *
  * Code generated for Simulink model 'Regelglied'.
  *
- * Model version                  : 1.557
+ * Model version                  : 1.568
  * Simulink Coder version         : 8.2 (R2012a) 29-Dec-2011
  * TLC version                    : 8.2 (Dec 29 2011)
- * C/C++ source code generated on : Sun Jun 09 14:44:37 2013
+ * C/C++ source code generated on : Mon Jun 24 19:13:17 2013
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -57,14 +57,31 @@
 /* Block signals (auto storage) */
 typedef struct {
   real_T Merge;                        /* '<S2>/Merge' */
+  real_T Constant3;                    /* '<S1>/Constant3' */
+  real_T Constant2;                    /* '<S1>/Constant2' */
+  real_T Constant5;                    /* '<S1>/Constant5' */
   real_T Gain1;                        /* '<S1>/Gain1' */
   real_T Gain10;                       /* '<S1>/Gain10' */
+  real_T Gain12;                       /* '<S1>/Gain12' */
   real_T Gain4;                        /* '<S1>/Gain4' */
   real_T Gain8;                        /* '<S1>/Gain8' */
+  real_T Gain9;                        /* '<S1>/Gain9' */
 } BlockIO_Regelglied;
 
 /* Block states (auto storage) for system '<Root>' */
 typedef struct {
+  struct {
+    int_T IcNeedsLoading;
+  } Integrator2_IWORK;                 /* '<S1>/Integrator2' */
+
+  struct {
+    int_T IcNeedsLoading;
+  } Integrator3_IWORK;                 /* '<S1>/Integrator3' */
+
+  struct {
+    int_T IcNeedsLoading;
+  } Integrator5_IWORK;                 /* '<S1>/Integrator5' */
+
   int8_T If_ActiveSubsystem;           /* '<S2>/If' */
 } D_Work_Regelglied;
 
@@ -74,6 +91,8 @@ typedef struct {
   real_T Integrator2_CSTATE;           /* '<S1>/Integrator2' */
   real_T Integrator1_CSTATE;           /* '<S1>/Integrator1' */
   real_T Integrator3_CSTATE;           /* '<S1>/Integrator3' */
+  real_T Integrator4_CSTATE;           /* '<S1>/Integrator4' */
+  real_T Integrator5_CSTATE;           /* '<S1>/Integrator5' */
 } ContinuousStates_Regelglied;
 
 /* State derivatives (auto storage) */
@@ -82,6 +101,8 @@ typedef struct {
   real_T Integrator2_CSTATE;           /* '<S1>/Integrator2' */
   real_T Integrator1_CSTATE;           /* '<S1>/Integrator1' */
   real_T Integrator3_CSTATE;           /* '<S1>/Integrator3' */
+  real_T Integrator4_CSTATE;           /* '<S1>/Integrator4' */
+  real_T Integrator5_CSTATE;           /* '<S1>/Integrator5' */
 } StateDerivatives_Regelglied;
 
 /* State disabled  */
@@ -90,12 +111,15 @@ typedef struct {
   boolean_T Integrator2_CSTATE;        /* '<S1>/Integrator2' */
   boolean_T Integrator1_CSTATE;        /* '<S1>/Integrator1' */
   boolean_T Integrator3_CSTATE;        /* '<S1>/Integrator3' */
+  boolean_T Integrator4_CSTATE;        /* '<S1>/Integrator4' */
+  boolean_T Integrator5_CSTATE;        /* '<S1>/Integrator5' */
 } StateDisabled_Regelglied;
 
 /* Zero-crossing (trigger) state */
 typedef struct {
   ZCSigState Integrator_Reset_ZCE;     /* '<S1>/Integrator' */
   ZCSigState Integrator1_Reset_ZCE;    /* '<S1>/Integrator1' */
+  ZCSigState Integrator4_Reset_ZCE;    /* '<S1>/Integrator4' */
 } PrevZCSigStates_Regelglied;
 
 #ifndef ODE3_INTG
@@ -120,6 +144,7 @@ typedef struct {
   real_T In_Ist_V_Roll;                /* '<Root>/In_Ist_V_Roll' */
   real_T In_Ist_V_Nick;                /* '<Root>/In_Ist_V_Nick' */
   real_T Throttle;                     /* '<Root>/Throttle' */
+  real_T In_Ist_V_Gier;                /* '<Root>/In_Ist_V_Gier' */
 } ExternalInputs_Regelglied;
 
 /* External outputs (root outports fed by signals with auto storage) */
@@ -146,8 +171,8 @@ struct RT_MODEL_Regelglied {
     boolean_T zCCacheNeedsReset;
     boolean_T derivCacheNeedsReset;
     boolean_T blkStateChange;
-    real_T odeY[4];
-    real_T odeF[3][4];
+    real_T odeY[6];
+    real_T odeF[3][6];
     ODE3_IntgData intgData;
   } ModelData;
 
@@ -233,6 +258,10 @@ extern real_T p_nick_m;                /* '<S1>/Gain3' */
 extern real_T i_nick_m;                /* '<S1>/Integrator1' */
 extern real_T d_nick_m;                /* '<S1>/Gain5' */
 extern real_T I_nick_offset_m;         /* '<S1>/Integrator3' */
+extern real_T p_gier_m;                /* '<S1>/Gain11' */
+extern real_T i_gier_m;                /* '<S1>/Integrator4' */
+extern real_T d_gier_m;                /* '<S1>/Gain13' */
+extern real_T I_gier_offset_m;         /* '<S1>/Integrator5' */
 
 /*
  * Exported Global Parameters
@@ -242,11 +271,17 @@ extern real_T I_nick_offset_m;         /* '<S1>/Integrator3' */
  * these parameters and exports their symbols.
  *
  */
+extern real_T d_gier;                  /* Variable: d_gier
+                                        * Referenced by: '<S1>/Gain13'
+                                        */
 extern real_T d_nick;                  /* Variable: d_nick
                                         * Referenced by: '<S1>/Gain5'
                                         */
 extern real_T d_roll;                  /* Variable: d_roll
                                         * Referenced by: '<S1>/Gain2'
+                                        */
+extern real_T gain_gier;               /* Variable: gain_gier
+                                        * Referenced by: '<S1>/Gain14'
                                         */
 extern real_T gain_nick;               /* Variable: gain_nick
                                         * Referenced by: '<S1>/Gain7'
@@ -254,17 +289,35 @@ extern real_T gain_nick;               /* Variable: gain_nick
 extern real_T gain_roll;               /* Variable: gain_roll
                                         * Referenced by: '<S1>/Gain6'
                                         */
+extern real_T i_gier;                  /* Variable: i_gier
+                                        * Referenced by: '<S1>/Gain12'
+                                        */
+extern real_T i_gier_offset;           /* Variable: i_gier_offset
+                                        * Referenced by: '<S1>/Gain9'
+                                        */
 extern real_T i_nick;                  /* Variable: i_nick
                                         * Referenced by: '<S1>/Gain4'
                                         */
 extern real_T i_nick_offset;           /* Variable: i_nick_offset
                                         * Referenced by: '<S1>/Gain10'
                                         */
+extern real_T i_offset_gier_xn;        /* Variable: i_offset_gier_xn
+                                        * Referenced by: '<S1>/Constant5'
+                                        */
+extern real_T i_offset_nick_xn;        /* Variable: i_offset_nick_xn
+                                        * Referenced by: '<S1>/Constant2'
+                                        */
+extern real_T i_offset_roll_xn;        /* Variable: i_offset_roll_xn
+                                        * Referenced by: '<S1>/Constant3'
+                                        */
 extern real_T i_roll;                  /* Variable: i_roll
                                         * Referenced by: '<S1>/Gain1'
                                         */
 extern real_T i_roll_offset;           /* Variable: i_roll_offset
                                         * Referenced by: '<S1>/Gain8'
+                                        */
+extern real_T kp_gier;                 /* Variable: kp_gier
+                                        * Referenced by: '<S1>/Gain11'
                                         */
 extern real_T kp_nick;                 /* Variable: kp_nick
                                         * Referenced by: '<S1>/Gain3'
