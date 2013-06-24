@@ -122,7 +122,7 @@ static msg_t RegelungSyncthread(void *arg)
 				}
 				else
 				{
-					f_printf(&Fil_regelung, "Parameter: kp_roll=%d , i_roll=%d , d_roll=%d, kp_nick=%d, i_nick=%d, i_roll_offset=%d,i_nick_offset=%d,d_nick=%d\r\nTime_regelung;In_Throttle;In_Soll_Nick;In_Soll_Roll;In_Soll_Gier;In_Ist_Nick;In_Ist_Roll;In_Ist_Gier;In_Ist_V_Nick;In_Ist_V_Roll;Out_M_Roll;Out_M_Nick;Out_M_Gier;Out_F_A;Out_F_B;Out_F_C;Out_F_D;Out_n_A;Out_n_B;Out_n_C;Out_n_D;kp_roll;i_roll;d_roll;kp_nick;i_nick;d_nick;fifocnt;I_roll_offset_m;I_nick_offset_m;hoehe_tp;h_z;p_anteil;i_anteil;d_anteil;v_z;hoehe_act;h_rest_integrator;hoehe;schubkraftout\r\n", (long int)(kp_roll*10000) , (long int)(i_roll*10000), (long int)(i_roll_offset*10000),(long int)(i_nick_offset),(long int)(d_roll*10000), (long int)(kp_nick*10000), (long int)(i_nick*10000), (long int)(d_nick*10000));
+					f_printf(&Fil_regelung, "Parameter: kp_roll=%d , i_roll=%d , i_roll_offset=%d, i_nick_offset=%d, d_roll=%d, kp_nick=%d,i_nick=%d,d_nick=%d\r\nTime_regelung;In_Throttle;In_Soll_Nick;In_Soll_Roll;In_Soll_Gier;In_Ist_Nick;In_Ist_Roll;In_Ist_Gier;In_Ist_V_Nick;In_Ist_V_Roll;Out_M_Roll;Out_M_Nick;Out_M_Gier;Out_F_A;Out_F_B;Out_F_C;Out_F_D;Out_n_A;Out_n_B;Out_n_C;Out_n_D;kp_roll;i_roll;d_roll;kp_nick;i_nick;d_nick;fifocnt;I_roll_offset_m;I_nick_offset_m;hoehe_tp;h_z;p_anteil;i_anteil;d_anteil;v_z;hoehe_act;h_rest_integrator;hoehe;schubkraftout\r\n",(long int)(kp_roll*10000) , (long int)(i_roll*10000), (long int)(i_roll_offset*10000),(long int)(i_nick_offset),(long int)(d_roll*10000), (long int)(kp_nick*10000), (long int)(i_nick*10000), (long int)(d_nick*10000));
 					rc_datalog = f_sync(&Fil_regelung);	
 					if(rc_datalog != FR_OK)
 					{

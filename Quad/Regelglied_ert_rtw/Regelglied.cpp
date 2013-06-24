@@ -31,10 +31,10 @@ real_T d_nick_m;                       /* '<S1>/Gain5' */
 real_T I_nick_offset_m;                /* '<S1>/Integrator3' */
 
 /* Exported block parameters */
-real_T d_nick = -2900.0;               /* Variable: d_nick
+real_T d_nick = -3000.0;               /* Variable: d_nick
                                         * Referenced by: '<S1>/Gain5'
                                         */
-real_T d_roll = 2300.0;                /* Variable: d_roll
+real_T d_roll = 2400.0;                /* Variable: d_roll
                                         * Referenced by: '<S1>/Gain2'
                                         */
 real_T gain_nick = 1.0;                /* Variable: gain_nick
@@ -43,16 +43,16 @@ real_T gain_nick = 1.0;                /* Variable: gain_nick
 real_T gain_roll = 1.0;                /* Variable: gain_roll
                                         * Referenced by: '<S1>/Gain6'
                                         */
-real_T i_nick = 3600.0;                /* Variable: i_nick
+real_T i_nick = 4400.0;                /* Variable: i_nick
                                         * Referenced by: '<S1>/Gain4'
                                         */
 real_T i_nick_offset = 2000;            /* Variable: i_nick_offset
                                         * Referenced by: '<S1>/Gain10'
                                         */
-real_T i_roll = 2000.0;                /* Variable: i_roll
+real_T i_roll = 2600.0;                /* Variable: i_roll
                                         * Referenced by: '<S1>/Gain1'
                                         */
-real_T i_roll_offset = 1200;            /* Variable: i_roll_offset
+real_T i_roll_offset = 1300;            /* Variable: i_roll_offset
                                         * Referenced by: '<S1>/Gain8'
                                         */
 real_T kp_nick = 11000.0;              /* Variable: kp_nick
