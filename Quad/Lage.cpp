@@ -182,28 +182,22 @@ static msg_t LageReadThread(void *arg)
 	static int i=0;
 	while(TRUE)
 	{
-	i++;
-		if ((i==100)||(i==0)){
-		baro_read_all();
-		i=1;
-		}
-		else
-		{
 		update_IMU();
-		}
 		chThdSleepMilliseconds(1);
+// 		
+// 	i++;
+// 		if ((i==100)||(i==0)){
+// 		baro_read_all();
+// 		i=1;
+// 		}
+// 		else
+// 		{
+// 		update_IMU();
+// 		}
+// 		chThdSleepMilliseconds(1);
 	}
 }
 
-static WORKING_AREA(BarometerReadThreadWorkingArea, 2048);
-
-static msg_t BarometerReadThread(void *arg) {
-
-		while(TRUE){
-			  baro_read_all();
-			  chThdSleepMilliseconds(1);
-			}
-}
 
 void setup_IMU() 
 {
