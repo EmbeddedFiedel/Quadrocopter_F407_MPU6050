@@ -443,20 +443,20 @@ void Regelung(void)
 	/////////////////////////// Motorwerte setzen //////////////////////////////////////////  
    if(inSchub > 0.1 && inSchub <=1)
    {
-     Schub_Offset = 6000 * inSchub;
+     Schub_Offset = 6000;
 
-     outMotor1 = Schub_Offset + aNick - aYaw;
-     outMotor4 = Schub_Offset - aNick - aYaw; 
+     outMotor1 = (Schub_Offset + aNick - aRoll - aYaw)*inSchub;
+     outMotor4 = (Schub_Offset - aNick + aRoll - aYaw)*inSchub; 
 
-     outMotor2 = Schub_Offset + aRoll + aYaw;	  
-     outMotor3 = Schub_Offset - aRoll + aYaw;
+     outMotor2 = (Schub_Offset + aNick + aRoll + aYaw)*inSchub;	  
+     outMotor3 = (Schub_Offset - aNick - aRoll + aYaw)*inSchub;
    }
    else 
    {					
   		outMotor1 = 0.F;
   		outMotor2 = 0.F;
-			outMotor3 = 0.F;
-			outMotor4 = 0.F;
+		outMotor3 = 0.F;
+		outMotor4 = 0.F;
    }
 
 	/////////////////////////// Motorwerte saturieren und �bergeben //////////////////////// 
