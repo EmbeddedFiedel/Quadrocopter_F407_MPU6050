@@ -7,7 +7,6 @@
 
  
 mavlink_system_t mavlink_system;
-extern uint16_t VirtAddVarTab[number_flash_val];
 struct global_struct global_data;
 
 void read_param_from_eeprom()
