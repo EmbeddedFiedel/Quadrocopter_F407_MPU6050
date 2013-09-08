@@ -78,6 +78,7 @@ float aYaw;
 int	sw_kas_Yaw = 0;
 
 extern struct global_struct global_data;
+extern bool request_new_sd_log;
 
 uint32_t regelung_timebuffer[50];
 int regelung_databuffer[50][39];
@@ -90,10 +91,13 @@ bool_t datalog_regelung_opened = 0;
 bool_t datalog_regelung_syncing = 0;
 static TimeMeasurement regelungdatalogsync_tmup;
 char fileName[20] = "Reg00.TXT";
+
+volatile long int param_value;
+volatile float param_value_flt;
 /*
  * Working area for RegelungSyncThread
  */
-static WORKING_AREA(RegelungSyncThreadWorkingArea, 2048);
+static WORKING_AREA(RegelungSyncThreadWorkingArea, 3072);
 /*
  * RegelungSyncThread
  */
@@ -101,8 +105,15 @@ static msg_t RegelungSyncthread(void *arg)
 {
   	while (TRUE) 
 	{
-		if(Datalogger_ready() && !datalog_regelung_opened)
+		if(Datalogger_ready() && datalog_regelung_opened && request_new_sd_log)
 		{
+			datalog_regelung_opened = 0;
+			f_close(&Fil_regelung);	
+		}
+		else if(Datalogger_ready() && !datalog_regelung_opened)
+		{											   
+				chThdSleepMilliseconds(100);
+				request_new_sd_log = false;
 				rc_datalog = f_open(&Fil_regelung, fileName, FA_WRITE | FA_CREATE_NEW/* | FA_CREATE_ALWAYS*/);
 				if(rc_datalog == FR_EXIST)
 				{
@@ -124,7 +135,20 @@ static msg_t RegelungSyncthread(void *arg)
 				}
 				else
 				{
-					f_printf(&Fil_regelung, "Time_regelung;inSchub;inNickSollLage;inRollSollLage;inYawSollLage;inNickIstLage;inRollIstLage;inYawIstLage;inNickIstV;inRollIstV;inYawIstV;pa_Nick;pa_Roll;pa_Yaw;ia_Nick;ia_Roll;ia_Yaw;Soll_v_Nick;Soll_v_Roll;Soll_v_Yaw;ii_Nick;ii_Roll;ii_Yaw;pi_Nick;pi_Roll;pi_Yaw;da_Nick;da_Roll;da_Yaw;v_Nick_tp1;v_Roll_tp1;v_Yaw_tp1;aNick;aRoll;aYaw;outMotor1;outMotor2;outMotor3;outMotor4;fifoCount\r\n");	
+				   while((long int)(global_data.param[0]*100)==0)
+				   {
+				   	chThdSleepMilliseconds(100);
+				   }
+							 
+					for (uint16_t i = 0; i < ONBOARD_PARAM_COUNT; i++)	  //Parameter als 1. Zeile im Log
+					{				   
+						//param_value_flt = (volatile float)global_data.param[i]*100;
+						//param_value = (volatile long int)param_value_flt; 
+						//f_printf(&Fil_regelung, "%s:%d;", global_data.param_name[i], param_value); 
+						f_printf(&Fil_regelung, "%s:%d;", global_data.param_name[i], (long int)(global_data.param[i]*100)); 
+					}
+						
+					f_printf(&Fil_regelung, "\r\nTime_regelung;inSchub;inNickSollLage;inRollSollLage;inYawSollLage;inNickIstLage;inRollIstLage;inYawIstLage;inNickIstV;inRollIstV;inYawIstV;pa_Nick;pa_Roll;pa_Yaw;ia_Nick;ia_Roll;ia_Yaw;Soll_v_Nick;Soll_v_Roll;Soll_v_Yaw;ii_Nick;ii_Roll;ii_Yaw;pi_Nick;pi_Roll;pi_Yaw;da_Nick;da_Roll;da_Yaw;v_Nick_tp1;v_Roll_tp1;v_Yaw_tp1;aNick;aRoll;aYaw;outMotor1;outMotor2;outMotor3;outMotor4;fifoCount\r\n");	
 					rc_datalog = f_sync(&Fil_regelung);	
 					if(rc_datalog != FR_OK)
 					{

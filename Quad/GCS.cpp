@@ -8,6 +8,7 @@
  
 mavlink_system_t mavlink_system;
 struct global_struct global_data;
+bool request_new_sd_log = false;
 
 void read_param_from_eeprom()
 {
@@ -35,19 +36,19 @@ static inline void global_data_reset_param_defaults(void)
 {
 	int offset_Param = 0;
 
-	global_data.param[0] = 1;
+	global_data.param[0] = 1800;
 	strcpy(global_data.param_name[0+offset_Param], "N_pid_pa");
 	
-	global_data.param[1+offset_Param] = 20;
+	global_data.param[1+offset_Param] = 20000;
 	strcpy(global_data.param_name[1+offset_Param], "N_pid_da");
 	
 	global_data.param[2+offset_Param] = 0.01;
 	strcpy(global_data.param_name[2+offset_Param], "N_pid_ia_dyn");
 	
-	global_data.param[3+offset_Param] = 0.1;
+	global_data.param[3+offset_Param] = 50;
 	strcpy(global_data.param_name[3+offset_Param], "N_pid_ia_gain");
 	
-	global_data.param[4+offset_Param] = 301;
+	global_data.param[4+offset_Param] = 1.1;
 	strcpy(global_data.param_name[4+offset_Param], "N_pid_gain");
 	
 	 
@@ -81,19 +82,19 @@ static inline void global_data_reset_param_defaults(void)
 
 	offset_Param = 14;
 
-	global_data.param[0+offset_Param] = 1;
+	global_data.param[0+offset_Param] = 1800;
 	strcpy(global_data.param_name[0+offset_Param], "R_pid_pa");
 	
-	global_data.param[1+offset_Param] = 20;
+	global_data.param[1+offset_Param] = 20000;
 	strcpy(global_data.param_name[1+offset_Param], "R_pid_da");
 	
-	global_data.param[2+offset_Param] = 0.2;
+	global_data.param[2+offset_Param] = 0.01;
 	strcpy(global_data.param_name[2+offset_Param], "R_pid_ia_dyn");
 	
-	global_data.param[3+offset_Param] = 0.1;
+	global_data.param[3+offset_Param] = 50;
 	strcpy(global_data.param_name[3+offset_Param], "R_pid_ia_gain");
 	
-	global_data.param[4+offset_Param] = 300;
+	global_data.param[4+offset_Param] = 1.1;
 	strcpy(global_data.param_name[4+offset_Param], "R_pid_gain");
 	
 	 
@@ -127,10 +128,10 @@ static inline void global_data_reset_param_defaults(void)
 
 	offset_Param = 28;
 
-	global_data.param[0+offset_Param] = 1;
+	global_data.param[0+offset_Param] = 800;
 	strcpy(global_data.param_name[0+offset_Param], "Y_pid_pa");
 	
-	global_data.param[1+offset_Param] = 0;
+	global_data.param[1+offset_Param] = 2200;
 	strcpy(global_data.param_name[1+offset_Param], "Y_pid_da");
 	
 	global_data.param[2+offset_Param] = 0;
@@ -139,7 +140,7 @@ static inline void global_data_reset_param_defaults(void)
 	global_data.param[3+offset_Param] = 0;
 	strcpy(global_data.param_name[3+offset_Param], "Y_pid_ia_gain");
 	
-	global_data.param[4+offset_Param] = 100;
+	global_data.param[4+offset_Param] = -1;
 	strcpy(global_data.param_name[4+offset_Param], "Y_pid_gain");
 	
 	 
@@ -491,7 +492,8 @@ static msg_t ThreadRadio(void *arg)
 
 												// Send the message with the standard UART send function
 												sdWrite(&SD2, buf, len);
-												//uartStartSend(&UARTD2, len, buf);
+												//uartStartSend(&UARTD2, len, buf);	 
+												request_new_sd_log = true;
 
 											}
 										}
