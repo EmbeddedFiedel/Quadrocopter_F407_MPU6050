@@ -140,7 +140,7 @@ static inline void global_data_reset_param_defaults(void)
 	global_data.param[3+offset_Param] = 0;
 	strcpy(global_data.param_name[3+offset_Param], "Y_pid_ia_gain");
 	
-	global_data.param[4+offset_Param] = -1;
+	global_data.param[4+offset_Param] = 1;
 	strcpy(global_data.param_name[4+offset_Param], "Y_pid_gain");
 	
 	 
