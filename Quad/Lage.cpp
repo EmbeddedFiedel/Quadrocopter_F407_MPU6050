@@ -142,8 +142,8 @@ void setup_IMU()
 		mpu.setDMPEnabled(true);
 		mpuIntStatus = mpu.getIntStatus();
 		dmpReady = true;
-		//packetSize = mpu.dmpGetFIFOPacketSize();
-		packetSize=42;
+		packetSize = mpu.dmpGetFIFOPacketSize();
+		//packetSize=42;
 		chThdCreateStatic(LageReadThreadWorkingArea, sizeof(LageReadThreadWorkingArea), HIGHPRIO, LageReadThread, NULL);
 		//send_statustext(MAV_SEVERITY_ALERT, "IMU initialized");
 	} 
