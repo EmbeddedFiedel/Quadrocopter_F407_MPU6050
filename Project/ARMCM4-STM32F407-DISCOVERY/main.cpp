@@ -40,6 +40,7 @@
 #include "flash.h"
 
 
+
 /*
  * Application entry point.
  */
@@ -69,17 +70,18 @@ int main(void)
 		//update_IMU();
 		
 		palSetPad(GPIOD, GPIOD_LED3);
-		palClearPad(GPIOD, GPIOD_LED5);
 		chThdSleepMilliseconds(200);
-		palSetPad(GPIOD, GPIOD_LED4);
-		palClearPad(GPIOD, GPIOD_LED3);       /* Orange.  */
+		palSetPad(GPIOD, GPIOD_LED4);      /* Orange.  */
 		chThdSleepMilliseconds(200);
 		palSetPad(GPIOD, GPIOD_LED6);
-		palClearPad(GPIOD, GPIOD_LED4);
 		chThdSleepMilliseconds(200);
 		palSetPad(GPIOD, GPIOD_LED5);
+		chThdSleepMilliseconds(500);
+		palClearPad(GPIOD, GPIOD_LED5);
+		palClearPad(GPIOD, GPIOD_LED3);
+		palClearPad(GPIOD, GPIOD_LED4);
 		palClearPad(GPIOD, GPIOD_LED6);
 		chThdSleepMilliseconds(200);
-		
   }
 }
+
