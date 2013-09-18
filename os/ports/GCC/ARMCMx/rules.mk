@@ -165,10 +165,10 @@ endif
 %.elf: $(OBJS) $(LDSCRIPT)
 ifeq ($(USE_VERBOSE_COMPILE),yes)
 	@echo
-	$(LD) $(OBJS) $(LDFLAGS) $(LIBS) -o $@
+	$(LD) $(OBJS) $(LDFLAGS) $(LIBS) -lm -lc -lnosys -o $@
 else
 	@echo Linking $@
-	@$(LD) $(OBJS) $(LDFLAGS) $(LIBS) -o $@
+	@$(LD) $(OBJS) $(LDFLAGS) $(LIBS) -lm -lc -lnosys -o $@
 endif
 
 %.hex: %.elf $(LDSCRIPT)

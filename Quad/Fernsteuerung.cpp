@@ -32,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define max_yaw 	0.5
 #define max_schub 1.0
 
-extern uint16_t VirtAddVarTab[number_flash_val];
 short RC_INPUT_CHANNELS_Offset[4] = {-1500,-1500,-1100,-1500};
 volatile unsigned short RC_INPUT_CHANNELS[4], RC_INPUT_LAST_TCNT,tmp=0;
 char PPM_FRAME_GOOD = 1;

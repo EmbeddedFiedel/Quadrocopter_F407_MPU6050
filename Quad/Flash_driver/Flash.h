@@ -77,5 +77,6 @@
 
 #define number_flash_val 	number_flash_parameter+number_flash_cal+1	//Gesamtanzahl der gespeicherten Werte
 
+extern uint16_t VirtAddVarTab[number_flash_val];
 
 void setup_FLASH();
