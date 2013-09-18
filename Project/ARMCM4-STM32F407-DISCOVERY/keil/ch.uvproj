@@ -297,7 +297,7 @@
               <OCR_RVCT4>
                 <Type>1</Type>
                 <StartAddress>0x8000000</StartAddress>
-                <Size>0xf7fff</Size>
+                <Size>0xc0000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -712,9 +712,9 @@
           <GroupName>demo</GroupName>
           <Files>
             <File>
-              <FileName>main.c</FileName>
+              <FileName>main.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\main.c</FilePath>
+              <FilePath>..\main.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -782,9 +782,9 @@
               <FilePath>..\..\..\Quad\GCS.cpp</FilePath>
             </File>
             <File>
-              <FileName>stm32f4xx_flash.c</FileName>
+              <FileName>stm32f4xx_flash.cpp</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\Quad\Flash_driver\stm32f4xx_flash.c</FilePath>
+              <FilePath>..\..\..\Quad\Flash_driver\stm32f4xx_flash.cpp</FilePath>
             </File>
             <File>
               <FileName>Flash.cpp</FileName>

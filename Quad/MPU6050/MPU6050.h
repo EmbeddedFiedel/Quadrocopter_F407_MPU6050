@@ -37,6 +37,8 @@ THE SOFTWARE.
 #ifndef _MPU6050_H_
 #define _MPU6050_H_
 #include <stdint.h>
+#include <helper_3dmath.h>
+#include <cstddef>
 #include "I2Cdev.h"
 //#include <avr/pgmspace.h>
 
@@ -779,7 +781,7 @@ class MPU6050 {
         void setDMPConfig2(uint8_t config);
 
         // special methods for MotionApps 2.0 implementation
-        #ifdef MPU6050_INCLUDE_DMP_MOTIONAPPS20
+        //#ifdef MPU6050_INCLUDE_DMP_MOTIONAPPS20
             uint8_t *dmpPacketBuffer;
             const uint16_t dmpPacketSize = 42;
 
@@ -877,8 +879,8 @@ class MPU6050 {
             uint32_t dmpGetAccelSumOfSquare();
             void dmpOverrideQuaternion(long *q);
             uint16_t dmpGetFIFOPacketSize();
-        #endif
-
+        //#endif
+/*
         // special methods for MotionApps 4.1 implementation
         #ifdef MPU6050_INCLUDE_DMP_MOTIONAPPS41
             uint8_t *dmpPacketBuffer;
@@ -980,7 +982,7 @@ class MPU6050 {
             void dmpOverrideQuaternion(long *q);
             uint16_t dmpGetFIFOPacketSize();
         #endif
-
+*/
     private:
         uint8_t devAddr;
         uint8_t buffer[14];
