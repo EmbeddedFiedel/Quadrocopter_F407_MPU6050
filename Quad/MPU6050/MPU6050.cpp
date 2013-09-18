@@ -3029,6 +3029,7 @@ bool MPU6050::writeMemoryBlock(const uint8_t *data, uint16_t dataSize, uint8_t b
             setMemoryBank(bank);
             setMemoryStartAddress(address);
         }
+        chThdSleepMilliseconds(1);
     }
     if (useProgMem) free(progBuffer);
     return true;

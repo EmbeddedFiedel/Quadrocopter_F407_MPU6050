@@ -5,7 +5,7 @@
 
 # Compiler options here.
 ifeq ($(USE_OPT),)
-  USE_OPT = -O2 -ggdb -fomit-frame-pointer -falign-functions=16
+  USE_OPT = -O3 -ggdb -fomit-frame-pointer -falign-functions=16
 endif
 
 # C specific options here (added to USE_OPT).
@@ -44,7 +44,7 @@ endif
 # Enables the use of FPU on Cortex-M4.
 # Enable this if you really want to use the STM FWLib.
 ifeq ($(USE_FPU),)
-  USE_FPU = no
+  USE_FPU = yes
 endif
 
 # Enable this if you really want to use the STM FWLib.
@@ -71,6 +71,8 @@ include $(CHIBIOS)/os/hal/hal.mk
 include $(CHIBIOS)/os/ports/GCC/ARMCMx/STM32F4xx/port.mk
 include $(CHIBIOS)/os/kernel/kernel.mk
 include $(CHIBIOS)/test/test.mk
+include $(CHIBIOS)/Quad/Quad.mk
+include $(CHIBIOS)/ext/fatfs-0.8b-patched/fatfs/fatfs.mk
 
 # Define linker script file here
 LDSCRIPT= $(PORTLD)/STM32F407xG.ld
@@ -86,11 +88,13 @@ CSRC = $(PORTSRC) \
        $(BOARDSRC) \
        $(CHIBIOS)/os/various/lis302dl.c \
        $(CHIBIOS)/os/various/chprintf.c \
-       main.c
+       $(FATFSSRC) \
+       stubs.c
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.
-CPPSRC =
+CPPSRC = $(QUADSRC) \
+       main.cpp
 
 # C sources to be compiled in ARM mode regardless of the global setting.
 # NOTE: Mixing ARM and THUMB mode enables the -mthumb-interwork compiler
@@ -116,7 +120,7 @@ TCPPSRC =
 ASMSRC = $(PORTASM)
 
 INCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
-         $(HALINC) $(PLATFORMINC) $(BOARDINC) \
+         $(HALINC) $(PLATFORMINC) $(BOARDINC) $(QUADINC) $(FATFSINC) \
          $(CHIBIOS)/os/various
 
 #
@@ -207,7 +211,7 @@ ULIBS =
 ##############################################################################
 
 ifeq ($(USE_FPU),yes)
-  USE_OPT += -mfloat-abi=softfp -mfpu=fpv4-sp-d16 -fsingle-precision-constant
+  USE_OPT += -mfloat-abi=hard -mfpu=fpv4-sp-d16 -fsingle-precision-constant
   DDEFS += -DCORTEX_USE_FPU=TRUE
 else
   DDEFS += -DCORTEX_USE_FPU=FALSE
