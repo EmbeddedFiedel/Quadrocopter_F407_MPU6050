@@ -92,6 +92,10 @@ bool_t datalog_regelung_syncing = 0;
 static TimeMeasurement regelungdatalogsync_tmup;
 char fileName[20] = "Reg00.TXT";
 
+float KLin_Schub[3] = {0,0.1,1};
+float KLout_Schub[3] = {0,0.4,1}; 
+float Testergebnis1,Testergebnis2,Testergebnis3,Testergebnis4,Testergebnis5;
+								
 volatile long int param_value;
 volatile float param_value_flt;
 /*
@@ -306,6 +310,33 @@ float SatFloat(float value,float min,float max)
 			return(value);
 }
 
+float Kennlinie(float Wert, float* KLin, float* KLout, int Anzahl)
+{
+	if(Wert <= KLin[0]) //Unter der untersten Grenze
+	{
+		return(KLout[0]);
+	}
+	else if(Wert >= KLin[Anzahl-1]) //Über der obersten Grenze
+	{
+		return(KLout[Anzahl-1]);
+	}
+	else //Interpolation innerhalb der Kennlinie
+	{
+		int index;
+		float offset=0;
+
+		for(index=0; index<Anzahl-1; index++)
+		{
+			if(Wert < KLin[index+1] && Wert >= KLin[index])
+			{
+				offset = (Wert-KLin[index]) / (KLin[index+1]-KLin[index]);
+				break;
+			}
+		}
+		return(KLout[index]+offset*(KLout[index+1]-KLout[index]));
+	}
+}
+
 float KaskadierterRegler(float in, float &gyro, float &pa, float &da, float &ia_dyn, float &ia_gain, float &pi, float &ii_dyn, float &ii_gain, float &out_gain, int achse)
 {
 	if(achse==1) //nick
@@ -409,7 +440,14 @@ float PIDRegler(float in, float &pa, float &da, float &ia_dyn, float &ia_gain, f
 
 
 void Regelung(void)
-{
+{																	  
+	//Testergebnis1 = Kennlinie(-0.134, KLin_Schub, KLout_Schub, 3);
+	//Testergebnis2 = Kennlinie(0.05, KLin_Schub, KLout_Schub, 3);
+	//Testergebnis3 = Kennlinie(0.1, KLin_Schub, KLout_Schub, 3);
+	//Testergebnis4 = Kennlinie(0.6321, KLin_Schub, KLout_Schub, 3);
+	//Testergebnis5 = Kennlinie(1.134, KLin_Schub, KLout_Schub, 3);
+
+
 	/// Werte übernehmen
 
 	inSchub = get_schub_soll();
