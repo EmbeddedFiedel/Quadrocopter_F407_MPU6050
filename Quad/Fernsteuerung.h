@@ -21,6 +21,7 @@ void rx_channel4_interrupt(EXTDriver *extp, expchannel_t channel);
 void calib_interrupt(EXTDriver *extp, expchannel_t channel);
 void start_calib();
 void stop_calib();
+bool get_rc_calibration_ready();
 
 
 static void gpt2cb(GPTDriver *gptp);

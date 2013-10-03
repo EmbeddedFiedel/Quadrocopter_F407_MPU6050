@@ -212,3 +212,8 @@ uint16_t get_fifo_count()
 	return fifoCount;
 }
 
+bool get_mpu_ready()
+{
+	return dmpReady;
+}
+

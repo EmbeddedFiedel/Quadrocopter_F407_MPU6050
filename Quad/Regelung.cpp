@@ -581,3 +581,8 @@ void setup_Regelung()
 	chThdCreateStatic(RegelungPrintThreadWorkingArea, sizeof(RegelungPrintThreadWorkingArea), NORMALPRIO, RegelungPrintthread, NULL);
 	chThdCreateStatic(RegelungThreadWorkingArea, sizeof(RegelungThreadWorkingArea), ABSPRIO, Regelungsthread, NULL);
 }
+
+bool get_datalog_ready()
+{
+	return datalog_regelung_opened;
+}

@@ -363,3 +363,9 @@ void timer_handler(void *arg)
 	timer_finish=1;
 }
 
+bool get_rc_calibration_ready()
+{
+	if (cal_val[index_calibration_ready_flag-offset_flash_cal]==1) return TRUE;
+	else return FALSE;
+}
+

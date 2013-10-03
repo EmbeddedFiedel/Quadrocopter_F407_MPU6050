@@ -71,12 +71,24 @@ int main(void)
 		
 		palSetPad(GPIOD, GPIOD_LED3);
 		chThdSleepMilliseconds(200);
-		palSetPad(GPIOD, GPIOD_LED4);      /* Orange.  */
+		if(get_mpu_ready())
+		{
+			palSetPad(GPIOD, GPIOD_LED4);      /* Orange.  */
+		}
 		chThdSleepMilliseconds(200);
-		palSetPad(GPIOD, GPIOD_LED6);
+
+		if(get_rc_calibration_ready())
+		{
+			palSetPad(GPIOD, GPIOD_LED6);
+		}
 		chThdSleepMilliseconds(200);
-		palSetPad(GPIOD, GPIOD_LED5);
+
+		if(get_datalog_ready())
+		{
+			palSetPad(GPIOD, GPIOD_LED5);
+		}
 		chThdSleepMilliseconds(500);
+
 		palClearPad(GPIOD, GPIOD_LED5);
 		palClearPad(GPIOD, GPIOD_LED3);
 		palClearPad(GPIOD, GPIOD_LED4);
