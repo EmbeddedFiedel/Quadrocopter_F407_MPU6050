@@ -30,6 +30,7 @@ THE SOFTWARE.
 #include "tm.h"
 #include "ff.h"
 #include "GCS.h"
+#include "FreeIMU.h"
 
 MPU6050 mpu;
 
@@ -49,6 +50,9 @@ float gyro_rate_float[3];
 VectorFloat gravity; // [x, y, z] gravity vector
 float ypr[3]; // [yaw, pitch, roll] yaw/pitch/roll container and gravity vector
 volatile bool mpuInterrupt = false;     // indicates whether MPU interrupt pin has gone high
+
+// Set the FreeIMU object
+FreeIMU my3IMU = FreeIMU();
 
 
 static const I2CConfig i2cfg1 = {
@@ -126,8 +130,14 @@ static msg_t LageReadThread(void *arg)
 {
 	while(TRUE)
 	{
-	update_IMU();
-	chThdSleepMilliseconds(1);
+		#ifdef	useDMP
+		update_IMU();
+		chThdSleepMilliseconds(1);
+		#endif
+		#ifdef	useFreeIMULib
+			my3IMU.getYawPitchRoll(ypr);
+			chThdSleepMilliseconds(10);
+		#endif
 	}
 }
 
@@ -135,6 +145,7 @@ void setup_IMU()
 {
 	I2CInitialize();
 	mpu.initialize();
+	#ifdef	useDMP
 	devStatus = mpu.dmpInitialize();
 	if (devStatus == 0) 
 	{
@@ -147,6 +158,11 @@ void setup_IMU()
 		chThdCreateStatic(LageReadThreadWorkingArea, sizeof(LageReadThreadWorkingArea), HIGHPRIO, LageReadThread, NULL);
 		//send_statustext(MAV_SEVERITY_ALERT, "IMU initialized");
 	} 
+	#endif
+	#ifdef	useFreeIMULib
+		my3IMU.init(); // the parameter enable or disable fast mode
+		chThdSleepMilliseconds(5);
+	#endif
 }
  
 void mpu_6050_interrupt(EXTDriver *extp, expchannel_t channel) 

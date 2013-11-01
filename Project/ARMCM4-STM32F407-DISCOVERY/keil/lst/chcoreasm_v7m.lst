@@ -1092,67 +1092,67 @@ RMCMx\\chcoreasm_v7m.s"
    55 00000000 E92D 4FF0       push             {r4, r5, r6, r7, r8, r9, r10, r
 11, lr}
    56 00000004         
-   57 00000004         
-   58 00000004         
-   59 00000004 F8C1 D00C       str              sp, [r1, #CONTEXT_OFFSET]
-   60 00000008 F8D0 D00C       ldr              sp, [r0, #CONTEXT_OFFSET]
-   61 0000000C         
-   62 0000000C         
-   63 0000000C         
-   64 0000000C E8BD 8FF0       pop              {r4, r5, r6, r7, r8, r9, r10, r
+   57 00000004 ED2D 8A10       vpush            {s16-s31}
+   58 00000008         
+   59 00000008 F8C1 D00C       str              sp, [r1, #CONTEXT_OFFSET]
+   60 0000000C F8D0 D00C       ldr              sp, [r0, #CONTEXT_OFFSET]
+   61 00000010         
+   62 00000010 ECBD 8A10       vpop             {s16-s31}
+   63 00000014         
+   64 00000014 E8BD 8FF0       pop              {r4, r5, r6, r7, r8, r9, r10, r
 11, pc}
-   65 00000010                 ENDP
-   66 00000010         
+   65 00000018                 ENDP
+   66 00000018         
 
 
 
 ARM Macro Assembler    Page 18 
 
 
-   67 00000010         
-   68 00000010         
-   69 00000010         
-   70 00000010         
-   71 00000010                 EXPORT           _port_thread_start
-   72 00000010         _port_thread_start
+   67 00000018         
+   68 00000018         
+   69 00000018         
+   70 00000018         
+   71 00000018                 EXPORT           _port_thread_start
+   72 00000018         _port_thread_start
                                PROC
-   73 00000010         #line   79               "..\\..\\..\\os\\ports\\RVCT\\A
+   73 00000018         #line   79               "..\\..\\..\\os\\ports\\RVCT\\A
 RMCMx\\chcoreasm_v7m.s"
-   79 00000010 2300            movs             r3, #0
-   80 00000012 F383 8811       msr              BASEPRI, r3
-   81 00000016         
-   82 00000016 4628            mov              r0, r5
-   83 00000018 47A0            blx              r4
-   84 0000001A F7FF FFFE       bl               chThdExit
-   85 0000001E                 ENDP
-   86 0000001E         
-   87 0000001E         
-   88 0000001E         
-   89 0000001E         
-   90 0000001E         
-   91 0000001E                 EXPORT           _port_switch_from_isr
-   92 0000001E                 EXPORT           _port_exit_from_isr
-   93 0000001E         _port_switch_from_isr
+   79 00000018 2300            movs             r3, #0
+   80 0000001A F383 8811       msr              BASEPRI, r3
+   81 0000001E         
+   82 0000001E 4628            mov              r0, r5
+   83 00000020 47A0            blx              r4
+   84 00000022 F7FF FFFE       bl               chThdExit
+   85 00000026                 ENDP
+   86 00000026         
+   87 00000026         
+   88 00000026         
+   89 00000026         
+   90 00000026         
+   91 00000026                 EXPORT           _port_switch_from_isr
+   92 00000026                 EXPORT           _port_exit_from_isr
+   93 00000026         _port_switch_from_isr
                                PROC
-   94 0000001E         
-   95 0000001E         
-   96 0000001E         
-   97 0000001E F7FF FFFE       bl               chSchDoReschedule
-   98 00000022         
-   99 00000022         
-  100 00000022         
-  101 00000022         _port_exit_from_isr
-  102 00000022         #line   110              "..\\..\\..\\os\\ports\\RVCT\\A
+   94 00000026         
+   95 00000026         
+   96 00000026         
+   97 00000026 F7FF FFFE       bl               chSchDoReschedule
+   98 0000002A         
+   99 0000002A         
+  100 0000002A         
+  101 0000002A         _port_exit_from_isr
+  102 0000002A         #line   110              "..\\..\\..\\os\\ports\\RVCT\\A
 RMCMx\\chcoreasm_v7m.s"
-  110 00000022 DF00            svc              #0
-  111 00000024         
-  112 00000024                 ENDP
-  113 00000024         
-  114 00000024                 END
+  110 0000002A DF00            svc              #0
+  111 0000002C         
+  112 0000002C                 ENDP
+  113 0000002C         
+  114 0000002C                 END
 Command Line: --debug --xref --cpreproc --cpu=Cortex-M4.fp --apcs=interwork --d
 epend=.\obj\chcoreasm_v7m.d -o.\obj\chcoreasm_v7m.o -I..\ -I..\..\..\boards\ST_
-STM32F4_DISCOVERY -I..\..\..\os\ports\RVCT\ARMCMx\STM32F4xx -IC:\Keil\ARM\RV31\
-INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\Inc\ST\STM32F4xx --list=.\lst\chc
+STM32F4_DISCOVERY -I..\..\..\os\ports\RVCT\ARMCMx\STM32F4xx -ID:\Keil\ARM\RV31\
+INC -ID:\Keil\ARM\CMSIS\Include -ID:\Keil\ARM\Inc\ST\STM32F4xx --list=.\lst\chc
 oreasm_v7m.lst ..\..\..\os\ports\RVCT\ARMCMx\chcoreasm_v7m.s
 
 
@@ -1168,7 +1168,7 @@ Symbol: .text
    Uses
       None
 Comment: .text unused
-_port_exit_from_isr 00000022
+_port_exit_from_isr 0000002A
 
 Symbol: _port_exit_from_isr
    Definitions
@@ -1184,7 +1184,7 @@ Symbol: _port_switch
    Uses
       At line 53 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\chcoreasm_v7m.s
 Comment: _port_switch used once
-_port_switch_from_isr 0000001E
+_port_switch_from_isr 00000026
 
 Symbol: _port_switch_from_isr
    Definitions
@@ -1192,7 +1192,7 @@ Symbol: _port_switch_from_isr
    Uses
       At line 91 in file ..\\..\\..\\os\\ports\\RVCT\\ARMCMx\\chcoreasm_v7m.s
 Comment: _port_switch_from_isr used once
-_port_thread_start 00000010
+_port_thread_start 00000018
 
 Symbol: _port_thread_start
    Definitions

@@ -1,6 +1,10 @@
 #include "ch.h"
 #include "hal.h"
 
+//Choose between DMP and FreeIMULib
+//#define useDMP
+#define useFreeIMULib
+
 void dmpDataReady();
 void setup_IMU(); 
 
